@@ -1232,12 +1232,27 @@
         }
 
         /* Media Queries / Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            header {
+                padding: 20px 4%;
+            }
+            header.scrolled {
+                padding: 15px 4%;
+            }
+            .nav-links {
+                gap: 18px;
+            }
+        }
+
         @media (max-width: 1024px) {
             section {
                 padding: 80px 6%;
             }
             .hero-name {
-                font-size: 3.5rem;
+                font-size: 2.8rem;
+            }
+            .hero-headline {
+                font-size: 1.1rem;
             }
             .about-grid {
                 grid-template-columns: 1fr;
@@ -1253,9 +1268,6 @@
             .project-img-wrapper {
                 min-height: 250px;
             }
-        }
-
-        @media (max-width: 768px) {
             header {
                 padding: 15px 6%;
             }
@@ -1290,12 +1302,6 @@
             }
             .mobile-toggle.active .bar:nth-child(3) {
                 transform: rotate(45deg) translate(-5px, -6px);
-            }
-            .hero-name {
-                font-size: 2.8rem;
-            }
-            .hero-headline {
-                font-size: 1.1rem;
             }
             .contact-grid {
                 grid-template-columns: 1fr;
@@ -1524,7 +1530,7 @@
             color: var(--accent-cyan);
             border-color: var(--accent-cyan);
         }
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .timeline::after {
                 left: 20px;
             }
