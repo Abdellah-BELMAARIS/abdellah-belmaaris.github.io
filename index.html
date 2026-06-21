@@ -911,6 +911,24 @@
             transform: translateX(4px);
         }
 
+        .certs-subsection-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 50px 0 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 10px;
+        }
+
+        .certs-subsection-title i {
+            color: var(--accent-cyan);
+            font-size: 1.25rem;
+        }
+
         /* Connect / Contact Section */
         .contact-grid {
             display: grid;
@@ -2043,6 +2061,93 @@
             My learning journey is backed by rigorous homeschool curricula, self-taught degrees, and structured technical certifications.
         </p>
 
+        <!-- Subsection 1: Education & Academic Programs -->
+        <h3 class="certs-subsection-title"><i class="fa-solid fa-graduation-cap"></i> Education & Academic Programs</h3>
+        <div class="certs-grid" style="margin-bottom: 40px;">
+            <!-- Self-taught: Django Developer -->
+            <div class="cert-card">
+                <div class="cert-badge"><i class="fa-solid fa-server"></i></div>
+                <h3 class="cert-platform">Self-taught</h3>
+                <p class="skill-desc" style="margin-bottom: 20px;">Django Developer — Associate's Degree (Jan 2026 – Jun 2026)</p>
+                <h4 class="cert-tags-title">Key Areas Covered</h4>
+                <ul class="cert-tags">
+                    <li>Django</li>
+                    <li>Django REST Framework</li>
+                    <li>API Design</li>
+                    <li>Backend Integration</li>
+                </ul>
+            </div>
+
+            <!-- Self-taught: Backend Developer -->
+            <div class="cert-card">
+                <div class="cert-badge"><i class="fa-solid fa-code"></i></div>
+                <h3 class="cert-platform">Self-taught</h3>
+                <p class="skill-desc" style="margin-bottom: 20px;">Backend Developer — Associate's Degree (Jan 2023 – May 2026)</p>
+                <h4 class="cert-tags-title">Key Areas Covered</h4>
+                <ul class="cert-tags">
+                    <li>Python (Programming Language)</li>
+                    <li>Deep Learning Fundamentals</li>
+                    <li>Backend Databases</li>
+                    <li>Architecture Design</li>
+                </ul>
+            </div>
+
+            <!-- DataCamp: Backend Developer -->
+            <div class="cert-card">
+                <div class="cert-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h3 class="cert-platform">DataCamp</h3>
+                <p class="skill-desc" style="margin-bottom: 20px;">Backend Developer — Associate's Degree</p>
+                <h4 class="cert-tags-title">Key Areas Covered</h4>
+                <ul class="cert-tags">
+                    <li>Python (Programming Language)</li>
+                    <li>SQL</li>
+                    <li>Pandas DataFrames</li>
+                    <li>Data Science Basics</li>
+                </ul>
+            </div>
+
+            <!-- Boot.dev (Backend) -->
+            <div class="cert-card">
+                <div class="cert-badge"><i class="fa-solid fa-terminal"></i></div>
+                <h3 class="cert-platform">Boot.dev</h3>
+                <p class="skill-desc" style="margin-bottom: 20px;">Software Engineering & Data Structures Program</p>
+                <h4 class="cert-tags-title">Key Areas Covered</h4>
+                <ul class="cert-tags">
+                    <li>Software Engineering Core</li>
+                    <li>Functional Programming</li>
+                    <li>Algorithms & Data Structures</li>
+                </ul>
+            </div>
+
+            <!-- Almdrasa (Security) -->
+            <div class="cert-card">
+                <div class="cert-badge"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 class="cert-platform">Almdrasa</h3>
+                <p class="skill-desc" style="margin-bottom: 20px;">Technical Secure scripting and Linux administration</p>
+                <h4 class="cert-tags-title">Key Areas Covered</h4>
+                <ul class="cert-tags">
+                    <li>Cybersecurity Basics</li>
+                    <li>Python scripting safety</li>
+                    <li>Server Hardening</li>
+                </ul>
+            </div>
+
+            <!-- Homeschool: Cybersecurity -->
+            <div class="cert-card">
+                <div class="cert-badge"><i class="fa-solid fa-house-user"></i></div>
+                <h3 class="cert-platform">Homeschool</h3>
+                <p class="skill-desc" style="margin-bottom: 20px;">Cybersecurity Fundamentals (Feb 2026 – Apr 2026)</p>
+                <h4 class="cert-tags-title">Key Areas Covered</h4>
+                <ul class="cert-tags">
+                    <li>Cybersecurity Fundamentals</li>
+                    <li>Network Shielding</li>
+                    <li>Secure Coding</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Subsection 2: Professional Certifications -->
+        <h3 class="certs-subsection-title"><i class="fa-solid fa-award"></i> Professional Certifications</h3>
         <div class="certs-grid">
             <!-- DataCamp: AI Engineer for Developers Associate -->
             <div class="cert-card">
@@ -2095,33 +2200,6 @@
                 </a>
             </div>
 
-            <!-- DataCamp: Backend Developer -->
-            <div class="cert-card">
-                <div class="cert-badge"><i class="fa-solid fa-graduation-cap"></i></div>
-                <h3 class="cert-platform">DataCamp</h3>
-                <p class="skill-desc" style="margin-bottom: 20px;">Backend Developer — Associate's Degree</p>
-                <h4 class="cert-tags-title">Key Areas Covered</h4>
-                <ul class="cert-tags">
-                    <li>Python (Programming Language)</li>
-                    <li>SQL</li>
-                    <li>Pandas DataFrames</li>
-                    <li>Data Science Basics</li>
-                </ul>
-            </div>
-
-            <!-- Boot.dev (Backend) -->
-            <div class="cert-card">
-                <div class="cert-badge"><i class="fa-solid fa-terminal"></i></div>
-                <h3 class="cert-platform">Boot.dev</h3>
-                <p class="skill-desc" style="margin-bottom: 20px;">Software Engineering & Data Structures Program</p>
-                <h4 class="cert-tags-title">Key Areas Covered</h4>
-                <ul class="cert-tags">
-                    <li>Software Engineering Core</li>
-                    <li>Functional Programming</li>
-                    <li>Algorithms & Data Structures</li>
-                </ul>
-            </div>
-
             <!-- Almdrasa: Cybersecurity Fundamentals -->
             <div class="cert-card">
                 <div class="cert-badge"><i class="fa-solid fa-shield-halved"></i></div>
@@ -2136,60 +2214,6 @@
                 <a href="assets/photo_2026-06-21_12-34-53.jpg" target="_blank" class="cert-link">
                     View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
-            </div>
-
-            <!-- Almdrasa (Security) -->
-            <div class="cert-card">
-                <div class="cert-badge"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3 class="cert-platform">Almdrasa</h3>
-                <p class="skill-desc" style="margin-bottom: 20px;">Technical Secure scripting and Linux administration</p>
-                <h4 class="cert-tags-title">Key Areas Covered</h4>
-                <ul class="cert-tags">
-                    <li>Cybersecurity Basics</li>
-                    <li>Python scripting safety</li>
-                    <li>Server Hardening</li>
-                </ul>
-            </div>
-
-            <!-- Self-taught: Django Developer -->
-            <div class="cert-card">
-                <div class="cert-badge"><i class="fa-solid fa-server"></i></div>
-                <h3 class="cert-platform">Self-taught</h3>
-                <p class="skill-desc" style="margin-bottom: 20px;">Django Developer — Associate's Degree (Jan 2026 – Jun 2026)</p>
-                <h4 class="cert-tags-title">Key Areas Covered</h4>
-                <ul class="cert-tags">
-                    <li>Django</li>
-                    <li>Django REST Framework</li>
-                    <li>API Design</li>
-                    <li>Backend Integration</li>
-                </ul>
-            </div>
-
-            <!-- Self-taught: Backend Developer -->
-            <div class="cert-card">
-                <div class="cert-badge"><i class="fa-solid fa-code"></i></div>
-                <h3 class="cert-platform">Self-taught</h3>
-                <p class="skill-desc" style="margin-bottom: 20px;">Backend Developer — Associate's Degree (Jan 2023 – May 2026)</p>
-                <h4 class="cert-tags-title">Key Areas Covered</h4>
-                <ul class="cert-tags">
-                    <li>Python (Programming Language)</li>
-                    <li>Deep Learning Fundamentals</li>
-                    <li>Backend Databases</li>
-                    <li>Architecture Design</li>
-                </ul>
-            </div>
-
-            <!-- Homeschool: Cybersecurity -->
-            <div class="cert-card">
-                <div class="cert-badge"><i class="fa-solid fa-house-user"></i></div>
-                <h3 class="cert-platform">Homeschool</h3>
-                <p class="skill-desc" style="margin-bottom: 20px;">Cybersecurity Fundamentals (Feb 2026 – Apr 2026)</p>
-                <h4 class="cert-tags-title">Key Areas Covered</h4>
-                <ul class="cert-tags">
-                    <li>Cybersecurity Fundamentals</li>
-                    <li>Network Shielding</li>
-                    <li>Secure Coding</li>
-                </ul>
             </div>
         </div>
     </section>
