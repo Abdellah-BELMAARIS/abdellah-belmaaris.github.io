@@ -45,12 +45,24 @@
         }
 
         body {
-            background-color: var(--bg-base);
+            background-color: transparent;
             color: var(--text-secondary);
             font-family: var(--font-main);
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* Premium Interactive Background Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Render behind everything */
+            pointer-events: none;
+            background-color: var(--bg-base);
         }
 
         /* Scrollbar Styling */
@@ -234,7 +246,7 @@
             flex-direction: column;
             justify-content: center;
             padding: 100px 10% 50px 10%;
-            background: var(--bg-base);
+            background: transparent;
             z-index: 2;
         }
 
@@ -1068,6 +1080,20 @@
             border: 1px solid var(--accent);
         }
 
+        .form-status.info {
+            display: block;
+            background: rgba(0, 180, 216, 0.1);
+            color: #00b4d8;
+            border: 1px solid #00b4d8;
+        }
+
+        .form-status.error {
+            display: block;
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+
         /* Footer Section */
         .footer {
             padding: 40px 10%;
@@ -1180,6 +1206,9 @@
     </style>
 </head>
 <body>
+
+    <!-- Premium Interactive Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
 
     <!-- Fixed Header & Navigation -->
     <header class="header">
@@ -1453,20 +1482,6 @@
             <!-- Ed Card 1 -->
             <div class="education-card spotlight-card reveal" style="--item-index: 1;">
                 <div class="edu-header">
-                    <div class="edu-logo"><i class="fa-solid fa-house-user"></i></div>
-                    <span class="edu-platform">Homeschool</span>
-                </div>
-                <h4 class="edu-degree">Independent Study & Research</h4>
-                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Feb 2026 – Apr 2026</span>
-                <div class="edu-details-title">Skills</div>
-                <ul class="edu-details-list">
-                    <li class="edu-detail-tag">Cybersecurity Fundamentals</li>
-                </ul>
-            </div>
-
-            <!-- Ed Card 2 -->
-            <div class="education-card spotlight-card reveal" style="--item-index: 2;">
-                <div class="edu-header">
                     <div class="edu-logo"><i class="fa-solid fa-graduation-cap"></i></div>
                     <span class="edu-platform">DataCamp</span>
                 </div>
@@ -1483,8 +1498,8 @@
                 </ul>
             </div>
 
-            <!-- Ed Card 3 -->
-            <div class="education-card spotlight-card reveal" style="--item-index: 3;">
+            <!-- Ed Card 2 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 2;">
                 <div class="edu-header">
                     <div class="edu-logo"><i class="fa-solid fa-user-gear"></i></div>
                     <span class="edu-platform">Self-taught</span>
@@ -1503,8 +1518,8 @@
                 </ul>
             </div>
 
-            <!-- Ed Card 4 -->
-            <div class="education-card spotlight-card reveal" style="--item-index: 4;">
+            <!-- Ed Card 3 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 3;">
                 <div class="edu-header">
                     <div class="edu-logo"><i class="fa-solid fa-graduation-cap"></i></div>
                     <span class="edu-platform">DataCamp</span>
@@ -1522,8 +1537,8 @@
                 </ul>
             </div>
 
-            <!-- Ed Card 5 -->
-            <div class="education-card spotlight-card reveal" style="--item-index: 5;">
+            <!-- Ed Card 4 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 4;">
                 <div class="edu-header">
                     <div class="edu-logo"><i class="fa-solid fa-user-gear"></i></div>
                     <span class="edu-platform">Self-taught</span>
@@ -1545,7 +1560,7 @@
 
         <div class="education-grid" style="margin-top: 20px;">
             <!-- Cert Card 1 -->
-            <div class="education-card spotlight-card reveal" style="--item-index: 6;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 5;">
                 <div class="edu-header">
                     <div class="edu-logo"><i class="fa-solid fa-graduation-cap"></i></div>
                     <span class="edu-platform">DataCamp</span>
@@ -1562,7 +1577,7 @@
             </div>
 
             <!-- Cert Card 2 -->
-            <div class="education-card spotlight-card reveal" style="--item-index: 7;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 6;">
                 <div class="edu-header">
                     <div class="edu-logo"><i class="fa-solid fa-shield-halved"></i></div>
                     <span class="edu-platform">المدرسة - Almdrasa</span>
@@ -1583,7 +1598,7 @@
             </div>
 
             <!-- Cert Card 3 -->
-            <div class="education-card spotlight-card reveal" style="--item-index: 8;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 7;">
                 <div class="edu-header">
                     <div class="edu-logo"><i class="fa-solid fa-graduation-cap"></i></div>
                     <span class="edu-platform">DataCamp</span>
@@ -1604,7 +1619,7 @@
             </div>
 
             <!-- Cert Card 4 -->
-            <div class="education-card spotlight-card reveal" style="--item-index: 9;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 8;">
                 <div class="edu-header">
                     <div class="edu-logo"><i class="fa-solid fa-award"></i></div>
                     <span class="edu-platform">Self-Taught</span>
@@ -1651,7 +1666,7 @@
                     <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
                     <div class="contact-details">
                         <h4>Email</h4>
-                        <p><a href="mailto:hello@abdellah.dev">hello@abdellah.dev</a></p>
+                        <p><a href="mailto:obaidbelmaaris@gmail.com">obaidbelmaaris@gmail.com</a></p>
                     </div>
                 </div>
 
@@ -1665,18 +1680,18 @@
             </div>
             
             <!-- Visual Form -->
-            <form class="contact-form" id="contact-form">
+            <form class="contact-form" id="contact-form" action="https://formspree.io/obaidbelmaaris@gmail.com" method="POST">
                 <div class="form-group">
                     <label for="form-name">Name</label>
-                    <input type="text" id="form-name" class="form-control" placeholder="Your Name" required>
+                    <input type="text" id="form-name" name="name" class="form-control" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
                     <label for="form-email">Email</label>
-                    <input type="email" id="form-email" class="form-control" placeholder="Your Email Address" required>
+                    <input type="email" id="form-email" name="email" class="form-control" placeholder="Your Email Address" required>
                 </div>
                 <div class="form-group">
                     <label for="form-message">Message</label>
-                    <textarea id="form-message" class="form-control" placeholder="Write your message here..." required></textarea>
+                    <textarea id="form-message" name="message" class="form-control" placeholder="Write your message here..." required></textarea>
                 </div>
                 <div class="form-status" id="form-status"></div>
                 <button type="submit" class="btn btn-primary" style="width: fit-content; align-self: flex-start;">Send Message</button>
@@ -1947,18 +1962,307 @@
                     return;
                 }
 
-                // Show visual confirmation
-                formStatus.textContent = 'Message sent! Launching email fallback...';
-                formStatus.className = 'form-status success';
-                
-                // Clear the form
-                contactForm.reset();
+                // Show sending status
+                formStatus.textContent = 'Sending message...';
+                formStatus.className = 'form-status info';
+                formStatus.style.display = 'block';
 
-                // mailto fallback execution
-                const subject = encodeURIComponent(`Portfolio Message from ${name}`);
-                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-                window.location.href = `mailto:hello@abdellah.dev?subject=${subject}&body=${body}`;
+                // Submit via fetch to Formspree
+                fetch('https://formspree.io/obaidbelmaaris@gmail.com', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        message: message
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        formStatus.textContent = 'Message sent successfully!';
+                        formStatus.className = 'form-status success';
+                        contactForm.reset();
+                    } else {
+                        throw new Error('Server responded with an error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error submitting form:', error);
+                    // Fallback to mailto if AJAX fails
+                    formStatus.textContent = 'Launching email client...';
+                    formStatus.className = 'form-status info';
+                    
+                    const subject = encodeURIComponent(`Portfolio Message from ${name}`);
+                    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+                    window.location.href = `mailto:obaidbelmaaris@gmail.com?subject=${subject}&body=${body}`;
+                    
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                });
             });
+
+            // Premium Animated Background Particle Canvas
+            const canvas = document.getElementById('bg-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let animationFrameId;
+                let particles = [];
+                const mouse = { x: null, y: null, radius: 180 };
+                let scrollY = window.scrollY;
+                let targetScrollSpeed = 0;
+                let scrollSpeed = 0;
+                let lastScrollTime = Date.now();
+
+                // Check for prefers-reduced-motion
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+                // Resize handler
+                const resizeCanvas = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    initParticles();
+                };
+
+                // Particle class
+                class Particle {
+                    constructor(x, y) {
+                        this.x = x || Math.random() * canvas.width;
+                        this.y = y || Math.random() * canvas.height;
+                        // Depth level (parallax) between 0.3 (far) and 1 (near)
+                        this.depth = Math.random() * 0.7 + 0.3;
+                        this.radius = this.depth * 2.2; // Size proportional to depth
+                        
+                        // Base velocity (slower for further particles)
+                        const speedFactor = 0.4 * this.depth;
+                        this.baseVx = (Math.random() - 0.5) * speedFactor;
+                        this.baseVy = (Math.random() - 0.5) * speedFactor;
+                        
+                        this.vx = this.baseVx;
+                        this.vy = this.baseVy;
+                        
+                        // Particle color
+                        // Cyan accent for near particles, deep blue-grey for far ones
+                        const opacity = this.depth * 0.25; 
+                        if (Math.random() > 0.45) {
+                            this.color = `rgba(100, 255, 218, ${opacity})`; // var(--accent) cyan
+                        } else {
+                            this.color = `rgba(0, 180, 216, ${opacity})`; // light blue
+                        }
+                    }
+
+                    update() {
+                        if (prefersReducedMotion.matches) {
+                            return;
+                        }
+
+                        // Apply base velocity
+                        this.x += this.vx;
+                        this.y += this.vy;
+
+                        // Apply scroll influence (parallax scroll reaction)
+                        this.y -= scrollSpeed * this.depth * 1.5;
+
+                        // Mouse interaction (gravitational/magnetic pull)
+                        if (mouse.x !== null && mouse.y !== null) {
+                            const dx = mouse.x - this.x;
+                            const dy = mouse.y - this.y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+
+                            if (distance < mouse.radius) {
+                                // Magnetic force: stronger as it gets closer, but caps so it doesn't launch particles
+                                const force = (mouse.radius - distance) / mouse.radius;
+                                const pull = force * 0.04 * this.depth;
+                                this.vx += (dx / distance) * pull;
+                                this.vy += (dy / distance) * pull;
+                            }
+                        }
+
+                        // Apply friction / return to base velocity smoothly
+                        this.vx += (this.baseVx - this.vx) * 0.05;
+                        this.vy += (this.baseVy - this.vy) * 0.05;
+
+                        // Screen bounds wrap-around
+                        if (this.x < -10) this.x = canvas.width + 10;
+                        if (this.x > canvas.width + 10) this.x = -10;
+                        if (this.y < -10) this.y = canvas.height + 10;
+                        if (this.y > canvas.height + 10) this.y = -10;
+                    }
+
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.fill();
+                    }
+                }
+
+                // Abstract glowing shape class
+                class FloatingShape {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.size = Math.random() * 60 + 40;
+                        this.angle = Math.random() * Math.PI * 2;
+                        this.angularSpeed = (Math.random() - 0.5) * 0.002;
+                        this.speedX = (Math.random() - 0.5) * 0.08;
+                        this.speedY = (Math.random() - 0.5) * 0.08;
+                        this.opacity = Math.random() * 0.02 + 0.01;
+                        this.sides = Math.floor(Math.random() * 3) + 3; // Triangle, Square, Pentagon
+                    }
+
+                    update() {
+                        if (prefersReducedMotion.matches) return;
+                        
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+                        this.angle += this.angularSpeed;
+
+                        // Parallax scroll reaction
+                        this.y -= scrollSpeed * 0.15;
+
+                        if (this.x < -this.size) this.x = canvas.width + this.size;
+                        if (this.x > canvas.width + this.size) this.x = -this.size;
+                        if (this.y < -this.size) this.y = canvas.height + this.size;
+                        if (this.y > canvas.height + this.size) this.y = -this.size;
+                    }
+
+                    draw() {
+                        ctx.save();
+                        ctx.translate(this.x, this.y);
+                        ctx.rotate(this.angle);
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(100, 255, 218, ${this.opacity})`;
+                        ctx.lineWidth = 1;
+
+                        const angleStep = (Math.PI * 2) / this.sides;
+                        for (let i = 0; i < this.sides; i++) {
+                            const x = Math.cos(angleStep * i) * this.size;
+                            const y = Math.sin(angleStep * i) * this.size;
+                            if (i === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                        }
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+
+                let shapes = [];
+
+                const initParticles = () => {
+                    particles = [];
+                    shapes = [];
+                    // Adapt particle density based on viewport size
+                    const count = Math.min(Math.floor((canvas.width * canvas.height) / 11000), 100);
+                    
+                    if (!prefersReducedMotion.matches) {
+                        for (let i = 0; i < count; i++) {
+                            particles.push(new Particle());
+                        }
+                        // Add a few abstract shapes
+                        for (let i = 0; i < 3; i++) {
+                            shapes.push(new FloatingShape());
+                        }
+                    } else {
+                        // Very few stationary particles if reduced motion is requested
+                        for (let i = 0; i < 15; i++) {
+                            particles.push(new Particle());
+                        }
+                    }
+                };
+
+                // Track Mouse
+                window.addEventListener('mousemove', (e) => {
+                    mouse.x = e.clientX;
+                    mouse.y = e.clientY;
+                });
+
+                window.addEventListener('mouseleave', () => {
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+
+                // Track Scroll
+                window.addEventListener('scroll', () => {
+                    const currentScroll = window.scrollY;
+                    const timeNow = Date.now();
+                    const dt = timeNow - lastScrollTime;
+                    
+                    if (dt > 0) {
+                        targetScrollSpeed = (currentScroll - scrollY) / dt;
+                    }
+                    
+                    scrollY = currentScroll;
+                    lastScrollTime = timeNow;
+                });
+
+                // Draw constellation lines
+                const drawConstellation = () => {
+                    const maxDist = 110;
+                    for (let i = 0; i < particles.length; i++) {
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const p1 = particles[i];
+                            const p2 = particles[j];
+                            const dx = p1.x - p2.x;
+                            const dy = p1.y - p2.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+
+                            if (dist < maxDist) {
+                                // Line opacity based on distance and particle depth
+                                const depthFactor = (p1.depth + p2.depth) / 2;
+                                const alpha = (1 - dist / maxDist) * 0.04 * depthFactor;
+                                ctx.beginPath();
+                                ctx.moveTo(p1.x, p1.y);
+                                ctx.lineTo(p2.x, p2.y);
+                                ctx.strokeStyle = `rgba(100, 255, 218, ${alpha})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                };
+
+                // Animation loop
+                const animate = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // Smooth scroll speed damping
+                    scrollSpeed += (targetScrollSpeed - scrollSpeed) * 0.1;
+                    targetScrollSpeed *= 0.85; // Decay scroll speed
+
+                    // Update and draw shapes
+                    shapes.forEach(shape => {
+                        shape.update();
+                        shape.draw();
+                    });
+
+                    // Update and draw particles
+                    particles.forEach(p => {
+                        p.update();
+                        p.draw();
+                    });
+
+                    if (!prefersReducedMotion.matches) {
+                        drawConstellation();
+                    }
+
+                    animationFrameId = requestAnimationFrame(animate);
+                };
+
+                // Initialize and start
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+                animate();
+
+                // Listen for accessibility changes
+                prefersReducedMotion.addEventListener('change', () => {
+                    initParticles();
+                });
+            }
         });
     </script>
 </body>
