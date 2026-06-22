@@ -7,6 +7,9 @@
     <meta name="author" content="Abdellah BELMAARIS">
     <title>Abdellah BELMAARIS | Backend & Python Developer</title>
     
+    <!-- Browser Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%230a192f'/><text x='50%' y='67%' font-family='Poppins, sans-serif' font-weight='900' font-size='42' fill='%2364ffda' text-anchor='middle'>AB</text></svg>">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1213,6 +1216,7 @@
     <!-- Fixed Header & Navigation -->
     <header class="header">
         <a href="#hero" class="logo" aria-label="Abdellah BELMAARIS Homepage">
+            <i class="fa-solid fa-terminal" style="color: var(--accent); font-size: 1.1rem;"></i>
             &lt;AB /&gt;
         </a>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -1680,7 +1684,7 @@
             </div>
             
             <!-- Visual Form -->
-            <form class="contact-form" id="contact-form" action="https://formspree.io/obaidbelmaaris@gmail.com" method="POST">
+            <form class="contact-form" id="contact-form" action="https://formsubmit.co/ajax/obaidbelmaaris@gmail.com" method="POST">
                 <div class="form-group">
                     <label for="form-name">Name</label>
                     <input type="text" id="form-name" name="name" class="form-control" placeholder="Your Name" required>
@@ -1967,8 +1971,8 @@
                 formStatus.className = 'form-status info';
                 formStatus.style.display = 'block';
 
-                // Submit via fetch to Formspree
-                fetch('https://formspree.io/obaidbelmaaris@gmail.com', {
+                // Submit via fetch to Formsubmit.co AJAX
+                fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -1982,26 +1986,20 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        formStatus.textContent = 'Message sent successfully!';
-                        formStatus.className = 'form-status success';
-                        contactForm.reset();
+                        return response.json();
                     } else {
                         throw new Error('Server responded with an error');
                     }
                 })
+                .then(data => {
+                    formStatus.textContent = 'Message sent successfully!';
+                    formStatus.className = 'form-status success';
+                    contactForm.reset();
+                })
                 .catch(error => {
                     console.error('Error submitting form:', error);
-                    // Fallback to mailto if AJAX fails
-                    formStatus.textContent = 'Launching email client...';
-                    formStatus.className = 'form-status info';
-                    
-                    const subject = encodeURIComponent(`Portfolio Message from ${name}`);
-                    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-                    window.location.href = `mailto:obaidbelmaaris@gmail.com?subject=${subject}&body=${body}`;
-                    
-                    setTimeout(() => {
-                        formStatus.style.display = 'none';
-                    }, 5000);
+                    formStatus.textContent = 'Oops! Failed to send message. Please contact me directly at obaidbelmaaris@gmail.com.';
+                    formStatus.className = 'form-status error';
                 });
             });
 
