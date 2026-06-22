@@ -915,14 +915,111 @@
             border-color: rgba(34, 211, 238, 0.2);
         }
 
+        /* Media Area Layout */
+        .project-media-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background: #020617;
+        }
+
+        .media-tabs-header {
+            display: flex;
+            background: #0f172a;
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 16px;
+            gap: 8px;
+        }
+
+        .media-tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .media-tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .media-tab-btn.active {
+            color: var(--accent);
+            background: rgba(34, 211, 238, 0.05);
+            border-color: rgba(34, 211, 238, 0.15);
+        }
+
         /* Carousel Component */
         .carousel-container {
             position: relative;
             width: 100%;
-            height: 100%;
+            flex: 1;
             min-height: 380px;
             overflow: hidden;
             background: #020617;
+            display: none;
+        }
+
+        .carousel-container.active-media {
+            display: block;
+        }
+
+        /* Video Player Component */
+        .video-player-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            flex: 1;
+            background: #020617;
+        }
+
+        .video-tabs {
+            display: flex;
+            background: #020617;
+            padding: 8px 16px;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .video-tab-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .video-tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .video-tab-btn.active {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: rgba(34, 211, 238, 0.05);
+        }
+
+        .video-screen {
+            width: 100%;
+            flex: 1;
+            min-height: 330px;
+            position: relative;
+            background: #000;
         }
 
         .carousel-slides {
@@ -1308,6 +1405,80 @@
             border-radius: 4px;
         }
 
+        /* Certificate Preview in Education Card */
+        .edu-cert-preview {
+            position: relative;
+            width: 100%;
+            height: 110px;
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            background: #020617;
+        }
+
+        .edu-cert-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-premium);
+            opacity: 0.45;
+        }
+
+        .edu-cert-preview:hover .edu-cert-img {
+            opacity: 0.7;
+            transform: scale(1.04);
+        }
+
+        .edu-cert-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 7, 18, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .edu-cert-preview:hover .edu-cert-overlay {
+            opacity: 1;
+        }
+
+        .edu-cert-overlay span {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            background: rgba(15, 23, 42, 0.95);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(34, 211, 238, 0.25);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .modal-close-x {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close-x:hover {
+            color: var(--accent);
+        }
+
         /* Contact Section */
         .contact-layout {
             display: grid;
@@ -1671,7 +1842,7 @@
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
-            .carousel-container {
+            .carousel-container, .video-screen {
                 min-height: 250px;
             }
             .project-highlights-list {
@@ -1697,6 +1868,55 @@
             .contact-social-grid {
                 flex-direction: column;
             }
+        }
+
+        /* Linear-Style Card Border Spotlight Effect */
+        .spotlight-card {
+            position: relative;
+        }
+
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: radial-gradient(
+                220px circle at var(--card-mouse-x, -220px) var(--card-mouse-y, -220px),
+                rgba(34, 211, 238, 0.45),
+                transparent 80%
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Interactive Shell Console Shortcuts & Input styles */
+        .shell-shortcut-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .shell-shortcut-btn:hover {
+            color: var(--accent);
+            border-color: rgba(34, 211, 238, 0.25);
+            background: rgba(34, 211, 238, 0.05);
+        }
+
+        #terminal-input::placeholder {
+            color: rgba(148, 163, 184, 0.4);
         }
     </style>
 </head>
@@ -1747,6 +1967,9 @@
 
     <!-- Hero Section -->
     <section id="hero">
+        <!-- Interactive Particle connections canvas background -->
+        <canvas id="particles-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -5; pointer-events: none; opacity: 0.22;"></canvas>
+        
         <div class="hero-container">
             <div class="badge-availability reveal">
                 <span class="badge-dot"></span>
@@ -1829,33 +2052,31 @@
                     Over the years, I've realized that solid software principles, clean architectures, and well-chosen algorithms are the keys to building long-term systems. Beyond back-end engineering, I am deeply fascinated by <span class="highlight">Artificial Intelligence and Data Analysis</span>. I frequently utilize tools like Pandas and Matplotlib to inspect datasets and draw visual insights, and I continuously study cybersecurity principles to ensure that security is baked into my development cycles from day one.
                 </p>
                 
-                <!-- Achievement Cards Grid -->
+                <!-- Achievement Cards Grid with card spotlight glowing borders -->
                 <div class="achievement-grid">
-                    <div class="achievement-card">
+                    <div class="achievement-card spotlight-card">
                         <div class="achievement-icon"><i class="fa-solid fa-server"></i></div>
                         <h4 class="achievement-title">Backend Development</h4>
                         <p class="achievement-desc">APIs with custom serializers, generic viewsets, filtering, and authorization locks.</p>
                     </div>
-                    <div class="achievement-card">
+                    <div class="achievement-card spotlight-card">
                         <div class="achievement-icon"><i class="fa-solid fa-chart-pie"></i></div>
                         <h4 class="achievement-title">Data Analysis</h4>
                         <p class="achievement-desc">Inspecting datasets, parsing analytics, and plotting trends using Pandas & Matplotlib.</p>
                     </div>
-                    <div class="achievement-card">
+                    <div class="achievement-card spotlight-card">
                         <div class="achievement-icon"><i class="fa-solid fa-brain"></i></div>
                         <h4 class="achievement-title">AI Fundamentals</h4>
                         <p class="achievement-desc">Generative AI workflows, prompt engineering models, and LLM integrations.</p>
                     </div>
-                    <div class="achievement-card">
+                    <div class="achievement-card spotlight-card">
                         <div class="achievement-icon"><i class="fa-solid fa-shield-halved"></i></div>
                         <h4 class="achievement-title">Cybersecurity</h4>
                         <p class="achievement-desc">Writing secure scripts, server administration, authorization, and threats analysis.</p>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Interactive Typing Terminal -->
+        </div>        <!-- Interactive Typing Terminal & Console Emulator -->
         <div class="terminal-wrapper">
             <div class="terminal-header">
                 <div class="terminal-controls">
@@ -1867,6 +2088,7 @@
                     <div class="terminal-tab active" data-target="python-tab">developer.py</div>
                     <div class="terminal-tab" data-target="django-tab">models.py</div>
                     <div class="terminal-tab" data-target="sql-tab">schema.sql</div>
+                    <div class="terminal-tab" data-target="shell-tab"><i class="fa-solid fa-terminal"></i> interactive.sh</div>
                 </div>
             </div>
             <div class="terminal-body">
@@ -1888,7 +2110,7 @@
                 
                 <!-- Django Tab (hidden by default) -->
                 <div class="terminal-code-block" id="django-tab" style="display: none;">
-                    <div class="terminal-line"><span class="terminal-prompt">&gt;&gt;&gt;</span><span class="terminal-code"><span class="kw">from</span> django.db <span class="kw">import</span> models</span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">&gt;&gt;&gt;</span><span class="terminal-code"><span class="kw">from django.db import models</span></span></div>
                     <div class="terminal-line"><span class="terminal-prompt">&gt;&gt;&gt;</span><span class="terminal-code"><span class="kw">class</span> <span class="cls">Article</span>(models.Model):</span></div>
                     <div class="terminal-line"><span class="terminal-prompt">...</span><span class="terminal-code">&nbsp;&nbsp;&nbsp;&nbsp;title = models.CharField(max_length=<span class="val">200</span>)</span></div>
                     <div class="terminal-line"><span class="terminal-prompt">...</span><span class="terminal-code">&nbsp;&nbsp;&nbsp;&nbsp;content = models.TextField()</span></div>
@@ -1908,6 +2130,26 @@
                     <div class="terminal-line"><span class="terminal-prompt">   -&gt;</span><span class="terminal-code">&nbsp;&nbsp;&nbsp;&nbsp;created_at <span class="kw">TIMESTAMP DEFAULT</span> CURRENT_TIMESTAMP</span></div>
                     <div class="terminal-line"><span class="terminal-prompt">   -&gt;</span><span class="terminal-code">);</span></div>
                 </div>
+
+                <!-- Interactive Shell Tab (hidden by default) -->
+                <div class="terminal-code-block" id="shell-tab" style="display: none;">
+                    <div class="terminal-shell-output" id="shell-output">
+                        <div class="terminal-line"><span class="terminal-prompt">$</span><span class="terminal-code">welcome --visitor</span></div>
+                        <div class="terminal-line"><span class="terminal-prompt"></span><span class="terminal-code"><span class="comment">Console initialised. Type a command or click a shortcut below.</span></span></div>
+                    </div>
+                    <div class="terminal-shell-input-row" style="display: flex; align-items: center; margin-top: 15px;">
+                        <span class="terminal-prompt" style="color: var(--accent); margin-right: 12px; user-select: none;">$</span>
+                        <input type="text" id="terminal-input" placeholder="Type help, bio, skills, projects, contact..." style="background: transparent; border: none; outline: none; color: var(--text-primary); font-family: var(--font-mono); font-size: 0.85rem; flex: 1; padding: 2px 0;">
+                    </div>
+                    <div class="terminal-shell-shortcuts" style="display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
+                        <button class="shell-shortcut-btn" data-cmd="help">help</button>
+                        <button class="shell-shortcut-btn" data-cmd="bio">bio</button>
+                        <button class="shell-shortcut-btn" data-cmd="skills">skills</button>
+                        <button class="shell-shortcut-btn" data-cmd="projects">projects</button>
+                        <button class="shell-shortcut-btn" data-cmd="contact">contact</button>
+                        <button class="shell-shortcut-btn" data-cmd="clear">clear</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1921,7 +2163,7 @@
 
         <div class="skills-grid">
             <!-- Skill 1 -->
-            <div class="skill-card" style="--card-index: 1;">
+            <div class="skill-card spotlight-card" style="--card-index: 1;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-brands fa-python"></i></div>
                     <h3 class="skill-title">Python Programming</h3>
@@ -1939,7 +2181,7 @@
             </div>
 
             <!-- Skill 2 -->
-            <div class="skill-card" style="--card-index: 2;">
+            <div class="skill-card spotlight-card" style="--card-index: 2;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-layer-group"></i></div>
                     <h3 class="skill-title">Django & Django REST</h3>
@@ -1957,7 +2199,7 @@
             </div>
 
             <!-- Skill 3 -->
-            <div class="skill-card" style="--card-index: 3;">
+            <div class="skill-card spotlight-card" style="--card-index: 3;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-server"></i></div>
                     <h3 class="skill-title">Backend Web Development</h3>
@@ -1975,7 +2217,7 @@
             </div>
 
             <!-- Skill 4 -->
-            <div class="skill-card" style="--card-index: 4;">
+            <div class="skill-card spotlight-card" style="--card-index: 4;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-database"></i></div>
                     <h3 class="skill-title">SQL & Database Management</h3>
@@ -1993,7 +2235,7 @@
             </div>
 
             <!-- Skill 5 -->
-            <div class="skill-card" style="--card-index: 5;">
+            <div class="skill-card spotlight-card" style="--card-index: 5;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-chart-pie"></i></div>
                     <h3 class="skill-title">Data Analysis with Pandas</h3>
@@ -2011,7 +2253,7 @@
             </div>
 
             <!-- Skill 6 -->
-            <div class="skill-card" style="--card-index: 6;">
+            <div class="skill-card spotlight-card" style="--card-index: 6;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-chart-line"></i></div>
                     <h3 class="skill-title">Data Visualization</h3>
@@ -2029,7 +2271,7 @@
             </div>
 
             <!-- Skill 7 -->
-            <div class="skill-card" style="--card-index: 7;">
+            <div class="skill-card spotlight-card" style="--card-index: 7;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-brain"></i></div>
                     <h3 class="skill-title">Artificial Intelligence</h3>
@@ -2047,7 +2289,7 @@
             </div>
 
             <!-- Skill 8 -->
-            <div class="skill-card" style="--card-index: 8;">
+            <div class="skill-card spotlight-card" style="--card-index: 8;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-shield-halved"></i></div>
                     <h3 class="skill-title">Cybersecurity Fundamentals</h3>
@@ -2065,7 +2307,7 @@
             </div>
 
             <!-- Skill 9 -->
-            <div class="skill-card" style="--card-index: 9;">
+            <div class="skill-card spotlight-card" style="--card-index: 9;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-diagram-project"></i></div>
                     <h3 class="skill-title">Algorithms & Data Structures</h3>
@@ -2083,7 +2325,7 @@
             </div>
 
             <!-- Skill 10 -->
-            <div class="skill-card" style="--card-index: 10;">
+            <div class="skill-card spotlight-card" style="--card-index: 10;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-sliders"></i></div>
                     <h3 class="skill-title">Software Engineering</h3>
@@ -2101,7 +2343,7 @@
             </div>
 
             <!-- Skill 11 -->
-            <div class="skill-card" style="--card-index: 11;">
+            <div class="skill-card spotlight-card" style="--card-index: 11;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-lightbulb"></i></div>
                     <h3 class="skill-title">Problem Solving</h3>
@@ -2119,7 +2361,7 @@
             </div>
 
             <!-- Skill 12 -->
-            <div class="skill-card" style="--card-index: 12;">
+            <div class="skill-card spotlight-card" style="--card-index: 12;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-laptop-code"></i></div>
                     <h3 class="skill-title">Web App Development</h3>
@@ -2137,7 +2379,7 @@
             </div>
 
             <!-- Skill 13 -->
-            <div class="skill-card" style="--card-index: 13;">
+            <div class="skill-card spotlight-card" style="--card-index: 13;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-brands fa-bootstrap"></i></div>
                     <h3 class="skill-title">Bootstrap & Integration</h3>
@@ -2155,7 +2397,7 @@
             </div>
 
             <!-- Skill 14 -->
-            <div class="skill-card" style="--card-index: 14;">
+            <div class="skill-card spotlight-card" style="--card-index: 14;">
                 <div class="skill-info">
                     <div class="skill-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
                     <h3 class="skill-title">Continuous Learning</h3>
@@ -2182,25 +2424,46 @@
         </div>
 
         <div class="project-spotlight">
-            <!-- Left pane: image carousel -->
-            <div class="carousel-container" id="carousel">
-                <div class="carousel-slides">
-                    <img src="assets/journal1.png" class="carousel-slide active" alt="The Modern Journal Screenshot 1">
-                    <img src="assets/journal2.png" class="carousel-slide" alt="The Modern Journal Screenshot 2">
-                    <img src="assets/journal3.png" class="carousel-slide" alt="The Modern Journal Screenshot 3">
-                    <img src="assets/journal4.png" class="carousel-slide" alt="The Modern Journal Screenshot 4">
-                    <img src="assets/journal5.png" class="carousel-slide" alt="The Modern Journal Screenshot 5">
+            <!-- Left pane: Media Area Wrapper -->
+            <div class="project-media-wrapper">
+                <!-- Media Selector Tabs -->
+                <div class="media-tabs-header">
+                    <button class="media-tab-btn active" data-media-target="carousel"><i class="fa-solid fa-images"></i> Screenshots</button>
+                    <button class="media-tab-btn" data-media-target="video-container"><i class="fa-solid fa-circle-play"></i> Video Demos</button>
                 </div>
-                
-                <button class="carousel-control carousel-prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
-                <button class="carousel-control carousel-next" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
-                
-                <div class="carousel-dots">
-                    <span class="carousel-dot active" data-index="0"></span>
-                    <span class="carousel-dot" data-index="1"></span>
-                    <span class="carousel-dot" data-index="2"></span>
-                    <span class="carousel-dot" data-index="3"></span>
-                    <span class="carousel-dot" data-index="4"></span>
+
+                <!-- Screenshots Carousel -->
+                <div class="carousel-container active-media" id="carousel">
+                    <div class="carousel-slides">
+                        <img src="assets/journal1.png" class="carousel-slide active" alt="The Modern Journal Screenshot 1">
+                        <img src="assets/journal2.png" class="carousel-slide" alt="The Modern Journal Screenshot 2">
+                        <img src="assets/journal3.png" class="carousel-slide" alt="The Modern Journal Screenshot 3">
+                        <img src="assets/journal4.png" class="carousel-slide" alt="The Modern Journal Screenshot 4">
+                        <img src="assets/journal5.png" class="carousel-slide" alt="The Modern Journal Screenshot 5">
+                    </div>
+                    
+                    <button class="carousel-control carousel-prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="carousel-control carousel-next" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+                    
+                    <div class="carousel-dots">
+                        <span class="carousel-dot active" data-index="0"></span>
+                        <span class="carousel-dot" data-index="1"></span>
+                        <span class="carousel-dot" data-index="2"></span>
+                        <span class="carousel-dot" data-index="3"></span>
+                        <span class="carousel-dot" data-index="4"></span>
+                    </div>
+                </div>
+
+                <!-- Video Walkthrough Player -->
+                <div class="video-player-container" id="video-container" style="display: none;">
+                    <div class="video-tabs">
+                        <button class="video-tab-btn active" data-video-src="assets/demo1.mp4">Overview</button>
+                        <button class="video-tab-btn" data-video-src="assets/demo2.mp4">Rich Editor</button>
+                        <button class="video-tab-btn" data-video-src="assets/demo3.mp4">Full Walkthrough</button>
+                    </div>
+                    <div class="video-screen">
+                        <video id="project-video" src="assets/demo1.mp4" controls muted playsinline loop style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                    </div>
                 </div>
             </div>
 
@@ -2229,6 +2492,12 @@
                     <li class="project-highlight-item"><i class="fa-solid fa-circle-check"></i> Live View Analytics</li>
                     <li class="project-highlight-item"><i class="fa-solid fa-circle-check"></i> Automated Email Services</li>
                 </ul>
+
+                <!-- CTAs: Live Demo and Source Code Repository links -->
+                <div class="project-actions" style="margin-top: 25px; display: flex; gap: 12px;">
+                    <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 10px 18px; font-size: 0.85rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                    <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 10px 18px; font-size: 0.85rem;"><i class="fa-brands fa-github"></i> Repository</a>
+                </div>
             </div>
         </div>
     </section>
@@ -2330,7 +2599,7 @@
 
         <div class="education-grid">
             <!-- Card 1 -->
-            <div class="education-card reveal" style="--item-index: 1;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 1;">
                 <span class="edu-platform">Self-Taught</span>
                 <h3 class="edu-degree">Django Developer (Associate's)</h3>
                 <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Jan 2026 – Jun 2026</span>
@@ -2340,10 +2609,16 @@
                     <li class="edu-detail-tag">DRF</li>
                     <li class="edu-detail-tag">API Design</li>
                 </ul>
+                <div class="edu-cert-preview" title="View Django Developer Certification">
+                    <img src="assets/certificate.png" alt="Django Developer Certificate" class="edu-cert-img">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Card 2 -->
-            <div class="education-card reveal" style="--item-index: 2;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 2;">
                 <span class="edu-platform">Self-Taught</span>
                 <h3 class="edu-degree">Backend Developer (Associate's)</h3>
                 <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Jan 2023 – May 2026</span>
@@ -2353,10 +2628,16 @@
                     <li class="edu-detail-tag">APIs</li>
                     <li class="edu-detail-tag">SQL</li>
                 </ul>
+                <div class="edu-cert-preview" title="View Backend Developer Certification">
+                    <img src="assets/certificate.png" alt="Backend Developer Certificate" class="edu-cert-img">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Card 3 -->
-            <div class="education-card reveal" style="--item-index: 3;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 3;">
                 <span class="edu-platform">DataCamp</span>
                 <h3 class="edu-degree">Backend Developer (Associate's)</h3>
                 <span class="edu-details-title">Covering</span>
@@ -2365,10 +2646,16 @@
                     <li class="edu-detail-tag">SQL</li>
                     <li class="edu-detail-tag">Pandas</li>
                 </ul>
+                <div class="edu-cert-preview" title="View DataCamp Backend Developer Certification">
+                    <img src="assets/python_data_associate.jpg" alt="DataCamp Backend Developer Certificate" class="edu-cert-img">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Card 4 -->
-            <div class="education-card reveal" style="--item-index: 4;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 4;">
                 <span class="edu-platform">Homeschool</span>
                 <h3 class="edu-degree">Cybersecurity Fundamentals</h3>
                 <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Feb 2026 – Apr 2026</span>
@@ -2377,10 +2664,16 @@
                     <li class="edu-detail-tag">Threat Mitigation</li>
                     <li class="edu-detail-tag">Secure Scripting</li>
                 </ul>
+                <div class="edu-cert-preview" title="View Cybersecurity Fundamentals Certification">
+                    <img src="assets/cybersecurity_fundamentals.jpg" alt="Cybersecurity Fundamentals Certificate" class="edu-cert-img">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Card 5 -->
-            <div class="education-card reveal" style="--item-index: 5;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 5;">
                 <span class="edu-platform">Boot.dev</span>
                 <h3 class="edu-degree">Software Engineering</h3>
                 <span class="edu-details-title">Covering</span>
@@ -2388,10 +2681,16 @@
                     <li class="edu-detail-tag">Functional Programming</li>
                     <li class="edu-detail-tag">Data Structures</li>
                 </ul>
+                <div class="edu-cert-preview" title="View Boot.dev Software Engineering Certification">
+                    <img src="assets/certificate_ai_engineer.png" alt="Boot.dev Software Engineering Certificate" class="edu-cert-img">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Card 6 -->
-            <div class="education-card reveal" style="--item-index: 6;">
+            <div class="education-card spotlight-card reveal" style="--item-index: 6;">
                 <span class="edu-platform">Almdrasa</span>
                 <h3 class="edu-degree">Cybersecurity Basics</h3>
                 <span class="edu-details-title">Covering</span>
@@ -2399,6 +2698,12 @@
                     <li class="edu-detail-tag">Python Scripting Safety</li>
                     <li class="edu-detail-tag">Server Hardening</li>
                 </ul>
+                <div class="edu-cert-preview" title="View Almdrasa Cybersecurity Basics Certification">
+                    <img src="assets/cybersecurity_fundamentals.jpg" alt="Almdrasa Cybersecurity Basics Certificate" class="edu-cert-img">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2413,7 +2718,7 @@
         <div class="contact-layout">
             <!-- Left Info Panel -->
             <div class="contact-info-panel">
-                <div class="contact-card">
+                <div class="contact-card spotlight-card">
                     <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
                     <div>
                         <span class="contact-lbl">Email Address</span>
@@ -2421,7 +2726,7 @@
                     </div>
                 </div>
 
-                <div class="contact-card">
+                <div class="contact-card spotlight-card">
                     <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
                     <div>
                         <span class="contact-lbl">Location</span>
@@ -2430,17 +2735,17 @@
                 </div>
 
                 <div class="contact-social-grid">
-                    <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer" class="contact-social-btn">
+                    <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer" class="contact-social-btn spotlight-card">
                         <i class="fa-brands fa-github"></i> GitHub
                     </a>
-                    <a href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer" class="contact-social-btn">
+                    <a href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer" class="contact-social-btn spotlight-card">
                         <i class="fa-brands fa-linkedin-in"></i> LinkedIn
                     </a>
                 </div>
             </div>
 
             <!-- Right Form Panel -->
-            <div class="form-container">
+            <div class="form-container spotlight-card">
                 <form id="contact-form">
                     <div class="form-group">
                         <input type="text" id="form-name" class="form-input" placeholder=" " required>
@@ -2481,6 +2786,14 @@
             <h3 class="modal-title">Form Submitted!</h3>
             <p class="modal-text" id="modal-desc">Thank you for writing. We are opening your default email application to route the message directly to obaidbelmaaris@gmail.com.</p>
             <button class="btn btn-primary" id="modal-close-btn" style="width: 100%;">Proceed</button>
+        </div>
+    </div>
+
+    <!-- Certificate Lightbox Modal -->
+    <div class="modal-overlay" id="cert-modal">
+        <div class="modal-card" style="max-width: 800px; padding: 20px; position: relative;">
+            <button class="modal-close-x" id="cert-modal-close" aria-label="Close certificate modal">&times;</button>
+            <img src="" id="cert-modal-img" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border-color); display: block;" alt="Certificate Image">
         </div>
     </div>
 
@@ -2935,6 +3248,321 @@
                     hideSuccessModal();
                 }
             });
+
+            // Project Media (Screenshots vs Video Demos) Tab Switcher logic
+            const mediaTabBtns = document.querySelectorAll('.media-tab-btn');
+            const carouselContainer = document.getElementById('carousel');
+            const videoContainer = document.getElementById('video-container');
+            const projectVideo = document.getElementById('project-video');
+
+            mediaTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    mediaTabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const target = btn.getAttribute('data-media-target');
+                    if (target === 'carousel') {
+                        carouselContainer.classList.add('active-media');
+                        videoContainer.style.display = 'none';
+                        if (projectVideo) projectVideo.pause();
+                    } else {
+                        carouselContainer.classList.remove('active-media');
+                        videoContainer.style.display = 'flex';
+                        if (projectVideo) {
+                            projectVideo.play().catch(err => console.log('Video autoplay blocked or paused:', err));
+                        }
+                    }
+                });
+            });
+
+            // Project Video Tab switching logic
+            const videoTabBtns = document.querySelectorAll('.video-tab-btn');
+            videoTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    videoTabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const src = btn.getAttribute('data-video-src');
+                    if (projectVideo) {
+                        projectVideo.src = src;
+                        projectVideo.play().catch(err => console.log('Video play failed:', err));
+                    }
+                });
+            });
+
+            // Certificate Lightbox modal logic
+            const certPreviews = document.querySelectorAll('.edu-cert-preview');
+            const certModal = document.getElementById('cert-modal');
+            const certModalImg = document.getElementById('cert-modal-img');
+            const certModalClose = document.getElementById('cert-modal-close');
+
+            certPreviews.forEach(preview => {
+                preview.addEventListener('click', () => {
+                    const imgSrc = preview.querySelector('.edu-cert-img').getAttribute('src');
+                    certModalImg.setAttribute('src', imgSrc);
+                    certModal.classList.add('active');
+                });
+            });
+
+            const closeCertModal = () => {
+                certModal.classList.remove('active');
+            };
+
+            if (certModalClose) {
+                certModalClose.addEventListener('click', closeCertModal);
+            }
+            certModal.addEventListener('click', (e) => {
+                if (e.target === certModal || e.target === certModalClose) {
+                    closeCertModal();
+                }
+            });
+
+            // Setup keyboard support for closing certificate modal (Escape key)
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && certModal && certModal.classList.contains('active')) {
+                    closeCertModal();
+                }
+            });
+
+            // ==========================================
+            // SPECIAL & PRO PORTFOLIO FEATURES
+            // ==========================================
+
+            // 1. Linear-Style Card Border Spotlight Coordinate Tracker
+            const spotlightCards = document.querySelectorAll('.spotlight-card');
+            spotlightCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--card-mouse-x', `${x}px`);
+                    card.style.setProperty('--card-mouse-y', `${y}px`);
+                });
+            });
+
+            // 2. Hero Interactive Canvas Particle Connection Network
+            const pCanvas = document.getElementById('particles-canvas');
+            if (pCanvas) {
+                const pCtx = pCanvas.getContext('2d');
+                let pWidth = pCanvas.width = pCanvas.offsetWidth;
+                let pHeight = pCanvas.height = pCanvas.offsetHeight;
+
+                const particlesList = [];
+                const maxParticlesCount = 55;
+                const pMouse = { x: null, y: null, radius: 140 };
+
+                const heroSec = document.getElementById('hero');
+                heroSec.addEventListener('mousemove', (e) => {
+                    const rect = heroSec.getBoundingClientRect();
+                    pMouse.x = e.clientX - rect.left;
+                    pMouse.y = e.clientY - rect.top;
+                });
+
+                heroSec.addEventListener('mouseleave', () => {
+                    pMouse.x = null;
+                    pMouse.y = null;
+                });
+
+                class CanvasParticle {
+                    constructor() {
+                        this.x = Math.random() * pWidth;
+                        this.y = Math.random() * pHeight;
+                        this.vx = (Math.random() - 0.5) * 0.35;
+                        this.vy = (Math.random() - 0.5) * 0.35;
+                        this.radius = Math.random() * 1.5 + 1;
+                    }
+
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+
+                        if (this.x < 0 || this.x > pWidth) this.vx = -this.vx;
+                        if (this.y < 0 || this.y > pHeight) this.vy = -this.vy;
+
+                        if (pMouse.x && pMouse.y) {
+                            const dx = pMouse.x - this.x;
+                            const dy = pMouse.y - this.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < pMouse.radius) {
+                                const force = (pMouse.radius - dist) / pMouse.radius;
+                                this.x += (dx / dist) * force * 0.25;
+                                this.y += (dy / dist) * force * 0.25;
+                            }
+                        }
+                    }
+
+                    draw() {
+                        pCtx.beginPath();
+                        pCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        pCtx.fillStyle = 'rgba(34, 211, 238, 0.35)';
+                        pCtx.fill();
+                    }
+                }
+
+                for (let i = 0; i < maxParticlesCount; i++) {
+                    particlesList.push(new CanvasParticle());
+                }
+
+                const handleResize = () => {
+                    if (pCanvas.offsetWidth > 0) {
+                        pWidth = pCanvas.width = pCanvas.offsetWidth;
+                        pHeight = pCanvas.height = pCanvas.offsetHeight;
+                    }
+                };
+                window.addEventListener('resize', handleResize);
+
+                const renderParticles = () => {
+                    pCtx.clearRect(0, 0, pWidth, pHeight);
+
+                    particlesList.forEach(p => {
+                        p.update();
+                        p.draw();
+                    });
+
+                    for (let i = 0; i < particlesList.length; i++) {
+                        for (let j = i + 1; j < particlesList.length; j++) {
+                            const dx = particlesList[i].x - particlesList[j].x;
+                            const dy = particlesList[i].y - particlesList[j].y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+
+                            if (dist < 100) {
+                                const opacity = (100 - dist) / 100 * 0.12;
+                                pCtx.strokeStyle = `rgba(34, 211, 238, ${opacity})`;
+                                pCtx.lineWidth = 0.8;
+                                pCtx.beginPath();
+                                pCtx.moveTo(particlesList[i].x, particlesList[i].y);
+                                pCtx.lineTo(particlesList[j].x, particlesList[j].y);
+                                pCtx.stroke();
+                            }
+                        }
+                    }
+
+                    requestAnimationFrame(renderParticles);
+                };
+
+                renderParticles();
+            }
+
+            // 3. Interactive Shell Terminal emulator logic
+            const termInput = document.getElementById('terminal-input');
+            const termOutput = document.getElementById('shell-output');
+            const shortcutButtons = document.querySelectorAll('.shell-shortcut-btn');
+
+            const execShellCommand = (cmdText) => {
+                const cmd = cmdText.trim().toLowerCase();
+                if (!cmd) return;
+
+                // Echo command output
+                const echo = document.createElement('div');
+                echo.className = 'terminal-line';
+                echo.style.opacity = '1';
+                echo.innerHTML = `<span class="terminal-prompt">$</span><span class="terminal-code">${cmdText}</span>`;
+                termOutput.appendChild(echo);
+
+                // Shell response lines
+                const responseLine = document.createElement('div');
+                responseLine.className = 'terminal-line';
+                responseLine.style.opacity = '1';
+
+                let respHTML = '';
+                switch (cmd) {
+                    case 'help':
+                        respHTML = `<span class="terminal-code"><span class="kw">Available commands:</span><br>
+  - <span class="func">bio</span>      : Print developer credentials & background summary<br>
+  - <span class="func">skills</span>   : List detailed technical competencies<br>
+  - <span class="func">projects</span> : Show details of featured Django project repository<br>
+  - <span class="func">contact</span>  : Display routing email & profile links<br>
+  - <span class="func">clear</span>    : Clear command window buffer history</span>`;
+                        break;
+                    case 'bio':
+                        respHTML = `<span class="terminal-code"><span class="cls">Abdellah BELMAARIS</span> - Backend Web & Python Developer<br>
+Fascinated by clean API models, robust database scaling, AI fundamentals, and server protection.<br>
+Location: Casablanca, Morocco. Ready to develop modern software systems.</span>`;
+                        break;
+                    case 'skills':
+                        respHTML = `<span class="terminal-code"><span class="kw">Core Stack :</span> Python (90%), Django/DRF (85%), SQL (80%), REST APIs (85%)<br>
+<span class="kw">Data/AI    :</span> Pandas (75%), Matplotlib (75%), AI Foundations (70%)<br>
+<span class="kw">Sec/Ops    :</span> Cybersecurity Basics (75%), Git, Linux CLI Scripting</span>`;
+                        break;
+                    case 'projects':
+                        respHTML = `<span class="terminal-code"><span class="cls">The Modern Journal</span> (Fully Featured Django CMS)<br>
+Auth layers, roles validation, categories taxonomy, view counters, email dispatches, and custom APIs.<br>
+GitHub profiles: <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" style="color: var(--accent); text-decoration: underline;">github.com/Abdellah-BELMAARIS</a></span>`;
+                        break;
+                    case 'contact':
+                        respHTML = `<span class="terminal-code"><span class="kw">Direct Email:</span> <a href="mailto:obaidbelmaaris@gmail.com" style="color: var(--accent);">obaidbelmaaris@gmail.com</a><br>
+<span class="kw">Profiles    :</span> <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" style="color: var(--accent);">GitHub</a> | <a href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" style="color: var(--accent);">LinkedIn</a></span>`;
+                        break;
+                    case 'clear':
+                        termOutput.innerHTML = '';
+                        if (termInput) termInput.value = '';
+                        return;
+                    default:
+                        respHTML = `<span class="terminal-code"><span class="kw" style="color: #f43f5e;">Command not found:</span> '${cmd}'. Type <span class="func">help</span> to view active options.</span>`;
+                }
+
+                responseLine.innerHTML = `<span class="terminal-prompt"></span>${respHTML}`;
+                termOutput.appendChild(responseLine);
+
+                // Auto-scroll terminal body
+                const termBody = termOutput.closest('.terminal-body');
+                if (termBody) {
+                    termBody.scrollTop = termBody.scrollHeight;
+                }
+
+                if (termInput) termInput.value = '';
+            };
+
+            if (termInput) {
+                termInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        execShellCommand(termInput.value);
+                    }
+                });
+            }
+
+            shortcutButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const cmd = btn.getAttribute('data-cmd');
+                    execShellCommand(cmd);
+                });
+            });
+
+            // 4. Scroll-Linked Timeline Progress Line path tracer
+            const timelineContainer = document.querySelector('.timeline-container');
+            const timelineFill = document.getElementById('timeline-scroll-bar');
+            
+            const updateTimelineProgress = () => {
+                if (!timelineContainer || !timelineFill) return;
+                const rect = timelineContainer.getBoundingClientRect();
+                const containerHeight = rect.height;
+                const viewHeight = window.innerHeight;
+
+                if (rect.top < viewHeight && rect.bottom > 0) {
+                    const startY = viewHeight * 0.65; // line starts drawing when top reaches 65% of viewport
+                    const scrolled = startY - rect.top;
+                    let progressPercentage = (scrolled / containerHeight) * 100;
+                    
+                    progressPercentage = Math.max(0, Math.min(100, progressPercentage));
+                    timelineFill.style.height = `${progressPercentage}%`;
+
+                    // Handle activation/lighting of bullet indicators
+                    const timelineCards = timelineContainer.querySelectorAll('.timeline-card');
+                    timelineCards.forEach(card => {
+                        const cardTop = card.offsetTop;
+                        const progressPixels = (progressPercentage / 100) * containerHeight;
+                        if (progressPixels >= cardTop - 12) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    });
+                }
+            };
+
+            window.addEventListener('scroll', updateTimelineProgress);
+            // Trigger once on load
+            updateTimelineProgress();
         });
     </script>
 </body>
