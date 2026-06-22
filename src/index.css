@@ -218,7 +218,7 @@ a {
 
 /* ─── Header & Navigation ─────────────────────────────────────────────────── */
 
-..header {
+.header {
     position: fixed;
     top: 0;
     left: 0;
@@ -1613,6 +1613,7 @@ textarea.form-control {
 
     .hamburger {
         display: block;
+        margin-left: auto;
     }
 
     .nav-list {
