@@ -275,8 +275,47 @@
 
         .hero-buttons {
             display: flex;
+            align-items: center;
             gap: 20px;
             flex-wrap: wrap;
+        }
+
+        /* Hero Social Links */
+        .hero-social-links {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-social-links {
+                margin-left: 0;
+                width: 100%;
+                margin-top: 15px;
+            }
+        }
+
+        .hero-social-icon {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all var(--transition-speed) var(--transition-curve);
+            background: rgba(17, 34, 64, 0.3);
+        }
+
+        .hero-social-icon:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.1);
         }
 
         /* Premium Buttons */
@@ -454,10 +493,10 @@
             line-height: 1.4;
         }
 
-        /* Featured Project Section */
+        /* Featured Project Section - Split Pane Layout */
         .project-card {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1.2fr 1fr;
             background: var(--bg-surface);
             border: 1px solid var(--border-light);
             border-radius: 8px;
@@ -467,13 +506,114 @@
             transition: all var(--transition-speed) var(--transition-curve);
         }
 
+        @media (max-width: 1024px) {
+            .project-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .project-card:hover {
             border-color: var(--border-color);
             box-shadow: 0 20px 40px -15px rgba(2, 12, 27, 0.7);
         }
 
+        /* Project Screenshot Carousel */
+        .project-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            overflow: hidden;
+            border-right: 1px solid var(--border-light);
+        }
+
+        @media (max-width: 1024px) {
+            .project-carousel {
+                min-height: 280px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+            }
+        }
+
+        .project-carousel-slides {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .project-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1;
+        }
+
+        .project-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .project-carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10, 25, 47, 0.85);
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all var(--transition-speed);
+        }
+
+        .project-carousel-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--bg-surface-hover);
+        }
+
+        .project-carousel-prev { left: 15px; }
+        .project-carousel-next { right: 15px; }
+
+        .project-carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .project-carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+
+        .project-carousel-dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+
         .project-content {
             padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .project-badge {
@@ -494,15 +634,15 @@
             color: var(--text-secondary);
             font-size: 1.05rem;
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .project-tech-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             list-style: none;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .project-tech-item {
@@ -520,99 +660,301 @@
             gap: 20px;
         }
 
-        .project-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--text-primary);
-            border-bottom: 1px solid transparent;
-            padding-bottom: 2px;
-        }
-
-        .project-btn:hover {
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* Certifications & Learning Section */
-        .cert-grid {
+        /* Certificate Image Previews & Lightbox styles */
+        .education-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
         }
 
-        .cert-card {
+        .education-card {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-light);
             border-radius: 6px;
             padding: 30px;
-            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 220px;
             transition: all var(--transition-speed) var(--transition-curve);
         }
 
-        .cert-card:hover {
+        .education-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
         }
 
-        .cert-header {
+        .edu-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
-        .cert-icon {
-            font-size: 2.25rem;
+        .edu-logo {
+            font-size: 1.5rem;
             color: var(--accent);
-        }
-
-        .cert-badge {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            background: rgba(255, 255, 255, 0.03);
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border: 1px solid var(--border-light);
-            color: var(--text-secondary);
-            padding: 4px 10px;
-            border-radius: 12px;
+            background: rgba(100, 255, 218, 0.03);
         }
 
-        .cert-title {
-            font-size: 1.25rem;
-            margin-bottom: 8px;
+        .edu-platform {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
             color: var(--text-primary);
         }
 
-        .cert-subtitle {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
+        .edu-degree {
+            font-size: 1.15rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
         }
 
-        .cert-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            list-style: none;
-        }
-
-        .cert-tag {
+        .edu-date {
             font-family: var(--font-mono);
             font-size: 0.75rem;
             color: var(--text-muted);
+            margin-bottom: 15px;
+            display: block;
         }
 
-        .cert-tag::before {
-            content: "•";
+        .edu-details-title {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .edu-details-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .edu-detail-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
             color: var(--accent);
-            margin-right: 5px;
+            background: rgba(100, 255, 218, 0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .edu-cert-preview {
+            margin-top: 15px;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+            aspect-ratio: 16/10;
+        }
+
+        .edu-cert-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform var(--transition-speed) var(--transition-curve);
+        }
+
+        .edu-cert-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity var(--transition-speed) var(--transition-curve);
+        }
+
+        .edu-cert-overlay span {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 6px 12px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .edu-cert-preview:hover .edu-cert-img {
+            transform: scale(1.05);
+        }
+
+        .edu-cert-preview:hover .edu-cert-overlay {
+            opacity: 1;
+        }
+
+        /* Lightbox Modals (General and Video player styling) */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 12, 27, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2000;
+            transition: opacity var(--transition-speed) var(--transition-curve);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content-wrapper {
+            position: relative;
+            max-width: 900px;
+            width: 90%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all var(--transition-speed);
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .modal-img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Video walkthrough modal spec */
+        .video-modal-content {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            max-width: 850px;
+            width: 92%;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        .video-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-base);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .video-modal-title {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color var(--transition-speed);
+        }
+
+        .video-modal-close:hover {
+            color: var(--accent);
+        }
+
+        .video-modal-tabs {
+            display: flex;
+            background: var(--bg-base);
+            padding: 10px 20px;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-light);
+            overflow-x: auto;
+        }
+
+        .video-modal-tab {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            white-space: nowrap;
+        }
+
+        .video-modal-tab:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .video-modal-tab.active {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: rgba(100, 255, 218, 0.05);
+        }
+
+        .video-modal-screen {
+            background: #000;
+            position: relative;
+            aspect-ratio: 16/10;
+            width: 100%;
+        }
+
+        .video-modal-screen video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
         }
 
         /* Connect / Contact Section */
@@ -879,6 +1221,10 @@
         <div class="hero-buttons">
             <a href="#project" class="btn btn-primary">View My Work</a>
             <a href="#contact" class="btn btn-secondary">Let's Connect</a>
+            <div class="hero-social-links">
+                <a href="https://linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer" class="hero-social-icon" aria-label="Visit LinkedIn Profile"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer" class="hero-social-icon" aria-label="Visit GitHub Profile"><i class="fa-brands fa-github"></i></a>
+            </div>
         </div>
     </section>
 
@@ -904,7 +1250,7 @@
                 <div class="about-avatar-frame"></div>
                 <div class="about-avatar-img-placeholder">
                     <!-- High-quality image loading placeholder -->
-                    <img src="https://via.placeholder.com/300/0a192f/64ffda?text=AB" alt="Abdellah BELMAARIS Profile Avatar" id="about-img">
+                    <img src="assets/avatar.jpg" alt="Abdellah BELMAARIS Profile Avatar" onerror="this.src='https://via.placeholder.com/300/0a192f/64ffda?text=AB'" id="about-img">
                 </div>
             </div>
         </div>
@@ -1050,6 +1396,27 @@
         <h2 class="section-title">Featured Project</h2>
         
         <div class="project-card">
+            <!-- Left Column: Carousel showcasing all screenshots -->
+            <div class="project-carousel" id="project-carousel">
+                <div class="project-carousel-slides">
+                    <img src="assets/journal1.png" class="project-slide active" alt="The Modern Journal - Dashboard Analytics">
+                    <img src="assets/journal2.png" class="project-slide" alt="The Modern Journal - Article Writing Interface">
+                    <img src="assets/journal3.png" class="project-slide" alt="The Modern Journal - User Profiles & Settings">
+                    <img src="assets/journal4.png" class="project-slide" alt="The Modern Journal - Advanced Post Search">
+                    <img src="assets/journal5.png" class="project-slide" alt="The Modern Journal - Responsive Mobile View">
+                </div>
+                <button class="project-carousel-btn project-carousel-prev" aria-label="Previous screenshot"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="project-carousel-btn project-carousel-next" aria-label="Next screenshot"><i class="fa-solid fa-chevron-right"></i></button>
+                <div class="project-carousel-dots">
+                    <span class="project-carousel-dot active" data-index="0"></span>
+                    <span class="project-carousel-dot" data-index="1"></span>
+                    <span class="project-carousel-dot" data-index="2"></span>
+                    <span class="project-carousel-dot" data-index="3"></span>
+                    <span class="project-carousel-dot" data-index="4"></span>
+                </div>
+            </div>
+
+            <!-- Right Column: Details & CTA -->
             <div class="project-content">
                 <span class="project-badge">Featured Content Management Platform</span>
                 <h3 class="project-title">The Modern Journal</h3>
@@ -1064,11 +1431,8 @@
                     <li class="project-tech-item">JavaScript</li>
                 </ul>
                 <div class="project-links">
-                    <a href="#" class="btn btn-primary" aria-label="Launch The Modern Journal Live Demo">
-                        <i class="fa-solid fa-arrow-up-right-from-square" style="margin-right: 8px;"></i> Live Demo
-                    </a>
-                    <a href="#" class="btn btn-secondary" aria-label="View The Modern Journal Source Code">
-                        <i class="fa-brands fa-github" style="margin-right: 8px;"></i> Source Code
+                    <a href="#" class="btn btn-primary" id="live-demo-btn" aria-label="Launch The Modern Journal Video Demo Modal">
+                        <i class="fa-solid fa-circle-play" style="margin-right: 8px;"></i> Live Demo
                     </a>
                 </div>
             </div>
@@ -1078,58 +1442,191 @@
     <!-- Certifications & Learning Section -->
     <section id="certifications">
         <span class="section-overline">05. Academics</span>
-        <h2 class="section-title">Certifications & Learning</h2>
+        <h2 class="section-title">Education & Certifications</h2>
         
-        <div class="cert-grid">
-            <!-- Cert 1 -->
-            <div class="cert-card">
-                <div class="cert-header">
-                    <div class="cert-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <span class="cert-badge">DataCamp</span>
+        <!-- Education Subsection Grid -->
+        <h3 style="font-size: 1.4rem; color: var(--text-primary); margin-top: 40px; margin-bottom: 20px; font-family: var(--font-display);">Education</h3>
+        <div class="education-grid">
+            <!-- Card 1 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 1;">
+                <div class="edu-header">
+                    <div class="edu-logo"><i class="fa-solid fa-house-chimney-window"></i></div>
+                    <span class="edu-platform">Homeschool</span>
                 </div>
-                <div>
-                    <h3 class="cert-title">AI, Python & Data Analysis</h3>
-                    <p class="cert-subtitle">Acquired essential data manipulation skills and machine learning insights.</p>
-                </div>
-                <ul class="cert-tags">
-                    <li class="cert-tag">Python Core</li>
-                    <li class="cert-tag">Pandas</li>
-                    <li class="cert-tag">AI Models</li>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Feb 2026 – Apr 2026</span>
+                <div class="edu-details-title">Skills</div>
+                <ul class="edu-details-list">
+                    <li class="edu-detail-tag">Cybersecurity Fundamentals</li>
                 </ul>
+                <div class="edu-cert-preview" title="View Homeschool Cybersecurity Fundamentals Certification">
+                    <img src="assets/photo_2026-06-21_12-34-53.jpg" alt="Homeschool Cybersecurity Fundamentals Certification" class="edu-cert-img" onerror="this.src='https://via.placeholder.com/320/0b1329/64ffda?text=Cybersecurity'">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Cert 2 -->
-            <div class="cert-card">
-                <div class="cert-header">
-                    <div class="cert-icon"><i class="fa-solid fa-terminal"></i></div>
-                    <span class="cert-badge">Boot.dev</span>
+            <!-- Card 2 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 2;">
+                <div class="edu-header">
+                    <div class="edu-logo"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <span class="edu-platform">DataCamp</span>
                 </div>
-                <div>
-                    <h3 class="cert-title">Software Engineering</h3>
-                    <p class="cert-subtitle">Studied structured code development, functional loops, and server-side algorithms.</p>
-                </div>
-                <ul class="cert-tags">
-                    <li class="cert-tag">Algorithms</li>
-                    <li class="cert-tag">Data Structures</li>
-                    <li class="cert-tag">Functional Coding</li>
+                <div class="edu-details-title">Skills</div>
+                <ul class="edu-details-list">
+                    <li class="edu-detail-tag">Python (Programming Language)</li>
+                    <li class="edu-detail-tag">SQL</li>
+                    <li class="edu-detail-tag">+4 skills</li>
                 </ul>
+                <div class="edu-cert-preview" title="View DataCamp Python & SQL Certification">
+                    <img src="assets/Picture1.jpg" alt="DataCamp Python & SQL Certification" class="edu-cert-img" onerror="this.src='https://via.placeholder.com/320/0b1329/64ffda?text=Python+Data'">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Cert 3 -->
-            <div class="cert-card">
-                <div class="cert-header">
-                    <div class="cert-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                    <span class="cert-badge">Almdrasa</span>
+            <!-- Card 3 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 3;">
+                <div class="edu-header">
+                    <div class="edu-logo"><i class="fa-solid fa-user-graduate"></i></div>
+                    <span class="edu-platform">Self-taught</span>
                 </div>
-                <div>
-                    <h3 class="cert-title">Cybersecurity & Python</h3>
-                    <p class="cert-subtitle">Explored web environment protection steps, secure scripting, and threat mitigations.</p>
-                </div>
-                <ul class="cert-tags">
-                    <li class="cert-tag">Security Fundamentals</li>
-                    <li class="cert-tag">Python Scripts</li>
-                    <li class="cert-tag">Threat Mitigation</li>
+                <h4 class="edu-degree">Associate's Degree, Backend developper</h4>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Jan 2023 – May 2026</span>
+                <div class="edu-details-title">Skills</div>
+                <ul class="edu-details-list">
+                    <li class="edu-detail-tag">Python</li>
+                    <li class="edu-detail-tag">Deep Learning Fundamentals</li>
+                    <li class="edu-detail-tag">+5 skills</li>
                 </ul>
+                <div class="edu-cert-preview" title="View Self-taught Backend Developer Certification">
+                    <img src="assets/certificate.png" alt="Self-taught Backend Developer Certification" class="edu-cert-img" onerror="this.src='https://via.placeholder.com/320/0b1329/64ffda?text=Backend+Dev'">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 4;">
+                <div class="edu-header">
+                    <div class="edu-logo"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <span class="edu-platform">DataCamp</span>
+                </div>
+                <h4 class="edu-degree">Associate's Degree, Backend developper</h4>
+                <div class="edu-cert-preview" title="View DataCamp Backend Developer Certification">
+                    <img src="assets/Picture1.png" alt="DataCamp Backend Developer Certification" class="edu-cert-img" onerror="this.src='https://via.placeholder.com/320/0b1329/64ffda?text=DataCamp+Backend'">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 5;">
+                <div class="edu-header">
+                    <div class="edu-logo"><i class="fa-solid fa-user-graduate"></i></div>
+                    <span class="edu-platform">Self-taught</span>
+                </div>
+                <h4 class="edu-degree">Associate's Degree, Django developer</h4>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Jan 2026 – Jun 2026</span>
+                <div class="edu-details-title">Skills</div>
+                <ul class="edu-details-list">
+                    <li class="edu-detail-tag">Django</li>
+                    <li class="edu-detail-tag">Django REST Framework</li>
+                </ul>
+                <div class="edu-cert-preview" title="View Self-taught Django Developer Certification">
+                    <img src="assets/certificate.png" alt="Self-taught Django Developer Certification" class="edu-cert-img" onerror="this.src='https://via.placeholder.com/320/0b1329/64ffda?text=Django+Dev'">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Licenses & Certifications Subsection Grid -->
+        <h3 style="font-size: 1.4rem; color: var(--text-primary); margin-top: 60px; margin-bottom: 20px; font-family: var(--font-display);">Licenses & Certifications</h3>
+        <div class="education-grid">
+            <!-- Cert Card 1 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 6;">
+                <div class="edu-header">
+                    <div class="edu-logo"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <span class="edu-platform">DataCamp</span>
+                </div>
+                <h4 class="edu-degree">AI Engineer for Developers Associate</h4>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Issued Apr 2026 · Expires Apr 2026</span>
+                <div class="edu-details-title" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; display: block;">Credential ID: AIEDA0011678564836</div>
+                <div class="edu-cert-preview" title="View AI Engineer for Developers Associate Certification">
+                    <img src="assets/certificate_ai_engineer.png" alt="AI Engineer for Developers Associate Certification" class="edu-cert-img" onerror="this.src='https://via.placeholder.com/320/0b1329/64ffda?text=AI+Engineer'">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> Show Credential</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cert Card 2 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 7;">
+                <div class="edu-header">
+                    <div class="edu-logo"><i class="fa-solid fa-shield-halved"></i></div>
+                    <span class="edu-platform">المدرسة - Almdrasa</span>
+                </div>
+                <h4 class="edu-degree">Cybersecurity Fundamentals</h4>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Issued Feb 2026 · Expires Apr 2026</span>
+                <div class="edu-details-title" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; display: block;">Credential ID: 77F16BFF2A-77EB48CD64-1451D2521</div>
+                <div class="edu-details-title">Skills</div>
+                <ul class="edu-details-list">
+                    <li class="edu-detail-tag">Cybersecurity Fundamentals</li>
+                </ul>
+                <div class="edu-cert-preview" title="View Cybersecurity Fundamentals Certification">
+                    <img src="assets/photo_2026-06-21_12-34-53.jpg" alt="Cybersecurity Fundamentals Certification" class="edu-cert-img" onerror="this.src='https://via.placeholder.com/320/0b1329/64ffda?text=Cybersecurity'">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> Show Credential</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cert Card 3 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 8;">
+                <div class="edu-header">
+                    <div class="edu-logo"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <span class="edu-platform">DataCamp</span>
+                </div>
+                <h4 class="edu-degree">Python Data Associate</h4>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Issued Feb 2026 · Expires Feb 2026</span>
+                <div class="edu-details-title" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; display: block;">Credential ID: PDA0019412806212</div>
+                <div class="edu-details-title">Skills</div>
+                <ul class="edu-details-list">
+                    <li class="edu-detail-tag">Python Data Associate</li>
+                </ul>
+                <div class="edu-cert-preview" title="View Python Data Associate Certification">
+                    <img src="assets/Picture1.jpg" alt="Python Data Associate Certification" class="edu-cert-img" onerror="this.src='https://via.placeholder.com/320/0b1329/64ffda?text=Python+Data'">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> Show Credential</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cert Card 4 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 9;">
+                <div class="edu-header">
+                    <div class="edu-logo"><i class="fa-solid fa-award"></i></div>
+                    <span class="edu-platform">Self-Taught</span>
+                </div>
+                <h4 class="edu-degree">Associate Python Developer</h4>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Jan 2026 – Jun 2026</span>
+                <div class="edu-details-title" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; display: block;">Credential Details: 30 HR · Associate's Degree, Django developer</div>
+                <div class="edu-details-title">Skills</div>
+                <ul class="edu-details-list">
+                    <li class="edu-detail-tag">Django</li>
+                    <li class="edu-detail-tag">Django REST Framework</li>
+                </ul>
+                <div class="edu-cert-preview" title="View Associate Python Developer Certification">
+                    <img src="assets/certificate.png" alt="Associate Python Developer Certification" class="edu-cert-img" onerror="this.src='https://via.placeholder.com/320/0b1329/64ffda?text=Associate+Python'">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> Show Credential</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1208,6 +1705,32 @@
         <p class="footer-copy">© 2025 Abdellah BELMAARIS. Built with passion.</p>
     </footer>
 
+    <!-- Certificate Lightbox Modal -->
+    <div class="modal" id="cert-modal" role="dialog" aria-modal="true" aria-label="Certificate Image Viewer">
+        <div class="modal-content-wrapper">
+            <button class="modal-close" id="cert-modal-close" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+            <img src="" alt="Enlarged Certificate View" class="modal-img" id="cert-modal-img">
+        </div>
+    </div>
+
+    <!-- Video Walkthrough Modal -->
+    <div class="modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Project Video Walkthrough Player">
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <h3 class="video-modal-title"><i class="fa-solid fa-circle-play" style="color: var(--accent); margin-right: 8px;"></i> Project Walkthrough Demos</h3>
+                <button class="video-modal-close" id="video-modal-close" aria-label="Close video player"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="video-modal-tabs">
+                <button class="video-modal-tab active" data-video-src="assets/demo1.mp4">Overview</button>
+                <button class="video-modal-tab" data-video-src="assets/demo2.mp4">Content Editor</button>
+                <button class="video-modal-tab" data-video-src="assets/demo3.mp4">Full Walkthrough</button>
+            </div>
+            <div class="video-modal-screen">
+                <video id="modal-video" controls playsinline src="assets/demo1.mp4"></video>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Mobile Menu Control
@@ -1265,6 +1788,152 @@
 
             const observer = new IntersectionObserver(observerCallback, observerOptions);
             sections.forEach(section => observer.observe(section));
+
+            // Project Screenshots Carousel Logic
+            const slides = document.querySelectorAll('.project-slide');
+            const dots = document.querySelectorAll('.project-carousel-dot');
+            const prevBtn = document.querySelector('.project-carousel-prev');
+            const nextBtn = document.querySelector('.project-carousel-next');
+            let currentSlide = 0;
+
+            const showSlide = (index) => {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
+            };
+
+            const nextSlide = () => {
+                let next = (currentSlide + 1) % slides.length;
+                showSlide(next);
+            };
+
+            const prevSlide = () => {
+                let prev = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(prev);
+            };
+
+            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const index = parseInt(dot.getAttribute('data-index'));
+                    showSlide(index);
+                });
+            });
+
+            // Autoplay carousel
+            let autoplayInterval = setInterval(nextSlide, 5000);
+            const resetAutoplay = () => {
+                clearInterval(autoplayInterval);
+                autoplayInterval = setInterval(nextSlide, 5000);
+            };
+            if (nextBtn) nextBtn.addEventListener('click', resetAutoplay);
+            if (prevBtn) prevBtn.addEventListener('click', resetAutoplay);
+            dots.forEach(dot => dot.addEventListener('click', resetAutoplay));
+
+            // Video Walkthrough Modal Logic
+            const liveDemoBtn = document.getElementById('live-demo-btn');
+            const videoModal = document.getElementById('video-modal');
+            const videoModalClose = document.getElementById('video-modal-close');
+            const modalVideo = document.getElementById('modal-video');
+            const videoModalTabs = document.querySelectorAll('.video-modal-tab');
+
+            if (liveDemoBtn && videoModal) {
+                liveDemoBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    videoModal.classList.add('active');
+                    if (modalVideo) {
+                        modalVideo.play().catch(err => console.log('Video autoplay blocked:', err));
+                    }
+                });
+            }
+
+            const closeVideoModal = () => {
+                if (videoModal) {
+                    videoModal.classList.remove('active');
+                }
+                if (modalVideo) {
+                    modalVideo.pause();
+                    modalVideo.currentTime = 0;
+                }
+            };
+
+            if (videoModalClose) {
+                videoModalClose.addEventListener('click', closeVideoModal);
+            }
+
+            if (videoModal) {
+                videoModal.addEventListener('click', (e) => {
+                    if (e.target === videoModal || e.target.classList.contains('video-modal-close') || e.target.closest('#video-modal-close')) {
+                        closeVideoModal();
+                    }
+                });
+            }
+
+            // Video tab switching inside modal
+            videoModalTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    videoModalTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const newSrc = tab.getAttribute('data-video-src');
+                    if (modalVideo) {
+                        modalVideo.src = newSrc;
+                        modalVideo.play().catch(err => console.log('Video play failed:', err));
+                    }
+                });
+            });
+
+            // Certificate Lightbox modal logic
+            const certPreviews = document.querySelectorAll('.edu-cert-preview');
+            const certModal = document.getElementById('cert-modal');
+            const certModalImg = document.getElementById('cert-modal-img');
+            const certModalClose = document.getElementById('cert-modal-close');
+
+            certPreviews.forEach(preview => {
+                preview.addEventListener('click', () => {
+                    const imgSrc = preview.querySelector('.edu-cert-img').getAttribute('src');
+                    if (certModalImg) {
+                        certModalImg.setAttribute('src', imgSrc);
+                    }
+                    if (certModal) {
+                        certModal.classList.add('active');
+                    }
+                });
+            });
+
+            const closeCertModal = () => {
+                if (certModal) {
+                    certModal.classList.remove('active');
+                }
+            };
+
+            if (certModalClose) {
+                certModalClose.addEventListener('click', closeCertModal);
+            }
+
+            if (certModal) {
+                certModal.addEventListener('click', (e) => {
+                    if (e.target === certModal || e.target.classList.contains('modal-close') || e.target.closest('#cert-modal-close')) {
+                        closeCertModal();
+                    }
+                });
+            }
+
+            // Keyboard support for modals (Escape key)
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (certModal && certModal.classList.contains('active')) {
+                        closeCertModal();
+                    }
+                    if (videoModal && videoModal.classList.contains('active')) {
+                        closeVideoModal();
+                    }
+                }
+            });
 
             // Form Submit Logic
             const contactForm = document.getElementById('contact-form');
