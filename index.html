@@ -2109,6 +2109,14 @@
                     }
 
                     draw() {
+                        // Draw outer soft glow halo for closer particles
+                        if (this.depth > 0.7 && !prefersReducedMotion.matches) {
+                            ctx.beginPath();
+                            ctx.arc(this.x, this.y, this.radius * 3.5, 0, Math.PI * 2);
+                            ctx.fillStyle = this.color.replace(/[\d\.]+\)$/, '0.03)'); // very low opacity
+                            ctx.fill();
+                        }
+                        
                         ctx.beginPath();
                         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                         ctx.fillStyle = this.color;
@@ -2167,11 +2175,50 @@
                     }
                 }
 
+                // Large floating ambient glow spots (radial gradients)
+                class AmbientLight {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.radius = Math.random() * 250 + 200;
+                        this.vx = (Math.random() - 0.5) * 0.12;
+                        this.vy = (Math.random() - 0.5) * 0.12;
+                        this.color = Math.random() > 0.5 ? 'rgba(100, 255, 218, 0.025)' : 'rgba(0, 180, 216, 0.025)';
+                    }
+
+                    update() {
+                        if (prefersReducedMotion.matches) return;
+                        
+                        this.x += this.vx;
+                        this.y += this.vy;
+
+                        // Ambient parallax reaction
+                        this.y -= scrollSpeed * 0.1;
+
+                        if (this.x < -this.radius) this.x = canvas.width + this.radius;
+                        if (this.x > canvas.width + this.radius) this.x = -this.radius;
+                        if (this.y < -this.radius) this.y = canvas.height + this.radius;
+                        if (this.y > canvas.height + this.radius) this.y = -this.radius;
+                    }
+
+                    draw() {
+                        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+                        grad.addColorStop(0, this.color);
+                        grad.addColorStop(1, 'rgba(10, 25, 47, 0)');
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = grad;
+                        ctx.fill();
+                    }
+                }
+
                 let shapes = [];
+                let ambientLights = [];
 
                 const initParticles = () => {
                     particles = [];
                     shapes = [];
+                    ambientLights = [];
                     // Adapt particle density based on viewport size
                     const count = Math.min(Math.floor((canvas.width * canvas.height) / 11000), 100);
                     
@@ -2182,6 +2229,10 @@
                         // Add a few abstract shapes
                         for (let i = 0; i < 3; i++) {
                             shapes.push(new FloatingShape());
+                        }
+                        // Add ambient lights
+                        for (let i = 0; i < 3; i++) {
+                            ambientLights.push(new AmbientLight());
                         }
                     } else {
                         // Very few stationary particles if reduced motion is requested
@@ -2249,6 +2300,12 @@
                     // Smooth scroll speed damping
                     scrollSpeed += (targetScrollSpeed - scrollSpeed) * 0.1;
                     targetScrollSpeed *= 0.85; // Decay scroll speed
+
+                    // Update and draw ambient light blobs
+                    ambientLights.forEach(light => {
+                        light.update();
+                        light.draw();
+                    });
 
                     // Update and draw shapes
                     shapes.forEach(shape => {
