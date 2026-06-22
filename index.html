@@ -275,6 +275,21 @@
             margin-bottom: 15px;
         }
 
+        /* Typewriter Cursor styling */
+        .typing-active::after {
+            content: '|';
+            display: inline-block;
+            color: var(--accent);
+            animation: blink-cursor 0.8s infinite;
+            margin-left: 2px;
+            font-weight: 300;
+        }
+
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         .hero-location {
             font-size: 0.95rem;
             color: var(--text-muted);
@@ -1205,6 +1220,10 @@
             .contact-form {
                 padding: 30px 20px;
             }
+
+            .logo {
+                font-size: 1.05rem;
+            }
         }
     </style>
 </head>
@@ -1216,8 +1235,7 @@
     <!-- Fixed Header & Navigation -->
     <header class="header">
         <a href="#hero" class="logo" aria-label="Abdellah BELMAARIS Homepage">
-            <i class="fa-solid fa-terminal" style="color: var(--accent); font-size: 1.1rem;"></i>
-            &lt;AB /&gt;
+            Abdellah <span style="color: var(--accent); font-weight: 800; letter-spacing: 0.5px;">BELMAARIS</span>
         </a>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
             <span class="hamburger-bar"></span>
@@ -2256,10 +2274,72 @@
                 resizeCanvas();
                 animate();
 
-                // Listen for accessibility changes
-                prefersReducedMotion.addEventListener('change', () => {
-                    initParticles();
                 });
+            }
+
+            // Premium Typewriter Animation for Hero Section
+            const welcomeEl = document.querySelector('.hero-welcome');
+            const nameEl = document.querySelector('.hero-name');
+            const headlineEl = document.querySelector('.hero-headline');
+
+            if (welcomeEl && nameEl && headlineEl) {
+                // Store the original text strings
+                const welcomeText = welcomeEl.textContent.trim();
+                const nameText = nameEl.textContent.trim();
+                const headlineText = headlineEl.textContent.trim();
+
+                // Clear contents immediately on load
+                welcomeEl.textContent = '';
+                nameEl.textContent = '';
+                headlineEl.textContent = '';
+
+                // Helper to type text letter-by-letter
+                const typeText = (element, text, speed) => {
+                    return new Promise((resolve) => {
+                        let i = 0;
+                        element.classList.add('typing-active');
+                        
+                        function type() {
+                            if (i < text.length) {
+                                element.textContent += text.charAt(i);
+                                i++;
+                                setTimeout(type, speed);
+                            } else {
+                                element.classList.remove('typing-active');
+                                resolve();
+                            }
+                        }
+                        type();
+                    });
+                };
+
+                // Sequential typing timeline
+                const runTimeline = async () => {
+                    // Check for prefers-reduced-motion
+                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    
+                    if (prefersReducedMotion) {
+                        // Skip animation and show text instantly
+                        welcomeEl.textContent = welcomeText;
+                        nameEl.textContent = nameText;
+                        headlineEl.textContent = headlineText;
+                        return;
+                    }
+
+                    // 1. Type "Hi, my name is"
+                    await typeText(welcomeEl, welcomeText, 35);
+                    await new Promise(r => setTimeout(r, 150));
+                    
+                    // 2. Type "Abdellah BELMAARIS."
+                    await typeText(nameEl, nameText, 55);
+                    await new Promise(r => setTimeout(r, 250));
+                    
+                    // 3. Type description
+                    await typeText(headlineEl, headlineText, 12);
+                };
+
+                // Start typewriter animation
+                runTimeline();
             }
         });
     </script>
