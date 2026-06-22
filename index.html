@@ -1370,6 +1370,27 @@
             text-transform: uppercase;
         }
 
+        .edu-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .edu-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: rgba(34, 211, 238, 0.08);
+            border: 1px solid rgba(34, 211, 238, 0.15);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
         .edu-degree {
             font-size: 1.15rem;
             font-weight: 700;
@@ -2590,7 +2611,6 @@
         </div>
     </section>
 
-    <!-- Education Section -->
     <section id="education" class="reveal">
         <span class="section-overline">05. Academics</span>
         <div class="section-header">
@@ -2600,17 +2620,17 @@
         <div class="education-grid">
             <!-- Card 1 -->
             <div class="education-card spotlight-card reveal" style="--item-index: 1;">
-                <span class="edu-platform">Self-Taught</span>
-                <h3 class="edu-degree">Django Developer (Associate's)</h3>
-                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Jan 2026 – Jun 2026</span>
-                <span class="edu-details-title">Key focus areas</span>
+                <div class="edu-header">
+                    <div class="edu-logo" style="background: rgba(34, 211, 238, 0.08); border-color: rgba(34, 211, 238, 0.15); color: var(--accent);"><i class="fa-solid fa-house-chimney-window"></i></div>
+                    <span class="edu-platform">Homeschool</span>
+                </div>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Feb 2026 – Apr 2026</span>
+                <span class="edu-details-title">Skills</span>
                 <ul class="edu-details-list">
-                    <li class="edu-detail-tag">Django</li>
-                    <li class="edu-detail-tag">DRF</li>
-                    <li class="edu-detail-tag">API Design</li>
+                    <li class="edu-detail-tag">Cybersecurity Fundamentals</li>
                 </ul>
-                <div class="edu-cert-preview" title="View Django Developer Certification">
-                    <img src="assets/certificate.png" alt="Django Developer Certificate" class="edu-cert-img">
+                <div class="edu-cert-preview" title="View Homeschool Cybersecurity Fundamentals Certification">
+                    <img src="assets/photo_2026-06-21_12-34-53.jpg" alt="Homeschool Cybersecurity Fundamentals Certification" class="edu-cert-img">
                     <div class="edu-cert-overlay">
                         <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
                     </div>
@@ -2619,17 +2639,18 @@
 
             <!-- Card 2 -->
             <div class="education-card spotlight-card reveal" style="--item-index: 2;">
-                <span class="edu-platform">Self-Taught</span>
-                <h3 class="edu-degree">Backend Developer (Associate's)</h3>
-                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Jan 2023 – May 2026</span>
-                <span class="edu-details-title">Key focus areas</span>
+                <div class="edu-header">
+                    <div class="edu-logo" style="background: rgba(3, 239, 98, 0.08); border-color: rgba(3, 239, 98, 0.2); color: #03ef62;"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <span class="edu-platform">DataCamp</span>
+                </div>
+                <span class="edu-details-title">Skills</span>
                 <ul class="edu-details-list">
-                    <li class="edu-detail-tag">Python</li>
-                    <li class="edu-detail-tag">APIs</li>
+                    <li class="edu-detail-tag">Python (Programming Language)</li>
                     <li class="edu-detail-tag">SQL</li>
+                    <li class="edu-detail-tag">+4 skills</li>
                 </ul>
-                <div class="edu-cert-preview" title="View Backend Developer Certification">
-                    <img src="assets/certificate.png" alt="Backend Developer Certificate" class="edu-cert-img">
+                <div class="edu-cert-preview" title="View DataCamp Python & SQL Certification">
+                    <img src="assets/Picture1.jpg" alt="DataCamp Python & SQL Certification" class="edu-cert-img">
                     <div class="edu-cert-overlay">
                         <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
                     </div>
@@ -2638,16 +2659,20 @@
 
             <!-- Card 3 -->
             <div class="education-card spotlight-card reveal" style="--item-index: 3;">
-                <span class="edu-platform">DataCamp</span>
-                <h3 class="edu-degree">Backend Developer (Associate's)</h3>
-                <span class="edu-details-title">Covering</span>
+                <div class="edu-header">
+                    <div class="edu-logo" style="background: rgba(139, 92, 246, 0.08); border-color: rgba(139, 92, 246, 0.25); color: #a78bfa;"><i class="fa-solid fa-user-graduate"></i></div>
+                    <span class="edu-platform">Self-taught</span>
+                </div>
+                <h3 class="edu-degree">Associate's Degree, Backend developper</h3>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Jan 2023 – May 2026</span>
+                <span class="edu-details-title">Skills</span>
                 <ul class="edu-details-list">
-                    <li class="edu-detail-tag">Python</li>
-                    <li class="edu-detail-tag">SQL</li>
-                    <li class="edu-detail-tag">Pandas</li>
+                    <li class="edu-detail-tag">Python (Programming Language)</li>
+                    <li class="edu-detail-tag">Deep Learning Fundamentals</li>
+                    <li class="edu-detail-tag">+5 skills</li>
                 </ul>
-                <div class="edu-cert-preview" title="View DataCamp Backend Developer Certification">
-                    <img src="assets/python_data_associate.jpg" alt="DataCamp Backend Developer Certificate" class="edu-cert-img">
+                <div class="edu-cert-preview" title="View Self-taught Backend Developer Certification">
+                    <img src="assets/certificate.png" alt="Self-taught Backend Developer Certification" class="edu-cert-img">
                     <div class="edu-cert-overlay">
                         <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
                     </div>
@@ -2656,16 +2681,13 @@
 
             <!-- Card 4 -->
             <div class="education-card spotlight-card reveal" style="--item-index: 4;">
-                <span class="edu-platform">Homeschool</span>
-                <h3 class="edu-degree">Cybersecurity Fundamentals</h3>
-                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Feb 2026 – Apr 2026</span>
-                <span class="edu-details-title">Key focus areas</span>
-                <ul class="edu-details-list">
-                    <li class="edu-detail-tag">Threat Mitigation</li>
-                    <li class="edu-detail-tag">Secure Scripting</li>
-                </ul>
-                <div class="edu-cert-preview" title="View Cybersecurity Fundamentals Certification">
-                    <img src="assets/cybersecurity_fundamentals.jpg" alt="Cybersecurity Fundamentals Certificate" class="edu-cert-img">
+                <div class="edu-header">
+                    <div class="edu-logo" style="background: rgba(3, 239, 98, 0.08); border-color: rgba(3, 239, 98, 0.2); color: #03ef62;"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <span class="edu-platform">DataCamp</span>
+                </div>
+                <h3 class="edu-degree">Associate's Degree, Backend developper</h3>
+                <div class="edu-cert-preview" title="View DataCamp Backend Developer Certification">
+                    <img src="assets/Picture1.png" alt="DataCamp Backend Developer Certification" class="edu-cert-img">
                     <div class="edu-cert-overlay">
                         <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
                     </div>
@@ -2674,34 +2696,87 @@
 
             <!-- Card 5 -->
             <div class="education-card spotlight-card reveal" style="--item-index: 5;">
-                <span class="edu-platform">Boot.dev</span>
-                <h3 class="edu-degree">Software Engineering</h3>
-                <span class="edu-details-title">Covering</span>
+                <div class="edu-header">
+                    <div class="edu-logo" style="background: rgba(139, 92, 246, 0.08); border-color: rgba(139, 92, 246, 0.25); color: #a78bfa;"><i class="fa-solid fa-user-graduate"></i></div>
+                    <span class="edu-platform">Self-taught</span>
+                </div>
+                <h3 class="edu-degree">Associate's Degree, Django developer</h3>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Jan 2026 – Jun 2026</span>
+                <span class="edu-details-title">Skills</span>
                 <ul class="edu-details-list">
-                    <li class="edu-detail-tag">Functional Programming</li>
-                    <li class="edu-detail-tag">Data Structures</li>
+                    <li class="edu-detail-tag">Django</li>
+                    <li class="edu-detail-tag">Django REST Framework</li>
                 </ul>
-                <div class="edu-cert-preview" title="View Boot.dev Software Engineering Certification">
-                    <img src="assets/certificate_ai_engineer.png" alt="Boot.dev Software Engineering Certificate" class="edu-cert-img">
+                <div class="edu-cert-preview" title="View Self-taught Django Developer Certification">
+                    <img src="assets/certificate.png" alt="Self-taught Django Developer Certification" class="edu-cert-img">
                     <div class="edu-cert-overlay">
                         <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Card 6 -->
+        <!-- Subheading for Licenses & Certifications -->
+        <div class="section-header" style="margin-top: 80px; margin-bottom: 40px;">
+            <h3 style="font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; color: var(--text-primary);">Licenses & Certifications</h3>
+        </div>
+
+        <div class="education-grid">
+            <!-- Cert Card 1 -->
             <div class="education-card spotlight-card reveal" style="--item-index: 6;">
-                <span class="edu-platform">Almdrasa</span>
-                <h3 class="edu-degree">Cybersecurity Basics</h3>
-                <span class="edu-details-title">Covering</span>
-                <ul class="edu-details-list">
-                    <li class="edu-detail-tag">Python Scripting Safety</li>
-                    <li class="edu-detail-tag">Server Hardening</li>
-                </ul>
-                <div class="edu-cert-preview" title="View Almdrasa Cybersecurity Basics Certification">
-                    <img src="assets/cybersecurity_fundamentals.jpg" alt="Almdrasa Cybersecurity Basics Certificate" class="edu-cert-img">
+                <div class="edu-header">
+                    <div class="edu-logo" style="background: rgba(3, 239, 98, 0.08); border-color: rgba(3, 239, 98, 0.2); color: #03ef62;"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <span class="edu-platform">DataCamp</span>
+                </div>
+                <h3 class="edu-degree">AI Engineer for Developers Associate</h3>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Issued Apr 2026 · Expires Apr 2026</span>
+                <span class="edu-details-title" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; display: block;">Credential ID: AIEDA0011678564836</span>
+                <div class="edu-cert-preview" title="View AI Engineer for Developers Associate Certification">
+                    <img src="assets/certificate_ai_engineer.png" alt="AI Engineer for Developers Associate Certification" class="edu-cert-img">
                     <div class="edu-cert-overlay">
-                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> Show Credential</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cert Card 2 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 7;">
+                <div class="edu-header">
+                    <div class="edu-logo" style="background: rgba(139, 92, 246, 0.08); border-color: rgba(139, 92, 246, 0.25); color: #a78bfa;"><i class="fa-solid fa-shield-halved"></i></div>
+                    <span class="edu-platform">المدرسة - Almdrasa</span>
+                </div>
+                <h3 class="edu-degree">Cybersecurity Fundamentals</h3>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Issued Feb 2026 · Expires Apr 2026</span>
+                <span class="edu-details-title" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; display: block;">Credential ID: 77F16BFF2A-77EB48CD64-1451D2521</span>
+                <span class="edu-details-title">Skills</span>
+                <ul class="edu-details-list">
+                    <li class="edu-detail-tag">Cybersecurity Fundamentals</li>
+                </ul>
+                <div class="edu-cert-preview" title="View Cybersecurity Fundamentals Certification">
+                    <img src="assets/photo_2026-06-21_12-34-53.jpg" alt="Cybersecurity Fundamentals Certification" class="edu-cert-img">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> Show Credential</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cert Card 3 -->
+            <div class="education-card spotlight-card reveal" style="--item-index: 8;">
+                <div class="edu-header">
+                    <div class="edu-logo" style="background: rgba(3, 239, 98, 0.08); border-color: rgba(3, 239, 98, 0.2); color: #03ef62;"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <span class="edu-platform">DataCamp</span>
+                </div>
+                <h3 class="edu-degree">Python Data Associate</h3>
+                <span class="edu-date"><i class="fa-solid fa-calendar-days"></i> Issued Feb 2026 · Expires Feb 2026</span>
+                <span class="edu-details-title" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; display: block;">Credential ID: PDA0019412806212</span>
+                <span class="edu-details-title">Skills</span>
+                <ul class="edu-details-list">
+                    <li class="edu-detail-tag">Python Data Associate</li>
+                </ul>
+                <div class="edu-cert-preview" title="View Python Data Associate Certification">
+                    <img src="assets/Picture1.jpg" alt="Python Data Associate Certification" class="edu-cert-img">
+                    <div class="edu-cert-overlay">
+                        <span><i class="fa-solid fa-magnifying-glass-plus"></i> Show Credential</span>
                     </div>
                 </div>
             </div>
