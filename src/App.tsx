@@ -334,7 +334,7 @@ export default function App() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fullWelcome = "Hi, my name is";
     const fullName = "Abdellah BELMAARIS.";
-    const fullHeadline = "Self‑Taught Backend & Web Developer | Python Developer | Django & REST Framework Enthusiast | AI & Data Analysis Learner | Cybersecurity Fundamentals | Building Real‑World Software Solutions.";
+    const fullHeadline = "Self-Taught Backend & Web Developer | Python Developer | Django & REST Framework Enthusiast | AI & Data Analysis Learner | Cybersecurity Fundamentals | Building Real-World Software Solutions.";
 
     if (prefersReducedMotion) {
       setWelcomeText(fullWelcome);
@@ -344,45 +344,48 @@ export default function App() {
       return;
     }
 
-    if (typingLine === 'welcome') {
-      let i = 0;
-      const interval = setInterval(() => {
-        setWelcomeText((prev) => prev + fullWelcome.charAt(i));
-        i++;
-        if (i >= fullWelcome.length) {
-          clearInterval(interval);
-          setTimeout(() => setTypingLine('name'), 150);
-        }
-      }, 35);
-      return () => clearInterval(interval);
-    }
+    let active = true;
 
-    if (typingLine === 'name') {
-      let i = 0;
-      const interval = setInterval(() => {
-        setNameText((prev) => prev + fullName.charAt(i));
-        i++;
-        if (i >= fullName.length) {
-          clearInterval(interval);
-          setTimeout(() => setTypingLine('headline'), 250);
-        }
-      }, 55);
-      return () => clearInterval(interval);
-    }
+    const typeText = async () => {
+      // 1. Type welcome
+      setTypingLine('welcome');
+      for (let i = 0; i <= fullWelcome.length; i++) {
+        if (!active) return;
+        setWelcomeText(fullWelcome.slice(0, i));
+        await new Promise((resolve) => setTimeout(resolve, 35));
+      }
+      
+      await new Promise((resolve) => setTimeout(resolve, 150));
+      
+      // 2. Type name
+      setTypingLine('name');
+      for (let i = 0; i <= fullName.length; i++) {
+        if (!active) return;
+        setNameText(fullName.slice(0, i));
+        await new Promise((resolve) => setTimeout(resolve, 55));
+      }
+      
+      await new Promise((resolve) => setTimeout(resolve, 250));
+      
+      // 3. Type headline
+      setTypingLine('headline');
+      for (let i = 0; i <= fullHeadline.length; i++) {
+        if (!active) return;
+        setHeadlineText(fullHeadline.slice(0, i));
+        await new Promise((resolve) => setTimeout(resolve, 12));
+      }
+      
+      if (active) {
+        setTypingLine('done');
+      }
+    };
 
-    if (typingLine === 'headline') {
-      let i = 0;
-      const interval = setInterval(() => {
-        setHeadlineText((prev) => prev + fullHeadline.charAt(i));
-        i++;
-        if (i >= fullHeadline.length) {
-          clearInterval(interval);
-          setTypingLine('done');
-        }
-      }, 12);
-      return () => clearInterval(interval);
-    }
-  }, [typingLine, isLoading]);
+    typeText();
+
+    return () => {
+      active = false;
+    };
+  }, [isLoading]);
 
   // 2. Navigation Scroll Spy
   useEffect(() => {
