@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThreeBackground from './components/ThreeBackground';
 
-// Types & Data
+// ─── Types ────────────────────────────────────────────────────────────────────
+
 interface Skill {
   title: string;
   desc: string;
@@ -27,6 +28,24 @@ interface CertCard {
   icon: string;
 }
 
+interface OtherProject {
+  title: string;
+  desc: string;
+  tech: string[];
+  icon: string;
+  github?: string;
+  live?: string;
+}
+
+interface Stat {
+  value: number;
+  suffix: string;
+  label: string;
+  icon: string;
+}
+
+// ─── Static Data ──────────────────────────────────────────────────────────────
+
 const SKILLS_DATA: Skill[] = [
   { title: "Python Programming", desc: "Writing clean, asynchronous, and PEP-8 compliant OOP scripts.", icon: "fa-brands fa-python" },
   { title: "Django & DRF", desc: "Building secure, scalable RESTful API environments and content platforms.", icon: "fa-solid fa-server" },
@@ -42,6 +61,13 @@ const SKILLS_DATA: Skill[] = [
   { title: "Web App Development", desc: "Executing product blueprints from system structure to live integration.", icon: "fa-solid fa-laptop-code" },
   { title: "Bootstrap & Integration", desc: "Translating dynamic templates and responsive layouts to functional frontends.", icon: "fa-brands fa-bootstrap" },
   { title: "Continuous Research", desc: "Constantly investigating emerging frameworks, patterns, and development tools.", icon: "fa-solid fa-graduation-cap" }
+];
+
+const STATS_DATA: Stat[] = [
+  { value: 3, suffix: '+', label: 'Years Learning', icon: 'fa-solid fa-calendar-days' },
+  { value: 10, suffix: '+', label: 'Projects Built', icon: 'fa-solid fa-folder-open' },
+  { value: 4, suffix: '', label: 'Certifications', icon: 'fa-solid fa-award' },
+  { value: 14, suffix: '+', label: 'Skills Acquired', icon: 'fa-solid fa-code' },
 ];
 
 const EDUCATION_DATA: EdCard[] = [
@@ -121,7 +147,170 @@ const PROJECT_IMAGES = [
   "assets/journal5.png"
 ];
 
+const OTHER_PROJECTS: OtherProject[] = [
+  {
+    title: "REST API Authentication System",
+    desc: "A fully secured token-based authentication system built with Django REST Framework. Includes registration, login, refresh tokens, email verification, and permission layers.",
+    tech: ["Django", "DRF", "JWT", "PostgreSQL"],
+    icon: "fa-solid fa-lock",
+    github: "https://github.com/Abdellah-BELMAARIS",
+  },
+  {
+    title: "Data Analysis Dashboard",
+    desc: "An exploratory data analysis pipeline using Pandas and Matplotlib to clean, transform, and visualize real-world datasets with interactive charts and statistical summaries.",
+    tech: ["Python", "Pandas", "Matplotlib", "NumPy"],
+    icon: "fa-solid fa-chart-bar",
+    github: "https://github.com/Abdellah-BELMAARIS",
+  },
+  {
+    title: "CLI Task Manager",
+    desc: "A command-line productivity tool built in pure Python using OOP principles. Supports task creation, priority management, deadlines, categories, and persistent JSON storage.",
+    tech: ["Python", "OOP", "JSON", "CLI"],
+    icon: "fa-solid fa-terminal",
+    github: "https://github.com/Abdellah-BELMAARIS",
+  },
+  {
+    title: "E-Commerce API Backend",
+    desc: "A scalable RESTful backend for an e-commerce platform with product management, cart logic, order tracking, and payment integration stubs following clean API design principles.",
+    tech: ["Django", "DRF", "SQLite", "REST API"],
+    icon: "fa-solid fa-bag-shopping",
+    github: "https://github.com/Abdellah-BELMAARIS",
+  },
+  {
+    title: "AI Prompt Engineering Toolkit",
+    desc: "A Python utility library for crafting, testing, and evaluating structured prompts for LLM APIs. Includes templating, output validation, and batch processing capabilities.",
+    tech: ["Python", "OpenAI API", "LLM", "Prompt Engineering"],
+    icon: "fa-solid fa-robot",
+    github: "https://github.com/Abdellah-BELMAARIS",
+  },
+  {
+    title: "Cybersecurity Audit Scripts",
+    desc: "A collection of Python automation scripts for network scanning, vulnerability detection, password auditing, and security reporting based on cybersecurity fundamentals.",
+    tech: ["Python", "Security", "Automation", "Networking"],
+    icon: "fa-solid fa-shield-halved",
+    github: "https://github.com/Abdellah-BELMAARIS",
+  },
+];
+
+// ─── Loading Screen Component ─────────────────────────────────────────────────
+
+function LoadingScreen({ onFinish }: { onFinish: () => void }) {
+  const [progress, setProgress] = useState(0);
+  const [phase, setPhase] = useState<'loading' | 'done'>('loading');
+
+  useEffect(() => {
+    const steps = [10, 25, 40, 60, 75, 90, 100];
+    let idx = 0;
+    const interval = setInterval(() => {
+      if (idx < steps.length) {
+        setProgress(steps[idx]);
+        idx++;
+      } else {
+        clearInterval(interval);
+        setPhase('done');
+        setTimeout(onFinish, 600);
+      }
+    }, 220);
+    return () => clearInterval(interval);
+  }, [onFinish]);
+
+  return (
+    <motion.div
+      className="loading-screen"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: phase === 'done' ? 0 : 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="loading-content">
+        <motion.div
+          className="loading-logo"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="loading-logo-ab">AB</span>
+          <span className="loading-logo-dot" />
+        </motion.div>
+        <motion.p
+          className="loading-name"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          Abdellah BELMAARIS
+        </motion.p>
+        <div className="loading-bar-wrapper">
+          <motion.div
+            className="loading-bar-fill"
+            initial={{ width: '0%' }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          />
+        </div>
+        <motion.p
+          className="loading-percent"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          {progress}%
+        </motion.p>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Animated Counter Hook ────────────────────────────────────────────────────
+
+function useAnimatedCounter(target: number, isVisible: boolean, duration = 1600) {
+  const [count, setCount] = useState(0);
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (!isVisible || started.current) return;
+    started.current = true;
+    const steps = 50;
+    const increment = target / steps;
+    let current = 0;
+    const interval = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        setCount(target);
+        clearInterval(interval);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(interval);
+  }, [isVisible, target, duration]);
+
+  return count;
+}
+
+// ─── Stat Card Component ──────────────────────────────────────────────────────
+
+function StatCard({ stat, isVisible }: { stat: Stat; isVisible: boolean }) {
+  const count = useAnimatedCounter(stat.value, isVisible);
+  return (
+    <div className="stat-card">
+      <div className="stat-icon">
+        <i className={stat.icon} />
+      </div>
+      <div className="stat-number">
+        {count}{stat.suffix}
+      </div>
+      <div className="stat-label">{stat.label}</div>
+    </div>
+  );
+}
+
+
+// ─── Main App Component ───────────────────────────────────────────────────────
+
 export default function App() {
+  // Loading screen
+  const [isLoading, setIsLoading] = useState(true);
+
   // Mobile Nav Active State
   const [menuActive, setMenuActive] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -146,8 +335,16 @@ export default function App() {
   const [formMessage, setFormMessage] = useState('');
   const [formStatus, setFormStatus] = useState<{ type: 'info' | 'success' | 'error'; text: string } | null>(null);
 
-  // 1. Typewriter Animation logic
+  // Stats visibility (for animated counters)
+  const [statsVisible, setStatsVisible] = useState(false);
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  // Scroll-to-top button visibility
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // 1. Typewriter Animation logic (only starts after loading)
   useEffect(() => {
+    if (isLoading) return;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fullWelcome = "Hi, my name is";
     const fullName = "Abdellah BELMAARIS.";
@@ -199,7 +396,7 @@ export default function App() {
       }, 12);
       return () => clearInterval(interval);
     }
-  }, [typingLine]);
+  }, [typingLine, isLoading]);
 
   // 2. Navigation Scroll Spy
   useEffect(() => {
@@ -218,6 +415,8 @@ export default function App() {
           }
         }
       }
+
+      setShowScrollTop(window.scrollY > 500);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -231,7 +430,23 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // 4. Contact Form Handler
+  // 4. Stats intersection observer (trigger animated counters when in view)
+  useEffect(() => {
+    if (!statsRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStatsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // 5. Contact Form Handler
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formName.trim() || !formEmail.trim() || !formMessage.trim()) {
@@ -272,8 +487,33 @@ export default function App() {
     }
   };
 
+  // 6. Scroll-to-top handler
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Close mobile menu on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenuActive(false);
+        setSelectedCert(null);
+        setVideoModalOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
+
   return (
     <>
+      {/* Loading Splash Screen */}
+      <AnimatePresence>
+        {isLoading && (
+          <LoadingScreen onFinish={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
+
       {/* 3D WebGL Background Canvas */}
       <ThreeBackground />
 
@@ -287,6 +527,7 @@ export default function App() {
           onClick={() => setMenuActive(!menuActive)}
           aria-label="Toggle menu"
           aria-expanded={menuActive}
+          id="hamburger-btn"
         >
           <span className="hamburger-bar"></span>
           <span className="hamburger-bar"></span>
@@ -307,6 +548,7 @@ export default function App() {
                   href={`#${item.id}`}
                   className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
                   onClick={() => setMenuActive(false)}
+                  id={`nav-link-${item.id}`}
                 >
                   <span>{item.idx}</span>
                   {item.label}
@@ -332,8 +574,18 @@ export default function App() {
           <i className="fa-solid fa-location-dot"></i> Casablanca, Morocco
         </div>
         <div className="hero-buttons">
-          <a href="#project" className="btn btn-primary">View My Work</a>
-          <a href="#contact" className="btn btn-secondary">Let's Connect</a>
+          <a href="#project" className="btn btn-primary" id="hero-view-work-btn">View My Work</a>
+          <a href="#contact" className="btn btn-secondary" id="hero-connect-btn">Let's Connect</a>
+          <a
+            href="assets/Abdellah_BELMAARIS_CV.pdf"
+            download
+            className="btn btn-resume"
+            id="hero-resume-btn"
+            aria-label="Download Resume PDF"
+          >
+            <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }}></i>
+            Resume
+          </a>
           <div className="hero-social-links">
             <a
               href="https://linkedin.com/in/abdellah-belmaaris"
@@ -341,6 +593,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="hero-social-icon"
               aria-label="Visit LinkedIn Profile"
+              id="hero-linkedin-link"
             >
               <i className="fa-brands fa-linkedin-in"></i>
             </a>
@@ -350,6 +603,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="hero-social-icon"
               aria-label="Visit GitHub Profile"
+              id="hero-github-link"
             >
               <i className="fa-brands fa-github"></i>
             </a>
@@ -372,6 +626,28 @@ export default function App() {
             <p>
               Beyond back-end engineering, I am deeply fascinated by <span className="highlight">Artificial Intelligence and Data Analysis</span>. I frequently utilize tools like Pandas and Matplotlib to inspect datasets and draw visual insights, and I continuously study cybersecurity principles to ensure that security is baked into my development cycles from day one.
             </p>
+            <div className="about-cta-row">
+              <a
+                href="assets/Abdellah_BELMAARIS_CV.pdf"
+                download
+                className="btn btn-primary"
+                id="about-resume-btn"
+                aria-label="Download Resume PDF"
+              >
+                <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }}></i>
+                Download Resume
+              </a>
+              <a
+                href="https://github.com/Abdellah-BELMAARIS"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+                id="about-github-btn"
+              >
+                <i className="fa-brands fa-github" style={{ marginRight: '8px' }}></i>
+                GitHub Profile
+              </a>
+            </div>
           </div>
           <div className="about-avatar-container">
             <div className="about-avatar-frame"></div>
@@ -386,6 +662,13 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        {/* Animated Stats Row */}
+        <div className="stats-row" ref={statsRef}>
+          {STATS_DATA.map((stat, idx) => (
+            <StatCard key={idx} stat={stat} isVisible={statsVisible} />
+          ))}
+        </div>
       </section>
 
       {/* Skills Section */}
@@ -395,12 +678,17 @@ export default function App() {
         <div className="skills-grid">
           {SKILLS_DATA.map((skill, index) => (
             <motion.div
-              className="skill-card"
+              className="skill-card spotlight-card"
               key={index}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+              }}
             >
               <div className="skill-icon">
                 <i className={skill.icon}></i>
@@ -418,6 +706,8 @@ export default function App() {
       <section id="project">
         <span className="section-overline">04. Showcase</span>
         <h2 className="section-title">Featured Project</h2>
+
+        {/* Main Featured Project Card */}
         <div className="project-card">
           {/* Custom Carousel */}
           <div className="project-carousel">
@@ -435,6 +725,7 @@ export default function App() {
               className="project-carousel-btn project-carousel-prev"
               onClick={() => setCurrentSlide((prev) => (prev === 0 ? PROJECT_IMAGES.length - 1 : prev - 1))}
               aria-label="Previous screenshot"
+              id="carousel-prev-btn"
             >
               <i className="fa-solid fa-chevron-left"></i>
             </button>
@@ -442,6 +733,7 @@ export default function App() {
               className="project-carousel-btn project-carousel-next"
               onClick={() => setCurrentSlide((prev) => (prev + 1) % PROJECT_IMAGES.length)}
               aria-label="Next screenshot"
+              id="carousel-next-btn"
             >
               <i className="fa-solid fa-chevron-right"></i>
             </button>
@@ -451,6 +743,9 @@ export default function App() {
                   key={idx}
                   className={`project-carousel-dot ${currentSlide === idx ? 'active' : ''}`}
                   onClick={() => setCurrentSlide(idx)}
+                  role="button"
+                  aria-label={`Go to slide ${idx + 1}`}
+                  id={`carousel-dot-${idx}`}
                 ></span>
               ))}
             </div>
@@ -472,11 +767,92 @@ export default function App() {
                 className="btn btn-primary"
                 onClick={() => setVideoModalOpen(true)}
                 style={{ background: 'transparent', border: '1px solid var(--accent)' }}
+                id="featured-demo-btn"
               >
                 <i className="fa-solid fa-circle-play" style={{ marginRight: '8px' }}></i> Live Demo
               </button>
+              <a
+                href="https://github.com/Abdellah-BELMAARIS"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+                id="featured-github-btn"
+              >
+                <i className="fa-brands fa-github" style={{ marginRight: '8px' }}></i> GitHub
+              </a>
             </div>
           </div>
+        </div>
+
+        {/* Other Projects Grid */}
+        <div className="other-projects-header">
+          <h3 className="other-projects-title">
+            <i className="fa-solid fa-folder-open" style={{ color: 'var(--accent)', marginRight: '10px' }}></i>
+            Other Noteworthy Projects
+          </h3>
+          <a
+            href="https://github.com/Abdellah-BELMAARIS"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="other-projects-link"
+            id="view-all-projects-link"
+          >
+            View All on GitHub <i className="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div className="other-projects-grid">
+          {OTHER_PROJECTS.map((proj, idx) => (
+            <motion.div
+              key={idx}
+              className="other-project-card spotlight-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+              }}
+            >
+              <div className="other-project-top">
+                <div className="other-project-icon">
+                  <i className={proj.icon}></i>
+                </div>
+                <div className="other-project-actions">
+                  {proj.github && (
+                    <a
+                      href={proj.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${proj.title} GitHub repository`}
+                      id={`proj-github-${idx}`}
+                    >
+                      <i className="fa-brands fa-github"></i>
+                    </a>
+                  )}
+                  {proj.live && (
+                    <a
+                      href={proj.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${proj.title} live demo`}
+                      id={`proj-live-${idx}`}
+                    >
+                      <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                  )}
+                </div>
+              </div>
+              <h4 className="other-project-title">{proj.title}</h4>
+              <p className="other-project-desc">{proj.desc}</p>
+              <ul className="other-project-tech">
+                {proj.tech.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -492,12 +868,17 @@ export default function App() {
         <div className="education-grid" style={{ marginTop: '20px', marginBottom: '50px' }}>
           {EDUCATION_DATA.map((ed, idx) => (
             <motion.div
-              className="education-card spotlight-card"
               key={idx}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+              }}
+              className="education-card spotlight-card"
             >
               <div className="edu-header">
                 <div className="edu-logo"><i className={ed.icon}></i></div>
@@ -522,12 +903,17 @@ export default function App() {
         <div className="education-grid" style={{ marginTop: '20px' }}>
           {CERTIFICATIONS_DATA.map((cert, idx) => (
             <motion.div
-              className="education-card spotlight-card"
               key={idx}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+              }}
+              className="education-card spotlight-card"
             >
               <div className="edu-header">
                 <div className="edu-logo"><i className={cert.icon}></i></div>
@@ -552,6 +938,10 @@ export default function App() {
                 className="edu-cert-preview"
                 title={`View ${cert.degree} Certification`}
                 onClick={() => setSelectedCert(cert.img)}
+                id={`cert-preview-${idx}`}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && setSelectedCert(cert.img)}
               >
                 <img
                   src={cert.img}
@@ -577,7 +967,7 @@ export default function App() {
         <div className="contact-layout">
           <div className="contact-info">
             <p style={{ fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '10px' }}>
-              Let’s work together or just say hello! I'm always open to talking about backend system designs, Python scripting, or learning loops.
+              Let's work together or just say hello! I'm always open to talking about backend system designs, Python scripting, or learning loops.
             </p>
             <div className="contact-card">
               <div className="contact-icon"><i className="fa-solid fa-location-dot"></i></div>
@@ -590,19 +980,26 @@ export default function App() {
               <div className="contact-icon"><i className="fa-solid fa-envelope"></i></div>
               <div className="contact-details">
                 <h4>Email</h4>
-                <p><a href="mailto:obaidbelmaaris@gmail.com">obaidbelmaaris@gmail.com</a></p>
+                <p><a href="mailto:obaidbelmaaris@gmail.com" id="contact-email-link">obaidbelmaaris@gmail.com</a></p>
               </div>
             </div>
             <div className="contact-card">
               <div className="contact-icon"><i className="fa-brands fa-linkedin-in"></i></div>
               <div className="contact-details">
                 <h4>LinkedIn</h4>
-                <p><a href="https://linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">Abdellah BELMAARIS</a></p>
+                <p><a href="https://linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer" id="contact-linkedin-link">Abdellah BELMAARIS</a></p>
+              </div>
+            </div>
+            <div className="contact-card">
+              <div className="contact-icon"><i className="fa-brands fa-github"></i></div>
+              <div className="contact-details">
+                <h4>GitHub</h4>
+                <p><a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer" id="contact-github-link">Abdellah-BELMAARIS</a></p>
               </div>
             </div>
           </div>
 
-          <form className="contact-form" onSubmit={handleContactSubmit}>
+          <form className="contact-form" onSubmit={handleContactSubmit} id="contact-form">
             <div className="form-group">
               <label htmlFor="form-name">Name</label>
               <input
@@ -643,7 +1040,8 @@ export default function App() {
                 {formStatus.text}
               </div>
             )}
-            <button type="submit" className="btn btn-primary" style={{ width: 'fit-content', alignSelf: 'flex-start' }}>
+            <button type="submit" className="btn btn-primary" id="contact-submit-btn" style={{ width: 'fit-content', alignSelf: 'flex-start' }}>
+              <i className="fa-solid fa-paper-plane" style={{ marginRight: '8px' }}></i>
               Send Message
             </button>
           </form>
@@ -660,6 +1058,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="footer-social-link"
               aria-label="Visit LinkedIn Profile"
+              id="footer-linkedin-link"
             >
               <i className="fa-brands fa-linkedin-in"></i>
             </a>
@@ -671,13 +1070,48 @@ export default function App() {
               rel="noopener noreferrer"
               className="footer-social-link"
               aria-label="Visit GitHub Profile"
+              id="footer-github-link"
             >
               <i className="fa-brands fa-github"></i>
             </a>
           </li>
+          <li>
+            <a
+              href="mailto:obaidbelmaaris@gmail.com"
+              className="footer-social-link"
+              aria-label="Send Email"
+              id="footer-email-link"
+            >
+              <i className="fa-solid fa-envelope"></i>
+            </a>
+          </li>
         </ul>
-        <p className="footer-copy">© 2025 Abdellah BELMAARIS. Built with passion.</p>
+        <p className="footer-copy">
+          Designed & Built by{' '}
+          <a href="#hero" style={{ color: 'var(--accent)' }}>Abdellah BELMAARIS</a>
+          {' '}· © {new Date().getFullYear()}
+        </p>
       </footer>
+
+      {/* Scroll-to-top Button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            className="scroll-to-top"
+            onClick={scrollToTop}
+            aria-label="Scroll to top"
+            id="scroll-to-top-btn"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.25 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <i className="fa-solid fa-chevron-up"></i>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Modals */}
       <AnimatePresence>
@@ -695,7 +1129,7 @@ export default function App() {
             }}
           >
             <div className="modal-content-wrapper">
-              <button className="modal-close" aria-label="Close modal"><i className="fa-solid fa-xmark"></i></button>
+              <button className="modal-close" aria-label="Close modal" id="cert-modal-close"><i className="fa-solid fa-xmark"></i></button>
               <img src={selectedCert} alt="Enlarged Certificate" className="modal-img" />
             </div>
           </motion.div>
@@ -720,7 +1154,7 @@ export default function App() {
                   <i className="fa-solid fa-circle-play" style={{ color: 'var(--accent)', marginRight: '8px' }}></i>
                   Project Walkthrough Demos
                 </h3>
-                <button className="video-modal-close" aria-label="Close video player"><i className="fa-solid fa-xmark"></i></button>
+                <button className="video-modal-close" aria-label="Close video player" id="video-modal-close-btn"><i className="fa-solid fa-xmark"></i></button>
               </div>
               <div className="video-modal-tabs">
                 {[
@@ -732,6 +1166,7 @@ export default function App() {
                     key={tab.src}
                     className={`video-modal-tab ${videoSrc === tab.src ? 'active' : ''}`}
                     onClick={() => setVideoSrc(tab.src)}
+                    id={`video-tab-${tab.label.replace(/\s+/g, '-').toLowerCase()}`}
                   >
                     {tab.label}
                   </button>

@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+# Abdellah BELMAARIS — Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A premium, interactive personal portfolio website built with **React**, **TypeScript**, **Vite**, and **Three.js**.
 
-Currently, two official plugins are available:
+🔗 **Live site:** [abdellah-belmaaris.github.io](https://abdellah-belmaaris.github.io/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Feature | Description |
+|---|---|
+| 🎬 **Loading Splash Screen** | Animated progress bar intro with logo reveal |
+| 🌌 **3D WebGL Background** | Interactive Three.js particle system with mouse parallax & scroll reactivity |
+| ⌨️ **Typewriter Animation** | Sequential hero text reveal with blinking cursor |
+| 📊 **Animated Stats** | Intersection-observer-driven count-up stats in the About section |
+| 🗂️ **Featured Project Carousel** | Auto-advancing screenshot carousel with video demo modal |
+| 🗂️ **Other Projects Grid** | Spotlight-effect card grid showcasing additional projects |
+| 🎓 **Education & Certifications** | Cards with certificate image lightbox viewer |
+| 📬 **Contact Form** | FormSubmit.co-powered contact form with status feedback |
+| 📱 **Fully Responsive** | Mobile-first design with animated hamburger navigation |
+| ⬆️ **Scroll-to-Top** | Smooth animated scroll-to-top button |
+| 🔍 **SEO & Social** | Open Graph, Twitter Card, canonical URL, meta keywords |
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠 Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **React 19** + **TypeScript**
+- **Vite 8** (build tool)
+- **Framer Motion** (animations)
+- **Three.js** + **@react-three/fiber** (3D background)
+- **Font Awesome 6** (icons)
+- **Google Fonts** — Inter, Poppins, Fira Code
+- **FormSubmit.co** (contact form backend)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start the dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview the production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+myweb/
+├── public/
+│   └── assets/          # Images, videos, certificates, avatar
+├── src/
+│   ├── components/
+│   │   └── ThreeBackground.tsx   # 3D WebGL canvas component
+│   ├── App.tsx           # Main portfolio app
+│   ├── index.css         # All styles (design system)
+│   └── main.tsx          # React entry point
+├── index.html            # HTML entry + SEO meta tags
+└── vite.config.ts
+```
+
+---
+
+## 📦 Deployment
+
+The site is deployed to **GitHub Pages** via the `gh-pages` branch. The production build outputs to `dist/`.
+
+```bash
+npm run build
+# Then push dist/ contents to the gh-pages branch
+```
+
+---
+
+## 📄 License
+
+© 2026 Abdellah BELMAARIS. All rights reserved.
