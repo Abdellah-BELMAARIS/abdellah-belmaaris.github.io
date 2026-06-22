@@ -64,8 +64,8 @@ const SKILLS_DATA: Skill[] = [
 ];
 
 const STATS_DATA: Stat[] = [
-  { value: 3, suffix: '+', label: 'Years Learning', icon: 'fa-solid fa-calendar-days' },
-  { value: 10, suffix: '+', label: 'Projects Built', icon: 'fa-solid fa-folder-open' },
+  { value: 6, suffix: '+', label: 'Years Coding', icon: 'fa-solid fa-calendar-days' },
+  { value: 4, suffix: '+', label: 'GitHub Projects', icon: 'fa-solid fa-folder-open' },
   { value: 4, suffix: '', label: 'Certifications', icon: 'fa-solid fa-award' },
   { value: 14, suffix: '+', label: 'Skills Acquired', icon: 'fa-solid fa-code' },
 ];
@@ -149,46 +149,32 @@ const PROJECT_IMAGES = [
 
 const OTHER_PROJECTS: OtherProject[] = [
   {
-    title: "REST API Authentication System",
-    desc: "A fully secured token-based authentication system built with Django REST Framework. Includes registration, login, refresh tokens, email verification, and permission layers.",
-    tech: ["Django", "DRF", "JWT", "PostgreSQL"],
-    icon: "fa-solid fa-lock",
-    github: "https://github.com/Abdellah-BELMAARIS",
+    title: "django_rest",
+    desc: "A Django REST Framework project exploring RESTful API design — token authentication, serializers, ViewSets, and permission-based endpoint management following best DRF practices.",
+    tech: ["Django", "Django REST Framework", "Python", "SQLite"],
+    icon: "fa-solid fa-server",
+    github: "https://github.com/Abdellah-BELMAARIS/django_rest",
   },
   {
-    title: "Data Analysis Dashboard",
-    desc: "An exploratory data analysis pipeline using Pandas and Matplotlib to clean, transform, and visualize real-world datasets with interactive charts and statistical summaries.",
-    tech: ["Python", "Pandas", "Matplotlib", "NumPy"],
-    icon: "fa-solid fa-chart-bar",
-    github: "https://github.com/Abdellah-BELMAARIS",
+    title: "Dev-Pulse",
+    desc: "A developer activity tracker and pulse dashboard that monitors coding habits, project progress, and productivity metrics — built with Python and data visualization tools.",
+    tech: ["Python", "Pandas", "Matplotlib", "Data Analysis"],
+    icon: "fa-solid fa-chart-line",
+    github: "https://github.com/Abdellah-BELMAARIS/Dev-Pulse",
   },
   {
-    title: "CLI Task Manager",
-    desc: "A command-line productivity tool built in pure Python using OOP principles. Supports task creation, priority management, deadlines, categories, and persistent JSON storage.",
-    tech: ["Python", "OOP", "JSON", "CLI"],
-    icon: "fa-solid fa-terminal",
-    github: "https://github.com/Abdellah-BELMAARIS",
+    title: "school_project",
+    desc: "A structured academic project demonstrating core backend development concepts including models, views, forms, authentication, and clean MVC architecture using Django.",
+    tech: ["Django", "Python", "SQL", "Bootstrap"],
+    icon: "fa-solid fa-graduation-cap",
+    github: "https://github.com/Abdellah-BELMAARIS/school_project",
   },
   {
-    title: "E-Commerce API Backend",
-    desc: "A scalable RESTful backend for an e-commerce platform with product management, cart logic, order tracking, and payment integration stubs following clean API design principles.",
-    tech: ["Django", "DRF", "SQLite", "REST API"],
-    icon: "fa-solid fa-bag-shopping",
-    github: "https://github.com/Abdellah-BELMAARIS",
-  },
-  {
-    title: "AI Prompt Engineering Toolkit",
-    desc: "A Python utility library for crafting, testing, and evaluating structured prompts for LLM APIs. Includes templating, output validation, and batch processing capabilities.",
-    tech: ["Python", "OpenAI API", "LLM", "Prompt Engineering"],
-    icon: "fa-solid fa-robot",
-    github: "https://github.com/Abdellah-BELMAARIS",
-  },
-  {
-    title: "Cybersecurity Audit Scripts",
-    desc: "A collection of Python automation scripts for network scanning, vulnerability detection, password auditing, and security reporting based on cybersecurity fundamentals.",
-    tech: ["Python", "Security", "Automation", "Networking"],
-    icon: "fa-solid fa-shield-halved",
-    github: "https://github.com/Abdellah-BELMAARIS",
+    title: "O-O-P",
+    desc: "A deep-dive Python project focused on Object-Oriented Programming principles — classes, inheritance, polymorphism, encapsulation, and design patterns applied to real-world scenarios.",
+    tech: ["Python", "OOP", "Design Patterns", "Software Engineering"],
+    icon: "fa-solid fa-cube",
+    github: "https://github.com/Abdellah-BELMAARIS/O-O-P",
   },
 ];
 
@@ -401,7 +387,7 @@ export default function App() {
   // 2. Navigation Scroll Spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'skills', 'project', 'certifications', 'contact'];
+      const sections = ['hero', 'about', 'experience', 'skills', 'project', 'certifications', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -538,10 +524,11 @@ export default function App() {
             {[
               { id: 'hero', label: 'Home', idx: '01.' },
               { id: 'about', label: 'About', idx: '02.' },
-              { id: 'skills', label: 'Skills', idx: '03.' },
-              { id: 'project', label: 'Projects', idx: '04.' },
-              { id: 'certifications', label: 'Education', idx: '05.' },
-              { id: 'contact', label: 'Contact', idx: '06.' }
+              { id: 'experience', label: 'Experience', idx: '03.' },
+              { id: 'skills', label: 'Skills', idx: '04.' },
+              { id: 'project', label: 'Projects', idx: '05.' },
+              { id: 'certifications', label: 'Education', idx: '06.' },
+              { id: 'contact', label: 'Contact', idx: '07.' }
             ].map((item) => (
               <li key={item.id}>
                 <a
@@ -618,13 +605,13 @@ export default function App() {
         <div className="about-layout">
           <div className="about-text">
             <p>
-              Hello! I'm <span className="highlight">Abdellah BELMAARIS</span>, a self-taught backend developer driven by an insatiable curiosity for how software engineering and technical architecture come together to solve complex, real-world problems. Based in <span className="highlight">Casablanca, Morocco</span>, I specialize in crafting robust, scalable, and secure backend applications.
+              Hello! I'm <span className="highlight">Abdellah BELMAARIS</span>, a self-taught Backend and Web Developer from <span className="highlight">Casablanca, Morocco</span>, with a strong passion for software development, artificial intelligence, data analysis, and emerging technologies. Through years of independent learning, online courses, certifications, and hands-on projects, I've built a solid technical foundation in programming and modern web development.
             </p>
             <p>
-              My technical journey centers around <span className="highlight">Python, Django, and Django REST Framework</span>. I thrive on translating functional requirements into structured database designs and efficient endpoints. Over time, I've realized that solid software principles, clean architectures, and well-chosen algorithms are the keys to building long-term systems.
+              My primary expertise lies in <span className="highlight">Python development</span> — backend programming, data analysis, software engineering principles, and web application architecture. I work with <span className="highlight">Django, Django REST Framework, SQL, Pandas, Matplotlib, and Bootstrap</span> to build scalable applications and analyze real-world data. I also have a strong understanding of algorithms, data structures, OOP, and problem-solving techniques.
             </p>
             <p>
-              Beyond back-end engineering, I am deeply fascinated by <span className="highlight">Artificial Intelligence and Data Analysis</span>. I frequently utilize tools like Pandas and Matplotlib to inspect datasets and draw visual insights, and I continuously study cybersecurity principles to ensure that security is baked into my development cycles from day one.
+              I've earned multiple certifications from <span className="highlight">DataCamp, Boot.dev, and Almdrasa</span>, covering AI, Python Development, Data Analysis, Cybersecurity, Software Engineering, Functional Programming, and Data Structures. Currently I'm focused on deepening my backend expertise while building increasingly complex projects that solve real-world problems — eager to gain professional experience and contribute to meaningful software.
             </p>
             <div className="about-cta-row">
               <a
@@ -671,9 +658,117 @@ export default function App() {
         </div>
       </section>
 
+      {/* Experience Section */}
+      <section id="experience">
+        <span className="section-overline">03. Work History</span>
+        <h2 className="section-title">Experience</h2>
+        <div className="experience-timeline">
+
+          {/* Role 1 */}
+          <motion.div
+            className="exp-card spotlight-card"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+              e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            }}
+          >
+            <div className="exp-header">
+              <div className="exp-role-info">
+                <h3 className="exp-role">Back End Developer</h3>
+                <span className="exp-company">Self-employed · Remote</span>
+              </div>
+              <div className="exp-meta">
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> May 2021 – Jun 2026 · 5 yrs 2 mos</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Morocco</span>
+              </div>
+            </div>
+            <p className="exp-desc">
+              Designed and built secure RESTful APIs and backend architectures using Django and Django REST Framework. Implemented token-based authentication, role-based permissions, database schema design, and server-side business logic across multiple web application projects.
+            </p>
+            <div className="exp-skills">
+              {["Django", "DRF", "Python", "SQL", "Bootstrap", "AI", "Git", "REST APIs", "PostgreSQL", "OOP", "Algorithms", "Software Engineering"].map(s => (
+                <span className="exp-skill-tag" key={s}>{s}</span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Role 2 */}
+          <motion.div
+            className="exp-card spotlight-card"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+              e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            }}
+          >
+            <div className="exp-header">
+              <div className="exp-role-info">
+                <h3 className="exp-role">Web Developer</h3>
+                <span className="exp-company">Self-employed · Remote</span>
+              </div>
+              <div className="exp-meta">
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Feb 2023 – Present · 3 yrs 5 mos</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Casablanca-Settat, Morocco</span>
+              </div>
+            </div>
+            <p className="exp-desc">
+              Developed full-stack web applications, translating product requirements into structured backends and responsive frontends. Focused on web application architecture, Bootstrap integration, and delivering clean, maintainable codebases aligned with modern development standards.
+            </p>
+            <div className="exp-skills">
+              {["Web Application Development", "WebDev", "Django", "Bootstrap"].map(s => (
+                <span className="exp-skill-tag" key={s}>{s}</span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Role 3 */}
+          <motion.div
+            className="exp-card spotlight-card"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.2 }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+              e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            }}
+          >
+            <div className="exp-header">
+              <div className="exp-role-info">
+                <h3 className="exp-role">Python Developer</h3>
+                <span className="exp-company">Self-employed · Full-time</span>
+              </div>
+              <div className="exp-meta">
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Jan 2020 – Present · 6 yrs 6 mos</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Morocco</span>
+              </div>
+            </div>
+            <p className="exp-desc">
+              Built Python programs, automation scripts, data analysis pipelines, and software utilities since 2020. Continuously growing expertise across Python's ecosystem — from scripting and OOP to machine learning fundamentals and AI engineering.
+            </p>
+            <div className="exp-skills">
+              {["Python", "Program Development", "OOP", "Data Analysis", "Automation"].map(s => (
+                <span className="exp-skill-tag" key={s}>{s}</span>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
       {/* Skills Section */}
       <section id="skills">
-        <span className="section-overline">03. Stack & Skills</span>
+        <span className="section-overline">04. Stack &amp; Skills</span>
         <h2 className="section-title">Key Areas of Expertise</h2>
         <div className="skills-grid">
           {SKILLS_DATA.map((skill, index) => (
@@ -704,7 +799,7 @@ export default function App() {
 
       {/* Projects Section */}
       <section id="project">
-        <span className="section-overline">04. Showcase</span>
+        <span className="section-overline">05. Showcase</span>
         <h2 className="section-title">Featured Project</h2>
 
         {/* Main Featured Project Card */}
@@ -858,7 +953,7 @@ export default function App() {
 
       {/* Education & Certifications Section */}
       <section id="certifications">
-        <span className="section-overline">05. Academics</span>
+        <span className="section-overline">06. Academics</span>
         <h2 className="section-title">Education & Certifications</h2>
 
         {/* Education Subsection */}
@@ -962,7 +1057,7 @@ export default function App() {
 
       {/* Connect & Contact Section */}
       <section id="contact">
-        <span className="section-overline">06. Next Steps</span>
+        <span className="section-overline">07. Next Steps</span>
         <h2 className="section-title">Connect / Contact</h2>
         <div className="contact-layout">
           <div className="contact-info">
