@@ -4,7 +4,7 @@ import webbrowser
 import threading
 import time
 
-PORT = 8000
+PORT = 5173
 
 def open_browser():
     time.sleep(1.0)
