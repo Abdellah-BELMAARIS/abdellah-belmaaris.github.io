@@ -52,7 +52,7 @@ function Particles({ count = 100 }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (!mesh.current) return;
 
     const geo = mesh.current.geometry;
@@ -160,7 +160,7 @@ function GlowingBlobs() {
     }));
   }, []);
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (!group.current) return;
 
     group.current.children.forEach((mesh, i) => {

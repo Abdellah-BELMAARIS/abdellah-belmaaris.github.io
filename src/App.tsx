@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThreeBackground from './components/ThreeBackground';
 
@@ -364,7 +364,7 @@ export default function App() {
         <div className="about-layout">
           <div className="about-text">
             <p>
-              Hello! I'm <span className="highlight">Abdellah BELMAARIS</span>, a self-taught backend developer driven by an insatiable curiosity for how software engineering and technical architecture come together to solve complex, real-world problems. Based in <span class="highlight">Casablanca, Morocco</span>, I specialize in crafting robust, scalable, and secure backend applications.
+              Hello! I'm <span className="highlight">Abdellah BELMAARIS</span>, a self-taught backend developer driven by an insatiable curiosity for how software engineering and technical architecture come together to solve complex, real-world problems. Based in <span className="highlight">Casablanca, Morocco</span>, I specialize in crafting robust, scalable, and secure backend applications.
             </p>
             <p>
               My technical journey centers around <span className="highlight">Python, Django, and Django REST Framework</span>. I thrive on translating functional requirements into structured database designs and efficient endpoints. Over time, I've realized that solid software principles, clean architectures, and well-chosen algorithms are the keys to building long-term systems.
@@ -416,7 +416,7 @@ export default function App() {
 
       {/* Projects Section */}
       <section id="project">
-        <span class="section-overline">04. Showcase</span>
+        <span className="section-overline">04. Showcase</span>
         <h2 className="section-title">Featured Project</h2>
         <div className="project-card">
           {/* Custom Carousel */}
