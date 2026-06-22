@@ -354,9 +354,9 @@ export default function App() {
         setWelcomeText(fullWelcome.slice(0, i));
         await new Promise((resolve) => setTimeout(resolve, 35));
       }
-      
+
       await new Promise((resolve) => setTimeout(resolve, 150));
-      
+
       // 2. Type name
       setTypingLine('name');
       for (let i = 0; i <= fullName.length; i++) {
@@ -364,9 +364,9 @@ export default function App() {
         setNameText(fullName.slice(0, i));
         await new Promise((resolve) => setTimeout(resolve, 55));
       }
-      
+
       await new Promise((resolve) => setTimeout(resolve, 250));
-      
+
       // 3. Type headline
       setTypingLine('headline');
       for (let i = 0; i <= fullHeadline.length; i++) {
@@ -374,7 +374,7 @@ export default function App() {
         setHeadlineText(fullHeadline.slice(0, i));
         await new Promise((resolve) => setTimeout(resolve, 12));
       }
-      
+
       if (active) {
         setTypingLine('done');
       }
