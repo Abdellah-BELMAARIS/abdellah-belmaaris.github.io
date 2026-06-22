@@ -301,6 +301,18 @@ export default function App() {
   const [menuActive, setMenuActive] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
+  // Toggle body class to lock scroll when mobile menu is active
+  useEffect(() => {
+    if (menuActive) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+    return () => {
+      document.body.classList.remove('menu-open');
+    };
+  }, [menuActive]);
+
   // Typewriter Text states
   const [welcomeText, setWelcomeText] = useState('');
   const [nameText, setNameText] = useState('');
@@ -505,6 +517,12 @@ export default function App() {
 
       {/* 3D WebGL Background Canvas */}
       <ThreeBackground />
+
+      {/* Mobile Menu Backdrop Overlay */}
+      <div
+        className={`nav-overlay ${menuActive ? 'active' : ''}`}
+        onClick={() => setMenuActive(false)}
+      />
 
       {/* Header Navigation */}
       <header className="header">
