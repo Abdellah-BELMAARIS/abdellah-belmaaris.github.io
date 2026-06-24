@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThreeBackground from './components/ThreeBackground';
+import CaseStudyModal from './components/CaseStudyModal';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -80,21 +81,21 @@ const EDUCATION_DATA: EdCard[] = [
   },
   {
     platform: "Self-taught",
-    degree: "Associate's Degree, Backend developper",
+    degree: "Specialized Track, Backend Architecture & Systems",
     date: "Jan 2023 – May 2026",
     icon: "fa-solid fa-user-gear",
     skills: ["Python (Programming Language)", "Deep Learning Fundamentals", "Neural Networks", "Machine Learning", "Git & GitHub", "Docker", "Backend Architecture"]
   },
   {
     platform: "DataCamp",
-    degree: "Associate's Degree, Backend developper",
+    degree: "Career Track, Backend Developer",
     date: "Self-Paced Learning",
     icon: "fa-solid fa-graduation-cap",
     skills: ["Python (Programming Language)", "SQL", "PostgreSQL", "FastAPI", "Git", "API Development"]
   },
   {
     platform: "Self-taught",
-    degree: "Associate's Degree, Django developer",
+    degree: "Specialized Curriculum, Django REST Framework",
     date: "Jan 2026 – Jun 2026",
     icon: "fa-solid fa-user-gear",
     skills: ["Django", "Django REST Framework"]
@@ -132,7 +133,7 @@ const CERTIFICATIONS_DATA: CertCard[] = [
     platform: "Self-Taught",
     degree: "Associate Python Developer",
     date: "Jan 2026 – Jun 2026",
-    credentialId: "30 HR · Associate's Degree, Django developer",
+    credentialId: "30 HR · Professional Track, Django Developer",
     img: "assets/certificate.png",
     icon: "fa-solid fa-award",
     skills: ["Django", "Django REST Framework"]
@@ -150,28 +151,28 @@ const PROJECT_IMAGES = [
 const OTHER_PROJECTS: OtherProject[] = [
   {
     title: "django_rest",
-    desc: "A Django REST Framework project exploring RESTful API design — token authentication, serializers, ViewSets, and permission-based endpoint management following best DRF practices.",
+    desc: "Designed and optimized a RESTful API with token authentication and role-based permissions. Utilized prefetching (select_related/prefetch_related) to minimize database roundtrips and prevent N+1 query bottlenecks.",
     tech: ["Django", "Django REST Framework", "Python", "SQLite"],
     icon: "fa-solid fa-server",
     github: "https://github.com/Abdellah-BELMAARIS/django_rest",
   },
   {
     title: "Dev-Pulse",
-    desc: "A developer activity tracker and pulse dashboard that monitors coding habits, project progress, and productivity metrics — built with Python and data visualization tools.",
+    desc: "Built a local developer activity pipeline that parses and aggregates system log files. Utilized Pandas to clean and process high-dimensional activity data, generating performance reports with Matplotlib in under 200ms.",
     tech: ["Python", "Pandas", "Matplotlib", "Data Analysis"],
     icon: "fa-solid fa-chart-line",
     github: "https://github.com/Abdellah-BELMAARIS/Dev-Pulse",
   },
   {
     title: "school_project",
-    desc: "A structured academic project demonstrating core backend development concepts including models, views, forms, authentication, and clean MVC architecture using Django.",
+    desc: "Developed a school administration backend featuring modular relational schemas, secure forms, custom middleware, and session authentication to demonstrate MVC architecture best practices.",
     tech: ["Django", "Python", "SQL", "Bootstrap"],
     icon: "fa-solid fa-graduation-cap",
     github: "https://github.com/Abdellah-BELMAARIS/school_project",
   },
   {
     title: "O-O-P",
-    desc: "A deep-dive Python project focused on Object-Oriented Programming principles — classes, inheritance, polymorphism, encapsulation, and design patterns applied to real-world scenarios.",
+    desc: "Designed a modular library demonstrating advanced Object-Oriented Programming (OOP) principles. Integrated creational, structural, and behavioral design patterns (Factory, Strategy, Singleton) to ensure a highly testable codebase.",
     tech: ["Python", "OOP", "Design Patterns", "Software Engineering"],
     icon: "fa-solid fa-cube",
     github: "https://github.com/Abdellah-BELMAARIS/O-O-P",
@@ -325,6 +326,7 @@ export default function App() {
   // Modal control states
   const [selectedCert, setSelectedCert] = useState<string | null>(null);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [caseStudyOpen, setCaseStudyOpen] = useState(false);
   const [videoSrc, setVideoSrc] = useState('assets/demo1.mp4');
 
   // Contact form submission states
@@ -346,7 +348,7 @@ export default function App() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fullWelcome = "Hi, my name is";
     const fullName = "Abdellah BELMAARIS.";
-    const fullHeadline = "Self-Taught Backend & Web Developer | Python Developer | Django & REST Framework Enthusiast | AI & Data Analysis Learner | Cybersecurity Fundamentals | Building Real-World Software Solutions.";
+    const fullHeadline = "Backend & Software Engineer specializing in Python, Django, and Scalable API Architectures. Focused on secure database modeling, system design, and clean code principles.";
 
     if (prefersReducedMotion) {
       setWelcomeText(fullWelcome);
@@ -500,6 +502,7 @@ export default function App() {
         setMenuActive(false);
         setSelectedCert(null);
         setVideoModalOpen(false);
+        setCaseStudyOpen(false);
       }
     };
     window.addEventListener('keydown', handleKey);
@@ -871,7 +874,7 @@ export default function App() {
             <span className="project-badge">Featured Content Management Platform</span>
             <h3 className="project-title">The Modern Journal</h3>
             <p className="project-desc">
-              A full‑featured content management and blogging platform built with Django. Includes user authentication, role‑based permissions, rich text publishing, advanced search, categories and tags, comments, likes, analytics, view tracking, and email integration.
+              A secure, high-performance content management platform built with Django. Features role-based access control (RBAC), database query optimizations (N+1 resolution), session security, custom search indexing, and automated email workflows. Formulated structured relational schemas to support multi-model interactions.
             </p>
             <ul className="project-tech-list">
               {["Django", "Django REST Framework", "SQL", "Bootstrap", "JavaScript"].map((tech) => (
@@ -881,17 +884,25 @@ export default function App() {
             <div className="project-links">
               <button
                 className="btn btn-primary"
+                onClick={() => setCaseStudyOpen(true)}
+                id="featured-case-study-btn"
+              >
+                <i className="fa-solid fa-gears" style={{ marginRight: '8px' }}></i> Technical Case Study
+              </button>
+              <button
+                className="btn btn-secondary"
                 onClick={() => setVideoModalOpen(true)}
-                style={{ background: 'transparent', border: '1px solid var(--accent)' }}
+                style={{ background: 'transparent', border: '1px solid var(--accent)', color: 'var(--accent)' }}
                 id="featured-demo-btn"
               >
-                <i className="fa-solid fa-circle-play" style={{ marginRight: '8px' }}></i> Live Demo
+                <i className="fa-solid fa-circle-play" style={{ marginRight: '8px' }}></i> Video Demo
               </button>
               <a
                 href="https://github.com/Abdellah-BELMAARIS"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 id="featured-github-btn"
               >
                 <i className="fa-brands fa-github" style={{ marginRight: '8px' }}></i> GitHub
@@ -1231,6 +1242,8 @@ export default function App() {
 
       {/* Modals */}
       <AnimatePresence>
+        {/* Case Study Modal */}
+        <CaseStudyModal isOpen={caseStudyOpen} onClose={() => setCaseStudyOpen(false)} />
         {/* Certificate Image Lightbox Modal */}
         {selectedCert && (
           <motion.div
