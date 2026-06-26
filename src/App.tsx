@@ -158,11 +158,12 @@ const OTHER_PROJECTS: OtherProject[] = [
     live: "https://Abdellah-BELMAARIS.github.io/PyGame_Projects/",
   },
   {
-    title: "django_rest",
-    desc: "Designed and optimized a RESTful API with token authentication and role-based permissions. Utilized prefetching (select_related/prefetch_related) to minimize database roundtrips and prevent N+1 query bottlenecks.",
-    tech: ["Django", "Django REST Framework", "Python", "SQLite"],
-    icon: "fa-solid fa-server",
-    github: "https://github.com/Abdellah-BELMAARIS/django_rest",
+    title: "The Modern Journal",
+    desc: "A secure, high-performance content management platform built with Django. Features role-based access control (RBAC), database query optimizations (N+1 resolution), session security, custom search indexing, and automated email workflows.",
+    tech: ["Django", "Django REST Framework", "Python", "SQL", "Bootstrap", "JavaScript"],
+    icon: "fa-solid fa-newspaper",
+    github: "https://github.com/Abdellah-BELMAARIS/modern-journal.github.io",
+    live: "https://abdellah-belmaaris.github.io/modern-journal.github.io/",
   },
   {
     title: "Dev-Pulse",
