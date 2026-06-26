@@ -906,7 +906,7 @@ export default function App() {
                 <i className="fa-solid fa-circle-play" style={{ marginRight: '8px' }}></i> Video Demo
               </button>
               <a
-                href="https://github.com/Abdellah-BELMAARIS/The-Modern-Journal"
+                href="https://github.com/Abdellah-BELMAARIS/modern-journal.github.io"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
