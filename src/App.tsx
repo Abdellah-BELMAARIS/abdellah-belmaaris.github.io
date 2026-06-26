@@ -150,6 +150,14 @@ const PROJECT_IMAGES = [
 
 const OTHER_PROJECTS: OtherProject[] = [
   {
+    title: "PyGame 3D Web Arcade",
+    desc: "A premium, high-performance 3D retro arcade cabinet selection interface and dashboard built using React Three Fiber. Hosts 16 PyGame classics compiled to WebAssembly via Pygbag, featuring dynamic lighting, responsive deck controls, and local/web score syncing.",
+    tech: ["Three.js", "React Three Fiber", "React", "Python", "WebAssembly", "Vite"],
+    icon: "fa-solid fa-gamepad",
+    github: "https://github.com/Abdellah-BELMAARIS/PyGame_Projects",
+    live: "https://Abdellah-BELMAARIS.github.io/PyGame_Projects/",
+  },
+  {
     title: "django_rest",
     desc: "Designed and optimized a RESTful API with token authentication and role-based permissions. Utilized prefetching (select_related/prefetch_related) to minimize database roundtrips and prevent N+1 query bottlenecks.",
     tech: ["Django", "Django REST Framework", "Python", "SQLite"],
@@ -898,7 +906,7 @@ export default function App() {
                 <i className="fa-solid fa-circle-play" style={{ marginRight: '8px' }}></i> Video Demo
               </button>
               <a
-                href="https://github.com/Abdellah-BELMAARIS"
+                href="https://github.com/Abdellah-BELMAARIS/The-Modern-Journal"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
