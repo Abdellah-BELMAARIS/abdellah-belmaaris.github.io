@@ -357,7 +357,7 @@ export default function App() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fullWelcome = "Hi, my name is";
     const fullName = "Abdellah BELMAARIS.";
-    const fullHeadline = "Backend & Software Engineer specializing in Python, Django, and Scalable API Architectures. Focused on secure database modeling, system design, and clean code principles.";
+    const fullHeadline = "Self-Taught Backend & Web Developer | Python Data Associate | Django & Scalable API Architectures | AI, Data Analysis & Cybersecurity | Building Real-World Projects";
 
     if (prefersReducedMotion) {
       setWelcomeText(fullWelcome);
