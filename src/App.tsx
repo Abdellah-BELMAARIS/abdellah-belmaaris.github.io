@@ -596,16 +596,6 @@ export default function App() {
         <div className="hero-buttons">
           <a href="#project" className="btn btn-primary" id="hero-view-work-btn">View My Work</a>
           <a href="#contact" className="btn btn-secondary" id="hero-connect-btn">Let's Connect</a>
-          <a
-            href="assets/Abdellah_BELMAARIS_CV.pdf"
-            download
-            className="btn btn-resume"
-            id="hero-resume-btn"
-            aria-label="Download Resume PDF"
-          >
-            <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }}></i>
-            Resume
-          </a>
           <div className="hero-social-links">
             <a
               href="https://linkedin.com/in/abdellah-belmaaris"
@@ -647,16 +637,6 @@ export default function App() {
               I've earned multiple certifications from <span className="highlight">DataCamp, Boot.dev, and Almdrasa</span>, covering AI, Python Development, Data Analysis, Cybersecurity, Software Engineering, Functional Programming, and Data Structures. Currently I'm focused on deepening my backend expertise while building increasingly complex projects that solve real-world problems — eager to gain professional experience and contribute to meaningful software.
             </p>
             <div className="about-cta-row">
-              <a
-                href="assets/Abdellah_BELMAARIS_CV.pdf"
-                download
-                className="btn btn-primary"
-                id="about-resume-btn"
-                aria-label="Download Resume PDF"
-              >
-                <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }}></i>
-                Download Resume
-              </a>
               <a
                 href="https://github.com/Abdellah-BELMAARIS"
                 target="_blank"
