@@ -173,11 +173,11 @@ const OTHER_PROJECTS: OtherProject[] = [
     github: "https://github.com/Abdellah-BELMAARIS/Dev-Pulse",
   },
   {
-    title: "school_project",
+    title: "SchoolManagement",
     desc: "Developed a school administration backend featuring modular relational schemas, secure forms, custom middleware, and session authentication to demonstrate MVC architecture best practices.",
     tech: ["Django", "Python", "SQL", "Bootstrap"],
     icon: "fa-solid fa-graduation-cap",
-    github: "https://github.com/Abdellah-BELMAARIS/school_project",
+    github: "https://github.com/Abdellah-BELMAARIS/SchoolManagement",
   },
   {
     title: "O-O-P",
