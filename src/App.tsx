@@ -677,7 +677,7 @@ export default function App() {
         <h2 className="section-title">Experience</h2>
         <div className="experience-timeline">
 
-          {/* Role 1 */}
+          {/* Django Developer */}
           <motion.div
             className="exp-card spotlight-card"
             initial={{ opacity: 0, x: -20 }}
@@ -692,25 +692,25 @@ export default function App() {
           >
             <div className="exp-header">
               <div className="exp-role-info">
-                <h3 className="exp-role">Back End Developer</h3>
+                <h3 className="exp-role">Django Developer</h3>
                 <span className="exp-company">Self-employed · Remote</span>
               </div>
               <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> May 2021 – Jun 2026 · 5 yrs 2 mos</span>
-                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Morocco</span>
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> May 2026 – Present · 3 mos</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Casablanca, Morocco</span>
               </div>
             </div>
             <p className="exp-desc">
-              Designed and built secure RESTful APIs and backend architectures using Django and Django REST Framework. Implemented token-based authentication, role-based permissions, database schema design, and server-side business logic across multiple web application projects.
+              Building secure, high-performance web applications and backend systems using Django and Django REST Framework. Optimizing database queries, designing relational schemas, and developing robust RESTful APIs.
             </p>
             <div className="exp-skills">
-              {["Django", "DRF", "Python", "SQL", "Bootstrap", "AI", "Git", "REST APIs", "PostgreSQL", "OOP", "Algorithms", "Software Engineering"].map(s => (
+              {["Django", "Django REST Framework", "Python", "REST APIs", "SQL", "Git", "Backend Development"].map(s => (
                 <span className="exp-skill-tag" key={s}>{s}</span>
               ))}
             </div>
           </motion.div>
 
-          {/* Role 2 */}
+          {/* Python Developer */}
           <motion.div
             className="exp-card spotlight-card"
             initial={{ opacity: 0, x: -20 }}
@@ -725,25 +725,25 @@ export default function App() {
           >
             <div className="exp-header">
               <div className="exp-role-info">
-                <h3 className="exp-role">Web Developer</h3>
-                <span className="exp-company">Self-employed · Remote</span>
+                <h3 className="exp-role">Python Developer</h3>
+                <span className="exp-company">Self-employed · Full-time</span>
               </div>
               <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Feb 2023 – Present · 3 yrs 5 mos</span>
-                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Casablanca-Settat, Morocco</span>
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Jan 2020 – Present · 6 yrs 7 mos</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Morocco</span>
               </div>
             </div>
             <p className="exp-desc">
-              Developed full-stack web applications, translating product requirements into structured backends and responsive frontends. Focused on web application architecture, Bootstrap integration, and delivering clean, maintainable codebases aligned with modern development standards.
+              Building Python programs, automation scripts, data analysis pipelines, and software utilities. Continuously growing expertise across the Python ecosystem—from advanced object-oriented programming (OOP) to machine learning and AI integrations.
             </p>
             <div className="exp-skills">
-              {["Web Application Development", "WebDev", "Django", "Bootstrap"].map(s => (
+              {["Python (Programming Language)", "Program Development", "OOP", "Data Analysis", "Automation", "Git", "Software Engineering"].map(s => (
                 <span className="exp-skill-tag" key={s}>{s}</span>
               ))}
             </div>
           </motion.div>
 
-          {/* Role 3 */}
+          {/* Web Developer */}
           <motion.div
             className="exp-card spotlight-card"
             initial={{ opacity: 0, x: -20 }}
@@ -758,19 +758,52 @@ export default function App() {
           >
             <div className="exp-header">
               <div className="exp-role-info">
-                <h3 className="exp-role">Python Developer</h3>
-                <span className="exp-company">Self-employed · Full-time</span>
+                <h3 className="exp-role">Web Developer</h3>
+                <span className="exp-company">Self-employed · Remote</span>
               </div>
               <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Jan 2020 – Present · 6 yrs 6 mos</span>
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Feb 2023 – Jun 2026 · 3 yrs 5 mos</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Casablanca-Settat, Morocco</span>
+              </div>
+            </div>
+            <p className="exp-desc">
+              Developed full-stack web applications, translating product requirements into structured backends and responsive frontends. Focused on web application architecture, Bootstrap integration, and delivering clean, maintainable codebases aligned with modern development standards.
+            </p>
+            <div className="exp-skills">
+              {["Web Application Development", "WebDev", "Django", "Bootstrap"].map(s => (
+                <span className="exp-skill-tag" key={s}>{s}</span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Back End Developer */}
+          <motion.div
+            className="exp-card spotlight-card"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.3 }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+              e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            }}
+          >
+            <div className="exp-header">
+              <div className="exp-role-info">
+                <h3 className="exp-role">Back End Developer</h3>
+                <span className="exp-company">Self-employed · Remote</span>
+              </div>
+              <div className="exp-meta">
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> May 2021 – May 2026 · 5 yrs 1 mo</span>
                 <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Morocco</span>
               </div>
             </div>
             <p className="exp-desc">
-              Built Python programs, automation scripts, data analysis pipelines, and software utilities since 2020. Continuously growing expertise across Python's ecosystem — from scripting and OOP to machine learning fundamentals and AI engineering.
+              Designed and built secure RESTful APIs and backend architectures using Django and Django REST Framework. Implemented token-based authentication, role-based permissions, database schema design, and server-side business logic across multiple web application projects.
             </p>
             <div className="exp-skills">
-              {["Python", "Program Development", "OOP", "Data Analysis", "Automation"].map(s => (
+              {["Artificial Intelligence (AI)", "Bootstrap (Framework)", "Django", "DRF", "Python", "SQL", "Git", "REST APIs", "PostgreSQL", "OOP", "Algorithms", "Software Engineering"].map(s => (
                 <span className="exp-skill-tag" key={s}>{s}</span>
               ))}
             </div>
