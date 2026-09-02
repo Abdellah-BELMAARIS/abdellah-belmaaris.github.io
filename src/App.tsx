@@ -628,13 +628,19 @@ export default function App() {
         <div className="about-layout">
           <div className="about-text">
             <p>
-              I’m a homeschooled learner from <span className="highlight">Morocco</span> with a strong interest in full-stack development, Python, artificial intelligence, and data analysis. As a <span className="highlight">Junior Full-Stack developer</span>, I focus on building practical web applications and strengthening my skills through hands-on projects and continuous learning.
+              I’m a homeschooled learner from <span className="highlight">Morocco</span> with a strong interest in full-stack development, Python, artificial intelligence, and data analysis. I’m happy to be a part of the team at <span className="highlight">BIMPulse</span> as a <span className="highlight">Junior Full-Stack developer</span>, contributing to impactful real-world projects.
             </p>
             <p>
-              My technical experience includes <span className="highlight">Python, Django, HTML, CSS, SQL, Pandas, and Matplotlib</span>, alongside foundational knowledge of AI, data structures, algorithms, software engineering, and cybersecurity. I enjoy the process of taking an idea from concept to a working solution—designing functionality, solving problems, working with data, and improving applications step by step.
+              As a <span className="highlight">Junior Full-Stack Developer</span>, I focus on building practical web applications and strengthening my skills through hands-on projects and continuous learning. My technical experience includes <span className="highlight">Python, Django, HTML, CSS, SQL, Pandas, and Matplotlib</span>, alongside foundational knowledge of AI, data structures, algorithms, software engineering, and cybersecurity.
             </p>
             <p>
-              My learning journey has been shaped by courses, certifications, independent study, and real-world projects. I’m always looking for opportunities to challenge myself, explore new technologies, collaborate with others, and turn what I learn into useful solutions. My current goal is to continue growing as a <span className="highlight">Full-Stack Developer</span> while expanding my expertise in AI and data analysis and gaining valuable experience through meaningful projects.
+              I enjoy the process of taking an idea from concept to a working solution—designing functionality, solving problems, working with data, and improving applications step by step.
+            </p>
+            <p>
+              My learning journey has been shaped by courses, certifications, independent study, and real-world projects. I’m always looking for opportunities to challenge myself, explore new technologies, collaborate with others, and turn what I learn into useful solutions.
+            </p>
+            <p>
+              My current goal is to continue growing as a <span className="highlight">Full-Stack Developer</span> while expanding my expertise in AI and data analysis and gaining valuable experience through meaningful projects.
             </p>
             <div className="about-cta-row">
               <a
@@ -677,7 +683,7 @@ export default function App() {
         <h2 className="section-title">Experience</h2>
         <div className="experience-timeline">
 
-          {/* Junior Full-Stack Developer - BIMPulse Digital */}
+          {/* Junior Full-Stack Developer - BIMPulse */}
           <motion.div
             className="exp-card spotlight-card"
             initial={{ opacity: 0, x: -20 }}
@@ -693,7 +699,7 @@ export default function App() {
             <div className="exp-header">
               <div className="exp-role-info">
                 <h3 className="exp-role">Junior Full-Stack Developer</h3>
-                <span className="exp-company">BIMPulse Digital · Full-time</span>
+                <span className="exp-company">BIMPulse · Full-time</span>
               </div>
               <div className="exp-meta">
                 <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Present</span>
