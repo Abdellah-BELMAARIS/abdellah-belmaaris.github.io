@@ -160,6 +160,8 @@ const PROJECT_IMAGES = [
   "assets/journal5.png"
 ];
 
+const BIMPULSE_SERVICES = ['BIM & standards IFC', 'Gestion de projets', 'Études & ingénierie', 'Formation et skilling up', 'Accompagnement et assistance'];
+
 const INSIGHTS_DATA = [
   { title: 'Building reliable Django APIs', desc: 'Notes on authentication, permissions, query optimization, and maintainable backend structure.', icon: 'fa-solid fa-server', tag: 'Backend', href: 'https://github.com/Abdellah-BELMAARIS' },
   { title: 'Learning through data projects', desc: 'Practical experiments with Python, Pandas, and visualization to turn raw data into useful decisions.', icon: 'fa-solid fa-chart-line', tag: 'Data', href: 'https://github.com/Abdellah-BELMAARIS' },
@@ -473,7 +475,7 @@ export default function App() {
   // 2. Navigation Scroll Spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'experience', 'skills', 'project', 'insights', 'github', 'certifications', 'contact'];
+      const sections = ['hero', 'about', 'experience', 'bimpulse', 'skills', 'project', 'insights', 'github', 'certifications', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -639,12 +641,13 @@ export default function App() {
               { id: 'hero', label: 'Home', idx: '01.' },
               { id: 'about', label: 'About', idx: '02.' },
               { id: 'experience', label: 'Experience', idx: '03.' },
-              { id: 'skills', label: 'Skills', idx: '04.' },
-              { id: 'project', label: 'Projects', idx: '05.' },
-              { id: 'certifications', label: 'Education', idx: '06.' },
-              { id: 'insights', label: 'Journal', idx: '07.' },
-              { id: 'github', label: 'GitHub', idx: '08.' },
-              { id: 'contact', label: 'Contact', idx: '09.' }
+              { id: 'bimpulse', label: 'BIMPulse', idx: '04.' },
+              { id: 'skills', label: 'Skills', idx: '05.' },
+              { id: 'project', label: 'Projects', idx: '06.' },
+              { id: 'certifications', label: 'Education', idx: '07.' },
+              { id: 'insights', label: 'Journal', idx: '08.' },
+              { id: 'github', label: 'GitHub', idx: '09.' },
+              { id: 'contact', label: 'Contact', idx: '10.' }
             ].map((item) => (
               <li key={item.id}>
                 <a
@@ -946,6 +949,25 @@ export default function App() {
             </div>
           </motion.div>
 
+        </div>
+      </section>
+
+      {/* BIMPulse Company Section */}
+      <section id="bimpulse">
+        <span className="section-overline">04. Professional Environment</span>
+        <h2 className="section-title">BIMPulse</h2>
+        <div className="company-profile-card">
+          <div className="company-profile-brand">
+            <img src="assets/bimpulse-logo.png" alt="BIMPulse logo" className="company-logo" />
+            <div><span className="company-kicker">AEC · BIM · Engineering</span><h3>Nous facilitons l’accès au BIM pour vos projets</h3></div>
+          </div>
+          <p>BIMPulse accompagne les projets d’ingénierie et d’études en construisant avant de construire, grâce aux dernières technologies et aux standards IFC.</p>
+          <p>Son approche regroupe plus de 20 années d’expérience diversifiée en technicité, management de projets, études et formation dans un environnement basé sur la démarche BIM.</p>
+          <div className="company-services">{BIMPULSE_SERVICES.map((service) => <span className="exp-skill-tag" key={service}>{service}</span>)}</div>
+          <div className="company-profile-actions">
+            <a className="btn btn-primary" href="https://www.thebimpulse.com/" target="_blank" rel="noopener noreferrer"><i className="fa-solid fa-arrow-up-right-from-square" /> Visit official website</a>
+            <a className="company-link" href="https://www.thebimpulse.com/" target="_blank" rel="noopener noreferrer">Découvrir BIMPulse <i className="fa-solid fa-arrow-right" /></a>
+          </div>
         </div>
       </section>
 

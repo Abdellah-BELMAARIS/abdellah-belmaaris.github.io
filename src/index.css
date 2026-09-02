@@ -2200,3 +2200,29 @@ button:disabled { cursor: wait; opacity: .65; }
 .github-state a { color: var(--accent); }
 @media (max-width: 1100px) { .github-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .github-grid { grid-template-columns: 1fr; } }
+
+.company-profile-card { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 10px; padding: clamp(24px, 4vw, 42px); max-width: 1000px; box-shadow: 0 15px 40px -25px rgba(2, 12, 27, .8); }
+.company-profile-brand { display: flex; align-items: center; gap: 20px; margin-bottom: 22px; }
+.company-logo { width: 90px; height: 55px; object-fit: contain; border-radius: 6px; background: #101010; padding: 5px; }
+.company-kicker { color: var(--accent); font: .72rem var(--font-mono); letter-spacing: 1px; text-transform: uppercase; }
+.company-profile-brand h3 { font-size: clamp(1.2rem, 2.5vw, 1.7rem); margin-top: 5px; }
+.company-profile-card p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px; max-width: 850px; }
+.company-services { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+.company-profile-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 24px; }
+.company-profile-actions .btn i { margin-right: 8px; }
+.company-link { color: var(--accent); font: .78rem var(--font-mono); }
+.company-link:hover { text-decoration: underline; }
+@media (max-width: 480px) { .company-profile-brand { align-items: flex-start; flex-direction: column; } }
+
+/* Light mode contrast overrides for components that use translucent dark surfaces. */
+body, .header, section, .footer, .contact-form, .stat-card, .exp-card, .skill-card, .project-card, .other-project-card, .education-card, .company-profile-card, .insight-card, .github-repo-card { transition: background-color var(--transition-speed) var(--transition-curve), color var(--transition-speed) var(--transition-curve), border-color var(--transition-speed) var(--transition-curve); }
+:root[data-theme='light'] .header { background: rgba(255, 255, 255, .88); box-shadow: 0 10px 30px -10px rgba(16, 35, 63, .18); }
+:root[data-theme='light'] .nav-overlay { background: rgba(16, 35, 63, .18); }
+:root[data-theme='light'] .btn-secondary { background: rgba(255, 255, 255, .72); }
+:root[data-theme='light'] .btn-secondary:hover { background: var(--bg-surface-hover); }
+:root[data-theme='light'] .hero-social-icon { background: rgba(255, 255, 255, .65); }
+:root[data-theme='light'] .project-carousel-btn { background: rgba(255, 255, 255, .9); }
+:root[data-theme='light'] .modal { background: rgba(16, 35, 63, .65); }
+:root[data-theme='light'] .case-study-modal-backdrop { background: rgba(16, 35, 63, .55); }
+:root[data-theme='light'] .edu-cert-overlay { background: rgba(16, 35, 63, .78); }
+:root[data-theme='light'] .code-box { background: #17243a; }
