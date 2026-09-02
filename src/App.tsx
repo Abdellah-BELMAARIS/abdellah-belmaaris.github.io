@@ -357,7 +357,7 @@ export default function App() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fullWelcome = "Hi, my name is";
     const fullName = "Abdellah BELMAARIS.";
-    const fullHeadline = "Self-Taught Backend & Web Developer | Python Data Associate | Django & Scalable API Architectures | AI, Data Analysis & Cybersecurity | Building Real-World Projects";
+    const fullHeadline = "Junior Full-Stack developer | BIMPulse Digital";
 
     if (prefersReducedMotion) {
       setWelcomeText(fullWelcome);
@@ -628,13 +628,13 @@ export default function App() {
         <div className="about-layout">
           <div className="about-text">
             <p>
-              Hello! I'm <span className="highlight">Abdellah BELMAARIS</span>, a self-taught Backend and Web Developer from <span className="highlight">Casablanca, Morocco</span>, with a strong passion for software development, artificial intelligence, data analysis, and emerging technologies. Through years of independent learning, online courses, certifications, and hands-on projects, I've built a solid technical foundation in programming and modern web development.
+              I’m a homeschooled learner from <span className="highlight">Morocco</span> with a strong interest in full-stack development, Python, artificial intelligence, and data analysis. As a <span className="highlight">Junior Full-Stack Developer</span> at <span className="highlight">BIMPulse Digital</span>, I focus on building practical web applications and strengthening my skills through hands-on projects and continuous learning.
             </p>
             <p>
-              My primary expertise lies in <span className="highlight">Python development</span> — backend programming, data analysis, software engineering principles, and web application architecture. I work with <span className="highlight">Django, Django REST Framework, SQL, Pandas, Matplotlib, and Bootstrap</span> to build scalable applications and analyze real-world data. I also have a strong understanding of algorithms, data structures, OOP, and problem-solving techniques.
+              My technical experience includes <span className="highlight">Python, Django, HTML, CSS, SQL, Pandas, and Matplotlib</span>, alongside foundational knowledge of AI, data structures, algorithms, software engineering, and cybersecurity. I enjoy the process of taking an idea from concept to a working solution—designing functionality, solving problems, working with data, and improving applications step by step.
             </p>
             <p>
-              I've earned multiple certifications from <span className="highlight">DataCamp, Boot.dev, and Almdrasa</span>, covering AI, Python Development, Data Analysis, Cybersecurity, Software Engineering, Functional Programming, and Data Structures. Currently I'm focused on deepening my backend expertise while building increasingly complex projects that solve real-world problems — eager to gain professional experience and contribute to meaningful software.
+              My learning journey has been shaped by courses, certifications, independent study, and real-world projects. I’m always looking for opportunities to challenge myself, explore new technologies, collaborate with others, and turn what I learn into useful solutions. My current goal is to continue growing as a <span className="highlight">Full-Stack Developer</span> while expanding my expertise in AI and data analysis and gaining valuable experience through meaningful projects.
             </p>
             <div className="about-cta-row">
               <a
@@ -676,6 +676,39 @@ export default function App() {
         <span className="section-overline">03. Work History</span>
         <h2 className="section-title">Experience</h2>
         <div className="experience-timeline">
+
+          {/* Junior Full-Stack Developer - BIMPulse Digital */}
+          <motion.div
+            className="exp-card spotlight-card"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+              e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            }}
+          >
+            <div className="exp-header">
+              <div className="exp-role-info">
+                <h3 className="exp-role">Junior Full-Stack Developer</h3>
+                <span className="exp-company">BIMPulse Digital · Full-time</span>
+              </div>
+              <div className="exp-meta">
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Present</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Casablanca, Casablanca-Settat, Morocco</span>
+              </div>
+            </div>
+            <p className="exp-desc">
+              Developing practical web applications, building robust full-stack solutions, and creating responsive user interfaces backed by performant Python and Django backend services. Collaborating on digital software products, database modeling, and scalable architecture.
+            </p>
+            <div className="exp-skills">
+              {["Full-Stack Development", "Python (Programming Language)", "Django", "HTML / CSS", "SQL", "REST APIs", "Software Development", "AI & Data Analysis"].map(s => (
+                <span className="exp-skill-tag" key={s}>{s}</span>
+              ))}
+            </div>
+          </motion.div>
 
           {/* Django Developer */}
           <motion.div
