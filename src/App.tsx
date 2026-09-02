@@ -61,6 +61,7 @@ const SKILLS_DATA: Skill[] = [
   { title: "Problem Solving", desc: "Breaking down complex tasks into functional, testable code routines.", icon: "fa-solid fa-lightbulb" },
   { title: "Web App Development", desc: "Executing product blueprints from system structure to live integration.", icon: "fa-solid fa-laptop-code" },
   { title: "Bootstrap & Integration", desc: "Translating dynamic templates and responsive layouts to functional frontends.", icon: "fa-brands fa-bootstrap" },
+  { title: "Blogging & Content", desc: "Publishing technical articles, software architecture insights, and tutorials.", icon: "fa-solid fa-pen-nib" },
   { title: "Continuous Research", desc: "Constantly investigating emerging frameworks, patterns, and development tools.", icon: "fa-solid fa-graduation-cap" }
 ];
 
@@ -68,7 +69,7 @@ const STATS_DATA: Stat[] = [
   { value: 6, suffix: '+', label: 'Years Coding', icon: 'fa-solid fa-calendar-days' },
   { value: 4, suffix: '+', label: 'GitHub Projects', icon: 'fa-solid fa-folder-open' },
   { value: 4, suffix: '', label: 'Certifications', icon: 'fa-solid fa-award' },
-  { value: 14, suffix: '+', label: 'Skills Acquired', icon: 'fa-solid fa-code' },
+  { value: 15, suffix: '+', label: 'Skills Acquired', icon: 'fa-solid fa-code' },
 ];
 
 const EDUCATION_DATA: EdCard[] = [
@@ -628,7 +629,7 @@ export default function App() {
         <div className="about-layout">
           <div className="about-text">
             <p>
-              I’m a homeschooled learner from <span className="highlight">Morocco</span> with a strong interest in full-stack development, Python, artificial intelligence, and data analysis. I’m happy to be a part of the team at <span className="highlight">BIMPulse</span> as a <span className="highlight">Junior Full-Stack developer</span>, contributing to impactful real-world projects.
+              I’m a homeschooled learner from <span className="highlight">Morocco</span> with a strong interest in full-stack development, Python, artificial intelligence, and data analysis. I’m very happy to be working at <span className="highlight">BIMPulse</span> as a <span className="highlight">Junior Full-Stack developer</span>, contributing to impactful real-world projects.
             </p>
             <p>
               As a <span className="highlight">Junior Full-Stack Developer</span>, I focus on building practical web applications and strengthening my skills through hands-on projects and continuous learning. My technical experience includes <span className="highlight">Python, Django, HTML, CSS, SQL, Pandas, and Matplotlib</span>, alongside foundational knowledge of AI, data structures, algorithms, software engineering, and cybersecurity.
@@ -642,6 +643,16 @@ export default function App() {
             <p>
               My current goal is to continue growing as a <span className="highlight">Full-Stack Developer</span> while expanding my expertise in AI and data analysis and gaining valuable experience through meaningful projects.
             </p>
+            <div style={{ marginTop: '16px', marginBottom: '20px' }}>
+              <span style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--accent)', marginBottom: '8px' }}>
+                <i className="fa-solid fa-star" style={{ marginRight: '6px' }}></i>Top Skills:
+              </span>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {["Python (Programming Language)", "Artificial Intelligence (AI)", "Django", "Python Data Associate", "Software Development", "Blogging"].map((skill) => (
+                  <span className="exp-skill-tag" key={skill}>{skill}</span>
+                ))}
+              </div>
+            </div>
             <div className="about-cta-row">
               <a
                 href="https://github.com/Abdellah-BELMAARIS"
