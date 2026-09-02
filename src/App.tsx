@@ -628,7 +628,7 @@ export default function App() {
         <div className="about-layout">
           <div className="about-text">
             <p>
-              I’m a homeschooled learner from <span className="highlight">Morocco</span> with a strong interest in full-stack development, Python, artificial intelligence, and data analysis. As a <span className="highlight">Junior Full-Stack Developer</span> at <span className="highlight">BIMPulse Digital</span>, I focus on building practical web applications and strengthening my skills through hands-on projects and continuous learning.
+              I’m a homeschooled learner from <span className="highlight">Morocco</span> with a strong interest in full-stack development, Python, artificial intelligence, and data analysis. As a <span className="highlight">Junior Full-Stack developer</span>, I focus on building practical web applications and strengthening my skills through hands-on projects and continuous learning.
             </p>
             <p>
               My technical experience includes <span className="highlight">Python, Django, HTML, CSS, SQL, Pandas, and Matplotlib</span>, alongside foundational knowledge of AI, data structures, algorithms, software engineering, and cybersecurity. I enjoy the process of taking an idea from concept to a working solution—designing functionality, solving problems, working with data, and improving applications step by step.
