@@ -36,6 +36,7 @@ interface OtherProject {
   icon: string;
   github?: string;
   live?: string;
+  category: 'Full Stack' | 'Python & Data' | 'Architecture';
 }
 
 interface Stat {
@@ -43,6 +44,16 @@ interface Stat {
   suffix: string;
   label: string;
   icon: string;
+}
+
+interface GitHubRepo {
+  name: string;
+  html_url: string;
+  description: string | null;
+  language: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  updated_at: string;
 }
 
 // ─── Static Data ──────────────────────────────────────────────────────────────
@@ -149,6 +160,12 @@ const PROJECT_IMAGES = [
   "assets/journal5.png"
 ];
 
+const INSIGHTS_DATA = [
+  { title: 'Building reliable Django APIs', desc: 'Notes on authentication, permissions, query optimization, and maintainable backend structure.', icon: 'fa-solid fa-server', tag: 'Backend', href: 'https://github.com/Abdellah-BELMAARIS' },
+  { title: 'Learning through data projects', desc: 'Practical experiments with Python, Pandas, and visualization to turn raw data into useful decisions.', icon: 'fa-solid fa-chart-line', tag: 'Data', href: 'https://github.com/Abdellah-BELMAARIS' },
+  { title: 'A deliberate learning system', desc: 'How focused projects, documentation, and continuous research support long-term engineering growth.', icon: 'fa-solid fa-lightbulb', tag: 'Growth', href: 'https://github.com/Abdellah-BELMAARIS' },
+];
+
 const OTHER_PROJECTS: OtherProject[] = [
   {
     title: "PyGame 3D Web Arcade",
@@ -157,6 +174,7 @@ const OTHER_PROJECTS: OtherProject[] = [
     icon: "fa-solid fa-gamepad",
     github: "https://github.com/Abdellah-BELMAARIS/PyGame_Projects",
     live: "https://Abdellah-BELMAARIS.github.io/PyGame_Projects/",
+    category: 'Full Stack',
   },
   {
     title: "The Modern Journal",
@@ -165,6 +183,7 @@ const OTHER_PROJECTS: OtherProject[] = [
     icon: "fa-solid fa-newspaper",
     github: "https://github.com/Abdellah-BELMAARIS/modern-journal.github.io",
     live: "https://abdellah-belmaaris.github.io/modern-journal.github.io/",
+    category: 'Full Stack',
   },
   {
     title: "Dev-Pulse",
@@ -172,13 +191,15 @@ const OTHER_PROJECTS: OtherProject[] = [
     tech: ["Python", "Pandas", "Matplotlib", "Data Analysis"],
     icon: "fa-solid fa-chart-line",
     github: "https://github.com/Abdellah-BELMAARIS/Dev-Pulse",
+    category: 'Python & Data',
   },
   {
     title: "SchoolManagement",
     desc: "Developed a school administration backend featuring modular relational schemas, secure forms, custom middleware, and session authentication to demonstrate MVC architecture best practices.",
     tech: ["Django", "Python", "SQL", "Bootstrap"],
     icon: "fa-solid fa-graduation-cap",
-    github: "https://github.com/Abdellah-BELMAARIS/SchoolManagement",
+    github: "https://github.com/Abdellah-BELMAARIS",
+    category: 'Full Stack',
   },
   {
     title: "O-O-P",
@@ -186,6 +207,7 @@ const OTHER_PROJECTS: OtherProject[] = [
     tech: ["Python", "OOP", "Design Patterns", "Software Engineering"],
     icon: "fa-solid fa-cube",
     github: "https://github.com/Abdellah-BELMAARIS/O-O-P",
+    category: 'Architecture',
   },
 ];
 
@@ -307,6 +329,11 @@ function StatCard({ stat, isVisible }: { stat: Stat; isVisible: boolean }) {
 export default function App() {
   // Loading screen
   const [isLoading, setIsLoading] = useState(true);
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  });
 
   // Mobile Nav Active State
   const [menuActive, setMenuActive] = useState(false);
@@ -332,6 +359,16 @@ export default function App() {
 
   // Custom project screenshots carousel
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [projectFilter, setProjectFilter] = useState<'All' | OtherProject['category']>('All');
+  const [projectSearch, setProjectSearch] = useState('');
+  const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([]);
+  const [githubLoading, setGithubLoading] = useState(true);
+
+  const filteredProjects = OTHER_PROJECTS.filter((project) => {
+    const matchesFilter = projectFilter === 'All' || project.category === projectFilter;
+    const query = projectSearch.trim().toLowerCase();
+    return matchesFilter && (!query || `${project.title} ${project.desc} ${project.tech.join(' ')}`.toLowerCase().includes(query));
+  });
 
   // Modal control states
   const [selectedCert, setSelectedCert] = useState<string | null>(null);
@@ -343,7 +380,26 @@ export default function App() {
   const [formName, setFormName] = useState('');
   const [formEmail, setFormEmail] = useState('');
   const [formMessage, setFormMessage] = useState('');
+  const [website, setWebsite] = useState('');
   const [formStatus, setFormStatus] = useState<{ type: 'info' | 'success' | 'error'; text: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Persist the visitor's display preference without blocking the initial render.
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
+
+  // Public GitHub data requires no credentials and keeps the portfolio current.
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('https://api.github.com/users/Abdellah-BELMAARIS/repos?sort=updated&per_page=6', { signal: controller.signal, headers: { Accept: 'application/vnd.github+json' } })
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error('GitHub request failed')))
+      .then((repos: GitHubRepo[]) => setGithubRepos(repos.filter((repo) => repo.name !== 'abdellah-belmaaris.github.io').slice(0, 4)))
+      .catch(() => setGithubRepos([]))
+      .finally(() => setGithubLoading(false));
+    return () => controller.abort();
+  }, []);
 
   // Stats visibility (for animated counters)
   const [statsVisible, setStatsVisible] = useState(false);
@@ -361,11 +417,14 @@ export default function App() {
     const fullHeadline = "Junior Full-Stack developer | BIMPulse Digital";
 
     if (prefersReducedMotion) {
-      setWelcomeText(fullWelcome);
-      setNameText(fullName);
-      setHeadlineText(fullHeadline);
-      setTypingLine('done');
-      return;
+      // Queue this update so the effect remains a synchronization boundary.
+      const frame = window.requestAnimationFrame(() => {
+        setWelcomeText(fullWelcome);
+        setNameText(fullName);
+        setHeadlineText(fullHeadline);
+        setTypingLine('done');
+      });
+      return () => window.cancelAnimationFrame(frame);
     }
 
     let active = true;
@@ -414,7 +473,7 @@ export default function App() {
   // 2. Navigation Scroll Spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'experience', 'skills', 'project', 'certifications', 'contact'];
+      const sections = ['hero', 'about', 'experience', 'skills', 'project', 'insights', 'github', 'certifications', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -462,12 +521,18 @@ export default function App() {
   // 5. Contact Form Handler
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formName.trim() || !formEmail.trim() || !formMessage.trim()) {
-      alert('Please fill out all fields.');
+    if (website.trim()) return; // Honeypot: silently ignore automated submissions.
+    if (!formName.trim() || !formEmail.trim() || !formMessage.trim() || isSubmitting) {
+      setFormStatus({ type: 'error', text: 'Please complete every field before sending.' });
+      return;
+    }
+    if (formMessage.trim().length < 20) {
+      setFormStatus({ type: 'error', text: 'Please write a little more detail (at least 20 characters).' });
       return;
     }
 
-    setFormStatus({ type: 'info', text: 'Sending message...' });
+    setIsSubmitting(true);
+    setFormStatus({ type: 'info', text: 'Sending message…' });
 
     try {
       const response = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
@@ -479,7 +544,8 @@ export default function App() {
         body: JSON.stringify({
           name: formName,
           email: formEmail,
-          message: formMessage
+          message: formMessage,
+          _subject: `Portfolio message from ${formName.trim()}`
         })
       });
 
@@ -495,8 +561,10 @@ export default function App() {
       console.error(err);
       setFormStatus({
         type: 'error',
-        text: 'Oops! Failed to send message. Please contact me directly at obaidbelmaaris@gmail.com.'
+        text: 'Unable to send right now. Please email me directly instead.'
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -521,6 +589,7 @@ export default function App() {
 
   return (
     <>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       {/* Loading Splash Screen */}
       <AnimatePresence>
         {isLoading && (
@@ -542,7 +611,17 @@ export default function App() {
         <a href="#hero" className="logo" aria-label="Abdellah BELMAARIS Homepage">
           Abdellah <span style={{ color: 'var(--accent)', fontWeight: 800, letterSpacing: '0.5px' }}>BELMAARIS</span>
         </a>
-        <button
+        <div className="header-actions">
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+          >
+            <i className={`fa-solid ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`} aria-hidden="true" />
+          </button>
+          <button
           className={`hamburger ${menuActive ? 'active' : ''}`}
           onClick={() => setMenuActive(!menuActive)}
           aria-label="Toggle menu"
@@ -552,8 +631,9 @@ export default function App() {
           <span className="hamburger-bar"></span>
           <span className="hamburger-bar"></span>
           <span className="hamburger-bar"></span>
-        </button>
-        <nav>
+          </button>
+        </div>
+        <nav aria-label="Primary navigation">
           <ul className={`nav-list ${menuActive ? 'active' : ''}`}>
             {[
               { id: 'hero', label: 'Home', idx: '01.' },
@@ -562,7 +642,9 @@ export default function App() {
               { id: 'skills', label: 'Skills', idx: '04.' },
               { id: 'project', label: 'Projects', idx: '05.' },
               { id: 'certifications', label: 'Education', idx: '06.' },
-              { id: 'contact', label: 'Contact', idx: '07.' }
+              { id: 'insights', label: 'Journal', idx: '07.' },
+              { id: 'github', label: 'GitHub', idx: '08.' },
+              { id: 'contact', label: 'Contact', idx: '09.' }
             ].map((item) => (
               <li key={item.id}>
                 <a
@@ -580,6 +662,7 @@ export default function App() {
         </nav>
       </header>
 
+      <main id="main-content">
       {/* Hero Section */}
       <section id="hero" className="hero">
         <span className={`hero-welcome ${typingLine === 'welcome' ? 'typing-active' : ''}`}>
@@ -593,10 +676,14 @@ export default function App() {
         </p>
         <div className="hero-location">
           <i className="fa-solid fa-location-dot"></i> Casablanca, Morocco
+          <span className="availability-badge"><span className="availability-dot" /> Open to opportunities</span>
         </div>
         <div className="hero-buttons">
           <a href="#project" className="btn btn-primary" id="hero-view-work-btn">View My Work</a>
           <a href="#contact" className="btn btn-secondary" id="hero-connect-btn">Let's Connect</a>
+          <a href="assets/Abdellah_BELMAARIS_CV.pdf" className="btn btn-resume" download id="hero-resume-btn">
+            <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }} /> Resume
+          </a>
           <div className="hero-social-links">
             <a
               href="https://linkedin.com/in/abdellah-belmaaris"
@@ -999,8 +1086,21 @@ export default function App() {
             View All on GitHub <i className="fa-solid fa-arrow-right"></i>
           </a>
         </div>
+        <div className="project-tools" role="search" aria-label="Filter projects">
+          <label className="sr-only" htmlFor="project-search">Search projects</label>
+          <div className="project-search-wrap">
+            <i className="fa-solid fa-magnifying-glass" aria-hidden="true" />
+            <input id="project-search" className="project-search" type="search" placeholder="Search projects or technologies…" value={projectSearch} onChange={(e) => setProjectSearch(e.target.value)} />
+          </div>
+          <div className="project-filters" aria-label="Project categories">
+            {(['All', 'Full Stack', 'Python & Data', 'Architecture'] as const).map((category) => (
+              <button key={category} type="button" className={`filter-btn ${projectFilter === category ? 'active' : ''}`} aria-pressed={projectFilter === category} onClick={() => setProjectFilter(category)}>{category}</button>
+            ))}
+          </div>
+        </div>
+        <p className="results-count">Showing {filteredProjects.length} of {OTHER_PROJECTS.length} projects</p>
         <div className="other-projects-grid">
-          {OTHER_PROJECTS.map((proj, idx) => (
+          {filteredProjects.map((proj, idx) => (
             <motion.div
               key={idx}
               className="other-project-card spotlight-card"
@@ -1053,6 +1153,44 @@ export default function App() {
             </motion.div>
           ))}
         </div>
+        {filteredProjects.length === 0 && <p className="empty-state">No projects match your search. Try another keyword.</p>}
+      </section>
+
+      {/* Learning Journal Section */}
+      <section id="insights">
+        <span className="section-overline">07. Notes & Learning</span>
+        <h2 className="section-title">Engineering Journal</h2>
+        <div className="insights-grid">
+          {INSIGHTS_DATA.map((insight) => (
+            <a className="insight-card spotlight-card" href={insight.href} target="_blank" rel="noopener noreferrer" key={insight.title}>
+              <div className="insight-icon"><i className={insight.icon} aria-hidden="true" /></div>
+              <span className="insight-tag">{insight.tag}</span>
+              <h3>{insight.title}</h3>
+              <p>{insight.desc}</p>
+              <span className="insight-link">Read on GitHub <i className="fa-solid fa-arrow-up-right-from-square" /></span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* Live GitHub Section */}
+      <section id="github">
+        <span className="section-overline">08. Open Source</span>
+        <h2 className="section-title">Recent GitHub Work</h2>
+        <p className="section-intro">Real public repositories, loaded directly from GitHub. Explore the code, commits, and documentation behind my projects.</p>
+        {githubLoading ? <p className="github-state">Loading recent repositories…</p> : githubRepos.length > 0 ? (
+          <div className="github-grid">
+            {githubRepos.map((repo) => (
+              <a className="github-repo-card spotlight-card" href={repo.html_url} target="_blank" rel="noopener noreferrer" key={repo.name}>
+                <div className="github-repo-heading"><i className="fa-brands fa-github" aria-hidden="true" /><i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></div>
+                <h3>{repo.name}</h3>
+                <p>{repo.description || 'Public project repository.'}</p>
+                <div className="github-repo-meta"><span>{repo.language || 'Code'}</span><span><i className="fa-solid fa-star" /> {repo.stargazers_count}</span><span><i className="fa-solid fa-code-fork" /> {repo.forks_count}</span></div>
+              </a>
+            ))}
+          </div>
+        ) : <p className="github-state">GitHub is temporarily unavailable. <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">View my profile directly</a>.</p>}
+        <a className="btn btn-secondary github-profile-btn" href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-github" /> View full GitHub profile</a>
       </section>
 
       {/* Education & Certifications Section */}
@@ -1199,6 +1337,10 @@ export default function App() {
           </div>
 
           <form className="contact-form" onSubmit={handleContactSubmit} id="contact-form">
+            <div className="form-group honeypot" aria-hidden="true">
+              <label htmlFor="form-website">Website</label>
+              <input id="form-website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+            </div>
             <div className="form-group">
               <label htmlFor="form-name">Name</label>
               <input
@@ -1206,9 +1348,11 @@ export default function App() {
                 id="form-name"
                 className="form-control"
                 placeholder="Your Name"
+                autoComplete="name"
                 value={formName}
                 onChange={(e) => setFormName(e.target.value)}
                 required
+                maxLength={80}
               />
             </div>
             <div className="form-group">
@@ -1218,9 +1362,11 @@ export default function App() {
                 id="form-email"
                 className="form-control"
                 placeholder="Your Email Address"
+                autoComplete="email"
                 value={formEmail}
                 onChange={(e) => setFormEmail(e.target.value)}
                 required
+                maxLength={160}
               />
             </div>
             <div className="form-group">
@@ -1229,23 +1375,28 @@ export default function App() {
                 id="form-message"
                 className="form-control"
                 placeholder="Write your message here..."
+                autoComplete="off"
                 value={formMessage}
                 onChange={(e) => setFormMessage(e.target.value)}
                 required
+                minLength={20}
+                maxLength={2000}
               ></textarea>
             </div>
             {formStatus && (
-              <div className={`form-status ${formStatus.type}`}>
+              <div className={`form-status ${formStatus.type}`} role="status" aria-live="polite">
                 {formStatus.text}
               </div>
             )}
-            <button type="submit" className="btn btn-primary" id="contact-submit-btn" style={{ width: 'fit-content', alignSelf: 'flex-start' }}>
-              <i className="fa-solid fa-paper-plane" style={{ marginRight: '8px' }}></i>
-              Send Message
+            <button type="submit" className="btn btn-primary" id="contact-submit-btn" style={{ width: 'fit-content', alignSelf: 'flex-start' }} disabled={isSubmitting}>
+              <i className={`fa-solid ${isSubmitting ? 'fa-spinner fa-spin' : 'fa-paper-plane'}`} style={{ marginRight: '8px' }}></i>
+              {isSubmitting ? 'Sending…' : 'Send Message'}
             </button>
           </form>
         </div>
       </section>
+
+      </main>
 
       {/* Footer */}
       <footer className="footer">

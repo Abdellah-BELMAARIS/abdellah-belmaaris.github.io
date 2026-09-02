@@ -1,4 +1,10 @@
-import React, { useRef, useMemo, useEffect } from 'react';
+import { useRef, useMemo, useEffect, useState } from 'react';
+
+// Deterministic values keep the WebGL scene stable across React renders.
+const seededValue = (index: number, channel: number) => {
+  const value = Math.sin(index * 12.9898 + channel * 78.233) * 43758.5453;
+  return value - Math.floor(value);
+};
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -16,9 +22,9 @@ function Particles({ count = 100 }) {
 
     for (let i = 0; i < count; i++) {
       // Position spread
-      const x = (Math.random() - 0.5) * 15;
-      const y = (Math.random() - 0.5) * 15;
-      const z = (Math.random() - 0.5) * 5;
+      const x = (seededValue(i, 0) - 0.5) * 15;
+      const y = (seededValue(i, 1) - 0.5) * 15;
+      const z = (seededValue(i, 2) - 0.5) * 5;
 
       pos[i * 3] = x;
       pos[i * 3 + 1] = y;
@@ -29,12 +35,12 @@ function Particles({ count = 100 }) {
       basePos[i * 3 + 2] = z;
 
       // Base velocity (very slow floating)
-      vel[i * 3] = (Math.random() - 0.5) * 0.005;
-      vel[i * 3 + 1] = (Math.random() - 0.5) * 0.005;
-      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.002;
+      vel[i * 3] = (seededValue(i, 3) - 0.5) * 0.005;
+      vel[i * 3 + 1] = (seededValue(i, 4) - 0.5) * 0.005;
+      vel[i * 3 + 2] = (seededValue(i, 5) - 0.5) * 0.002;
 
       // Parallax depth multiplier (between 0.3 and 1.0)
-      dep[i] = Math.random() * 0.7 + 0.3;
+      dep[i] = seededValue(i, 6) * 0.7 + 0.3;
     }
     return [pos, vel, dep, basePos];
   }, [count]);
@@ -83,7 +89,7 @@ function Particles({ count = 100 }) {
       const dy = mouseY - posArr[i3 + 1];
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      if (dist < 3.5) {
+      if (dist > 0 && dist < 3.5) {
         const force = (3.5 - dist) / 3.5;
         const pull = force * 0.008 * depth;
         // Slowly apply acceleration towards mouse
@@ -145,18 +151,18 @@ function GlowingBlobs() {
   const group = useRef<THREE.Group>(null);
 
   const blobs = useMemo(() => {
-    return Array.from({ length: 3 }).map(() => ({
+    return Array.from({ length: 3 }).map((_, index) => ({
       position: new THREE.Vector3(
-        (Math.random() - 0.5) * 10,
-        (Math.random() - 0.5) * 10,
+        (seededValue(index, 10) - 0.5) * 10,
+        (seededValue(index, 11) - 0.5) * 10,
         -6
       ),
-      scale: Math.random() * 3 + 2,
+      scale: seededValue(index, 12) * 3 + 2,
       velocity: new THREE.Vector2(
-        (Math.random() - 0.5) * 0.002,
-        (Math.random() - 0.5) * 0.002
+        (seededValue(index, 13) - 0.5) * 0.002,
+        (seededValue(index, 14) - 0.5) * 0.002
       ),
-      color: Math.random() > 0.5 ? '#64ffda' : '#00b4d8',
+      color: seededValue(index, 15) > 0.5 ? '#64ffda' : '#00b4d8',
     }));
   }, []);
 
@@ -194,12 +200,12 @@ function GlowingBlobs() {
 
 // Main background component
 export default function ThreeBackground() {
-  const [reduceMotion, setReduceMotion] = React.useState(false);
+  const [reduceMotion, setReduceMotion] = useState(() =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduceMotion(media.matches);
-
     const listener = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
     media.addEventListener('change', listener);
     return () => media.removeEventListener('change', listener);
@@ -215,7 +221,7 @@ export default function ThreeBackground() {
         height: '100vh',
         zIndex: 0,
         pointerEvents: 'none',
-        backgroundColor: '#0a192f',
+        backgroundColor: 'var(--bg-base)',
       }}
     >
       <Canvas

@@ -1,0 +1,10 @@
+{
+  "name": "Abdellah BELMAARIS | Full-Stack Developer",
+  "short_name": "Abdellah BELMAARIS",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a192f",
+  "theme_color": "#0a192f",
+  "description": "Portfolio of Abdellah BELMAARIS, junior full-stack developer.",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

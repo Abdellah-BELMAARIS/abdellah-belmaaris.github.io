@@ -41,7 +41,7 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
                 The Modern Journal — Engineering Case Study
               </h3>
             </div>
-            <button className="case-study-close" aria-label="Close case study" id="case-study-close-btn">
+            <button className="case-study-close" onClick={onClose} aria-label="Close case study" id="case-study-close-btn">
               <i className="fa-solid fa-xmark"></i>
             </button>
           </div>
