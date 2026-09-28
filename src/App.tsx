@@ -69,7 +69,7 @@ const PERSONAL_PROJECTS: PersonalProject[] = [
     subtitle: '3D retro cabinet interface hosting 16 WebAssembly-compiled Python games',
     desc: 'Compiles 16 native Python PyGame arcade classics to WebAssembly via Pygbag. Features interactive 3D cabinet selector with dynamic Three.js lighting and responsive browser deck controls.',
     metrics: ['16 Python Classics in WebAssembly', 'Locked 60 FPS WebGL Rendering', 'Zero-Install Browser Execution'],
-    tech: ['React Three Fiber', 'Three.js', 'Python', 'WebAssembly (Pygbag)', 'TypeScript', 'Vite'],
+    tech: ['Three.js', 'Python', 'WebAssembly (Pygbag)', 'Vite', 'HTML5 Canvas'],
     github: 'https://github.com/Abdellah-BELMAARIS/PyGame_Projects',
     live: 'https://Abdellah-BELMAARIS.github.io/PyGame_Projects/'
   },
@@ -619,9 +619,9 @@ export default function App() {
                 <span className="tech-sep">·</span>
                 <span className="tech-item">Django</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">React</span>
+                <span className="tech-item">HTML</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">TypeScript</span>
+                <span className="tech-item">CSS</span>
                 <span className="tech-sep">·</span>
                 <span className="tech-item">SQL</span>
               </div>
@@ -744,9 +744,9 @@ export default function App() {
         "AEC Digital Solutions"
     ]
     core_stack = {
-        "backend": ["Python", "Django", "SQL"],
-        "frontend": ["React", "TypeScript"],
-        "supporting": ["AI / Data Analysis"]
+        "development": ["Python", "Django", "HTML", "CSS", "SQL"],
+        "data": ["Pandas", "Matplotlib", "Data Analysis"],
+        "exploring": ["AI", "Cybersecurity"]
     }
 
     def mission(self):
@@ -895,7 +895,7 @@ export default function App() {
 
             {/* Specific Tags (Rule 11) */}
             <div className="exp-skills">
-              {['BIMPulse', 'BIM / IFC', 'Engineering', 'AEC Digital Solutions', 'New Technologies', 'Python', 'Django', 'React', 'TypeScript', 'SQL'].map((s) => (
+              {['BIMPulse', 'BIM / IFC', 'Engineering', 'AEC Digital Solutions', 'New Technologies', 'Python', 'Django', 'SQL', 'HTML & CSS'].map((s) => (
                 <span className="exp-skill-tag" key={s}>{s}</span>
               ))}
             </div>
@@ -1006,7 +1006,7 @@ export default function App() {
                 Building full-stack web applications, translating functional requirements into modular backends and responsive user interfaces.
               </p>
               <div className="exp-skills">
-                {['Full-Stack Development', 'React', 'JavaScript', 'HTML5', 'CSS3', 'Bootstrap 5'].map((s) => (
+                {['Web Development', 'Django', 'Bootstrap 5', 'HTML5', 'CSS3', 'REST APIs'].map((s) => (
                   <span className="exp-skill-tag" key={s}>{s}</span>
                 ))}
               </div>
@@ -1232,7 +1232,7 @@ export default function App() {
 
               <div className="project-detail-breakdown">
                 <div className="detail-item">
-                  <span className="detail-label">CONTEXT:</span> Developing responsive web applications, relational database schemas, and RESTful APIs in Python/Django and React to bridge BIM engineering workflows with real-time web access.
+                  <span className="detail-label">CONTEXT:</span> Developing responsive web applications, relational database schemas, and RESTful APIs in Python and Django to bridge BIM engineering workflows with real-time web access.
                 </div>
               </div>
 
@@ -1240,8 +1240,8 @@ export default function App() {
                 <span className="tech-chip">Python</span>
                 <span className="tech-chip">Django REST Framework</span>
                 <span className="tech-chip">PostgreSQL</span>
-                <span className="tech-chip">React</span>
-                <span className="tech-chip">TypeScript</span>
+                <span className="tech-chip">SQL</span>
+                <span className="tech-chip">HTML5 / CSS3</span>
                 <span className="tech-chip">BIM &amp; IFC Standards</span>
               </div>
 
@@ -1391,7 +1391,7 @@ export default function App() {
           </p>
 
           <div className="tech-stack-grid">
-            {/* 1. Core Development (Rule 18) */}
+            {/* 1. Development */}
             <motion.div
               className="tech-category-card"
               initial={{ opacity: 0, y: 20 }}
@@ -1404,12 +1404,12 @@ export default function App() {
                   <i className="fa-solid fa-code" />
                 </div>
                 <div>
-                  <span className="category-kicker">PRIMARY</span>
-                  <h3 className="category-title">Core Development</h3>
+                  <span className="category-kicker">CORE DISCIPLINE</span>
+                  <h3 className="category-title">Development</h3>
                 </div>
               </div>
               <div className="category-tags-list">
-                {['Python', 'Django', 'React', 'TypeScript', 'JavaScript', 'SQL', 'HTML', 'CSS'].map((item) => (
+                {['Python', 'Django', 'HTML', 'CSS', 'SQL'].map((item) => (
                   <span className="tech-pill-large" key={item}>
                     <span className="pill-dot emerald" /> {item}
                   </span>
@@ -1417,7 +1417,7 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* 2. Data (Rule 18) */}
+            {/* 2. Data */}
             <motion.div
               className="tech-category-card"
               initial={{ opacity: 0, y: 20 }}
@@ -1435,7 +1435,7 @@ export default function App() {
                 </div>
               </div>
               <div className="category-tags-list">
-                {['Pandas', 'Matplotlib', 'SQLAlchemy', 'Data Analysis'].map((item) => (
+                {['Pandas', 'Matplotlib', 'Data Analysis'].map((item) => (
                   <span className="tech-pill-large" key={item}>
                     <span className="pill-dot gold" /> {item}
                   </span>
@@ -1443,7 +1443,7 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* 3. Tools (Rule 18) */}
+            {/* 3. Computer Science */}
             <motion.div
               className="tech-category-card"
               initial={{ opacity: 0, y: 20 }}
@@ -1453,15 +1453,15 @@ export default function App() {
             >
               <div className="category-header">
                 <div className="category-icon-box tools-icon">
-                  <i className="fa-solid fa-screwdriver-wrench" />
+                  <i className="fa-solid fa-laptop-code" />
                 </div>
                 <div>
-                  <span className="category-kicker">ENVIRONMENT</span>
-                  <h3 className="category-title">Tools</h3>
+                  <span className="category-kicker">ENGINEERING FOUNDATIONS</span>
+                  <h3 className="category-title">Computer Science</h3>
                 </div>
               </div>
               <div className="category-tags-list">
-                {['Git', 'GitHub', 'Docker', 'Linux', 'VS Code'].map((item) => (
+                {['Algorithms', 'Data Structures', 'Software Engineering'].map((item) => (
                   <span className="tech-pill-large" key={item}>
                     <span className="pill-dot white" /> {item}
                   </span>
@@ -1469,7 +1469,7 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* 4. Knowledge & Exploring (Rule 18) */}
+            {/* 4. Exploring / Foundations */}
             <motion.div
               className="tech-category-card"
               initial={{ opacity: 0, y: 20 }}
@@ -1483,11 +1483,11 @@ export default function App() {
                 </div>
                 <div>
                   <span className="category-kicker">HORIZONS</span>
-                  <h3 className="category-title">Knowledge &amp; Exploring</h3>
+                  <h3 className="category-title">Exploring / Foundations</h3>
                 </div>
               </div>
               <div className="category-tags-list">
-                {['AI / ML', 'Algorithms', 'Data Structures', 'Software Engineering', 'Cybersecurity Fundamentals'].map((item) => (
+                {['Artificial Intelligence', 'Cybersecurity'].map((item) => (
                   <span className="tech-pill-large" key={item}>
                     <span className="pill-dot emerald" /> {item}
                   </span>
