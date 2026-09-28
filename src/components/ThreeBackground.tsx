@@ -2,216 +2,233 @@ import { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-// Deterministic pseudo-random generator to ensure stable visual results
-const seededValue = (index: number, channel: number) => {
-  const value = Math.sin(index * 12.9898 + channel * 78.233) * 43758.5453;
-  return value - Math.floor(value);
-};
+// ─── Subtle Architectural BIM & IFC Wireframe Geometry ───────────────────────
+// Represents IFC structural grids, building axes, and engineering perspective
+function ArchitecturalBimGrid() {
+  const groupRef = useRef<THREE.Group>(null);
+  const { mouse } = useThree();
 
-// ─── Glowing Texture Helper ───────────────────────────────────────────────────
-function createGlowTexture(color1 = 'rgba(255, 255, 255, 1)', color2 = 'rgba(100, 255, 218, 0.8)', color3 = 'rgba(10, 25, 47, 0)') {
-  const canvas = document.createElement('canvas');
-  canvas.width = 64;
-  canvas.height = 64;
-  const ctx = canvas.getContext('2d');
-  if (ctx) {
-    const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grad.addColorStop(0, color1);
-    grad.addColorStop(0.25, color2);
-    grad.addColorStop(0.7, 'rgba(139, 92, 246, 0.2)');
-    grad.addColorStop(1, color3);
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(32, 32, 32, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.generateMipmaps = false;
-  texture.minFilter = THREE.LinearFilter;
-  return texture;
-}
+  // Procedurally generate architectural structural columns and floor planes
+  const { gridLines, nodePositions } = useMemo(() => {
+    const lines: number[] = [];
+    const nodes: number[] = [];
 
-// ─── Neural Constellation (Nodes + Dynamic Connecting Synaptic Lines) ─────────
-function NeuralConstellation({ count = 90, speedMultiplier = 1.0 }: { count?: number; speedMultiplier?: number }) {
-  const pointsRef = useRef<THREE.Points>(null);
-  const linesRef = useRef<THREE.LineSegments>(null);
-  const { viewport, mouse } = useThree();
+    // Floor perspective grid lines (subtle ground plane)
+    const gridSize = 12;
+    const step = 2.0;
+    const yFloor = -3.2;
 
-  // Maximum possible line connections between nearby nodes
-  const maxConnections = 300;
-  const connectionDistance = 2.4;
-
-  const [positions, velocities, depths, , linePositions, lineColors] = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    const vel = new Float32Array(count * 3);
-    const basePos = new Float32Array(count * 3);
-    const dep = new Float32Array(count);
-    const linePos = new Float32Array(maxConnections * 2 * 3);
-    const lineCols = new Float32Array(maxConnections * 2 * 3);
-
-    for (let i = 0; i < count; i++) {
-      const x = (seededValue(i, 0) - 0.5) * 18;
-      const y = (seededValue(i, 1) - 0.5) * 16;
-      const z = (seededValue(i, 2) - 0.5) * 6;
-
-      pos[i * 3] = x;
-      pos[i * 3 + 1] = y;
-      pos[i * 3 + 2] = z;
-
-      basePos[i * 3] = x;
-      basePos[i * 3 + 1] = y;
-      basePos[i * 3 + 2] = z;
-
-      vel[i * 3] = (seededValue(i, 3) - 0.5) * 0.007;
-      vel[i * 3 + 1] = (seededValue(i, 4) - 0.5) * 0.007;
-      vel[i * 3 + 2] = (seededValue(i, 5) - 0.5) * 0.003;
-
-      dep[i] = seededValue(i, 6) * 0.7 + 0.3;
+    for (let x = -gridSize; x <= gridSize; x += step) {
+      lines.push(x, yFloor, -gridSize);
+      lines.push(x, yFloor, gridSize);
     }
-    return [pos, vel, dep, basePos, linePos, lineCols];
-  }, [count]);
+    for (let z = -gridSize; z <= gridSize; z += step) {
+      lines.push(-gridSize, yFloor, z);
+      lines.push(gridSize, yFloor, z);
+    }
 
-  const scrollRef = useRef({ y: 0, speed: 0 });
-  useEffect(() => {
-    let lastY = window.scrollY;
-    const handleScroll = () => {
-      const curY = window.scrollY;
-      scrollRef.current.speed = (curY - lastY) * 0.015;
-      lastY = curY;
+    // Structural columns (vertical BIM wireframe members)
+    const columns = [
+      [3.0, -1.0], [5.5, -3.0], [7.0, 1.0], [4.5, 3.5],
+      [-5.0, 1.5], [-7.5, -2.0], [1.5, -4.5], [-3.5, -3.5]
+    ];
+
+    columns.forEach(([cx, cz]) => {
+      lines.push(cx, -3.2, cz);
+      lines.push(cx, 3.8, cz);
+
+      // Node joints at floor and ceiling levels
+      nodes.push(cx, -3.2, cz);
+      nodes.push(cx, 3.8, cz);
+      nodes.push(cx, 0.3, cz);
+
+      // Horizontal beam connection between adjacent structural columns
+      lines.push(cx, 0.3, cz);
+      lines.push(cx + 1.2, 0.3, cz - 0.8);
+    });
+
+    return {
+      gridLines: new Float32Array(lines),
+      nodePositions: new Float32Array(nodes),
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const pointTexture = useMemo(() => createGlowTexture(), []);
+  useFrame((_state) => {
+    if (!groupRef.current) return;
+    // Ultra subtle parallax (2 to 6px maximum)
+    const targetX = (mouse.x * 0.35);
+    const targetY = (mouse.y * 0.25);
+    groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, targetX, 0.04);
+    groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY, 0.04);
+  });
 
-  useFrame((_state, delta) => {
+  return (
+    <group ref={groupRef} position={[2.5, 0, -4.5]}>
+      {/* Structural IFC Beam Wireframe Lines */}
+      <lineSegments>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[gridLines, 3]}
+          />
+        </bufferGeometry>
+        <lineBasicMaterial
+          color="#10b981"
+          transparent
+          opacity={0.045}
+          depthWrite={false}
+        />
+      </lineSegments>
+
+      {/* BIM Structural Joint Nodes */}
+      <points>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[nodePositions, 3]}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.08}
+          color="#34d399"
+          transparent
+          opacity={0.08}
+          depthWrite={false}
+        />
+      </points>
+    </group>
+  );
+}
+
+// ─── Restrained Cinematic Particles (Rule 5: 30-50 desktop, 12 mobile) ────────
+function RestrainedParticles({ count = 40 }: { count?: number }) {
+  const pointsRef = useRef<THREE.Points>(null);
+  const linesRef = useRef<THREE.LineSegments>(null);
+  const { mouse } = useThree();
+
+  const [positions, velocities, linePos, lineCols] = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    const vel = new Float32Array(count * 3);
+    const maxLines = 80;
+    const lPos = new Float32Array(maxLines * 2 * 3);
+    const lCol = new Float32Array(maxLines * 2 * 3);
+
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.sin(i * 91.23) * 0.5) * 16;
+      pos[i * 3 + 1] = (Math.cos(i * 47.81) * 0.5) * 12;
+      pos[i * 3 + 2] = (Math.sin(i * 13.57) * 0.5) * 6 - 2;
+
+      vel[i * 3] = (Math.sin(i * 5.31) - 0.5) * 0.003;
+      vel[i * 3 + 1] = (Math.cos(i * 7.19) - 0.5) * 0.003;
+      vel[i * 3 + 2] = 0;
+    }
+    return [pos, vel, lPos, lCol];
+  }, [count]);
+
+  useFrame(() => {
     if (!pointsRef.current || !linesRef.current) return;
 
-    const geoPoints = pointsRef.current.geometry;
-    const posArr = geoPoints.attributes.position.array as Float32Array;
+    const posArr = pointsRef.current.geometry.attributes.position.array as Float32Array;
+    const lPosArr = linesRef.current.geometry.attributes.position.array as Float32Array;
+    const lColArr = linesRef.current.geometry.attributes.color.array as Float32Array;
 
-    const geoLines = linesRef.current.geometry;
-    const linePosArr = geoLines.attributes.position.array as Float32Array;
-    const lineColArr = geoLines.attributes.color.array as Float32Array;
-
-    scrollRef.current.speed *= 0.94;
-
-    const mouseX = (mouse.x * viewport.width) / 2;
-    const mouseY = (mouse.y * viewport.height) / 2;
-
-    const speedFactor = delta * 60 * speedMultiplier;
-
-    // 1. Update nodes positions
+    // Slow drifting particle update
     for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      const depth = depths[i];
+      posArr[i * 3] += velocities[i * 3];
+      posArr[i * 3 + 1] += velocities[i * 3 + 1];
 
-      posArr[i3] += velocities[i3] * speedFactor;
-      posArr[i3 + 1] += velocities[i3 + 1] * speedFactor;
-      posArr[i3 + 2] += velocities[i3 + 2] * speedFactor;
-
-      // Scroll pull
-      posArr[i3 + 1] += scrollRef.current.speed * depth * 0.35;
-
-      // Mouse repulsion / magnetic field
-      const dx = mouseX - posArr[i3];
-      const dy = mouseY - posArr[i3 + 1];
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist > 0 && dist < 4.0) {
-        const force = (4.0 - dist) / 4.0;
-        const push = force * 0.012 * depth;
-        posArr[i3] -= (dx / dist) * push * speedFactor;
-        posArr[i3 + 1] -= (dy / dist) * push * speedFactor;
-      }
-
-      // Restorative pull towards boundary
-      const boundX = 10;
-      const boundY = 9;
-      if (posArr[i3] > boundX) posArr[i3] = -boundX;
-      else if (posArr[i3] < -boundX) posArr[i3] = boundX;
-
-      if (posArr[i3 + 1] > boundY) posArr[i3 + 1] = -boundY;
-      else if (posArr[i3 + 1] < -boundY) posArr[i3 + 1] = boundY;
+      // Screen boundary wraps
+      if (posArr[i * 3] > 10) posArr[i * 3] = -10;
+      if (posArr[i * 3] < -10) posArr[i * 3] = 10;
+      if (posArr[i * 3 + 1] > 7) posArr[i * 3 + 1] = -7;
+      if (posArr[i * 3 + 1] < -7) posArr[i * 3 + 1] = 7;
     }
-    geoPoints.attributes.position.needsUpdate = true;
+    pointsRef.current.geometry.attributes.position.needsUpdate = true;
 
-    // 2. Connect nearby nodes with synaptic lines
-    let connectionIdx = 0;
-    const maxLineVerts = maxConnections * 2;
+    // Connect close neighbors with faint lines
+    let lineIdx = 0;
+    const maxLines = 80;
+    const connDistSq = 2.8 * 2.8;
 
-    for (let i = 0; i < count; i++) {
-      if (connectionIdx >= maxLineVerts) break;
-      const i3 = i * 3;
-      const x1 = posArr[i3];
-      const y1 = posArr[i3 + 1];
-      const z1 = posArr[i3 + 2];
+    for (let i = 0; i < count && lineIdx < maxLines; i++) {
+      for (let j = i + 1; j < count && lineIdx < maxLines; j++) {
+        const dx = posArr[i * 3] - posArr[j * 3];
+        const dy = posArr[i * 3 + 1] - posArr[j * 3 + 1];
+        const dz = posArr[i * 3 + 2] - posArr[j * 3 + 2];
+        const dSq = dx * dx + dy * dy + dz * dz;
 
-      for (let j = i + 1; j < count; j++) {
-        if (connectionIdx >= maxLineVerts) break;
-        const j3 = j * 3;
-        const dx = x1 - posArr[j3];
-        const dy = y1 - posArr[j3 + 1];
-        const dz = z1 - posArr[j3 + 2];
-        const distSq = dx * dx + dy * dy + dz * dz;
+        if (dSq < connDistSq) {
+          const alpha = (1 - Math.sqrt(dSq) / 2.8) * 0.07;
+          const p = lineIdx * 6;
 
-        if (distSq < connectionDistance * connectionDistance) {
-          const dist = Math.sqrt(distSq);
-          const alpha = 1.0 - dist / connectionDistance;
+          lPosArr[p] = posArr[i * 3];
+          lPosArr[p + 1] = posArr[i * 3 + 1];
+          lPosArr[p + 2] = posArr[i * 3 + 2];
 
-          // Vertex A
-          linePosArr[connectionIdx * 3] = x1;
-          linePosArr[connectionIdx * 3 + 1] = y1;
-          linePosArr[connectionIdx * 3 + 2] = z1;
+          lPosArr[p + 3] = posArr[j * 3];
+          lPosArr[p + 4] = posArr[j * 3 + 1];
+          lPosArr[p + 5] = posArr[j * 3 + 2];
 
-          lineColArr[connectionIdx * 3] = 0.39 * alpha;      // R (cyan/purple mix)
-          lineColArr[connectionIdx * 3 + 1] = 1.0 * alpha;   // G (#64ffda)
-          lineColArr[connectionIdx * 3 + 2] = 0.85 * alpha;  // B
+          // Emerald tint
+          lColArr[p] = 0.06; lColArr[p + 1] = 0.72; lColArr[p + 2] = 0.50;
+          lColArr[p + 3] = 0.06; lColArr[p + 4] = 0.72; lColArr[p + 5] = 0.50;
 
-          // Vertex B
-          linePosArr[(connectionIdx + 1) * 3] = posArr[j3];
-          linePosArr[(connectionIdx + 1) * 3 + 1] = posArr[j3 + 1];
-          linePosArr[(connectionIdx + 1) * 3 + 2] = posArr[j3 + 2];
+          // Scale alpha via vertex color
+          lColArr[p] *= alpha; lColArr[p + 1] *= alpha; lColArr[p + 2] *= alpha;
+          lColArr[p + 3] *= alpha; lColArr[p + 4] *= alpha; lColArr[p + 5] *= alpha;
 
-          lineColArr[(connectionIdx + 1) * 3] = 0.55 * alpha;     // R (violet shift)
-          lineColArr[(connectionIdx + 1) * 3 + 1] = 0.75 * alpha; // G
-          lineColArr[(connectionIdx + 1) * 3 + 2] = 1.0 * alpha;  // B
-
-          connectionIdx += 2;
+          lineIdx++;
         }
       }
     }
 
-    geoLines.setDrawRange(0, connectionIdx);
-    geoLines.attributes.position.needsUpdate = true;
-    geoLines.attributes.color.needsUpdate = true;
+    // Zero out unused lines
+    for (let k = lineIdx * 6; k < maxLines * 6; k++) {
+      lPosArr[k] = 0;
+      lColArr[k] = 0;
+    }
+    linesRef.current.geometry.attributes.position.needsUpdate = true;
+    linesRef.current.geometry.attributes.color.needsUpdate = true;
+
+    // Ultra soft cursor parallax
+    pointsRef.current.position.x = THREE.MathUtils.lerp(pointsRef.current.position.x, mouse.x * 0.2, 0.03);
+    pointsRef.current.position.y = THREE.MathUtils.lerp(pointsRef.current.position.y, mouse.y * 0.2, 0.03);
+    linesRef.current.position.x = pointsRef.current.position.x;
+    linesRef.current.position.y = pointsRef.current.position.y;
   });
 
   return (
     <>
       <points ref={pointsRef}>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+          <bufferAttribute
+            attach="attributes-position"
+            args={[positions, 3]}
+          />
         </bufferGeometry>
         <pointsMaterial
-          size={0.16}
-          map={pointTexture}
+          size={0.065}
+          color="#10b981"
           transparent
+          opacity={0.35}
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
         />
       </points>
 
       <lineSegments ref={linesRef}>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
-          <bufferAttribute attach="attributes-color" args={[lineColors, 3]} />
+          <bufferAttribute
+            attach="attributes-position"
+            args={[linePos, 3]}
+          />
+          <bufferAttribute
+            attach="attributes-color"
+            args={[lineCols, 3]}
+          />
         </bufferGeometry>
         <lineBasicMaterial
           vertexColors
           transparent
-          opacity={0.35}
           depthWrite={false}
           blending={THREE.AdditiveBlending}
         />
@@ -220,133 +237,58 @@ function NeuralConstellation({ count = 90, speedMultiplier = 1.0 }: { count?: nu
   );
 }
 
-// ─── 3D AI Neural Core (Wireframe Polyhedron Floating in Hero Zone) ───────────
-function AINeuralCore() {
-  const outerGroup = useRef<THREE.Group>(null);
-  const innerMesh = useRef<THREE.Mesh>(null);
-  const ringMesh = useRef<THREE.Mesh>(null);
-  const { mouse } = useThree();
-
-  useFrame((state, _delta) => {
-    const t = state.clock.getElapsedTime();
-
-    if (outerGroup.current) {
-      // Smooth float and cursor tracking
-      outerGroup.current.rotation.y = t * 0.18;
-      outerGroup.current.rotation.x = Math.sin(t * 0.12) * 0.2 + mouse.y * 0.2;
-      outerGroup.current.rotation.z = Math.cos(t * 0.1) * 0.15 + mouse.x * 0.2;
-      outerGroup.current.position.y = 1.2 + Math.sin(t * 0.6) * 0.25;
-    }
-
-    if (innerMesh.current) {
-      innerMesh.current.rotation.y = -t * 0.35;
-      innerMesh.current.rotation.x = t * 0.25;
-    }
-
-    if (ringMesh.current) {
-      ringMesh.current.rotation.z = t * 0.2;
-      ringMesh.current.rotation.x = Math.PI / 3 + Math.sin(t * 0.3) * 0.1;
-    }
-  });
-
-  return (
-    <group ref={outerGroup} position={[4.2, 1.2, -2.5]}>
-      {/* Outer Icosahedron Wireframe */}
-      <mesh>
-        <icosahedronGeometry args={[1.5, 1]} />
-        <meshBasicMaterial
-          color="#64ffda"
-          wireframe
-          transparent
-          opacity={0.16}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-
-      {/* Inner Octahedron Core with Violet Accent */}
-      <mesh ref={innerMesh}>
-        <octahedronGeometry args={[0.85, 0]} />
-        <meshBasicMaterial
-          color="#a78bfa"
-          wireframe
-          transparent
-          opacity={0.28}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-
-      {/* Equatorial Cyber Ring */}
-      <mesh ref={ringMesh}>
-        <torusGeometry args={[1.9, 0.02, 16, 64]} />
-        <meshBasicMaterial
-          color="#38bdf8"
-          transparent
-          opacity={0.22}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-    </group>
-  );
-}
-
-// ─── Ambient Aurora Nebula Orbs ───────────────────────────────────────────────
-function GlowingAuroraOrbs() {
-  const group = useRef<THREE.Group>(null);
-
-  const orbs = useMemo(() => [
-    { pos: new THREE.Vector3(-5, 3, -7), size: 10, color: '#00f0ff', speed: 0.15 },
-    { pos: new THREE.Vector3(6, -2, -8), size: 12, color: '#8b5cf6', speed: 0.18 },
-    { pos: new THREE.Vector3(0, -4, -6), size: 9, color: '#10b981', speed: 0.12 },
-    { pos: new THREE.Vector3(-4, -2, -7.5), size: 8, color: '#3b82f6', speed: 0.14 },
-  ], []);
+// ─── Cinematic Emerald Volumetric Glow (Rule 4: Opacity 8-15%, duration 18-25s) ───
+function CinematicEmeraldGlow() {
+  const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
-    if (!group.current) return;
+    if (!meshRef.current) return;
     const t = state.clock.getElapsedTime();
-
-    group.current.children.forEach((mesh, i) => {
-      const orb = orbs[i];
-      mesh.position.x = orb.pos.x + Math.sin(t * orb.speed + i) * 1.5;
-      mesh.position.y = orb.pos.y + Math.cos(t * orb.speed * 0.9 + i) * 1.2;
-      const s = orb.size + Math.sin(t * 0.4 + i) * 0.6;
-      mesh.scale.set(s, s, 1);
-    });
+    // Ultra slow, calm oscillation: 18-25s period
+    const cycle = t * 0.28;
+    meshRef.current.position.x = 3.5 + Math.sin(cycle) * 0.8;
+    meshRef.current.position.y = 0.5 + Math.cos(cycle * 0.8) * 0.6;
+    const pulse = 1.0 + Math.sin(cycle * 0.5) * 0.08;
+    meshRef.current.scale.set(pulse * 7.5, pulse * 7.5, 1);
   });
 
   return (
-    <group ref={group}>
-      {orbs.map((orb, idx) => (
-        <mesh key={idx} position={orb.pos}>
-          <planeGeometry args={[1, 1]} />
-          <meshBasicMaterial
-            color={orb.color}
-            transparent
-            opacity={0.055}
-            blending={THREE.AdditiveBlending}
-            depthWrite={false}
-          />
-        </mesh>
-      ))}
-    </group>
+    <mesh ref={meshRef} position={[3.5, 0.5, -5]}>
+      <planeGeometry args={[1, 1]} />
+      <meshBasicMaterial
+        color="#087F5B"
+        transparent
+        opacity={0.095}
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+      />
+    </mesh>
   );
 }
 
 // ─── Main Moving Background Component ─────────────────────────────────────────
 export default function ThreeBackground() {
+  const [isMobile, setIsMobile] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false
   );
-  const [bgMode, setBgMode] = useState<'neural' | 'calm'>('neural');
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
     const listener = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
     media.addEventListener('change', listener);
-    return () => media.removeEventListener('change', listener);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      media.removeEventListener('change', listener);
+    };
   }, []);
 
-  const particleCount = reduceMotion ? 25 : bgMode === 'calm' ? 50 : 100;
-  const speed = bgMode === 'calm' ? 0.5 : 1.0;
+  const particleCount = reduceMotion ? 10 : isMobile ? 14 : 38;
 
   return (
     <div
@@ -359,7 +301,7 @@ export default function ThreeBackground() {
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden',
-        backgroundColor: 'var(--bg-base)',
+        background: 'linear-gradient(180deg, #070B0F 0%, #0B1117 100%)',
       }}
       aria-hidden="true"
     >
@@ -369,74 +311,20 @@ export default function ThreeBackground() {
         dpr={[1, 1.5]}
       >
         <ambientLight intensity={0.4} />
-        {!reduceMotion && <GlowingAuroraOrbs />}
-        {!reduceMotion && <AINeuralCore />}
-        <NeuralConstellation count={particleCount} speedMultiplier={speed} />
+        {!reduceMotion && <CinematicEmeraldGlow />}
+        {!isMobile && !reduceMotion && <ArchitecturalBimGrid />}
+        {!reduceMotion && <RestrainedParticles count={particleCount} />}
       </Canvas>
 
-      {/* Cybernetic Radial Vignette & Grid Depth Overlay */}
+      {/* Cinematic Radial Depth Vignette */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse 90% 70% at 50% 30%, transparent 20%, var(--bg-base) 85%)',
+          background: 'radial-gradient(ellipse 85% 75% at 50% 35%, transparent 25%, #070B0F 90%)',
           pointerEvents: 'none',
         }}
       />
-
-      {/* Subtle Background HUD Status Pill (Non-intrusive interactive indicator) */}
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '18px',
-          left: '20px',
-          zIndex: 10,
-          pointerEvents: 'auto',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          background: 'rgba(10, 25, 47, 0.7)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(100, 255, 218, 0.2)',
-          borderRadius: '20px',
-          padding: '5px 12px',
-          fontSize: '0.72rem',
-          fontFamily: 'var(--font-mono)',
-          color: 'var(--text-secondary)',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
-          transition: 'all 0.3s ease',
-        }}
-        className="bg-hud-badge"
-      >
-        <span
-          style={{
-            width: '6px',
-            height: '6px',
-            borderRadius: '50%',
-            backgroundColor: bgMode === 'neural' ? 'var(--accent)' : '#a78bfa',
-            boxShadow: `0 0 8px ${bgMode === 'neural' ? 'var(--accent)' : '#a78bfa'}`,
-            display: 'inline-block',
-          }}
-        />
-        <span>AI Neural Mesh</span>
-        <button
-          type="button"
-          onClick={() => setBgMode(prev => prev === 'neural' ? 'calm' : 'neural')}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            color: 'var(--accent)',
-            cursor: 'pointer',
-            padding: '0 2px',
-            fontSize: '0.7rem',
-            fontFamily: 'var(--font-mono)',
-            textDecoration: 'underline',
-          }}
-          title="Toggle animation intensity"
-        >
-          [{bgMode === 'neural' ? 'Dynamic' : 'Calm'}]
-        </button>
-      </div>
     </div>
   );
 }
