@@ -4,15 +4,6 @@ import ThreeBackground from './components/ThreeBackground';
 import CaseStudyModal from './components/CaseStudyModal';
 import AiDevTerminal from './components/AiDevTerminal';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-interface Skill {
-  title: string;
-  desc: string;
-  icon: string;
-  category: 'Dev' | 'AI' | 'Data' | 'Core';
-}
-
 interface EdCard {
   platform: string;
   degree: string;
@@ -31,15 +22,6 @@ interface CertCard {
   icon: string;
 }
 
-interface OtherProject {
-  title: string;
-  desc: string;
-  tech: string[];
-  icon: string;
-  github?: string;
-  live?: string;
-  category: 'Full Stack' | 'Python & Data' | 'Architecture';
-}
 
 interface Stat {
   value: number;
@@ -58,31 +40,210 @@ interface GitHubRepo {
   updated_at: string;
 }
 
+interface SkillItem {
+  name: string;
+  detail: string;
+}
+
+interface SkillGroup {
+  id: string;
+  category: string;
+  title: string;
+  desc: string;
+  icon: string;
+  iconClass: string;
+  skills: SkillItem[];
+}
+
+interface StructuredProject {
+  id: string;
+  title: string;
+  subtitle: string;
+  type: 'Professional Work' | 'Selected Project';
+  badge: string;
+  role: string;
+  problem: string;
+  solution: string;
+  keyChallenge: string;
+  metrics: string[];
+  tech: string[];
+  github?: string;
+  live?: string;
+  isPrivate?: boolean;
+  hasCaseStudy?: boolean;
+  hasVideoDemo?: boolean;
+}
+
 // ─── Static Data ──────────────────────────────────────────────────────────────
 
-const SKILLS_DATA: Skill[] = [
-  { title: "Python Programming", desc: "Writing clean, asynchronous, and PEP-8 compliant OOP scripts with modular patterns.", icon: "fa-brands fa-python", category: 'Dev' },
-  { title: "Django & DRF", desc: "Building secure, scalable RESTful API environments, RBAC authorization, and content platforms.", icon: "fa-solid fa-server", category: 'Dev' },
-  { title: "Backend Architecture", desc: "Designing secure API routing, token authorization systems, middleware, and microservice logic.", icon: "fa-solid fa-network-wired", category: 'Dev' },
-  { title: "SQL & Databases", desc: "Designing database schemas, managing relational models, indexing, and optimizing queries.", icon: "fa-solid fa-database", category: 'Dev' },
-  { title: "Web App Development", desc: "Executing product blueprints from system structure to live, reactive user interfaces.", icon: "fa-solid fa-laptop-code", category: 'Dev' },
-  { title: "AI & LLM Orchestration", desc: "Understanding and integrating machine learning, LLM systems, and prompt engineering pipelines.", icon: "fa-solid fa-brain", category: 'AI' },
-  { title: "RAG & Vector Workflows", desc: "Designing context retrieval pipelines, document indexing, and knowledge-grounded AI responses.", icon: "fa-solid fa-diagram-project", category: 'AI' },
-  { title: "Machine Learning Concepts", desc: "Applying neural network foundations, classification logic, and algorithmic architectures.", icon: "fa-solid fa-microchip", category: 'AI' },
-  { title: "Data Analysis (Pandas)", desc: "Cleaning, filtering, and performing high-speed statistical operations on high-dimensional data.", icon: "fa-solid fa-magnifying-glass-chart", category: 'Data' },
-  { title: "Data Visualization", desc: "Transforming complex datasets into clean visual performance dashboards using Matplotlib.", icon: "fa-solid fa-chart-line", category: 'Data' },
-  { title: "DataCamp Certified Track", desc: "Certified AI Engineer for Developers Associate & Python Data Associate credentials.", icon: "fa-solid fa-award", category: 'Data' },
-  { title: "Cybersecurity Fundamentals", desc: "Implementing authentication security, CSRF/XSS protection, and data access controls.", icon: "fa-solid fa-shield-halved", category: 'Core' },
-  { title: "Algorithms & Structures", desc: "Applying optimal computational data configurations, big-O efficiency, and modular logic.", icon: "fa-solid fa-code-fork", category: 'Core' },
-  { title: "Software Engineering & OOP", desc: "Designing software patterns (Factory, Strategy, Singleton) with clean-code discipline.", icon: "fa-solid fa-cubes", category: 'Core' },
-  { title: "Continuous Research & Tech", desc: "Constantly evaluating and mastering emerging AI frameworks, dev tooling, and cloud architectures.", icon: "fa-solid fa-graduation-cap", category: 'Core' }
+const STRUCTURED_PROJECTS: StructuredProject[] = [
+  {
+    id: "bimpulse-platform",
+    title: "BIMPulse Digital Engineering & Web Platform",
+    subtitle: "Internal web applications & IFC data utilities supporting AEC digital transformation",
+    type: "Professional Work",
+    badge: "Professional Work · BIMPulse",
+    role: "Junior Full-Stack Developer",
+    problem: "AEC engineering projects generate complex multidimensional BIM models and IFC datasets that require centralized web access, validation, and real-time project collaboration.",
+    solution: "Developing responsive web applications, relational database schemas, and RESTful APIs in Python/Django and React to bridge BIM engineering workflows with live web collaboration.",
+    keyChallenge: "Handling complex relational data schemas adhering strictly to open IFC standards, optimizing query throughput for engineering datasets.",
+    metrics: [
+      "Enterprise AEC Tooling: Real-world engineering project delivery",
+      "IFC & BIM Compliance: Aligned with international building standards",
+      "Full-Stack Architecture: Python, Django REST, PostgreSQL, React"
+    ],
+    tech: ["Python", "Django REST Framework", "PostgreSQL", "React", "TypeScript", "BIM & IFC Standards", "Git"],
+    isPrivate: true,
+    live: "https://www.thebimpulse.com/"
+  },
+  {
+    id: "modern-journal",
+    title: "The Modern Journal — Content & Publishing Platform",
+    subtitle: "Secure high-throughput CMS with 14-role RBAC, query optimization & automated workflows",
+    type: "Selected Project",
+    badge: "Selected Project · Backend & Architecture",
+    role: "Lead Full-Stack Developer",
+    problem: "Publishing platforms frequently suffer from severe database latency under concurrent reader traffic, N+1 query bottlenecks, and brittle permission structures.",
+    solution: "Engineered a production-ready Django CMS featuring fine-grained role-based access control (RBAC), automated transactional emails, session security, and full-text search indexing.",
+    keyChallenge: "Resolved catastrophic N+1 query loops using select_related, prefetch_related, and selective database indexing across interdependent publication models.",
+    metrics: [
+      "14 User Role Permissions: Multi-tier access control matrix",
+      "68% Latency Reduction: N+1 resolution down to sub-50ms query times",
+      "100% Security Audit: Session token auth, CSRF/XSS protection"
+    ],
+    tech: ["Django", "Django REST Framework", "Python", "SQL", "Bootstrap 5", "JavaScript"],
+    github: "https://github.com/Abdellah-BELMAARIS/modern-journal.github.io",
+    live: "https://abdellah-belmaaris.github.io/modern-journal.github.io/",
+    hasCaseStudy: true,
+    hasVideoDemo: true
+  },
+  {
+    id: "school-management",
+    title: "Academy & School Management Platform",
+    subtitle: "Modular MVC administrative backend with multi-role isolation & automated testing",
+    type: "Selected Project",
+    badge: "Selected Project · System Design",
+    role: "Full-Stack Developer",
+    problem: "Educational platforms often face fragile relational schemas when managing courses, grades, faculty records, and student portals simultaneously.",
+    solution: "Designed and implemented a modular MVC system in Django with customized relational schemas, multi-tier authentication middleware, and robust form validation.",
+    keyChallenge: "Enforcing strict database normalization across courses, enrollments, and faculty assignments while maintaining transactional integrity.",
+    metrics: [
+      "3-Tier Role Separation: Independent Admin, Faculty & Student workflows",
+      "36/36 Unit Tests Passing: Automated test coverage for enrollments & auth",
+      "Zero Data Inconsistency: Enforced relational constraints & atomic blocks"
+    ],
+    tech: ["Django", "Python", "PostgreSQL", "SQL", "Bootstrap 5", "MVC Architecture"],
+    github: "https://github.com/Abdellah-BELMAARIS"
+  },
+  {
+    id: "pygame-arcade",
+    title: "PyGame 3D Web Arcade & WASM Console",
+    subtitle: "3D retro arcade cabinet interface hosting 16 WebAssembly-compiled Python games",
+    type: "Selected Project",
+    badge: "Selected Project · 3D Web & WASM",
+    role: "Frontend & 3D Web Developer",
+    problem: "Desktop PyGame projects cannot run in web browsers without complex local Python runtimes and manual user installations.",
+    solution: "Built a high-performance 3D arcade cabinet selector in React Three Fiber, compiling 16 native Python PyGame classics to WebAssembly via Pygbag with real-time browser deck controls.",
+    keyChallenge: "Optimizing WebGL shader pipelines and audio buffers to execute alongside WASM threads at steady framerates across both mobile and desktop.",
+    metrics: [
+      "16 Python Classics: Compiled to client-side WebAssembly",
+      "Locked 60 FPS: Dynamic Three.js lighting & responsive controls",
+      "Zero-Install: Runs instantly in any standard web browser"
+    ],
+    tech: ["React Three Fiber", "Three.js", "Python", "WebAssembly (Pygbag)", "TypeScript", "Vite"],
+    github: "https://github.com/Abdellah-BELMAARIS/PyGame_Projects",
+    live: "https://Abdellah-BELMAARIS.github.io/PyGame_Projects/"
+  },
+  {
+    id: "dev-pulse",
+    title: "Dev-Pulse — Developer Activity Telemetry Engine",
+    subtitle: "Local developer log aggregation pipeline with sub-200ms visual analytical reports",
+    type: "Selected Project",
+    badge: "Selected Project · Data Engineering",
+    role: "Python & Data Engineer",
+    problem: "Developers lack lightweight, privacy-first telemetry to understand their coding distribution without leaking sensitive data to external SaaS clouds.",
+    solution: "Engineered a local Python data pipeline that parses unstructured system logs, cleans high-dimensional activity streams with Pandas, and generates Matplotlib visual performance reports.",
+    keyChallenge: "Streaming multi-megabyte log files with regex tokenization and statistical grouping under strict sub-second performance budgets.",
+    metrics: [
+      "<200ms Report Generation: High-throughput Pandas data parsing",
+      "100% Privacy-First: All computation executes strictly on local hardware",
+      "Automated Visualization: Clean statistical charts with Matplotlib"
+    ],
+    tech: ["Python", "Pandas", "Matplotlib", "Data Pipelines", "Regex Tokenization"],
+    github: "https://github.com/Abdellah-BELMAARIS/Dev-Pulse"
+  }
 ];
+
+const ORGANIZED_SKILLS: SkillGroup[] = [
+  {
+    id: "core-fullstack",
+    category: "Primary Stack",
+    title: "Core Full-Stack Engineering",
+    desc: "Production web architectures, backend systems, and modern reactive client applications.",
+    icon: "fa-solid fa-server",
+    iconClass: "icon-core",
+    skills: [
+      { name: "Python (Async & OOP)", detail: "PEP-8 compliant modular programming, design patterns, clean architecture" },
+      { name: "Django & Django REST Framework", detail: "High-throughput APIs, JWT auth, RBAC authorization, custom middleware" },
+      { name: "React 19 & TypeScript", detail: "Type-safe component design, hooks, state management, modern SPA architecture" },
+      { name: "JavaScript (ES6+)", detail: "Modern asynchronous workflows, DOM optimization, API integrations" },
+      { name: "SQL & PostgreSQL", detail: "Relational schema design, normalization, query optimization, indexing" }
+    ]
+  },
+  {
+    id: "frontend-ui",
+    category: "User Experience",
+    title: "Frontend & UI Engineering",
+    desc: "Accessible, responsive, and performant user interfaces built for modern web standards.",
+    icon: "fa-solid fa-laptop-code",
+    iconClass: "icon-frontend",
+    skills: [
+      { name: "HTML5 & Semantic Web", detail: "Accessible structure, SEO best practices, semantic markup hierarchy" },
+      { name: "Modern CSS3 & Animations", detail: "Flexbox, CSS Grid, custom properties, glassmorphism, micro-animations" },
+      { name: "Responsive & Mobile-First", detail: "Fluid layouts across mobile, tablet, desktop, and 4K displays" },
+      { name: "Bootstrap 5 & UI Systems", detail: "Rapid UI prototyping, theme customizers, consistent design tokens" },
+      { name: "Three.js & 3D Web", detail: "Interactive WebGL canvases, particle systems, real-time spatial rendering" }
+    ]
+  },
+  {
+    id: "data-ai",
+    category: "Supporting Discipline",
+    title: "Data Analysis & Applied AI",
+    desc: "Valuable supporting capabilities for processing complex data, telemetry, and intelligent pipelines.",
+    icon: "fa-solid fa-brain",
+    iconClass: "icon-data",
+    skills: [
+      { name: "Data Analysis with Pandas", detail: "Cleaning, filtering, transforming, and aggregating high-dimensional data" },
+      { name: "Data Visualization (Matplotlib)", detail: "Statistical reports, performance charts, telemetry dashboard generation" },
+      { name: "Applied AI & LLM Systems", detail: "Prompt engineering, RAG concepts, structured outputs, AI assistant design" },
+      { name: "DataCamp Certified Track", detail: "Certified AI Engineer for Developers & Python Data Associate credentials" },
+      { name: "Cybersecurity Fundamentals", detail: "Secure session management, CSRF/XSS mitigation, access controls" }
+    ]
+  },
+  {
+    id: "tools-devops",
+    category: "Workflow & Quality",
+    title: "DevOps, Architecture & Tools",
+    desc: "Development environment, version control, software patterns, and testing discipline.",
+    icon: "fa-solid fa-toolbox",
+    iconClass: "icon-tools",
+    skills: [
+      { name: "Git & GitHub Workflow", detail: "Branching strategies, pull requests, semantic commits, code reviews" },
+      { name: "Docker Containerization", detail: "Reproducible development environments, container basics, deployment" },
+      { name: "Linux & Terminal / Bash", detail: "CLI workflows, shell scripting, environment configuration, server basics" },
+      { name: "Software Design Patterns", detail: "Factory, Strategy, Singleton, modular separation of concerns" },
+      { name: "Automated Testing & QA", detail: "Unit testing, integration tests, automated test suites, regression prevention" }
+    ]
+  }
+];
+
+
 
 const STATS_DATA: Stat[] = [
   { value: 6, suffix: '+', label: 'Years Coding', icon: 'fa-solid fa-calendar-days' },
-  { value: 4, suffix: '+', label: 'GitHub Projects', icon: 'fa-solid fa-folder-open' },
+  { value: 4, suffix: '+', label: 'Production Projects', icon: 'fa-solid fa-folder-open' },
+  { value: 14, suffix: '', label: 'RBAC Roles Built', icon: 'fa-solid fa-shield-halved' },
   { value: 4, suffix: '', label: 'Certifications', icon: 'fa-solid fa-award' },
-  { value: 15, suffix: '+', label: 'Skills Acquired', icon: 'fa-solid fa-code' },
 ];
 
 const EDUCATION_DATA: EdCard[] = [
@@ -162,58 +323,13 @@ const PROJECT_IMAGES = [
   "assets/journal5.png"
 ];
 
-const BIMPULSE_SERVICES = ['BIM & standards IFC', 'Gestion de projets', 'Études & ingénierie', 'Formation et skilling up', 'Accompagnement et assistance'];
-
 const INSIGHTS_DATA = [
   { title: 'Building reliable Django APIs', desc: 'Notes on authentication, permissions, query optimization, and maintainable backend structure.', icon: 'fa-solid fa-server', tag: 'Backend', href: 'https://github.com/Abdellah-BELMAARIS' },
   { title: 'Learning through data projects', desc: 'Practical experiments with Python, Pandas, and visualization to turn raw data into useful decisions.', icon: 'fa-solid fa-chart-line', tag: 'Data', href: 'https://github.com/Abdellah-BELMAARIS' },
   { title: 'A deliberate learning system', desc: 'How focused projects, documentation, and continuous research support long-term engineering growth.', icon: 'fa-solid fa-lightbulb', tag: 'Growth', href: 'https://github.com/Abdellah-BELMAARIS' },
 ];
 
-const OTHER_PROJECTS: OtherProject[] = [
-  {
-    title: "PyGame 3D Web Arcade",
-    desc: "A premium, high-performance 3D retro arcade cabinet selection interface and dashboard built using React Three Fiber. Hosts 16 PyGame classics compiled to WebAssembly via Pygbag, featuring dynamic lighting, responsive deck controls, and local/web score syncing.",
-    tech: ["Three.js", "React Three Fiber", "React", "Python", "WebAssembly", "Vite"],
-    icon: "fa-solid fa-gamepad",
-    github: "https://github.com/Abdellah-BELMAARIS/PyGame_Projects",
-    live: "https://Abdellah-BELMAARIS.github.io/PyGame_Projects/",
-    category: 'Full Stack',
-  },
-  {
-    title: "The Modern Journal",
-    desc: "A secure, high-performance content management platform built with Django. Features role-based access control (RBAC), database query optimizations (N+1 resolution), session security, custom search indexing, and automated email workflows.",
-    tech: ["Django", "Django REST Framework", "Python", "SQL", "Bootstrap", "JavaScript"],
-    icon: "fa-solid fa-newspaper",
-    github: "https://github.com/Abdellah-BELMAARIS/modern-journal.github.io",
-    live: "https://abdellah-belmaaris.github.io/modern-journal.github.io/",
-    category: 'Full Stack',
-  },
-  {
-    title: "Dev-Pulse",
-    desc: "Built a local developer activity pipeline that parses and aggregates system log files. Utilized Pandas to clean and process high-dimensional activity data, generating performance reports with Matplotlib in under 200ms.",
-    tech: ["Python", "Pandas", "Matplotlib", "Data Analysis"],
-    icon: "fa-solid fa-chart-line",
-    github: "https://github.com/Abdellah-BELMAARIS/Dev-Pulse",
-    category: 'Python & Data',
-  },
-  {
-    title: "SchoolManagement",
-    desc: "Developed a school administration backend featuring modular relational schemas, secure forms, custom middleware, and session authentication to demonstrate MVC architecture best practices.",
-    tech: ["Django", "Python", "SQL", "Bootstrap"],
-    icon: "fa-solid fa-graduation-cap",
-    github: "https://github.com/Abdellah-BELMAARIS",
-    category: 'Full Stack',
-  },
-  {
-    title: "O-O-P",
-    desc: "Designed a modular library demonstrating advanced Object-Oriented Programming (OOP) principles. Integrated creational, structural, and behavioral design patterns (Factory, Strategy, Singleton) to ensure a highly testable codebase.",
-    tech: ["Python", "OOP", "Design Patterns", "Software Engineering"],
-    icon: "fa-solid fa-cube",
-    github: "https://github.com/Abdellah-BELMAARIS/O-O-P",
-    category: 'Architecture',
-  },
-];
+
 
 // ─── Loading Screen Component ─────────────────────────────────────────────────
 
@@ -363,11 +479,18 @@ export default function App() {
 
   // Custom project screenshots carousel
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [projectTypeFilter, setProjectTypeFilter] = useState<'All' | 'Professional Work' | 'Selected Project'>('All');
   const [projectFilter, setProjectFilter] = useState<'All' | OtherProject['category']>('All');
   const [projectSearch, setProjectSearch] = useState('');
   const [skillFilter, setSkillFilter] = useState<'All' | Skill['category']>('All');
   const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([]);
   const [githubLoading, setGithubLoading] = useState(true);
+
+  const filteredStructuredProjects = STRUCTURED_PROJECTS.filter((proj) => {
+    const matchesType = projectTypeFilter === 'All' || proj.type === projectTypeFilter;
+    const q = projectSearch.trim().toLowerCase();
+    return matchesType && (!q || `${proj.title} ${proj.subtitle} ${proj.problem} ${proj.solution} ${proj.tech.join(' ')}`.toLowerCase().includes(q));
+  });
 
   const filteredProjects = OTHER_PROJECTS.filter((project) => {
     const matchesFilter = projectFilter === 'All' || project.category === projectFilter;
@@ -421,7 +544,7 @@ export default function App() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fullWelcome = "Hi, my name is";
     const fullName = "Abdellah BELMAARIS.";
-    const fullHeadline = "Full-Stack Developer & AI Systems Specialist";
+    const fullHeadline = "Junior Full-Stack Developer @ BIMPulse";
 
     if (prefersReducedMotion) {
       // Queue this update so the effect remains a synchronization boundary.
@@ -480,7 +603,7 @@ export default function App() {
   // 2. Navigation Scroll Spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'ai-terminal', 'experience', 'bimpulse', 'skills', 'project', 'insights', 'github', 'certifications', 'contact'];
+      const sections = ['hero', 'about', 'experience', 'project', 'skills', 'certifications', 'ai-terminal', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -619,6 +742,15 @@ export default function App() {
           Abdellah <span style={{ color: 'var(--accent)', fontWeight: 800, letterSpacing: '0.5px' }}>BELMAARIS</span>
         </a>
         <div className="header-actions">
+          <a
+            href="assets/Abdellah_BELMAARIS_CV.pdf"
+            className="header-resume-btn"
+            download
+            id="header-cv-btn"
+            title="Download Abdellah BELMAARIS CV (PDF)"
+          >
+            <i className="fa-solid fa-file-arrow-down" /> CV
+          </a>
           <button
             className="theme-toggle"
             type="button"
@@ -629,15 +761,15 @@ export default function App() {
             <i className={`fa-solid ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`} aria-hidden="true" />
           </button>
           <button
-          className={`hamburger ${menuActive ? 'active' : ''}`}
-          onClick={() => setMenuActive(!menuActive)}
-          aria-label="Toggle menu"
-          aria-expanded={menuActive}
-          id="hamburger-btn"
-        >
-          <span className="hamburger-bar"></span>
-          <span className="hamburger-bar"></span>
-          <span className="hamburger-bar"></span>
+            className={`hamburger ${menuActive ? 'active' : ''}`}
+            onClick={() => setMenuActive(!menuActive)}
+            aria-label="Toggle menu"
+            aria-expanded={menuActive}
+            id="hamburger-btn"
+          >
+            <span className="hamburger-bar"></span>
+            <span className="hamburger-bar"></span>
+            <span className="hamburger-bar"></span>
           </button>
         </div>
         <nav aria-label="Primary navigation">
@@ -645,15 +777,12 @@ export default function App() {
             {[
               { id: 'hero', label: 'Home', idx: '01.' },
               { id: 'about', label: 'About', idx: '02.' },
-              { id: 'ai-terminal', label: 'AI Console', idx: '03.' },
-              { id: 'experience', label: 'Experience', idx: '04.' },
-              { id: 'bimpulse', label: 'BIMPulse', idx: '05.' },
-              { id: 'skills', label: 'Skills & AI', idx: '06.' },
-              { id: 'project', label: 'Projects', idx: '07.' },
-              { id: 'certifications', label: 'Education', idx: '08.' },
-              { id: 'insights', label: 'Journal', idx: '09.' },
-              { id: 'github', label: 'GitHub', idx: '10.' },
-              { id: 'contact', label: 'Contact', idx: '11.' }
+              { id: 'experience', label: 'Experience', idx: '03.' },
+              { id: 'project', label: 'Projects', idx: '04.' },
+              { id: 'skills', label: 'Skills', idx: '05.' },
+              { id: 'certifications', label: 'Certifications', idx: '06.' },
+              { id: 'ai-terminal', label: 'AI Console', idx: '07.' },
+              { id: 'contact', label: 'Contact', idx: '08.' }
             ].map((item) => (
               <li key={item.id}>
                 <a
@@ -675,7 +804,7 @@ export default function App() {
       {/* Hero Section */}
       <section id="hero" className="hero">
         <div className="hero-specialty-badge">
-          <i className="fa-solid fa-bolt" /> FULL-STACK SOFTWARE ENGINEER &amp; AI SYSTEMS SPECIALIST
+          <i className="fa-solid fa-briefcase" /> JUNIOR FULL-STACK DEVELOPER @ BIMPULSE DIGITAL
         </div>
         <span className={`hero-welcome ${typingLine === 'welcome' ? 'typing-active' : ''}`}>
           {welcomeText}
@@ -687,31 +816,31 @@ export default function App() {
           {headlineText}
         </p>
         <p className="hero-subheadline">
-          Engineering production-grade web platforms and intelligent AI architectures. Uniting robust backend systems (Python, Django REST Framework, PostgreSQL) with applied Artificial Intelligence (LLM workflows, RAG, automated data intelligence) and modern responsive frontends.
+          Building modern digital solutions with Python, Django, React &amp; TypeScript. Developing enterprise web applications and operational tools supporting AEC digital transformation and BIM engineering workflows.
         </p>
         <div className="hero-location">
           <i className="fa-solid fa-location-dot"></i> Casablanca, Morocco
-          <span className="availability-badge"><span className="availability-dot" /> Active at BIMPulse · Open to Dev &amp; AI Roles</span>
+          <span className="availability-badge"><span className="availability-dot" /> Open to Junior Full-Stack Opportunities</span>
         </div>
 
         <div className="hero-stack-ticker">
           <span className="hero-stack-pill dev"><i className="fa-brands fa-python" /> Python &amp; Django DRF</span>
           <span className="hero-stack-pill dev"><i className="fa-brands fa-react" /> React 19 &amp; TypeScript</span>
           <span className="hero-stack-pill dev"><i className="fa-solid fa-database" /> PostgreSQL &amp; SQL</span>
-          <span className="hero-stack-pill ai"><i className="fa-solid fa-brain" /> Applied LLMs &amp; RAG</span>
-          <span className="hero-stack-pill ai"><i className="fa-solid fa-award" /> DataCamp AI Certified</span>
-          <span className="hero-stack-pill ai"><i className="fa-solid fa-chart-line" /> Pandas &amp; Analytics</span>
+          <span className="hero-stack-pill ai"><i className="fa-solid fa-chart-line" /> Data Analysis (Pandas)</span>
+          <span className="hero-stack-pill ai"><i className="fa-solid fa-brain" /> Applied AI Fundamentals</span>
+          <span className="hero-stack-pill dev"><i className="fa-brands fa-docker" /> Docker &amp; Git</span>
         </div>
 
         <div className="hero-buttons">
           <a href="#project" className="btn btn-primary" id="hero-view-work-btn">
-            <i className="fa-solid fa-layer-group" style={{ marginRight: '8px' }} /> View My Work
+            <i className="fa-solid fa-layer-group" style={{ marginRight: '8px' }} /> Explore Projects
           </a>
-          <a href="#ai-terminal" className="btn btn-secondary" id="hero-ai-btn" style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}>
-            <i className="fa-solid fa-brain" style={{ marginRight: '8px' }} /> Try AI Terminal
+          <a href="#experience" className="btn btn-secondary" id="hero-exp-btn">
+            <i className="fa-solid fa-building" style={{ marginRight: '8px' }} /> BIMPulse Experience
           </a>
           <a href="assets/Abdellah_BELMAARIS_CV.pdf" className="btn btn-resume" download id="hero-resume-btn">
-            <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }} /> Resume
+            <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }} /> Download CV
           </a>
           <a href="#contact" className="btn btn-secondary" id="hero-connect-btn">Let's Connect</a>
           <div className="hero-social-links">
@@ -741,38 +870,38 @@ export default function App() {
 
       {/* About Section */}
       <section id="about">
-        <span className="section-overline">02. Bio Summary</span>
+        <span className="section-overline">02. Profile Overview</span>
         <h2 className="section-title">About Me</h2>
         <div className="about-layout">
           <div className="about-text">
             <p>
-              I’m a software developer from <span className="highlight">Casablanca, Morocco</span> working at the intersection of robust full-stack software engineering and applied artificial intelligence. Currently, I work at <span className="highlight">BIMPulse</span> as a <span className="highlight">Junior Full-Stack Developer</span>, engineering production web applications and digital tools.
+              I’m a Junior Full-Stack Developer from <span className="highlight">Casablanca, Morocco</span>, currently building enterprise digital tools and web applications at <span className="highlight">BIMPulse</span>. My work bridges robust backend systems with modern, responsive user experiences.
             </p>
             <p>
-              My expertise bridges both worlds: constructing scalable backends and APIs with <span className="highlight">Python, Django REST Framework, and PostgreSQL</span>, coupled with modern interactive interfaces in <span className="highlight">React & TypeScript</span>, and implementing practical AI capabilities with <span className="highlight">LLMs, RAG pipelines, and data analytics (Pandas & Matplotlib)</span>.
+              My primary stack centers on <span className="highlight">Python, Django REST Framework, PostgreSQL, React, and TypeScript</span>. At BIMPulse, I contribute to real-world software engineering solutions aligned with BIM and IFC engineering standards. I also leverage applied <span className="highlight">Data Analysis (Pandas, Matplotlib)</span> and <span className="highlight">AI fundamentals</span> (DataCamp Certified AI Engineer Associate) as supporting tools to extract value from complex engineering data.
             </p>
             <p>
-              I hold certified credentials including <span className="highlight">DataCamp AI Engineer for Developers Associate</span> and <span className="highlight">Python Data Associate</span>. I thrive on translating ambitious ideas into clean, performant, and maintainable software architectures.
+              I focus on building real, testable software that solves tangible problems—delivering clean architectures, optimized database models, and measurable business impact.
             </p>
             <div style={{ marginTop: '16px', marginBottom: '20px' }}>
               <span style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--accent)', marginBottom: '8px' }}>
                 <i className="fa-solid fa-star" style={{ marginRight: '6px' }}></i>Core Disciplines:
               </span>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {["Full-Stack Web Dev", "Python & Django DRF", "Applied AI & LLMs", "DataCamp AI Certified", "Data Analysis (Pandas)", "PostgreSQL", "Cybersecurity"].map((skill) => (
+                {["Junior Full-Stack Developer @ BIMPulse", "Python & Django DRF", "React & TypeScript", "PostgreSQL & SQL", "AEC & BIM Standards", "Data Analysis (Pandas)", "DataCamp AI Certified"].map((skill) => (
                   <span className="exp-skill-tag" key={skill}>{skill}</span>
                 ))}
               </div>
             </div>
             <div className="about-cta-row">
               <a
-                href="#ai-terminal"
+                href="#experience"
                 className="btn btn-primary"
-                id="about-try-ai-btn"
+                id="about-view-exp-btn"
                 style={{ marginRight: '12px' }}
               >
-                <i className="fa-solid fa-brain" style={{ marginRight: '8px' }}></i>
-                Ask My AI Assistant
+                <i className="fa-solid fa-building" style={{ marginRight: '8px' }}></i>
+                View Experience
               </a>
               <a
                 href="https://github.com/Abdellah-BELMAARIS"
@@ -808,52 +937,82 @@ export default function App() {
         </div>
       </section>
 
-      {/* Interactive AI & Engineering Console Section */}
-      <section id="ai-terminal">
-        <span className="section-overline">03. Interactive Intelligence</span>
-        <h2 className="section-title">AI &amp; Engineering Console</h2>
-        <p className="section-intro">
-          Test a live interactive simulation of my Full-Stack &amp; AI architecture. Query preset prompts or ask custom questions regarding backend patterns, RAG pipelines, and certified credentials.
-        </p>
-        <AiDevTerminal />
-      </section>
-
       {/* Experience Section */}
       <section id="experience">
-        <span className="section-overline">04. Work History</span>
+        <span className="section-overline">03. Professional Journey</span>
         <h2 className="section-title">Experience</h2>
         <div className="experience-timeline">
 
-          {/* Junior Full-Stack Developer - BIMPulse */}
+          {/* Flagship Role: Junior Full-Stack Developer - BIMPulse */}
           <motion.div
-            className="exp-card spotlight-card"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="exp-card exp-flagship spotlight-card"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.45 }}
+            transition={{ duration: 0.5 }}
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
               e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
               e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
             }}
           >
+            <div className="exp-flagship-badge">
+              <i className="fa-solid fa-briefcase" /> Current Professional Focus · Flagship Experience
+            </div>
             <div className="exp-header">
               <div className="exp-role-info">
-                <h3 className="exp-role">Junior Full-Stack Developer</h3>
-                <span className="exp-company">BIMPulse · Full-time</span>
+                <div className="exp-company-brand">
+                  <img src="assets/bimpulse-logo.png" alt="BIMPulse Digital" className="exp-bimpulse-logo" />
+                  <div>
+                    <h3 className="exp-role">Junior Full-Stack Developer</h3>
+                    <span className="exp-company">BIMPulse Digital · Full-time</span>
+                  </div>
+                </div>
               </div>
               <div className="exp-meta">
                 <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Present</span>
-                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Casablanca, Casablanca-Settat, Morocco</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Casablanca, Morocco</span>
               </div>
             </div>
             <p className="exp-desc">
-              Developing practical web applications, building robust full-stack solutions, and creating responsive user interfaces backed by performant Python and Django backend services. Collaborating on digital software products, database modeling, and scalable architecture.
+              Developing practical web applications, building robust full-stack solutions, and creating responsive user interfaces backed by performant Python and Django backend services. Collaborating closely on software products, database modeling, and scalable architecture supporting AEC (Architecture, Engineering &amp; Construction) digital transformation and BIM engineering workflows.
             </p>
+
+            <ul className="exp-bullet-list">
+              <li className="exp-bullet-item">
+                <i className="fa-solid fa-circle-check exp-bullet-icon" />
+                <span><strong>Enterprise Full-Stack Architecture:</strong> Engineered end-to-end features connecting Django REST Framework and PostgreSQL to modern, reactive interfaces with token authentication.</span>
+              </li>
+              <li className="exp-bullet-item">
+                <i className="fa-solid fa-circle-check exp-bullet-icon" />
+                <span><strong>AEC &amp; BIM Engineering Support:</strong> Designed relational data models that support open IFC standards, project workflows, and team collaboration for digital engineering.</span>
+              </li>
+              <li className="exp-bullet-item">
+                <i className="fa-solid fa-circle-check exp-bullet-icon" />
+                <span><strong>Reliability &amp; Performance:</strong> Reduced database latency with query optimizations, enforced strict validation, and maintained clean software modularity.</span>
+              </li>
+            </ul>
+
             <div className="exp-skills">
-              {["Full-Stack Development", "Python (Programming Language)", "Django", "HTML / CSS", "SQL", "REST APIs", "Software Development", "AI & Data Analysis"].map(s => (
+              {["Full-Stack Development", "Python", "Django & DRF", "PostgreSQL", "React", "TypeScript", "AEC Digital Transformation", "IFC Standards", "REST APIs", "Git"].map((s) => (
                 <span className="exp-skill-tag" key={s}>{s}</span>
               ))}
+            </div>
+
+            <div className="exp-actions-row">
+              <a
+                className="btn btn-primary"
+                href="https://www.thebimpulse.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                id="bimpulse-visit-btn"
+              >
+                <i className="fa-solid fa-arrow-up-right-from-square" style={{ marginRight: '8px' }} />
+                Discover BIMPulse
+              </a>
+              <span className="private-repo-note">
+                <i className="fa-solid fa-shield-halved" /> Real-world enterprise engineering &amp; digital solutions
+              </span>
             </div>
           </motion.div>
 
@@ -876,7 +1035,7 @@ export default function App() {
                 <span className="exp-company">Self-employed · Remote</span>
               </div>
               <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> May 2026 – Present · 3 mos</span>
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> May 2026 – Present</span>
                 <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Casablanca, Morocco</span>
               </div>
             </div>
@@ -884,7 +1043,7 @@ export default function App() {
               Building secure, high-performance web applications and backend systems using Django and Django REST Framework. Optimizing database queries, designing relational schemas, and developing robust RESTful APIs.
             </p>
             <div className="exp-skills">
-              {["Django", "Django REST Framework", "Python", "REST APIs", "SQL", "Git", "Backend Development"].map(s => (
+              {["Django", "Django REST Framework", "Python", "REST APIs", "SQL", "Git", "Backend Development"].map((s) => (
                 <span className="exp-skill-tag" key={s}>{s}</span>
               ))}
             </div>
@@ -909,7 +1068,7 @@ export default function App() {
                 <span className="exp-company">Self-employed · Full-time</span>
               </div>
               <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Jan 2020 – Present · 6 yrs 7 mos</span>
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Jan 2020 – Present</span>
                 <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Morocco</span>
               </div>
             </div>
@@ -917,7 +1076,7 @@ export default function App() {
               Building Python programs, automation scripts, data analysis pipelines, and software utilities. Continuously growing expertise across the Python ecosystem—from advanced object-oriented programming (OOP) to machine learning and AI integrations.
             </p>
             <div className="exp-skills">
-              {["Python (Programming Language)", "Program Development", "OOP", "Data Analysis", "Automation", "Git", "Software Engineering"].map(s => (
+              {["Python (OOP)", "Program Development", "Data Analysis", "Automation Scripts", "Git", "Software Architecture"].map((s) => (
                 <span className="exp-skill-tag" key={s}>{s}</span>
               ))}
             </div>
@@ -942,15 +1101,15 @@ export default function App() {
                 <span className="exp-company">Self-employed · Remote</span>
               </div>
               <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Feb 2023 – Jun 2026 · 3 yrs 5 mos</span>
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> Feb 2023 – Jun 2026</span>
                 <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Casablanca-Settat, Morocco</span>
               </div>
             </div>
             <p className="exp-desc">
-              Developed full-stack web applications, translating product requirements into structured backends and responsive frontends. Focused on web application architecture, Bootstrap integration, and delivering clean, maintainable codebases aligned with modern development standards.
+              Developed full-stack web applications, translating product requirements into structured backends and responsive frontends. Focused on web application architecture, Bootstrap integration, and delivering clean, maintainable codebases aligned with modern standards.
             </p>
             <div className="exp-skills">
-              {["Web Application Development", "WebDev", "Django", "Bootstrap"].map(s => (
+              {["Web Application Development", "Django", "Bootstrap 5", "HTML5 & CSS3", "REST APIs"].map((s) => (
                 <span className="exp-skill-tag" key={s}>{s}</span>
               ))}
             </div>
@@ -975,15 +1134,15 @@ export default function App() {
                 <span className="exp-company">Self-employed · Remote</span>
               </div>
               <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> May 2021 – May 2026 · 5 yrs 1 mo</span>
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days"></i> May 2021 – May 2026</span>
                 <span className="exp-location"><i className="fa-solid fa-location-dot"></i> Morocco</span>
               </div>
             </div>
             <p className="exp-desc">
-              Designed and built secure RESTful APIs and backend architectures using Django and Django REST Framework. Implemented token-based authentication, role-based permissions, database schema design, and server-side business logic across multiple web application projects.
+              Designed and built secure RESTful APIs and backend architectures using Django and Django REST Framework. Implemented token-based authentication, role-based permissions, database schema design, and server-side business logic across multiple web projects.
             </p>
             <div className="exp-skills">
-              {["Artificial Intelligence (AI)", "Bootstrap (Framework)", "Django", "DRF", "Python", "SQL", "Git", "REST APIs", "PostgreSQL", "OOP", "Algorithms", "Software Engineering"].map(s => (
+              {["Django & DRF", "Python", "SQL & Relational DBs", "PostgreSQL", "OOP Patterns", "Authentication & Security"].map((s) => (
                 <span className="exp-skill-tag" key={s}>{s}</span>
               ))}
             </div>
@@ -992,226 +1151,181 @@ export default function App() {
         </div>
       </section>
 
-      {/* BIMPulse Company Section */}
-      <section id="bimpulse">
-        <span className="section-overline">05. Professional Environment</span>
-        <h2 className="section-title">BIMPulse</h2>
-        <div className="company-profile-card">
-          <div className="company-profile-brand">
-            <img src="assets/bimpulse-logo.png" alt="BIMPulse logo" className="company-logo" />
-            <div><span className="company-kicker">AEC · BIM · Engineering</span><h3>Nous facilitons l’accès au BIM pour vos projets</h3></div>
-          </div>
-          <p>BIMPulse accompagne les projets d’ingénierie et d’études en construisant avant de construire, grâce aux dernières technologies et aux standards IFC.</p>
-          <p>Son approche regroupe plus de 20 années d’expérience diversifiée en technicité, management de projets, études et formation dans un environnement basé sur la démarche BIM.</p>
-          <div className="company-services">{BIMPULSE_SERVICES.map((service) => <span className="exp-skill-tag" key={service}>{service}</span>)}</div>
-          <div className="company-profile-actions">
-            <a className="btn btn-primary" href="https://www.thebimpulse.com/" target="_blank" rel="noopener noreferrer"><i className="fa-solid fa-arrow-up-right-from-square" /> Visit official website</a>
-            <a className="company-link" href="https://www.thebimpulse.com/" target="_blank" rel="noopener noreferrer">Découvrir BIMPulse <i className="fa-solid fa-arrow-right" /></a>
-          </div>
-        </div>
-      </section>
+      {/* Featured & Production Projects Section */}
+      <section id="project">
+        <span className="section-overline">04. Production Showcase</span>
+        <h2 className="section-title">Featured Projects</h2>
+        <p className="section-intro">
+          Production software solutions, enterprise engineering, and selected platforms built with measurable outcomes, query optimizations, and robust role-based architectures.
+        </p>
 
-      {/* Skills Section */}
-      <section id="skills">
-        <span className="section-overline">06. Stack &amp; AI Architecture</span>
-        <h2 className="section-title">Technical Capabilities &amp; Matrix</h2>
-
-        <div className="skills-filter-tabs" role="tablist" aria-label="Filter skills by discipline">
+        {/* Filter between Professional Work and Selected Projects */}
+        <div className="projects-type-filter" role="tablist" aria-label="Filter projects by origin">
           {[
-            { id: 'All', label: 'All Capabilities', count: SKILLS_DATA.length },
-            { id: 'Dev', label: 'Backend & Systems', count: SKILLS_DATA.filter(s => s.category === 'Dev').length },
-            { id: 'AI', label: 'Applied AI & LLMs', count: SKILLS_DATA.filter(s => s.category === 'AI').length },
-            { id: 'Data', label: 'Data Intelligence', count: SKILLS_DATA.filter(s => s.category === 'Data').length },
-            { id: 'Core', label: 'Software Architecture', count: SKILLS_DATA.filter(s => s.category === 'Core').length },
+            { id: 'All', label: 'All Projects', count: STRUCTURED_PROJECTS.length, icon: 'fa-solid fa-layer-group' },
+            { id: 'Professional Work', label: '🏢 Professional Work', count: STRUCTURED_PROJECTS.filter(p => p.type === 'Professional Work').length, icon: 'fa-solid fa-briefcase' },
+            { id: 'Selected Project', label: '🚀 Selected Projects', count: STRUCTURED_PROJECTS.filter(p => p.type === 'Selected Project').length, icon: 'fa-solid fa-rocket' },
           ].map((tab) => (
             <button
               key={tab.id}
               type="button"
-              className={`skills-filter-btn ${skillFilter === tab.id ? 'active' : ''}`}
-              onClick={() => setSkillFilter(tab.id as typeof skillFilter)}
+              className={`type-filter-btn ${projectTypeFilter === tab.id ? 'active' : ''}`}
+              onClick={() => setProjectTypeFilter(tab.id as typeof projectTypeFilter)}
+              id={`filter-type-${tab.id.replace(/\s+/g, '-').toLowerCase()}`}
             >
               {tab.label}
-              <span className="tab-count">{tab.count}</span>
+              <span className="filter-count">{tab.count}</span>
             </button>
           ))}
         </div>
 
-        <div className="skills-grid">
-          {filteredSkills.map((skill, index) => (
+        {/* Render Structured Project Cards */}
+        <div className="structured-projects-container">
+          {filteredStructuredProjects.map((proj, idx) => (
             <motion.div
-              className="skill-card spotlight-card"
-              key={skill.title}
-              initial={{ opacity: 0, y: 15 }}
+              key={proj.id}
+              className="structured-project-card spotlight-card"
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.35, delay: index * 0.04 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.45, delay: idx * 0.08 }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
               }}
             >
-              <span className={`skill-card-badge badge-${skill.category.toLowerCase()}`}>{skill.category}</span>
-              <div className="skill-icon">
-                <i className={skill.icon}></i>
+              <div className="project-card-top-bar">
+                <span className={`project-category-pill ${proj.type === 'Professional Work' ? 'pill-professional' : 'pill-selected'}`}>
+                  <i className={proj.type === 'Professional Work' ? 'fa-solid fa-briefcase' : 'fa-solid fa-rocket'} />
+                  {proj.badge}
+                </span>
+                <span className="project-role-badge">
+                  <i className="fa-solid fa-id-badge" style={{ marginRight: '6px' }} />
+                  {proj.role}
+                </span>
               </div>
-              <div className="skill-info">
-                <h3>{skill.title}</h3>
-                <p>{skill.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
-      {/* Projects Section */}
-      <section id="project">
-        <span className="section-overline">07. Production Showcase</span>
-        <h2 className="section-title">Featured Project</h2>
+              <h3 className="project-card-title">{proj.title}</h3>
+              <p className="project-card-subtitle">{proj.subtitle}</p>
 
-        {/* Main Featured Project Card */}
-        <div className="project-card">
-          {/* Custom Carousel */}
-          <div className="project-carousel">
-            <div className="project-carousel-slides">
-              {PROJECT_IMAGES.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img}
-                  className={`project-slide ${currentSlide === idx ? 'active' : ''}`}
-                  alt={`The Modern Journal - Showcase ${idx + 1}`}
-                />
-              ))}
-            </div>
-            <button
-              className="project-carousel-btn project-carousel-prev"
-              onClick={() => setCurrentSlide((prev) => (prev === 0 ? PROJECT_IMAGES.length - 1 : prev - 1))}
-              aria-label="Previous screenshot"
-              id="carousel-prev-btn"
-            >
-              <i className="fa-solid fa-chevron-left"></i>
-            </button>
-            <button
-              className="project-carousel-btn project-carousel-next"
-              onClick={() => setCurrentSlide((prev) => (prev + 1) % PROJECT_IMAGES.length)}
-              aria-label="Next screenshot"
-              id="carousel-next-btn"
-            >
-              <i className="fa-solid fa-chevron-right"></i>
-            </button>
-            <div className="project-carousel-dots">
-              {PROJECT_IMAGES.map((_, idx) => (
-                <span
-                  key={idx}
-                  className={`project-carousel-dot ${currentSlide === idx ? 'active' : ''}`}
-                  onClick={() => setCurrentSlide(idx)}
-                  role="button"
-                  aria-label={`Go to slide ${idx + 1}`}
-                  id={`carousel-dot-${idx}`}
-                ></span>
-              ))}
-            </div>
-          </div>
-
-          <div className="project-content">
-            <span className="project-badge">Featured Content Management Platform</span>
-            <h3 className="project-title">The Modern Journal</h3>
-            <p className="project-desc">
-              A secure, high-performance content management platform built with Django. Features role-based access control (RBAC), database query optimizations (N+1 resolution), session security, custom search indexing, and automated email workflows. Formulated structured relational schemas to support multi-model interactions.
-            </p>
-            <ul className="project-tech-list">
-              {["Django", "Django REST Framework", "SQL", "Bootstrap", "JavaScript"].map((tech) => (
-                <li className="project-tech-item" key={tech}>{tech}</li>
-              ))}
-            </ul>
-            <div className="project-links">
-              <button
-                className="btn btn-primary"
-                onClick={() => setCaseStudyOpen(true)}
-                id="featured-case-study-btn"
-              >
-                <i className="fa-solid fa-gears" style={{ marginRight: '8px' }}></i> Technical Case Study
-              </button>
-              <button
-                className="btn btn-secondary"
-                onClick={() => setVideoModalOpen(true)}
-                style={{ background: 'transparent', border: '1px solid var(--accent)', color: 'var(--accent)' }}
-                id="featured-demo-btn"
-              >
-                <i className="fa-solid fa-circle-play" style={{ marginRight: '8px' }}></i> Video Demo
-              </button>
-              <a
-                href="https://github.com/Abdellah-BELMAARIS/modern-journal.github.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-secondary"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                id="featured-github-btn"
-              >
-                <i className="fa-brands fa-github" style={{ marginRight: '8px' }}></i> GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Other Projects Grid */}
-        <div className="other-projects-header">
-          <h3 className="other-projects-title">
-            <i className="fa-solid fa-folder-open" style={{ color: 'var(--accent)', marginRight: '10px' }}></i>
-            Other Noteworthy Projects
-          </h3>
-          <a
-            href="https://github.com/Abdellah-BELMAARIS"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="other-projects-link"
-            id="view-all-projects-link"
-          >
-            View All on GitHub <i className="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-        <div className="project-tools" role="search" aria-label="Filter projects">
-          <label className="sr-only" htmlFor="project-search">Search projects</label>
-          <div className="project-search-wrap">
-            <i className="fa-solid fa-magnifying-glass" aria-hidden="true" />
-            <input id="project-search" className="project-search" type="search" placeholder="Search projects or technologies…" value={projectSearch} onChange={(e) => setProjectSearch(e.target.value)} />
-          </div>
-          <div className="project-filters" aria-label="Project categories">
-            {(['All', 'Full Stack', 'Python & Data', 'Architecture'] as const).map((category) => (
-              <button key={category} type="button" className={`filter-btn ${projectFilter === category ? 'active' : ''}`} aria-pressed={projectFilter === category} onClick={() => setProjectFilter(category)}>{category}</button>
-            ))}
-          </div>
-        </div>
-        <p className="results-count">Showing {filteredProjects.length} of {OTHER_PROJECTS.length} projects</p>
-        <div className="other-projects-grid">
-          {filteredProjects.map((proj, idx) => (
-            <motion.div
-              key={idx}
-              className="other-project-card spotlight-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.4, delay: idx * 0.08 }}
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-              }}
-            >
-              <div className="other-project-top">
-                <div className="other-project-icon">
-                  <i className={proj.icon}></i>
+              {/* Special interactive screenshot carousel for The Modern Journal */}
+              {proj.id === 'modern-journal' && (
+                <div className="project-carousel" style={{ borderRadius: '8px', marginBottom: '24px', maxHeight: '380px' }}>
+                  <div className="project-carousel-slides">
+                    {PROJECT_IMAGES.map((img, sIdx) => (
+                      <img
+                        key={sIdx}
+                        src={img}
+                        className={`project-slide ${currentSlide === sIdx ? 'active' : ''}`}
+                        alt={`The Modern Journal - Platform View ${sIdx + 1}`}
+                      />
+                    ))}
+                  </div>
+                  <button
+                    className="project-carousel-btn project-carousel-prev"
+                    onClick={() => setCurrentSlide((prev) => (prev === 0 ? PROJECT_IMAGES.length - 1 : prev - 1))}
+                    aria-label="Previous screenshot"
+                  >
+                    <i className="fa-solid fa-chevron-left"></i>
+                  </button>
+                  <button
+                    className="project-carousel-btn project-carousel-next"
+                    onClick={() => setCurrentSlide((prev) => (prev + 1) % PROJECT_IMAGES.length)}
+                    aria-label="Next screenshot"
+                  >
+                    <i className="fa-solid fa-chevron-right"></i>
+                  </button>
+                  <div className="project-carousel-dots">
+                    {PROJECT_IMAGES.map((_, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className={`project-carousel-dot ${currentSlide === sIdx ? 'active' : ''}`}
+                        onClick={() => setCurrentSlide(sIdx)}
+                        role="button"
+                        aria-label={`Go to slide ${sIdx + 1}`}
+                      ></span>
+                    ))}
+                  </div>
                 </div>
-                <div className="other-project-actions">
+              )}
+
+              {/* 4-Box Engineering Breakdown */}
+              <div className="project-breakdown-grid">
+                <div className="breakdown-box">
+                  <span className="breakdown-label">
+                    <i className="fa-solid fa-circle-exclamation" /> The Problem
+                  </span>
+                  <p className="breakdown-text">{proj.problem}</p>
+                </div>
+
+                <div className="breakdown-box">
+                  <span className="breakdown-label">
+                    <i className="fa-solid fa-code" /> Solution Architecture
+                  </span>
+                  <p className="breakdown-text">{proj.solution}</p>
+                </div>
+
+                <div className="breakdown-box">
+                  <span className="breakdown-label">
+                    <i className="fa-solid fa-user-check" /> Role &amp; Execution
+                  </span>
+                  <p className="breakdown-text">{proj.role} — Engineered core application layers, relational data models, and system integrations.</p>
+                </div>
+
+                <div className="breakdown-box">
+                  <span className="breakdown-label">
+                    <i className="fa-solid fa-triangle-exclamation" /> Key Challenge Solved
+                  </span>
+                  <p className="breakdown-text">{proj.keyChallenge}</p>
+                </div>
+              </div>
+
+              {/* Measurable Proof Metrics */}
+              <div className="project-measurable-metrics">
+                {proj.metrics.map((metric, mIdx) => (
+                  <span key={mIdx} className="metric-pill">
+                    <i className="fa-solid fa-chart-line" /> {metric}
+                  </span>
+                ))}
+              </div>
+
+              {/* Footer with Tech & Actions */}
+              <div className="project-card-footer">
+                <div className="project-tech-tags">
+                  {proj.tech.map((t) => (
+                    <span className="exp-skill-tag" key={t}>{t}</span>
+                  ))}
+                </div>
+
+                <div className="project-action-buttons">
+                  {proj.hasCaseStudy && (
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => setCaseStudyOpen(true)}
+                      id={`case-study-btn-${proj.id}`}
+                    >
+                      <i className="fa-solid fa-gears" style={{ marginRight: '8px' }}></i> Technical Case Study
+                    </button>
+                  )}
+                  {proj.hasVideoDemo && (
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => setVideoModalOpen(true)}
+                      id={`demo-btn-${proj.id}`}
+                    >
+                      <i className="fa-solid fa-circle-play" style={{ marginRight: '8px' }}></i> Video Demo
+                    </button>
+                  )}
                   {proj.github && (
                     <a
                       href={proj.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`${proj.title} GitHub repository`}
-                      id={`proj-github-${idx}`}
+                      className="btn btn-secondary"
+                      id={`github-btn-${proj.id}`}
                     >
-                      <i className="fa-brands fa-github"></i>
+                      <i className="fa-brands fa-github" style={{ marginRight: '8px' }}></i> GitHub Repo
                     </a>
                   )}
                   {proj.live && (
@@ -1219,109 +1333,88 @@ export default function App() {
                       href={proj.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`${proj.title} live demo`}
-                      id={`proj-live-${idx}`}
+                      className="btn btn-secondary"
+                      id={`live-btn-${proj.id}`}
                     >
-                      <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                      <i className="fa-solid fa-arrow-up-right-from-square" style={{ marginRight: '8px' }}></i>
+                      {proj.type === 'Professional Work' ? 'Visit BIMPulse' : 'Live Demo'}
                     </a>
+                  )}
+                  {proj.isPrivate && (
+                    <span className="private-repo-note">
+                      <i className="fa-solid fa-lock" /> Enterprise Proprietary Codebase
+                    </span>
                   )}
                 </div>
               </div>
-              <h4 className="other-project-title">{proj.title}</h4>
-              <p className="other-project-desc">{proj.desc}</p>
-              <ul className="other-project-tech">
-                {proj.tech.map((t) => (
-                  <li key={t}>{t}</li>
-                ))}
-              </ul>
             </motion.div>
           ))}
         </div>
-        {filteredProjects.length === 0 && <p className="empty-state">No projects match your search. Try another keyword.</p>}
       </section>
 
-      {/* Learning Journal Section */}
-      <section id="insights">
-        <span className="section-overline">09. Notes &amp; Architecture</span>
-        <h2 className="section-title">Engineering Journal</h2>
-        <div className="insights-grid">
-          {INSIGHTS_DATA.map((insight) => (
-            <a className="insight-card spotlight-card" href={insight.href} target="_blank" rel="noopener noreferrer" key={insight.title}>
-              <div className="insight-icon"><i className={insight.icon} aria-hidden="true" /></div>
-              <span className="insight-tag">{insight.tag}</span>
-              <h3>{insight.title}</h3>
-              <p>{insight.desc}</p>
-              <span className="insight-link">Read on GitHub <i className="fa-solid fa-arrow-up-right-from-square" /></span>
-            </a>
-          ))}
-        </div>
-      </section>
+      {/* Skills Section: 4-Group Organized Matrix */}
+      <section id="skills">
+        <span className="section-overline">05. Stack &amp; Capabilities</span>
+        <h2 className="section-title">Technical Capabilities</h2>
+        <p className="section-intro">
+          Organized into core engineering disciplines rather than an unsorted list. Highlights primary full-stack production foundations alongside applied data and operational tools.
+        </p>
 
-      {/* Live GitHub Section */}
-      <section id="github">
-        <span className="section-overline">10. Open Source &amp; Code</span>
-        <h2 className="section-title">Recent GitHub Work</h2>
-        <p className="section-intro">Real public repositories, loaded directly from GitHub. Explore the code, commits, and documentation behind my projects.</p>
-        {githubLoading ? <p className="github-state">Loading recent repositories…</p> : githubRepos.length > 0 ? (
-          <div className="github-grid">
-            {githubRepos.map((repo) => (
-              <a className="github-repo-card spotlight-card" href={repo.html_url} target="_blank" rel="noopener noreferrer" key={repo.name}>
-                <div className="github-repo-heading"><i className="fa-brands fa-github" aria-hidden="true" /><i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></div>
-                <h3>{repo.name}</h3>
-                <p>{repo.description || 'Public project repository.'}</p>
-                <div className="github-repo-meta"><span>{repo.language || 'Code'}</span><span><i className="fa-solid fa-star" /> {repo.stargazers_count}</span><span><i className="fa-solid fa-code-fork" /> {repo.forks_count}</span></div>
-              </a>
-            ))}
-          </div>
-        ) : <p className="github-state">GitHub is temporarily unavailable. <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">View my profile directly</a>.</p>}
-        <a className="btn btn-secondary github-profile-btn" href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-github" /> View full GitHub profile</a>
-      </section>
-
-      {/* Education & Certifications Section */}
-      <section id="certifications">
-        <span className="section-overline">08. Credentials &amp; Academics</span>
-        <h2 className="section-title">Education &amp; Certifications</h2>
-
-        {/* Education Subsection */}
-        <h3 className="subsection-title" style={{ fontSize: '1.3rem', marginTop: '30px', marginBottom: '20px', color: 'var(--text-primary)', fontFamily: 'var(--font-display)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <i className="fa-solid fa-graduation-cap" style={{ color: 'var(--accent)' }}></i> Education
-        </h3>
-        <div className="education-grid" style={{ marginTop: '20px', marginBottom: '50px' }}>
-          {EDUCATION_DATA.map((ed, idx) => (
+        <div className="skills-organized-grid">
+          {ORGANIZED_SKILLS.map((group, idx) => (
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 15 }}
+              key={group.id}
+              className="skills-group-card spotlight-card"
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
               }}
-              className="education-card spotlight-card"
             >
-              <div className="edu-header">
-                <div className="edu-logo"><i className={ed.icon}></i></div>
-                <span className="edu-platform">{ed.platform}</span>
+              <div className="skills-group-header">
+                <div className={`skills-group-icon ${group.iconClass}`}>
+                  <i className={group.icon}></i>
+                </div>
+                <div>
+                  <span className="skills-group-tag">{group.category}</span>
+                  <h3 className="skills-group-title">{group.title}</h3>
+                </div>
               </div>
-              <h4 className="edu-degree">{ed.degree}</h4>
-              <span className="edu-date"><i className="fa-solid fa-calendar-days"></i> {ed.date}</span>
-              <div className="edu-details-title">Skills</div>
-              <ul className="edu-details-list">
-                {ed.skills.map((skill) => (
-                  <li className="edu-detail-tag" key={skill}>{skill}</li>
+              <p className="skills-group-desc">{group.desc}</p>
+
+              <div className="skills-items-list">
+                {group.skills.map((skill, sIdx) => (
+                  <div className="skill-item-row" key={sIdx}>
+                    <div className="skill-item-dot" />
+                    <div className="skill-item-content">
+                      <span className="skill-item-name">{skill.name}</span>
+                      <span className="skill-item-detail">{skill.detail}</span>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </motion.div>
           ))}
         </div>
+      </section>
 
-        {/* Licenses & Certifications Subsection */}
-        <h3 className="subsection-title" style={{ fontSize: '1.3rem', marginTop: '40px', marginBottom: '20px', color: 'var(--text-primary)', fontFamily: 'var(--font-display)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <i className="fa-solid fa-award" style={{ color: 'var(--accent)' }}></i> Licenses & Certifications
+      {/* Education & Certifications Section */}
+      <section id="certifications">
+        <span className="section-overline">06. Credentials &amp; Academics</span>
+        <h2 className="section-title">Education &amp; Certifications</h2>
+        <p className="section-intro">
+          Verified industry credentials and specialized engineering tracks validating applied AI engineering, Python data analysis, and backend system development.
+        </p>
+
+        {/* Licenses & Certifications Subsection First */}
+        <h3 className="subsection-title" style={{ fontSize: '1.3rem', marginTop: '30px', marginBottom: '20px', color: 'var(--text-primary)', fontFamily: 'var(--font-display)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <i className="fa-solid fa-award" style={{ color: 'var(--accent)' }}></i> Licenses &amp; Certifications
         </h3>
-        <div className="education-grid" style={{ marginTop: '20px' }}>
+        <div className="education-grid" style={{ marginTop: '20px', marginBottom: '50px' }}>
           {CERTIFICATIONS_DATA.map((cert, idx) => (
             <motion.div
               key={idx}
@@ -1379,16 +1472,98 @@ export default function App() {
             </motion.div>
           ))}
         </div>
+
+        {/* Education Subsection */}
+        <h3 className="subsection-title" style={{ fontSize: '1.3rem', marginTop: '40px', marginBottom: '20px', color: 'var(--text-primary)', fontFamily: 'var(--font-display)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <i className="fa-solid fa-graduation-cap" style={{ color: 'var(--accent)' }}></i> Education &amp; Specialized Tracks
+        </h3>
+        <div className="education-grid" style={{ marginTop: '20px' }}>
+          {EDUCATION_DATA.map((ed, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+              }}
+              className="education-card spotlight-card"
+            >
+              <div className="edu-header">
+                <div className="edu-logo"><i className={ed.icon}></i></div>
+                <span className="edu-platform">{ed.platform}</span>
+              </div>
+              <h4 className="edu-degree">{ed.degree}</h4>
+              <span className="edu-date"><i className="fa-solid fa-calendar-days"></i> {ed.date}</span>
+              <div className="edu-details-title">Skills</div>
+              <ul className="edu-details-list">
+                {ed.skills.map((skill) => (
+                  <li className="edu-detail-tag" key={skill}>{skill}</li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Interactive AI & Engineering Console Section */}
+      <section id="ai-terminal">
+        <span className="section-overline">07. Interactive Intelligence</span>
+        <h2 className="section-title">AI &amp; Engineering Console</h2>
+        <p className="section-intro">
+          Test a live interactive simulation of my Full-Stack &amp; AI architecture. Query preset prompts or test custom queries regarding backend patterns, RAG pipelines, and certified credentials.
+        </p>
+        <AiDevTerminal />
+      </section>
+
+      {/* Learning Journal Section */}
+      <section id="insights">
+        <span className="section-overline">08. Notes &amp; Architecture</span>
+        <h2 className="section-title">Engineering Journal</h2>
+        <div className="insights-grid">
+          {INSIGHTS_DATA.map((insight) => (
+            <a className="insight-card spotlight-card" href={insight.href} target="_blank" rel="noopener noreferrer" key={insight.title}>
+              <div className="insight-icon"><i className={insight.icon} aria-hidden="true" /></div>
+              <span className="insight-tag">{insight.tag}</span>
+              <h3>{insight.title}</h3>
+              <p>{insight.desc}</p>
+              <span className="insight-link">Read on GitHub <i className="fa-solid fa-arrow-up-right-from-square" /></span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* Live GitHub Section */}
+      <section id="github">
+        <span className="section-overline">08. Open Source &amp; Code</span>
+        <h2 className="section-title">Recent GitHub Work</h2>
+        <p className="section-intro">Real public repositories, loaded directly from GitHub. Explore the code, commits, and documentation behind my projects.</p>
+        {githubLoading ? <p className="github-state">Loading recent repositories…</p> : githubRepos.length > 0 ? (
+          <div className="github-grid">
+            {githubRepos.map((repo) => (
+              <a className="github-repo-card spotlight-card" href={repo.html_url} target="_blank" rel="noopener noreferrer" key={repo.name}>
+                <div className="github-repo-heading"><i className="fa-brands fa-github" aria-hidden="true" /><i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></div>
+                <h3>{repo.name}</h3>
+                <p>{repo.description || 'Public project repository.'}</p>
+                <div className="github-repo-meta"><span>{repo.language || 'Code'}</span><span><i className="fa-solid fa-star" /> {repo.stargazers_count}</span><span><i className="fa-solid fa-code-fork" /> {repo.forks_count}</span></div>
+              </a>
+            ))}
+          </div>
+        ) : <p className="github-state">GitHub is temporarily unavailable. <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">View my profile directly</a>.</p>}
+        <a className="btn btn-secondary github-profile-btn" href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-github" /> View full GitHub profile</a>
       </section>
 
       {/* Connect & Contact Section */}
       <section id="contact">
-        <span className="section-overline">11. Get in Touch</span>
+        <span className="section-overline">09. Get in Touch</span>
         <h2 className="section-title">Connect / Contact</h2>
         <div className="contact-layout">
           <div className="contact-info">
-            <p style={{ fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '10px' }}>
-              Let's work together or just say hello! I'm always open to talking about backend system designs, Python scripting, or learning loops.
+            <p style={{ fontSize: '1.05rem', lineHeight: '1.65', marginBottom: '20px', color: 'var(--text-primary)' }}>
+              Interested in junior full-stack opportunities, engineering collaborations, or digital product development? Let's connect.
             </p>
             <div className="contact-card">
               <div className="contact-icon"><i className="fa-solid fa-location-dot"></i></div>
@@ -1416,6 +1591,13 @@ export default function App() {
               <div className="contact-details">
                 <h4>GitHub</h4>
                 <p><a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer" id="contact-github-link">Abdellah-BELMAARIS</a></p>
+              </div>
+            </div>
+            <div className="contact-card">
+              <div className="contact-icon"><i className="fa-solid fa-file-pdf"></i></div>
+              <div className="contact-details">
+                <h4>Curriculum Vitae</h4>
+                <p><a href="assets/Abdellah_BELMAARIS_CV.pdf" download id="contact-cv-link" style={{ color: 'var(--accent)', fontWeight: 600 }}><i className="fa-solid fa-download" style={{ marginRight: '6px' }} /> Download CV (PDF)</a></p>
               </div>
             </div>
           </div>
