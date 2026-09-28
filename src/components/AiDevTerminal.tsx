@@ -88,7 +88,7 @@ class RAGQueryEngine:
       return {
         sender: 'assistant',
         badge: 'Technical Capabilities',
-        text: "Abdellah operates across three specialized technical layers:\n\n• Backend & Architecture: Python (Async/OOP), Django & Django REST Framework, FastAPI, PostgreSQL, SQL Schema Design, JWT Auth, RBAC, REST APIs.\n• Frontend & Interactive: React 19, TypeScript, Three.js / React Three Fiber, Modern CSS, Responsive UI Design.\n• AI & Data Intelligence: LLMs & Prompt Engineering, RAG Pipelines, Vector Search, Pandas, NumPy, Matplotlib, DataCamp AI Engineer for Developers.",
+        text: "Abdellah operates across four specialized disciplines:\n\n• Development: Python, Django, HTML, CSS, SQL, Django REST Framework, PostgreSQL, REST APIs.\n• Data: Pandas, Matplotlib, Data Analysis.\n• Computer Science: Algorithms, Data Structures, Software Engineering.\n• Exploring / Foundations: Artificial Intelligence, Cybersecurity Fundamentals.",
         links: [
           { label: "Browse Full Skills Matrix", url: "#skills" },
           { label: "The Modern Journal Case Study", url: "#project" }
@@ -100,7 +100,7 @@ class RAGQueryEngine:
       return {
         sender: 'assistant',
         badge: 'Production Showcase',
-        text: "Abdellah has engineered several high-performance open-source systems:\n\n1. The Modern Journal: Full-featured Django CMS with RBAC, N+1 query optimization, custom search indexing, and automated transactional emails.\n2. PyGame 3D Web Arcade: High-performance 3D retro cabinet built in React Three Fiber hosting 16 WebAssembly-compiled Python games.\n3. Dev-Pulse: Automated local developer telemetry pipeline parsing log files and generating sub-200ms Matplotlib visual reports.",
+        text: "Abdellah has engineered several high-performance open-source systems:\n\n1. The Modern Journal: Full-featured Django CMS with RBAC, N+1 query optimization, custom search indexing, and automated transactional emails.\n2. PyGame 3D Web Arcade: Interactive 3D retro arcade cabinet hosting 16 WebAssembly-compiled Python games.\n3. Dev-Pulse: Automated local developer telemetry pipeline parsing log files and generating sub-200ms Matplotlib visual reports.",
         links: [
           { label: "Explore Featured Project", url: "#project" },
           { label: "Play PyGame 3D Arcade Live", url: "https://Abdellah-BELMAARIS.github.io/PyGame_Projects/", external: true }
