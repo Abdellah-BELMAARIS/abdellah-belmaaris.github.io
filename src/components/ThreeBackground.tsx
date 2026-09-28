@@ -2,106 +2,252 @@ import { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-// ─── Subtle Architectural BIM & IFC Wireframe Geometry ───────────────────────
-// Represents IFC structural grids, building axes, and engineering perspective
-function ArchitecturalBimGrid() {
+// ─── 1. 3D AI Geometric Core with Inner Cube & Dual Orbital Rings ─────────────
+// Recreated from the user's reference design: a rotating wireframe geodesic core,
+// inner geometric tesseract/cube, and dual tilted elliptical orbital rings.
+function AiGeometricCore({ isMobile }: { isMobile: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
+  const outerSphereRef = useRef<THREE.Mesh>(null);
+  const innerCubeRef = useRef<THREE.Mesh>(null);
+  const ring1Ref = useRef<THREE.Mesh>(null);
+  const ring2Ref = useRef<THREE.Mesh>(null);
+  const satelliteRef = useRef<THREE.Group>(null);
   const { mouse } = useThree();
 
-  // Procedurally generate architectural structural columns and floor planes
-  const { gridLines, nodePositions } = useMemo(() => {
-    const lines: number[] = [];
-    const nodes: number[] = [];
-
-    // Floor perspective grid lines (subtle ground plane)
-    const gridSize = 12;
-    const step = 2.0;
-    const yFloor = -3.2;
-
-    for (let x = -gridSize; x <= gridSize; x += step) {
-      lines.push(x, yFloor, -gridSize);
-      lines.push(x, yFloor, gridSize);
-    }
-    for (let z = -gridSize; z <= gridSize; z += step) {
-      lines.push(-gridSize, yFloor, z);
-      lines.push(gridSize, yFloor, z);
-    }
-
-    // Structural columns (vertical BIM wireframe members)
-    const columns = [
-      [3.0, -1.0], [5.5, -3.0], [7.0, 1.0], [4.5, 3.5],
-      [-5.0, 1.5], [-7.5, -2.0], [1.5, -4.5], [-3.5, -3.5]
-    ];
-
-    columns.forEach(([cx, cz]) => {
-      lines.push(cx, -3.2, cz);
-      lines.push(cx, 3.8, cz);
-
-      // Node joints at floor and ceiling levels
-      nodes.push(cx, -3.2, cz);
-      nodes.push(cx, 3.8, cz);
-      nodes.push(cx, 0.3, cz);
-
-      // Horizontal beam connection between adjacent structural columns
-      lines.push(cx, 0.3, cz);
-      lines.push(cx + 1.2, 0.3, cz - 0.8);
-    });
-
-    return {
-      gridLines: new Float32Array(lines),
-      nodePositions: new Float32Array(nodes),
-    };
+  // Generate unique vertex positions for glowing nodes on the geodesic sphere
+  const sphereVertexPositions = useMemo(() => {
+    const geo = new THREE.IcosahedronGeometry(1.5, 1);
+    const pos = geo.attributes.position.array;
+    return new Float32Array(pos);
   }, []);
 
-  useFrame((_state) => {
-    if (!groupRef.current) return;
-    // Ultra subtle parallax (2 to 6px maximum)
-    const targetX = (mouse.x * 0.35);
-    const targetY = (mouse.y * 0.25);
-    groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, targetX, 0.04);
-    groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY, 0.04);
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+
+    if (groupRef.current) {
+      // Subtle smooth parallax following cursor
+      const targetX = (mouse.x * 0.45);
+      const targetY = (mouse.y * 0.35);
+      groupRef.current.position.x = THREE.MathUtils.lerp(
+        groupRef.current.position.x,
+        (isMobile ? 0 : 3.2) + targetX,
+        0.03
+      );
+      groupRef.current.position.y = THREE.MathUtils.lerp(
+        groupRef.current.position.y,
+        (isMobile ? 1.6 : 0.3) + targetY,
+        0.03
+      );
+    }
+
+    // Outer Geodesic Sphere slow rotation
+    if (outerSphereRef.current) {
+      outerSphereRef.current.rotation.x = t * 0.07;
+      outerSphereRef.current.rotation.y = t * 0.11;
+    }
+
+    // Inner Cube counter-rotation
+    if (innerCubeRef.current) {
+      innerCubeRef.current.rotation.x = -t * 0.15;
+      innerCubeRef.current.rotation.y = t * 0.18;
+      innerCubeRef.current.rotation.z = t * 0.09;
+    }
+
+    // Orbital Ring 1 rotation
+    if (ring1Ref.current) {
+      ring1Ref.current.rotation.z = t * 0.12;
+    }
+
+    // Orbital Ring 2 opposite rotation
+    if (ring2Ref.current) {
+      ring2Ref.current.rotation.z = -t * 0.14;
+    }
+
+    // Orbiting Satellite data packet
+    if (satelliteRef.current) {
+      satelliteRef.current.rotation.z = t * 0.45;
+    }
   });
 
   return (
-    <group ref={groupRef} position={[2.5, 0, -4.5]}>
-      {/* Structural IFC Beam Wireframe Lines */}
-      <lineSegments>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[gridLines, 3]}
-          />
-        </bufferGeometry>
-        <lineBasicMaterial
-          color="#10b981"
+    <group ref={groupRef} position={[isMobile ? 0 : 3.2, isMobile ? 1.6 : 0.3, -1.8]}>
+      {/* Outer Wireframe Geodesic Polyhedron Sphere */}
+      <mesh ref={outerSphereRef}>
+        <icosahedronGeometry args={[1.5, 1]} />
+        <meshBasicMaterial
+          color="#00e5ff"
+          wireframe
           transparent
-          opacity={0.045}
+          opacity={0.18}
+          blending={THREE.AdditiveBlending}
           depthWrite={false}
         />
-      </lineSegments>
+      </mesh>
 
-      {/* BIM Structural Joint Nodes */}
+      {/* Vertex Nodes on Geodesic Mesh */}
       <points>
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            args={[nodePositions, 3]}
+            args={[sphereVertexPositions, 3]}
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.08}
-          color="#34d399"
+          size={0.07}
+          color="#38bdf8"
           transparent
-          opacity={0.08}
+          opacity={0.65}
+          blending={THREE.AdditiveBlending}
           depthWrite={false}
         />
       </points>
+
+      {/* Inner Geometric Wireframe Cube / Core */}
+      <mesh ref={innerCubeRef}>
+        <boxGeometry args={[0.9, 0.9, 0.9]} />
+        <meshBasicMaterial
+          color="#10b981"
+          wireframe
+          transparent
+          opacity={0.32}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Inner Core Vertex Glow Points */}
+      <points>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[
+              new Float32Array([
+                -0.45, -0.45, -0.45,  0.45, -0.45, -0.45,
+                 0.45,  0.45, -0.45, -0.45,  0.45, -0.45,
+                -0.45, -0.45,  0.45,  0.45, -0.45,  0.45,
+                 0.45,  0.45,  0.45, -0.45,  0.45,  0.45,
+              ]),
+              3
+            ]}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.065}
+          color="#10b981"
+          transparent
+          opacity={0.8}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </points>
+
+      {/* Primary Tilted Elliptical Orbital Ring (Cyan) */}
+      <mesh ref={ring1Ref} rotation={[1.15, 0.35, 0]}>
+        <torusGeometry args={[2.25, 0.014, 16, 120]} />
+        <meshBasicMaterial
+          color="#00e5ff"
+          transparent
+          opacity={0.35}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Secondary Tilted Elliptical Orbital Ring (Emerald) */}
+      <mesh ref={ring2Ref} rotation={[-0.85, 0.65, 0.4]}>
+        <torusGeometry args={[2.45, 0.011, 16, 120]} />
+        <meshBasicMaterial
+          color="#10b981"
+          transparent
+          opacity={0.28}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Orbiting Satellite Data Packet on Ring 1 */}
+      <group ref={satelliteRef} rotation={[1.15, 0.35, 0]}>
+        <mesh position={[2.25, 0, 0]}>
+          <sphereGeometry args={[0.045, 8, 8]} />
+          <meshBasicMaterial
+            color="#00f0ff"
+            transparent
+            opacity={0.9}
+            blending={THREE.AdditiveBlending}
+          />
+        </mesh>
+      </group>
+
+      {/* Ambient Core Glow */}
+      <mesh position={[0, 0, 0]}>
+        <sphereGeometry args={[0.7, 16, 16]} />
+        <meshBasicMaterial
+          color="#087f5b"
+          transparent
+          opacity={0.08}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
     </group>
   );
 }
 
-// ─── Restrained Cinematic Particles (Rule 5: 30-50 desktop, 12 mobile) ────────
-function RestrainedParticles({ count = 40 }: { count?: number }) {
+// ─── 2. Floating Holographic Backdrop Panels ─────────────────────────────────
+// Translucent glowing glass panels seen behind the wireframe core in the screenshot
+function HolographicPanels({ isMobile }: { isMobile: boolean }) {
+  if (isMobile) return null;
+
+  return (
+    <group position={[3.2, 0.2, -4.5]}>
+      {/* Primary Rectangular Backdrop Card */}
+      <mesh position={[0, 0, 0]}>
+        <planeGeometry args={[5.2, 3.4]} />
+        <meshBasicMaterial
+          color="#062438"
+          transparent
+          opacity={0.12}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+      <lineSegments position={[0, 0, 0.01]}>
+        <edgesGeometry args={[new THREE.PlaneGeometry(5.2, 3.4)]} />
+        <lineBasicMaterial
+          color="#00e5ff"
+          transparent
+          opacity={0.08}
+          depthWrite={false}
+        />
+      </lineSegments>
+
+      {/* Offset Secondary Backdrop Card */}
+      <mesh position={[-1.2, -0.6, -0.5]}>
+        <planeGeometry args={[4.4, 2.6]} />
+        <meshBasicMaterial
+          color="#0a1d30"
+          transparent
+          opacity={0.09}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+      <lineSegments position={[-1.2, -0.6, -0.49]}>
+        <edgesGeometry args={[new THREE.PlaneGeometry(4.4, 2.6)]} />
+        <lineBasicMaterial
+          color="#10b981"
+          transparent
+          opacity={0.06}
+          depthWrite={false}
+        />
+      </lineSegments>
+    </group>
+  );
+}
+
+// ─── 3. Dynamic AI Neural Mesh & Synaptic Network Lines ──────────────────────
+// Generates drifting constellation nodes that connect with synaptic neon lines
+function AiNeuralMesh({ count = 55 }: { count?: number }) {
   const pointsRef = useRef<THREE.Points>(null);
   const linesRef = useRef<THREE.LineSegments>(null);
   const { mouse } = useThree();
@@ -109,17 +255,17 @@ function RestrainedParticles({ count = 40 }: { count?: number }) {
   const [positions, velocities, linePos, lineCols] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const vel = new Float32Array(count * 3);
-    const maxLines = 80;
+    const maxLines = 120;
     const lPos = new Float32Array(maxLines * 2 * 3);
     const lCol = new Float32Array(maxLines * 2 * 3);
 
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.sin(i * 91.23) * 0.5) * 16;
-      pos[i * 3 + 1] = (Math.cos(i * 47.81) * 0.5) * 12;
-      pos[i * 3 + 2] = (Math.sin(i * 13.57) * 0.5) * 6 - 2;
+      pos[i * 3] = (Math.sin(i * 91.23) * 0.5) * 20;
+      pos[i * 3 + 1] = (Math.cos(i * 47.81) * 0.5) * 14;
+      pos[i * 3 + 2] = (Math.sin(i * 13.57) * 0.5) * 8 - 3;
 
-      vel[i * 3] = (Math.sin(i * 5.31) - 0.5) * 0.003;
-      vel[i * 3 + 1] = (Math.cos(i * 7.19) - 0.5) * 0.003;
+      vel[i * 3] = (Math.sin(i * 5.31) - 0.5) * 0.0035;
+      vel[i * 3 + 1] = (Math.cos(i * 7.19) - 0.5) * 0.0035;
       vel[i * 3 + 2] = 0;
     }
     return [pos, vel, lPos, lCol];
@@ -132,23 +278,23 @@ function RestrainedParticles({ count = 40 }: { count?: number }) {
     const lPosArr = linesRef.current.geometry.attributes.position.array as Float32Array;
     const lColArr = linesRef.current.geometry.attributes.color.array as Float32Array;
 
-    // Slow drifting particle update
+    // Update drifting positions
     for (let i = 0; i < count; i++) {
       posArr[i * 3] += velocities[i * 3];
       posArr[i * 3 + 1] += velocities[i * 3 + 1];
 
-      // Screen boundary wraps
-      if (posArr[i * 3] > 10) posArr[i * 3] = -10;
-      if (posArr[i * 3] < -10) posArr[i * 3] = 10;
-      if (posArr[i * 3 + 1] > 7) posArr[i * 3 + 1] = -7;
-      if (posArr[i * 3 + 1] < -7) posArr[i * 3 + 1] = 7;
+      // Screen boundary wrapping
+      if (posArr[i * 3] > 12) posArr[i * 3] = -12;
+      if (posArr[i * 3] < -12) posArr[i * 3] = 12;
+      if (posArr[i * 3 + 1] > 8) posArr[i * 3 + 1] = -8;
+      if (posArr[i * 3 + 1] < -8) posArr[i * 3 + 1] = 8;
     }
     pointsRef.current.geometry.attributes.position.needsUpdate = true;
 
-    // Connect close neighbors with faint lines
+    // Connect close neighbors with synaptic lines
     let lineIdx = 0;
-    const maxLines = 80;
-    const connDistSq = 2.8 * 2.8;
+    const maxLines = 120;
+    const thresholdSq = 3.2 * 3.2;
 
     for (let i = 0; i < count && lineIdx < maxLines; i++) {
       for (let j = i + 1; j < count && lineIdx < maxLines; j++) {
@@ -157,8 +303,8 @@ function RestrainedParticles({ count = 40 }: { count?: number }) {
         const dz = posArr[i * 3 + 2] - posArr[j * 3 + 2];
         const dSq = dx * dx + dy * dy + dz * dz;
 
-        if (dSq < connDistSq) {
-          const alpha = (1 - Math.sqrt(dSq) / 2.8) * 0.07;
+        if (dSq < thresholdSq) {
+          const alpha = (1 - Math.sqrt(dSq) / 3.2) * 0.12;
           const p = lineIdx * 6;
 
           lPosArr[p] = posArr[i * 3];
@@ -169,20 +315,26 @@ function RestrainedParticles({ count = 40 }: { count?: number }) {
           lPosArr[p + 4] = posArr[j * 3 + 1];
           lPosArr[p + 5] = posArr[j * 3 + 2];
 
-          // Emerald tint
-          lColArr[p] = 0.06; lColArr[p + 1] = 0.72; lColArr[p + 2] = 0.50;
-          lColArr[p + 3] = 0.06; lColArr[p + 4] = 0.72; lColArr[p + 5] = 0.50;
+          // Dynamic Cyan to Emerald gradient
+          const isCyan = (i + j) % 2 === 0;
+          const r = isCyan ? 0.0 : 0.06;
+          const g = isCyan ? 0.9 : 0.72;
+          const b = isCyan ? 1.0 : 0.5;
 
-          // Scale alpha via vertex color
-          lColArr[p] *= alpha; lColArr[p + 1] *= alpha; lColArr[p + 2] *= alpha;
-          lColArr[p + 3] *= alpha; lColArr[p + 4] *= alpha; lColArr[p + 5] *= alpha;
+          lColArr[p] = r * alpha;
+          lColArr[p + 1] = g * alpha;
+          lColArr[p + 2] = b * alpha;
+
+          lColArr[p + 3] = r * alpha;
+          lColArr[p + 4] = g * alpha;
+          lColArr[p + 5] = b * alpha;
 
           lineIdx++;
         }
       }
     }
 
-    // Zero out unused lines
+    // Zero out unused line segments
     for (let k = lineIdx * 6; k < maxLines * 6; k++) {
       lPosArr[k] = 0;
       lColArr[k] = 0;
@@ -191,7 +343,7 @@ function RestrainedParticles({ count = 40 }: { count?: number }) {
     linesRef.current.geometry.attributes.color.needsUpdate = true;
 
     // Ultra soft cursor parallax
-    pointsRef.current.position.x = THREE.MathUtils.lerp(pointsRef.current.position.x, mouse.x * 0.2, 0.03);
+    pointsRef.current.position.x = THREE.MathUtils.lerp(pointsRef.current.position.x, mouse.x * 0.25, 0.03);
     pointsRef.current.position.y = THREE.MathUtils.lerp(pointsRef.current.position.y, mouse.y * 0.2, 0.03);
     linesRef.current.position.x = pointsRef.current.position.x;
     linesRef.current.position.y = pointsRef.current.position.y;
@@ -207,11 +359,12 @@ function RestrainedParticles({ count = 40 }: { count?: number }) {
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.065}
-          color="#10b981"
+          size={0.075}
+          color="#38bdf8"
           transparent
-          opacity={0.35}
+          opacity={0.5}
           depthWrite={false}
+          blending={THREE.AdditiveBlending}
         />
       </points>
 
@@ -237,28 +390,27 @@ function RestrainedParticles({ count = 40 }: { count?: number }) {
   );
 }
 
-// ─── Cinematic Emerald Volumetric Glow (Rule 4: Opacity 8-15%, duration 18-25s) ───
-function CinematicEmeraldGlow() {
+// ─── 4. Volumetric Cyan-Emerald Atmospheric Glow ──────────────────────────────
+function VolumetricAtmosphere() {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
     if (!meshRef.current) return;
     const t = state.clock.getElapsedTime();
-    // Ultra slow, calm oscillation: 18-25s period
-    const cycle = t * 0.28;
-    meshRef.current.position.x = 3.5 + Math.sin(cycle) * 0.8;
-    meshRef.current.position.y = 0.5 + Math.cos(cycle * 0.8) * 0.6;
-    const pulse = 1.0 + Math.sin(cycle * 0.5) * 0.08;
-    meshRef.current.scale.set(pulse * 7.5, pulse * 7.5, 1);
+    const cycle = t * 0.25;
+    meshRef.current.position.x = 3.5 + Math.sin(cycle) * 0.6;
+    meshRef.current.position.y = 0.4 + Math.cos(cycle * 0.8) * 0.5;
+    const scale = 8.0 + Math.sin(cycle * 0.5) * 0.5;
+    meshRef.current.scale.set(scale, scale, 1);
   });
 
   return (
-    <mesh ref={meshRef} position={[3.5, 0.5, -5]}>
+    <mesh ref={meshRef} position={[3.5, 0.4, -6]}>
       <planeGeometry args={[1, 1]} />
       <meshBasicMaterial
-        color="#087F5B"
+        color="#08384d"
         transparent
-        opacity={0.095}
+        opacity={0.16}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
       />
@@ -266,7 +418,7 @@ function CinematicEmeraldGlow() {
   );
 }
 
-// ─── Main Moving Background Component ─────────────────────────────────────────
+// ─── 5. Main Component with Live Telemetry Tag ───────────────────────────────
 export default function ThreeBackground() {
   const [isMobile, setIsMobile] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(() =>
@@ -288,7 +440,7 @@ export default function ThreeBackground() {
     };
   }, []);
 
-  const particleCount = reduceMotion ? 10 : isMobile ? 14 : 38;
+  const particleCount = reduceMotion ? 12 : isMobile ? 20 : 50;
 
   return (
     <div
@@ -301,7 +453,8 @@ export default function ThreeBackground() {
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg, #070B0F 0%, #0B1117 100%)',
+        // Deep cinematic midnight-slate gradient
+        background: 'radial-gradient(ellipse 90% 70% at 75% 30%, #081a2e 0%, #050b14 55%, #03060a 100%)',
       }}
       aria-hidden="true"
     >
@@ -311,9 +464,10 @@ export default function ThreeBackground() {
         dpr={[1, 1.5]}
       >
         <ambientLight intensity={0.4} />
-        {!reduceMotion && <CinematicEmeraldGlow />}
-        {!isMobile && !reduceMotion && <ArchitecturalBimGrid />}
-        {!reduceMotion && <RestrainedParticles count={particleCount} />}
+        {!reduceMotion && <VolumetricAtmosphere />}
+        {!reduceMotion && <HolographicPanels isMobile={isMobile} />}
+        {!reduceMotion && <AiGeometricCore isMobile={isMobile} />}
+        {!reduceMotion && <AiNeuralMesh count={particleCount} />}
       </Canvas>
 
       {/* Cinematic Radial Depth Vignette */}
@@ -321,10 +475,50 @@ export default function ThreeBackground() {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse 85% 75% at 50% 35%, transparent 25%, #070B0F 90%)',
+          background: 'radial-gradient(ellipse 85% 75% at 50% 35%, transparent 20%, rgba(3, 6, 10, 0.85) 90%)',
           pointerEvents: 'none',
         }}
       />
+
+      {/* AI Neural Mesh [Dynamic] Live Telemetry Pill (As seen in the screenshot) */}
+      <div
+        style={{
+          position: 'fixed',
+          bottom: '24px',
+          left: '28px',
+          zIndex: 90,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '6px 14px',
+          borderRadius: '999px',
+          background: 'rgba(6, 15, 26, 0.75)',
+          border: '1px solid rgba(0, 229, 255, 0.25)',
+          backdropFilter: 'blur(8px)',
+          fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
+          fontSize: '0.72rem',
+          color: '#38bdf8',
+          letterSpacing: '0.5px',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4)',
+          pointerEvents: 'auto',
+          userSelect: 'none',
+        }}
+        title="Real-time WebGL AI Neural Mesh Simulation"
+      >
+        <span
+          style={{
+            width: '7px',
+            height: '7px',
+            borderRadius: '50%',
+            background: '#00e5ff',
+            boxShadow: '0 0 8px #00e5ff',
+            display: 'inline-block',
+            animation: 'pulse 2s infinite',
+          }}
+        />
+        <span>AI Neural Mesh</span>
+        <span style={{ color: '#10b981', fontWeight: 600 }}>[Dynamic]</span>
+      </div>
     </div>
   );
 }
