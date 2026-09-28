@@ -453,8 +453,8 @@ export default function ThreeBackground() {
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden',
-        // Deep cinematic midnight-slate gradient
-        background: 'radial-gradient(ellipse 90% 70% at 75% 30%, #081a2e 0%, #050b14 55%, #03060a 100%)',
+        // Deep cinematic midnight-navy gradient (matching reference screenshot)
+        background: 'radial-gradient(ellipse 90% 70% at 70% 25%, #0b223a 0%, #071324 45%, #040912 100%)',
       }}
       aria-hidden="true"
     >

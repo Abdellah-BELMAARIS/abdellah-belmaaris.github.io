@@ -89,7 +89,7 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
                       <defs>
                         <linearGradient id="glow-accent" x1="0%" y1="0%" x2="100%" y2="100%">
                           <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.8" />
-                          <stop offset="100%" stopColor="#112240" stopOpacity="0.2" />
+                          <stop offset="100%" stopColor="#0D2038" stopOpacity="0.2" />
                         </linearGradient>
                         <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
                           <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="var(--accent)" floodOpacity="0.15" />
@@ -98,27 +98,27 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
 
                       {/* Nodes */}
                       {/* Client */}
-                      <rect x="20" y="80" width="100" height="60" rx="6" fill="#112240" stroke="var(--text-secondary)" strokeWidth="1" filter="url(#shadow)" />
+                      <rect x="20" y="80" width="100" height="60" rx="6" fill="#0D2038" stroke="var(--text-secondary)" strokeWidth="1" filter="url(#shadow)" />
                       <text x="70" y="110" fill="var(--text-primary)" fontSize="12" fontWeight="600" textAnchor="middle">Client App</text>
                       <text x="70" y="128" fill="var(--text-secondary)" fontSize="9" textAnchor="middle">(Web / API)</text>
 
                       {/* Security Middleware */}
-                      <rect x="180" y="80" width="110" height="60" rx="6" fill="#112240" stroke="var(--accent)" strokeWidth="1" filter="url(#shadow)" />
+                      <rect x="180" y="80" width="110" height="60" rx="6" fill="#0D2038" stroke="var(--accent)" strokeWidth="1" filter="url(#shadow)" />
                       <text x="235" y="110" fill="var(--text-primary)" fontSize="12" fontWeight="600" textAnchor="middle">Security Layer</text>
                       <text x="235" y="128" fill="var(--accent)" fontSize="9" textAnchor="middle">CSRF, Auth, CORS</text>
 
                       {/* Views & Serializers */}
-                      <rect x="350" y="80" width="120" height="60" rx="6" fill="#112240" stroke="var(--text-secondary)" strokeWidth="1" filter="url(#shadow)" />
+                      <rect x="350" y="80" width="120" height="60" rx="6" fill="#0D2038" stroke="var(--text-secondary)" strokeWidth="1" filter="url(#shadow)" />
                       <text x="410" y="110" fill="var(--text-primary)" fontSize="12" fontWeight="600" textAnchor="middle">Django Core</text>
                       <text x="410" y="128" fill="var(--text-secondary)" fontSize="9" textAnchor="middle">Views & Serializers</text>
 
                       {/* ORM Optimizer */}
-                      <rect x="530" y="80" width="110" height="60" rx="6" fill="#112240" stroke="var(--accent)" strokeWidth="1" filter="url(#shadow)" />
+                      <rect x="530" y="80" width="110" height="60" rx="6" fill="#0D2038" stroke="var(--accent)" strokeWidth="1" filter="url(#shadow)" />
                       <text x="585" y="110" fill="var(--text-primary)" fontSize="11" fontWeight="600" textAnchor="middle">ORM Optimizer</text>
                       <text x="585" y="128" fill="var(--accent)" fontSize="8.5" textAnchor="middle">select_related / prefetch</text>
 
                       {/* Database */}
-                      <rect x="690" y="80" width="90" height="60" rx="6" fill="#112240" stroke="var(--text-secondary)" strokeWidth="1" filter="url(#shadow)" />
+                      <rect x="690" y="80" width="90" height="60" rx="6" fill="#0D2038" stroke="var(--text-secondary)" strokeWidth="1" filter="url(#shadow)" />
                       <text x="735" y="110" fill="var(--text-primary)" fontSize="12" fontWeight="600" textAnchor="middle">RDBMS</text>
                       <text x="735" y="128" fill="var(--text-secondary)" fontSize="9" textAnchor="middle">(SQLite / Postgres)</text>
 
