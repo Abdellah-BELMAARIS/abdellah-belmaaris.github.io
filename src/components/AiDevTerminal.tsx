@@ -1,3 +1,4 @@
+import { t as translateText } from '../i18n';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -57,7 +58,14 @@ export default function AiDevTerminal() {
   }, [messages, isTyping]);
 
   const generateAnswer = (query: string): Omit<Message, 'id' | 'timestamp'> => {
-    const q = query.toLowerCase();
+    let q = query.toLowerCase();
+    // Match translated questions to the same existing response categories.
+    if (/ذكاء|اصطناعي|intelligence|\bia\b/.test(q)) q += ' ai';
+    if (/مهارات|تقنيات|compétences|technologies/.test(q)) q += ' stack';
+    if (/مشاريع|مشروع|projets?/.test(q)) q += ' project';
+    if (/شهاد|certificat|diplôme/.test(q)) q += ' cert';
+    if (/خبرة|عمل|expérience|emploi/.test(q)) q += ' experience';
+    if (/تواصل|بريد|contacter|joindre|courriel/.test(q)) q += ' contact';
 
     if (q.includes('ai') || q.includes('rag') || q.includes('llm') || q.includes('machine learning')) {
       return {
@@ -232,8 +240,7 @@ class RAGQueryEngine:
             <span className="terminal-dot dot-yellow" />
             <span className="terminal-dot dot-green" />
             <span className="terminal-title">
-              <i className="fa-solid fa-terminal" style={{ color: 'var(--accent)', marginRight: '6px' }} />
-              abdellah@system: ~/{mode === 'chat' ? 'ai-assistant' : 'shell'}
+              <i className="fa-solid fa-terminal" style={{ color: 'var(--accent)', marginRight: '6px' }} />{translateText("abdellah@system: ~/")}{translateText(mode === 'chat' ? 'ai-assistant' : 'shell')}
             </span>
           </div>
 
@@ -242,27 +249,23 @@ class RAGQueryEngine:
               type="button"
               className={`terminal-mode-btn ${mode === 'chat' ? 'active' : ''}`}
               onClick={() => setMode('chat')}
-              aria-label="Switch to AI Assistant view"
+              aria-label={translateText("Switch to AI Assistant view")}
             >
-              <i className="fa-solid fa-brain" /> AI Assistant
-            </button>
+              <i className="fa-solid fa-brain" />{translateText(" AI Assistant")}</button>
             <button
               type="button"
               className={`terminal-mode-btn ${mode === 'cli' ? 'active' : ''}`}
               onClick={() => setMode('cli')}
-              aria-label="Switch to CLI Shell view"
+              aria-label={translateText("Switch to CLI Shell view")}
             >
-              <i className="fa-solid fa-code" /> CLI Shell
-            </button>
+              <i className="fa-solid fa-code" />{translateText(" CLI Shell")}</button>
           </div>
         </div>
 
         {/* Quick Query Pills */}
         <div className="ai-terminal-chips-wrapper">
           <span className="chips-label">
-            <i className="fa-solid fa-bolt" style={{ color: 'var(--accent)', marginRight: '5px' }} />
-            Quick Prompts:
-          </span>
+            <i className="fa-solid fa-bolt" style={{ color: 'var(--accent)', marginRight: '5px' }} />{translateText("Quick Prompts:")}</span>
           <div className="ai-terminal-chips">
             {PRESET_QUERIES.map((item, idx) => (
               <button
@@ -272,7 +275,7 @@ class RAGQueryEngine:
                 onClick={() => handleSend(item.prompt)}
                 disabled={isTyping}
               >
-                {item.label}
+                {translateText(item.label)}
               </button>
             ))}
           </div>
@@ -291,7 +294,7 @@ class RAGQueryEngine:
               >
                 <div className="msg-header">
                   <div className="msg-author">
-                    {msg.sender === 'user' ? (
+                    {translateText(msg.sender === 'user' ? (
                       <>
                         <i className="fa-solid fa-user-astronaut" />
                         <span>Visitor</span>
@@ -306,19 +309,19 @@ class RAGQueryEngine:
                         <i className="fa-solid fa-microchip" style={{ color: '#a78bfa' }} />
                         <span>System CLI</span>
                       </>
-                    )}
+                    ))}
                   </div>
-                  {msg.badge && <span className="msg-badge">{msg.badge}</span>}
-                  <span className="msg-time">{msg.timestamp}</span>
+                  {msg.badge && <span className="msg-badge">{translateText(msg.badge)}</span>}
+                  <span className="msg-time">{translateText(msg.timestamp)}</span>
                 </div>
 
                 <div className="msg-content">
-                  <p style={{ whiteSpace: 'pre-line' }}>{msg.text}</p>
+                  <p style={{ whiteSpace: 'pre-line' }}>{translateText(msg.text)}</p>
 
                   {msg.code && (
                     <div className="msg-code-block">
                       <div className="code-header">
-                        <span>Python / Architecture Snippet</span>
+                        <span>{translateText("Python / Architecture Snippet")}</span>
                         <i className="fa-brands fa-python" />
                       </div>
                       <pre><code>{msg.code}</code></pre>
@@ -335,7 +338,7 @@ class RAGQueryEngine:
                           rel={link.external ? "noopener noreferrer" : undefined}
                           className="msg-link-btn"
                         >
-                          {link.label}
+                          {translateText(link.label)}
                           <i className={`fa-solid ${link.external ? 'fa-arrow-up-right-from-square' : 'fa-arrow-down'}`} style={{ marginLeft: '6px' }} />
                         </a>
                       ))}
@@ -351,9 +354,7 @@ class RAGQueryEngine:
               <span className="typing-dot" />
               <span className="typing-dot" />
               <span className="typing-dot" />
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginLeft: '6px' }}>
-                Analyzing query & synthesizing response…
-              </span>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginLeft: '6px' }}>{translateText("Analyzing query & synthesizing response…")}</span>
             </div>
           )}
 
@@ -372,15 +373,15 @@ class RAGQueryEngine:
           }}
         >
           <div className="input-prompt-symbol">
-            {mode === 'cli' ? '$' : '✦'}
+            {translateText(mode === 'cli' ? '$' : '✦')}
           </div>
           <input
             type="text"
             className="ai-terminal-input"
             placeholder={
-              mode === 'cli'
+              translateText(mode === 'cli'
                 ? "Type a command ('help', 'bio', 'ai', 'stack', 'projects', 'certs', 'contact')..."
-                : "Ask anything about Abdellah's full-stack & AI engineering experience..."
+                : "Ask anything about Abdellah's full-stack & AI engineering experience...")
             }
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
@@ -391,7 +392,7 @@ class RAGQueryEngine:
             type="submit"
             className="ai-terminal-send-btn"
             disabled={!inputVal.trim() || isTyping}
-            aria-label="Send message"
+            aria-label={translateText("Send message")}
             id="ai-terminal-submit-btn"
           >
             <i className="fa-solid fa-paper-plane" />

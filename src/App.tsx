@@ -1,8 +1,10 @@
+import { t as translateText } from './i18n';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import ThreeBackground from './components/ThreeBackground';
 import CaseStudyModal from './components/CaseStudyModal';
 import AiDevTerminal from './components/AiDevTerminal';
+import { useLanguage, setLanguage, type Language } from './i18n';
 
 // ─── Interfaces ───────────────────────────────────────────────────────────────
 
@@ -181,7 +183,7 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
     <motion.div
       className="loading-screen"
       role="status"
-      aria-label="Opening Abdellah Belmaaris portfolio"
+      aria-label={translateText("Opening Abdellah Belmaaris portfolio")}
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: reduceMotion ? 0 : 0.25 }}
@@ -193,7 +195,7 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <span className="loading-logo-ab">AB</span>
+          <span className="loading-logo-ab">{translateText("AB")}</span>
           <span className="loading-logo-dot" aria-hidden="true" />
         </motion.div>
         <motion.p
@@ -201,17 +203,13 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
-        >
-          ABDELLAH BELMAARIS
-        </motion.p>
+        >{translateText("ABDELLAH BELMAARIS")}</motion.p>
         <motion.span
           className="loading-role"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.4 }}
-        >
-          Junior Full-Stack Developer • BIMPulse
-        </motion.span>
+        >{translateText("Junior Full-Stack Developer • BIMPulse")}</motion.span>
         <div className="loading-bar-wrapper" aria-hidden="true">
           <motion.div
             className="loading-bar-fill"
@@ -260,9 +258,9 @@ function StatCard({ stat, isVisible }: { stat: Stat; isVisible: boolean }) {
         <i className={stat.icon} />
       </div>
       <div className="stat-number">
-        {count}{stat.suffix}
+        {translateText(count)}{translateText(stat.suffix)}
       </div>
-      <div className="stat-label">{stat.label}</div>
+      <div className="stat-label">{translateText(stat.label)}</div>
     </div>
   );
 }
@@ -270,6 +268,7 @@ function StatCard({ stat, isVisible }: { stat: Stat; isVisible: boolean }) {
 // ─── Main Application Component ───────────────────────────────────────────────
 
 export default function App() {
+  const language = useLanguage();
   const reduceMotion = useReducedMotion();
   const [isLoading, setIsLoading] = useState(true);
   const finishIntro = useCallback(() => setIsLoading(false), []);
@@ -466,7 +465,7 @@ export default function App() {
 
   return (
     <>
-      <a className="skip-link" href="#main-content">Skip to main content</a>
+      <a className="skip-link" href="#main-content">{translateText("Skip to main content")}</a>
 
       {/* Loading Splash Screen (Rule 32) */}
       <AnimatePresence>
@@ -480,7 +479,7 @@ export default function App() {
       <div className="cinematic-grain" aria-hidden="true" />
 
       {/* Right-Side Minimalist Section Progress Track (Rule 28) */}
-      <nav className="section-progress-track" aria-label="Section Indicator">
+      <nav className="section-progress-track" aria-label={translateText("Section Indicator")}>
         {SECTION_INDICATORS.map((sec, idx) => {
           const isActive = activeSection === sec.id;
           return (
@@ -488,10 +487,10 @@ export default function App() {
               <a
                 href={`#${sec.id}`}
                 className={`section-progress-step ${isActive ? 'active' : ''}`}
-                title={`Jump to section ${sec.num}`}
-                aria-label={`Jump to section ${sec.num}`}
+                title={translateText(`Jump to section ${sec.num}`)}
+                aria-label={translateText(`Jump to section ${sec.num}`)}
               >
-                <span className="step-num">{sec.num}</span>
+                <span className="step-num">{translateText(sec.num)}</span>
                 <span className="step-dot" />
               </a>
               {idx < SECTION_INDICATORS.length - 1 && <span className="step-sep">─</span>}
@@ -508,33 +507,42 @@ export default function App() {
 
       {/* Navbar: AB. About Experience Work Skills Credentials Contact [ Download CV ↗ ] (Rule 1) */}
       <header className="header">
-        <a href="#hero" className="logo" aria-label="Abdellah BELMAARIS Homepage">
-          <span className="logo-text">AB<span className="logo-dot">.</span></span>
+        <a href="#hero" className="logo" aria-label={translateText("Abdellah BELMAARIS Homepage")}>
+          <span className="logo-text">{translateText("AB")}<span className="logo-dot">.</span></span>
         </a>
 
         <div className="header-actions">
+          <select
+            className="language-select"
+            aria-label={translateText("Language")}
+            value={language}
+            onChange={event => setLanguage(event.target.value as Language)}
+          >
+            <option value="en" lang="en">{translateText("English")}</option>
+            <option value="fr" lang="fr">{translateText("Français")}</option>
+            <option value="ar" lang="ar">العربية</option>
+          </select>
           <a
             href="assets/Abdellah_BELMAARIS_CV.pdf"
             className="header-resume-btn"
             download
             id="header-cv-btn"
-            title="Download Abdellah BELMAARIS CV (PDF)"
-          >
-            Download CV <span className="btn-arrow">↗</span>
+            title={translateText("Download Abdellah BELMAARIS CV (PDF)")}
+          >{translateText("Download CV ")}<span className="btn-arrow">↗</span>
           </a>
           <button
             className="theme-toggle"
             type="button"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            aria-label={translateText(`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`)}
+            title={translateText(`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`)}
           >
             <i className={`fa-solid ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`} aria-hidden="true" />
           </button>
           <button
             className={`hamburger ${menuActive ? 'active' : ''}`}
             onClick={() => setMenuActive(!menuActive)}
-            aria-label="Toggle menu"
+            aria-label={translateText("Toggle menu")}
             aria-expanded={menuActive}
             id="hamburger-btn"
           >
@@ -544,7 +552,7 @@ export default function App() {
           </button>
         </div>
 
-        <nav aria-label="Primary navigation">
+        <nav aria-label={translateText("Primary navigation")}>
           <ul className={`nav-list ${menuActive ? 'active' : ''}`}>
             {[
               { id: 'about', label: 'About' },
@@ -561,7 +569,7 @@ export default function App() {
                   onClick={() => setMenuActive(false)}
                   id={`nav-link-${item.id}`}
                 >
-                  {item.label}
+                  {translateText(item.label)}
                 </a>
               </li>
             ))}
@@ -571,9 +579,7 @@ export default function App() {
                 download
                 className="nav-link mobile-cv-link"
                 onClick={() => setMenuActive(false)}
-              >
-                Download CV ↗
-              </a>
+              >{translateText("Download CV ↗")}</a>
             </li>
           </ul>
         </nav>
@@ -591,36 +597,30 @@ export default function App() {
               transition={{ duration: 0.65 }}
             >
               <div className="hero-kicker-badge">
-                <span className="kicker-pulse-dot" />
-                FULL-STACK DEVELOPER • BIMPULSE
-              </div>
+                <span className="kicker-pulse-dot" />{translateText("FULL-STACK DEVELOPER • BIMPULSE")}</div>
 
-              <h1 className="hero-name-heading">
-                Abdellah<br />
-                <span className="hero-surname">BELMAARIS</span>
+              <h1 className="hero-name-heading">{translateText("Abdellah")}<br />
+                <span className="hero-surname">{translateText("BELMAARIS")}</span>
               </h1>
 
-              <div className="hero-job-title">Junior Full-Stack Developer</div>
+              <div className="hero-job-title">{translateText("Junior Full-Stack Developer")}</div>
 
-              <p className="hero-statement">
-                Building practical web applications with Python and Django at BIMPulse Digital, with a growing focus on AI, data and engineering technology.
-              </p>
+              <p className="hero-statement">{translateText("Building practical web applications with Python and Django at BIMPulse Digital, with a growing focus on AI, data and engineering technology.")}</p>
 
               <div className="hero-tech-line">
-                <span className="tech-item">Python</span>
+                <span className="tech-item">{translateText("Python")}</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">Django</span>
+                <span className="tech-item">{translateText("Django")}</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">HTML</span>
+                <span className="tech-item">{translateText("HTML")}</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">CSS</span>
+                <span className="tech-item">{translateText("CSS")}</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">SQL</span>
+                <span className="tech-item">{translateText("SQL")}</span>
               </div>
 
               <div className="hero-cta-actions">
-                <a href="#work" className="btn btn-primary" id="hero-explore-work-btn">
-                  Explore My Work <span className="btn-arrow">→</span>
+                <a href="#work" className="btn btn-primary" id="hero-explore-work-btn">{translateText("Explore My Work ")}<span className="btn-arrow">→</span>
                 </a>
                 <a
                   href="assets/Abdellah_BELMAARIS_CV.pdf"
@@ -628,9 +628,7 @@ export default function App() {
                   download
                   id="hero-download-cv-btn"
                 >
-                  <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }} />
-                  Download CV
-                </a>
+                  <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }} />{translateText("Download CV")}</a>
               </div>
 
               <div className="hero-socials-row">
@@ -641,8 +639,7 @@ export default function App() {
                   className="hero-social-link"
                   id="hero-github-link"
                 >
-                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> GitHub
-                </a>
+                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} />{translateText(" GitHub")}</a>
                 <span className="social-sep">·</span>
                 <a
                   href="https://linkedin.com/in/abdellah-belmaaris"
@@ -651,12 +648,10 @@ export default function App() {
                   className="hero-social-link"
                   id="hero-linkedin-link"
                 >
-                  <i className="fa-brands fa-linkedin-in" style={{ marginRight: '6px' }} /> LinkedIn
-                </a>
+                  <i className="fa-brands fa-linkedin-in" style={{ marginRight: '6px' }} />{translateText(" LinkedIn")}</a>
                 <span className="social-sep">·</span>
                 <span className="hero-location-text">
-                  <i className="fa-solid fa-location-dot" style={{ marginRight: '6px', color: 'var(--emerald-bright)' }} /> Casablanca, Morocco
-                </span>
+                  <i className="fa-solid fa-location-dot" style={{ marginRight: '6px', color: 'var(--emerald-bright)' }} />{translateText(" Casablanca, Morocco")}</span>
               </div>
             </motion.div>
 
@@ -675,7 +670,7 @@ export default function App() {
                 <div className="hero-portrait-frame">
                   <img
                     src="assets/avatar.jpg"
-                    alt="Abdellah BELMAARIS — Junior Full-Stack Developer at BIMPulse"
+                    alt={translateText("Abdellah BELMAARIS — Junior Full-Stack Developer at BIMPulse")}
                     className="hero-portrait-img"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = 'https://via.placeholder.com/450x520/101820/10B981?text=Abdellah+BELMAARIS';
@@ -688,8 +683,8 @@ export default function App() {
                 <div className="hero-status-floating-pill">
                   <span className="pill-dot" />
                   <div className="pill-text-group">
-                    <span className="pill-role">Junior Full-Stack Developer</span>
-                    <span className="pill-company">BIMPulse • AEC &amp; Software</span>
+                    <span className="pill-role">{translateText("Junior Full-Stack Developer")}</span>
+                    <span className="pill-company">{translateText("BIMPulse • AEC & Software")}</span>
                   </div>
                 </div>
               </div>
@@ -701,11 +696,11 @@ export default function App() {
         <section id="about" className="about-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">02 / ABOUT</span>
+            <span className="section-arch-code">{translateText("02 / ABOUT")}</span>
             <div className="section-arch-line" />
           </div>
 
-          <h2 className="section-title">Who I am</h2>
+          <h2 className="section-title">{translateText("Who I am")}</h2>
 
           <div className="about-two-col-layout">
             {/* Left Column: Abstract Architectural & Code Motif */}
@@ -722,7 +717,7 @@ export default function App() {
                     <span className="snippet-dot red" />
                     <span className="snippet-dot yellow" />
                     <span className="snippet-dot green" />
-                    <span className="snippet-title">developer_profile.py</span>
+                    <span className="snippet-title">{translateText("developer_profile.py")}</span>
                   </div>
                   <pre className="snippet-body">
                     <code>
@@ -762,21 +757,13 @@ export default function App() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="about-headline">
-                A practical approach to building software.
-              </h3>
+              <h3 className="about-headline">{translateText("A practical approach to building software.")}</h3>
 
-              <p className="about-body-p">
-                I'm Abdellah BELMAARIS, a Junior Full-Stack Developer at BIMPulse Digital in Casablanca, Morocco. I build web applications with Python, Django and SQL, connecting backend logic with responsive, easy-to-use interfaces.
-              </p>
+              <p className="about-body-p">{translateText("I'm Abdellah BELMAARIS, a Junior Full-Stack Developer at BIMPulse Digital in Casablanca, Morocco. I build web applications with Python, Django and SQL, connecting backend logic with responsive, easy-to-use interfaces.")}</p>
 
-              <p className="about-body-p">
-                At BIMPulse, I contribute to digital projects connected to BIM, engineering and construction. This experience helps me translate practical requirements into useful features while developing my skills in a professional environment.
-              </p>
+              <p className="about-body-p">{translateText("At BIMPulse, I contribute to digital projects connected to BIM, engineering and construction. This experience helps me translate practical requirements into useful features while developing my skills in a professional environment.")}</p>
 
-              <p className="about-body-p">
-                My background combines homeschooling, self-directed learning, technical courses and hands-on projects. I'm continuing to grow in full-stack development while exploring AI, data analysis and cybersecurity fundamentals.
-              </p>
+              <p className="about-body-p">{translateText("My background combines homeschooling, self-directed learning, technical courses and hands-on projects. I'm continuing to grow in full-stack development while exploring AI, data analysis and cybersecurity fundamentals.")}</p>
             </motion.div>
           </div>
 
@@ -790,8 +777,8 @@ export default function App() {
               transition={{ duration: 0.5, delay: 0.05 }}
             >
               <span className="fact-num">01</span>
-              <h4 className="fact-title">FULL-STACK</h4>
-              <p className="fact-desc">Web applications from backend logic to responsive interfaces.</p>
+              <h4 className="fact-title">{translateText("FULL-STACK")}</h4>
+              <p className="fact-desc">{translateText("Web applications from backend logic to responsive interfaces.")}</p>
             </motion.div>
 
             <motion.div
@@ -802,8 +789,8 @@ export default function App() {
               transition={{ duration: 0.5, delay: 0.12 }}
             >
               <span className="fact-num">02</span>
-              <h4 className="fact-title">PROFESSIONAL</h4>
-              <p className="fact-desc">Junior Full-Stack Developer at BIMPulse.</p>
+              <h4 className="fact-title">{translateText("PROFESSIONAL")}</h4>
+              <p className="fact-desc">{translateText("Junior Full-Stack Developer at BIMPulse.")}</p>
             </motion.div>
 
             <motion.div
@@ -814,8 +801,8 @@ export default function App() {
               transition={{ duration: 0.5, delay: 0.19 }}
             >
               <span className="fact-num">03</span>
-              <h4 className="fact-title">EXPLORING</h4>
-              <p className="fact-desc">AI, data and emerging software technologies.</p>
+              <h4 className="fact-title">{translateText("EXPLORING")}</h4>
+              <p className="fact-desc">{translateText("AI, data and emerging software technologies.")}</p>
             </motion.div>
           </div>
 
@@ -831,30 +818,28 @@ export default function App() {
         <section id="experience" className="experience-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">03 / EXPERIENCE</span>
+            <span className="section-arch-code">{translateText("03 / EXPERIENCE")}</span>
             <div className="section-arch-line" />
           </div>
 
-          <h2 className="section-title">PROFESSIONAL EXPERIENCE</h2>
+          <h2 className="section-title">{translateText("PROFESSIONAL EXPERIENCE")}</h2>
 
           {/* Architectural Visual Junction Diagram (Rule 10) */}
-          <div className="exp-junction-container" aria-label="Professional Position Diagram">
+          <div className="exp-junction-container" aria-label={translateText("Professional Position Diagram")}>
             <div className="exp-junction-diagram">
-              <div className="junction-vertical-top">SOFTWARE</div>
+              <div className="junction-vertical-top">{translateText("SOFTWARE")}</div>
               <div className="junction-stem-top" />
               <div className="junction-horizontal-row">
-                <span className="junction-node left">BIM / IFC</span>
+                <span className="junction-node left">{translateText("BIM / IFC")}</span>
                 <span className="junction-line-h" />
                 <span className="junction-center-hub">●</span>
                 <span className="junction-line-h" />
-                <span className="junction-node right">DIGITAL PRODUCTS</span>
+                <span className="junction-node right">{translateText("DIGITAL PRODUCTS")}</span>
               </div>
               <div className="junction-stem-bottom" />
-              <div className="junction-vertical-bottom">ENGINEERING / AEC</div>
+              <div className="junction-vertical-bottom">{translateText("ENGINEERING / AEC")}</div>
             </div>
-            <div className="junction-caption">
-              Junior Full-Stack Developer operating at the intersection of web architecture and AEC digital transformation
-            </div>
+            <div className="junction-caption">{translateText("Junior Full-Stack Developer operating at the intersection of web architecture and AEC digital transformation")}</div>
           </div>
 
           <motion.aside
@@ -862,7 +847,7 @@ export default function App() {
             aria-labelledby="mention-title"
             initial={reduceMotion ? false : 'hidden'}
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.25, margin: '-80px 0px -40px 0px' }}
             variants={{ hidden: {}, visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.08 } } }}
           >
             <motion.div
@@ -872,24 +857,22 @@ export default function App() {
             >
               <span className="mention-network-icon" aria-hidden="true"><i className="fa-brands fa-linkedin-in" /></span>
               <div>
-                <span className="section-arch-code">LINKEDIN MENTIONS</span>
-                <h3 id="mention-title">Contributing to BIMPulse Academy</h3>
+                <span className="section-arch-code">{translateText("LINKEDIN MENTIONS")}</span>
+                <h3 id="mention-title">{translateText("Contributing to BIMPulse Academy")}</h3>
               </div>
             </motion.div>
             <motion.p
               className="mention-summary"
               variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
               transition={{ duration: reduceMotion ? 0 : 0.35 }}
-            >
-              In LinkedIn posts about the platform's development and launch, Abdelhamid BELMAARIS acknowledged my contribution to BIMPulse Academy, a learning platform for AECO professionals.
-            </motion.p>
+            >{translateText("In LinkedIn posts about the platform's development and launch, Abdelhamid BELMAARIS acknowledged my contribution to BIMPulse Academy, a learning platform for AECO professionals.")}</motion.p>
             <motion.div
               className="mention-footer"
               variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
               transition={{ duration: reduceMotion ? 0 : 0.35 }}
             >
-              <p className="mention-attribution"><strong>Abdelhamid BELMAARIS</strong><span>Civil engineer and BIM professional</span></p>
-              <a className="mention-profile-link" href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">View my LinkedIn profile <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></a>
+              <p className="mention-attribution"><strong>{translateText("Abdelhamid BELMAARIS")}</strong><span>{translateText("Civil engineer and BIM professional")}</span></p>
+              <a className="mention-profile-link" href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">{translateText("View my LinkedIn profile ")}<i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></a>
             </motion.div>
           </motion.aside>
 
@@ -902,50 +885,45 @@ export default function App() {
             transition={{ duration: 0.6 }}
           >
             <div className="exp-flagship-badge">
-              <span className="bimpulse-indicator-dot" /> CURRENT PROFESSIONAL POSITION
-            </div>
+              <span className="bimpulse-indicator-dot" />{translateText(" CURRENT PROFESSIONAL POSITION")}</div>
 
             <div className="exp-header">
               <div className="exp-role-info">
                 <div className="exp-company-brand">
-                  <img src="assets/bimpulse-logo.png" alt="BIMPulse" className="exp-bimpulse-logo" />
+                  <img src="assets/bimpulse-logo.png" alt={translateText("BIMPulse")} className="exp-bimpulse-logo" />
                   <div>
-                    <h3 className="exp-role">Junior Full-Stack Developer</h3>
-                    <span className="exp-company">BIMPulse</span>
+                    <h3 className="exp-role">{translateText("Junior Full-Stack Developer")}</h3>
+                    <span className="exp-company">{translateText("BIMPulse")}</span>
                   </div>
                 </div>
               </div>
               <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days" /> AUG 2026 — PRESENT · Apprenticeship</span>
-                <span className="exp-location"><i className="fa-solid fa-location-dot" /> Casablanca, Morocco</span>
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" AUG 2026 — PRESENT · Apprenticeship")}</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot" />{translateText(" Casablanca, Morocco")}</span>
               </div>
             </div>
 
             {/* Exact Description Copy (Rule 11) */}
-            <p className="exp-desc">
-              Junior Full-Stack Developer contributing within a professional environment connecting software development with BIM, engineering, construction technologies and AEC digital transformation.
-            </p>
+            <p className="exp-desc">{translateText("Junior Full-Stack Developer contributing within a professional environment connecting software development with BIM, engineering, construction technologies and AEC digital transformation.")}</p>
 
             {/* Specific Tags (Rule 11) */}
             <div className="exp-skills">
               {['BIMPulse', 'BIM / IFC', 'Engineering', 'AEC Digital Solutions', 'New Technologies', 'Python', 'Django', 'SQL', 'HTML & CSS'].map((s) => (
-                <span className="exp-skill-tag" key={s}>{s}</span>
+                <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
               ))}
             </div>
 
             {/* BIMPulse Academy Addition (Rule 12) */}
             <div className="bimpulse-academy-callout">
               <div className="callout-header">
-                <span className="callout-label">PROFESSIONAL WORK / 01</span>
-                <h4 className="callout-title">BIMPulse Academy</h4>
+                <span className="callout-label">{translateText("PROFESSIONAL WORK / 01")}</span>
+                <h4 className="callout-title">{translateText("BIMPulse Academy")}</h4>
               </div>
-              <p className="callout-desc">
-                Learning platform dedicated to AECO (Architecture, Engineering, Construction &amp; Operations) professionals, providing specialized certified training, BIM courses, and technical digital engineering workflows.
-              </p>
+              <p className="callout-desc">{translateText("Learning platform dedicated to AECO (Architecture, Engineering, Construction & Operations) professionals, providing specialized certified training, BIM courses, and technical digital engineering workflows.")}</p>
               <div className="callout-tags">
-                <span className="mini-tag">AEC Training</span>
-                <span className="mini-tag">BIM &amp; IFC Standards</span>
-                <span className="mini-tag">Digital Solutions</span>
+                <span className="mini-tag">{translateText("AEC Training")}</span>
+                <span className="mini-tag">{translateText("BIM & IFC Standards")}</span>
+                <span className="mini-tag">{translateText("Digital Solutions")}</span>
               </div>
             </div>
 
@@ -956,12 +934,10 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 id="bimpulse-official-link"
-              >
-                Discover BIMPulse <span className="btn-arrow">↗</span>
+              >{translateText("Discover BIMPulse ")}<span className="btn-arrow">↗</span>
               </a>
               <span className="private-repo-note">
-                <i className="fa-solid fa-shield-halved" /> Real-world engineering &amp; software development
-              </span>
+                <i className="fa-solid fa-shield-halved" />{translateText(" Real-world engineering & software development")}</span>
             </div>
           </motion.div>
 
@@ -976,19 +952,17 @@ export default function App() {
             >
               <div className="exp-header">
                 <div>
-                  <h3 className="exp-role">Django Developer</h3>
-                  <span className="exp-company">Self-directed &amp; Production Web Work</span>
+                  <h3 className="exp-role">{translateText("Django Developer")}</h3>
+                  <span className="exp-company">{translateText("Self-directed & Production Web Work")}</span>
                 </div>
                 <div className="exp-meta">
-                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" /> May 2026 – Present</span>
+                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" May 2026 – Present")}</span>
                 </div>
               </div>
-              <p className="exp-desc">
-                Engineering secure backend architectures, role-based access control (RBAC), and relational schemas in Django and Django REST Framework. Optimizing queries and database performance.
-              </p>
+              <p className="exp-desc">{translateText("Engineering secure backend architectures, role-based access control (RBAC), and relational schemas in Django and Django REST Framework. Optimizing queries and database performance.")}</p>
               <div className="exp-skills">
                 {['Django', 'Django REST Framework', 'Python', 'PostgreSQL', 'SQL Optimization', 'RESTful APIs'].map((s) => (
-                  <span className="exp-skill-tag" key={s}>{s}</span>
+                  <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
                 ))}
               </div>
             </motion.div>
@@ -1002,19 +976,17 @@ export default function App() {
             >
               <div className="exp-header">
                 <div>
-                  <h3 className="exp-role">Python Developer</h3>
-                  <span className="exp-company">Self-directed Foundation &amp; Systems</span>
+                  <h3 className="exp-role">{translateText("Python Developer")}</h3>
+                  <span className="exp-company">{translateText("Self-directed Foundation & Systems")}</span>
                 </div>
                 <div className="exp-meta">
-                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" /> Jan 2020 – Present</span>
+                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" Jan 2020 – Present")}</span>
                 </div>
               </div>
-              <p className="exp-desc">
-                Building object-oriented software, data transformation pipelines, algorithms, and automation utilities across the Python ecosystem.
-              </p>
+              <p className="exp-desc">{translateText("Building object-oriented software, data transformation pipelines, algorithms, and automation utilities across the Python ecosystem.")}</p>
               <div className="exp-skills">
                 {['Python (Async & OOP)', 'Data Pipelines', 'Pandas', 'Algorithms', 'Software Engineering'].map((s) => (
-                  <span className="exp-skill-tag" key={s}>{s}</span>
+                  <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
                 ))}
               </div>
             </motion.div>
@@ -1028,19 +1000,17 @@ export default function App() {
             >
               <div className="exp-header">
                 <div>
-                  <h3 className="exp-role">Web Developer</h3>
-                  <span className="exp-company">Full-Stack Application Development</span>
+                  <h3 className="exp-role">{translateText("Web Developer")}</h3>
+                  <span className="exp-company">{translateText("Full-Stack Application Development")}</span>
                 </div>
                 <div className="exp-meta">
-                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" /> Feb 2023 – Jun 2026</span>
+                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" Feb 2023 – Jun 2026")}</span>
                 </div>
               </div>
-              <p className="exp-desc">
-                Building full-stack web applications, translating functional requirements into modular backends and responsive user interfaces.
-              </p>
+              <p className="exp-desc">{translateText("Building full-stack web applications, translating functional requirements into modular backends and responsive user interfaces.")}</p>
               <div className="exp-skills">
                 {['Web Development', 'Django', 'Bootstrap 5', 'HTML5', 'CSS3', 'REST APIs'].map((s) => (
-                  <span className="exp-skill-tag" key={s}>{s}</span>
+                  <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
                 ))}
               </div>
             </motion.div>
@@ -1051,11 +1021,11 @@ export default function App() {
         <section id="work" className="work-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">04 / SELECTED WORK</span>
+            <span className="section-arch-code">{translateText("04 / SELECTED WORK")}</span>
             <div className="section-arch-line" />
           </div>
 
-          <h2 className="section-title">Projects built to solve real problems.</h2>
+          <h2 className="section-title">{translateText("Projects built to solve real problems.")}</h2>
 
           <div className="featured-work-grid">
             {/* Project 01: School Management System */}
@@ -1067,42 +1037,35 @@ export default function App() {
               transition={{ duration: 0.6 }}
             >
               <div className="project-header-row">
-                <span className="project-overline-code">01 / FEATURED</span>
-                <span className="project-type-tag">Selected Project</span>
+                <span className="project-overline-code">{translateText("01 / FEATURED")}</span>
+                <span className="project-type-tag">{translateText("Selected Project")}</span>
               </div>
 
-              <h3 className="project-display-title">School Management System</h3>
+              <h3 className="project-display-title">{translateText("School Management System")}</h3>
 
-              <p className="project-summary-text">
-                A multilingual school administration platform built with Flask and SQLAlchemy. It provides dedicated dashboards for school leaders, teachers, students, and parents, alongside academic management tools and secure, role-based access.
-              </p>
+              <p className="project-summary-text">{translateText("A multilingual school administration platform built with Flask and SQLAlchemy. It provides dedicated dashboards for school leaders, teachers, students, and parents, alongside academic management tools and secure, role-based access.")}</p>
 
               {/* Engineering Highlights / Metrics (Rule 14) */}
               <div className="project-key-badges-row">
                 <span className="arch-badge">
-                  <i className="fa-solid fa-shield-halved" /> ROLE-BASED ACCESS
-                </span>
+                  <i className="fa-solid fa-shield-halved" />{translateText(" ROLE-BASED ACCESS")}</span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-language" /> MULTILINGUAL
-                </span>
+                  <i className="fa-solid fa-language" />{translateText(" MULTILINGUAL")}</span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-school" /> ACADEMIC MANAGEMENT
-                </span>
+                  <i className="fa-solid fa-school" />{translateText(" ACADEMIC MANAGEMENT")}</span>
               </div>
 
               <div className="project-detail-breakdown">
                 <div className="detail-item">
-                  <span className="detail-label">DASHBOARDS:</span> Dedicated spaces for school leaders, teachers, students, and parents.
-                </div>
+                  <span className="detail-label">{translateText("DASHBOARDS:")}</span>{translateText(" Dedicated spaces for school leaders, teachers, students, and parents.")}</div>
                 <div className="detail-item">
-                  <span className="detail-label">PLATFORM:</span> Academic administration tools with multilingual support and secure access based on each user's role.
-                </div>
+                  <span className="detail-label">{translateText("PLATFORM:")}</span>{translateText(" Academic administration tools with multilingual support and secure access based on each user's role.")}</div>
               </div>
 
               <div className="project-tech-stack-row">
-                <span className="tech-chip">Python</span>
-                <span className="tech-chip">Flask</span>
-                <span className="tech-chip">SQLAlchemy</span>
+                <span className="tech-chip">{translateText("Python")}</span>
+                <span className="tech-chip">{translateText("Flask")}</span>
+                <span className="tech-chip">{translateText("SQLAlchemy")}</span>
               </div>
 
               <div className="project-actions-row">
@@ -1113,8 +1076,7 @@ export default function App() {
                   className="btn btn-secondary"
                   id="school-github-btn"
                 >
-                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> GitHub Repository
-                </a>
+                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} />{translateText(" GitHub Repository")}</a>
               </div>
             </motion.div>
 
@@ -1127,25 +1089,23 @@ export default function App() {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <div className="project-header-row">
-                <span className="project-overline-code">02 / WEB APPLICATION</span>
-                <span className="project-type-tag">Selected Project</span>
+                <span className="project-overline-code">{translateText("02 / WEB APPLICATION")}</span>
+                <span className="project-type-tag">{translateText("Selected Project")}</span>
               </div>
 
-              <h3 className="project-display-title">The Modern Journal</h3>
+              <h3 className="project-display-title">{translateText("The Modern Journal")}</h3>
 
-              <p className="project-summary-text">
-                A Django-powered publishing platform for creating and discovering articles. It includes search, categories and tags, user authentication, likes and comments, and analytics to support a complete content-publishing experience.
-              </p>
+              <p className="project-summary-text">{translateText("A Django-powered publishing platform for creating and discovering articles. It includes search, categories and tags, user authentication, likes and comments, and analytics to support a complete content-publishing experience.")}</p>
 
               {/* Exact feature bullets from Rule 16 */}
               <div className="modern-journal-feature-list">
-                <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Rich article publishing</div>
-                <div className="feature-bullet-item"><i className="fa-solid fa-check" /> User authentication</div>
-                <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Search</div>
-                <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Categories &amp; tags</div>
-                <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Likes &amp; comments</div>
-                <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Analytics</div>
-                <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Email integration</div>
+                <div className="feature-bullet-item"><i className="fa-solid fa-check" />{translateText(" Rich article publishing")}</div>
+                <div className="feature-bullet-item"><i className="fa-solid fa-check" />{translateText(" User authentication")}</div>
+                <div className="feature-bullet-item"><i className="fa-solid fa-check" />{translateText(" Search")}</div>
+                <div className="feature-bullet-item"><i className="fa-solid fa-check" />{translateText(" Categories & tags")}</div>
+                <div className="feature-bullet-item"><i className="fa-solid fa-check" />{translateText(" Likes & comments")}</div>
+                <div className="feature-bullet-item"><i className="fa-solid fa-check" />{translateText(" Analytics")}</div>
+                <div className="feature-bullet-item"><i className="fa-solid fa-check" />{translateText(" Email integration")}</div>
               </div>
 
               {/* Interactive Screenshot Carousel */}
@@ -1156,21 +1116,21 @@ export default function App() {
                       key={sIdx}
                       src={img}
                       className={`project-slide ${currentSlide === sIdx ? 'active' : ''}`}
-                      alt={`The Modern Journal - Platform View ${sIdx + 1}`}
+                      alt={translateText(`The Modern Journal - Platform View ${sIdx + 1}`)}
                     />
                   ))}
                 </div>
                 <button
                   className="project-carousel-btn project-carousel-prev"
                   onClick={() => setCurrentSlide((prev) => (prev === 0 ? PROJECT_IMAGES.length - 1 : prev - 1))}
-                  aria-label="Previous screenshot"
+                  aria-label={translateText("Previous screenshot")}
                 >
                   <i className="fa-solid fa-chevron-left"></i>
                 </button>
                 <button
                   className="project-carousel-btn project-carousel-next"
                   onClick={() => setCurrentSlide((prev) => (prev + 1) % PROJECT_IMAGES.length)}
-                  aria-label="Next screenshot"
+                  aria-label={translateText("Next screenshot")}
                 >
                   <i className="fa-solid fa-chevron-right"></i>
                 </button>
@@ -1181,17 +1141,17 @@ export default function App() {
                       className={`project-carousel-dot ${currentSlide === sIdx ? 'active' : ''}`}
                       onClick={() => setCurrentSlide(sIdx)}
                       role="button"
-                      aria-label={`Go to slide ${sIdx + 1}`}
+                      aria-label={translateText(`Go to slide ${sIdx + 1}`)}
                     />
                   ))}
                 </div>
               </div>
 
               <div className="project-tech-stack-row">
-                <span className="tech-chip">Python</span>
-                <span className="tech-chip">Django</span>
-                <span className="tech-chip">Bootstrap</span>
-                <span className="tech-chip">SQL</span>
+                <span className="tech-chip">{translateText("Python")}</span>
+                <span className="tech-chip">{translateText("Django")}</span>
+                <span className="tech-chip">{translateText("Bootstrap")}</span>
+                <span className="tech-chip">{translateText("SQL")}</span>
               </div>
 
               <div className="project-actions-row">
@@ -1199,8 +1159,7 @@ export default function App() {
                   className="btn btn-secondary"
                   onClick={() => setCaseStudyOpen(true)}
                   id="case-study-btn-journal"
-                >
-                  Case Study <span className="btn-arrow">→</span>
+                >{translateText("Case Study ")}<span className="btn-arrow">→</span>
                 </button>
                 <a
                   href="https://abdellah-belmaaris.github.io/modern-journal.github.io/"
@@ -1208,16 +1167,14 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="btn btn-primary"
                   id="explore-journal-live-btn"
-                >
-                  Explore Project <span className="btn-arrow">→</span>
+                >{translateText("Explore Project ")}<span className="btn-arrow">→</span>
                 </a>
                 <button
                   className="btn btn-secondary"
                   onClick={() => setVideoModalOpen(true)}
                   id="journal-video-demo-btn"
                 >
-                  <i className="fa-solid fa-circle-play" style={{ marginRight: '6px' }} /> Video Demo
-                </button>
+                  <i className="fa-solid fa-circle-play" style={{ marginRight: '6px' }} />{translateText(" Video Demo")}</button>
                 <a
                   href="https://github.com/Abdellah-BELMAARIS/modern-journal.github.io"
                   target="_blank"
@@ -1225,8 +1182,7 @@ export default function App() {
                   className="btn btn-secondary"
                   id="journal-github-btn"
                 >
-                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> GitHub
-                </a>
+                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} />{translateText(" GitHub")}</a>
               </div>
             </motion.div>
 
@@ -1239,40 +1195,33 @@ export default function App() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="project-header-row">
-                <span className="project-overline-code">03 / WEB APPLICATION</span>
-                <span className="project-type-tag">Selected Project</span>
+                <span className="project-overline-code">{translateText("03 / WEB APPLICATION")}</span>
+                <span className="project-type-tag">{translateText("Selected Project")}</span>
               </div>
 
-              <h3 className="project-display-title">Judhoor Al-Bayan</h3>
+              <h3 className="project-display-title">{translateText("Judhoor Al-Bayan")}</h3>
 
-              <p className="project-summary-text">
-                A bilingual Quran and Islamic-learning platform built with Django. Users can read Quran text and Mushaf pages, explore Quranic roots, access Hadith and Adhkar, and find prayer times and Qibla direction in one place.
-              </p>
+              <p className="project-summary-text">{translateText("A bilingual Quran and Islamic-learning platform built with Django. Users can read Quran text and Mushaf pages, explore Quranic roots, access Hadith and Adhkar, and find prayer times and Qibla direction in one place.")}</p>
 
               <div className="project-key-badges-row">
                 <span className="arch-badge">
-                  <i className="fa-solid fa-language" /> BILINGUAL
-                </span>
+                  <i className="fa-solid fa-language" />{translateText(" BILINGUAL")}</span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-book-open" /> QURAN &amp; ISLAMIC LEARNING
-                </span>
+                  <i className="fa-solid fa-book-open" />{translateText(" QURAN & ISLAMIC LEARNING")}</span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-compass" /> PRAYER TIMES &amp; QIBLA
-                </span>
+                  <i className="fa-solid fa-compass" />{translateText(" PRAYER TIMES & QIBLA")}</span>
               </div>
 
               <div className="project-detail-breakdown">
                 <div className="detail-item">
-                  <span className="detail-label">READ &amp; EXPLORE:</span> Quran text, Mushaf pages, and Quranic roots.
-                </div>
+                  <span className="detail-label">{translateText("READ & EXPLORE:")}</span>{translateText(" Quran text, Mushaf pages, and Quranic roots.")}</div>
                 <div className="detail-item">
-                  <span className="detail-label">DAILY RESOURCES:</span> Hadith, Adhkar, prayer times, and Qibla direction.
-                </div>
+                  <span className="detail-label">{translateText("DAILY RESOURCES:")}</span>{translateText(" Hadith, Adhkar, prayer times, and Qibla direction.")}</div>
               </div>
 
               <div className="project-tech-stack-row">
-                <span className="tech-chip">Python</span>
-                <span className="tech-chip">Django</span>
+                <span className="tech-chip">{translateText("Python")}</span>
+                <span className="tech-chip">{translateText("Django")}</span>
               </div>
 
               <div className="project-actions-row">
@@ -1283,8 +1232,7 @@ export default function App() {
                   className="btn btn-secondary"
                   id="judhoor-github-btn"
                 >
-                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> GitHub Repository
-                </a>
+                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} />{translateText(" GitHub Repository")}</a>
               </div>
 
             </motion.div>
@@ -1295,14 +1243,12 @@ export default function App() {
         <section id="personal-projects" className="personal-projects-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">05 / PERSONAL PROJECTS</span>
+            <span className="section-arch-code">{translateText("05 / PERSONAL PROJECTS")}</span>
             <div className="section-arch-line" />
           </div>
 
-          <h2 className="section-title">Independent Engineering &amp; Experiments</h2>
-          <p className="section-intro">
-            Hands-on technical exploration, 3D WebAssembly architectures, and data engineering pipelines built outside client production boundaries.
-          </p>
+          <h2 className="section-title">{translateText("Independent Engineering & Experiments")}</h2>
+          <p className="section-intro">{translateText("Hands-on technical exploration, 3D WebAssembly architectures, and data engineering pipelines built outside client production boundaries.")}</p>
 
           <div className="personal-projects-grid">
             {PERSONAL_PROJECTS.map((proj, idx) => (
@@ -1315,23 +1261,23 @@ export default function App() {
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
               >
                 <div className="personal-header">
-                  <span className="personal-kicker">SELECTED PROJECT</span>
-                  <h3 className="personal-title">{proj.title}</h3>
+                  <span className="personal-kicker">{translateText("SELECTED PROJECT")}</span>
+                  <h3 className="personal-title">{translateText(proj.title)}</h3>
                 </div>
 
-                <p className="personal-desc">{proj.desc}</p>
+                <p className="personal-desc">{translateText(proj.desc)}</p>
 
                 <div className="personal-metrics">
                   {proj.metrics.map((m, mIdx) => (
                     <span className="personal-metric-chip" key={mIdx}>
-                      <i className="fa-solid fa-circle-check" /> {m}
+                      <i className="fa-solid fa-circle-check" /> {translateText(m)}
                     </span>
                   ))}
                 </div>
 
                 <div className="personal-tech">
                   {proj.tech.map((t) => (
-                    <span className="tech-chip" key={t}>{t}</span>
+                    <span className="tech-chip" key={t}>{translateText(t)}</span>
                   ))}
                 </div>
 
@@ -1343,8 +1289,7 @@ export default function App() {
                       rel="noopener noreferrer"
                       className="btn btn-primary"
                       id={`personal-live-${proj.id}`}
-                    >
-                      Play Live <span className="btn-arrow">↗</span>
+                    >{translateText("Play Live ")}<span className="btn-arrow">↗</span>
                     </a>
                   )}
                   {proj.github && (
@@ -1355,8 +1300,7 @@ export default function App() {
                       className="btn btn-secondary"
                       id={`personal-github-${proj.id}`}
                     >
-                      <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> GitHub
-                    </a>
+                      <i className="fa-brands fa-github" style={{ marginRight: '6px' }} />{translateText(" GitHub")}</a>
                   )}
                 </div>
               </motion.div>
@@ -1366,11 +1310,9 @@ export default function App() {
           {/* Real-time GitHub Repositories */}
           <div className="github-section-wrap" style={{ marginTop: '50px' }}>
             <h3 className="github-subheading">
-              <i className="fa-brands fa-github" style={{ marginRight: '8px', color: 'var(--emerald-bright)' }} />
-              Live GitHub Activity
-            </h3>
-            {githubLoading ? (
-              <p className="github-state">Loading latest public repositories…</p>
+              <i className="fa-brands fa-github" style={{ marginRight: '8px', color: 'var(--emerald-bright)' }} />{translateText("Live GitHub Activity")}</h3>
+            {translateText(githubLoading ? (
+              <p className="github-state">{translateText('Loading latest public repositories…')}</p>
             ) : githubRepos.length > 0 ? (
               <div className="github-grid">
                 {githubRepos.map((repo) => (
@@ -1386,7 +1328,7 @@ export default function App() {
                       <i className="fa-solid fa-arrow-up-right-from-square" />
                     </div>
                     <h4>{repo.name}</h4>
-                    <p>{repo.description || 'Public development repository.'}</p>
+                    <p>{repo.description || translateText('Public development repository.')}</p>
                     <div className="github-repo-meta">
                       <span>{repo.language || 'Code'}</span>
                       <span><i className="fa-solid fa-star" /> {repo.stargazers_count}</span>
@@ -1398,10 +1340,10 @@ export default function App() {
             ) : (
               <p className="github-state">
                 <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">
-                  Visit my full GitHub profile directly ↗
+                  {translateText('Visit my full GitHub profile directly ↗')}
                 </a>
               </p>
-            )}
+            ))}
           </div>
         </section>
 
@@ -1409,14 +1351,12 @@ export default function App() {
         <section id="skills" className="tech-stack-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">06 / TECH STACK</span>
+            <span className="section-arch-code">{translateText("06 / TECH STACK")}</span>
             <div className="section-arch-line" />
           </div>
 
-          <h2 className="section-title">CORE CAPABILITIES &amp; TOOLS</h2>
-          <p className="section-intro">
-            Categorized by engineering discipline. AI and Data serve as high-value supporting capabilities alongside primary full-stack development foundations.
-          </p>
+          <h2 className="section-title">{translateText("CORE CAPABILITIES & TOOLS")}</h2>
+          <p className="section-intro">{translateText("Categorized by engineering discipline. AI and Data serve as high-value supporting capabilities alongside primary full-stack development foundations.")}</p>
 
           <div className="tech-stack-grid">
             {/* 1. Development */}
@@ -1432,14 +1372,14 @@ export default function App() {
                   <i className="fa-solid fa-code" />
                 </div>
                 <div>
-                  <span className="category-kicker">CORE DISCIPLINE</span>
-                  <h3 className="category-title">Development</h3>
+                  <span className="category-kicker">{translateText("CORE DISCIPLINE")}</span>
+                  <h3 className="category-title">{translateText("Development")}</h3>
                 </div>
               </div>
               <div className="category-tags-list">
                 {['Python', 'Django', 'HTML', 'CSS', 'SQL'].map((item) => (
                   <span className="tech-pill-large" key={item}>
-                    <span className="pill-dot emerald" /> {item}
+                    <span className="pill-dot emerald" /> {translateText(item)}
                   </span>
                 ))}
               </div>
@@ -1458,14 +1398,14 @@ export default function App() {
                   <i className="fa-solid fa-chart-pie" />
                 </div>
                 <div>
-                  <span className="category-kicker">DATA DISCIPLINE</span>
-                  <h3 className="category-title">Data</h3>
+                  <span className="category-kicker">{translateText("DATA DISCIPLINE")}</span>
+                  <h3 className="category-title">{translateText("Data")}</h3>
                 </div>
               </div>
               <div className="category-tags-list">
                 {['Pandas', 'Matplotlib', 'Data Analysis'].map((item) => (
                   <span className="tech-pill-large" key={item}>
-                    <span className="pill-dot gold" /> {item}
+                    <span className="pill-dot gold" /> {translateText(item)}
                   </span>
                 ))}
               </div>
@@ -1484,14 +1424,14 @@ export default function App() {
                   <i className="fa-solid fa-laptop-code" />
                 </div>
                 <div>
-                  <span className="category-kicker">ENGINEERING FOUNDATIONS</span>
-                  <h3 className="category-title">Computer Science</h3>
+                  <span className="category-kicker">{translateText("ENGINEERING FOUNDATIONS")}</span>
+                  <h3 className="category-title">{translateText("Computer Science")}</h3>
                 </div>
               </div>
               <div className="category-tags-list">
                 {['Algorithms', 'Data Structures', 'Software Engineering'].map((item) => (
                   <span className="tech-pill-large" key={item}>
-                    <span className="pill-dot white" /> {item}
+                    <span className="pill-dot white" /> {translateText(item)}
                   </span>
                 ))}
               </div>
@@ -1510,14 +1450,14 @@ export default function App() {
                   <i className="fa-solid fa-brain" />
                 </div>
                 <div>
-                  <span className="category-kicker">HORIZONS</span>
-                  <h3 className="category-title">Exploring / Foundations</h3>
+                  <span className="category-kicker">{translateText("HORIZONS")}</span>
+                  <h3 className="category-title">{translateText("Exploring / Foundations")}</h3>
                 </div>
               </div>
               <div className="category-tags-list">
                 {['Artificial Intelligence', 'Cybersecurity'].map((item) => (
                   <span className="tech-pill-large" key={item}>
-                    <span className="pill-dot emerald" /> {item}
+                    <span className="pill-dot emerald" /> {translateText(item)}
                   </span>
                 ))}
               </div>
@@ -1527,8 +1467,8 @@ export default function App() {
           {/* Embedded Interactive AI & Engineering Console Playground */}
           <div className="embedded-terminal-wrapper" style={{ marginTop: '50px' }}>
             <div className="terminal-section-intro">
-              <span className="section-arch-code">INTERACTIVE CLI &amp; ARCHITECTURE SIMULATION</span>
-              <h3 style={{ fontSize: '1.25rem', marginTop: '6px', color: 'var(--white)' }}>Query Abdellah's Architecture Live</h3>
+              <span className="section-arch-code">{translateText("INTERACTIVE CLI & ARCHITECTURE SIMULATION")}</span>
+              <h3 style={{ fontSize: '1.25rem', marginTop: '6px', color: 'var(--white)' }}>{translateText("Query Abdellah's Architecture Live")}</h3>
             </div>
             <AiDevTerminal />
           </div>
@@ -1538,14 +1478,12 @@ export default function App() {
         <section id="certifications" className="credentials-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">07 / CREDENTIALS</span>
+            <span className="section-arch-code">{translateText("07 / CREDENTIALS")}</span>
             <div className="section-arch-line" />
           </div>
 
-          <h2 className="section-title">CONTINUOUS LEARNING</h2>
-          <p className="section-intro">
-            Verified technical credentials validating applied AI engineering, Python data analysis, and software development.
-          </p>
+          <h2 className="section-title">{translateText("CONTINUOUS LEARNING")}</h2>
+          <p className="section-intro">{translateText("Verified technical credentials validating applied AI engineering, Python data analysis, and software development.")}</p>
 
           <div className="credentials-compact-list">
             {CERTIFICATIONS_DATA.map((cert, idx) => (
@@ -1564,13 +1502,12 @@ export default function App() {
                 <div className="credential-left">
                   <span className="credential-year">2026</span>
                   <div className="credential-info">
-                    <h4 className="credential-name">{cert.degree}</h4>
-                    <span className="credential-issuer">{cert.platform} · {cert.credentialId}</span>
+                    <h4 className="credential-name">{translateText(cert.degree)}</h4>
+                    <span className="credential-issuer">{translateText(cert.platform)} · {translateText(cert.credentialId)}</span>
                   </div>
                 </div>
                 <div className="credential-right">
-                  <span className="credential-preview-trigger">
-                    Preview Credential <span className="btn-arrow">↗</span>
+                  <span className="credential-preview-trigger">{translateText("Preview Credential ")}<span className="btn-arrow">↗</span>
                   </span>
                 </div>
               </motion.div>
@@ -1579,21 +1516,19 @@ export default function App() {
 
           {/* Education & Specialized Tracks */}
           <div className="education-tracks-wrap" style={{ marginTop: '40px' }}>
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', color: 'var(--white)', fontFamily: 'var(--font-display)', fontWeight: 600 }}>
-              Specialized Study Tracks
-            </h3>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', color: 'var(--white)', fontFamily: 'var(--font-display)', fontWeight: 600 }}>{translateText("Specialized Study Tracks")}</h3>
             <div className="education-grid">
               {EDUCATION_DATA.map((ed, idx) => (
                 <div className="education-card" key={idx}>
                   <div className="edu-header">
                     <div className="edu-logo"><i className={ed.icon} /></div>
-                    <span className="edu-platform">{ed.platform}</span>
+                    <span className="edu-platform">{translateText(ed.platform)}</span>
                   </div>
-                  <h4 className="edu-degree">{ed.degree}</h4>
-                  <span className="edu-date"><i className="fa-solid fa-calendar-days" /> {ed.date}</span>
+                  <h4 className="edu-degree">{translateText(ed.degree)}</h4>
+                  <span className="edu-date"><i className="fa-solid fa-calendar-days" /> {translateText(ed.date)}</span>
                   <div className="edu-skills-row" style={{ marginTop: '12px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                     {ed.skills.map((skill) => (
-                      <span className="exp-skill-tag" key={skill}>{skill}</span>
+                      <span className="exp-skill-tag" key={skill}>{translateText(skill)}</span>
                     ))}
                   </div>
                 </div>
@@ -1606,28 +1541,26 @@ export default function App() {
         <section id="contact" className="contact-redesign-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">08 / CONTACT</span>
+            <span className="section-arch-code">{translateText("08 / CONTACT")}</span>
             <div className="section-arch-line" />
           </div>
 
-          <span className="contact-kicker">Have an idea?</span>
-          <h2 className="contact-big-headline">LET'S BUILD SOMETHING MEANINGFUL.</h2>
-          <p className="contact-subheadline">
-            Professional collaborations, development opportunities and interesting digital projects.
-          </p>
+          <span className="contact-kicker">{translateText("Have an idea?")}</span>
+          <h2 className="contact-big-headline">{translateText("LET'S BUILD SOMETHING MEANINGFUL.")}</h2>
+          <p className="contact-subheadline">{translateText("Professional collaborations, development opportunities and interesting digital projects.")}</p>
 
           <div className="contact-layout-grid">
             <div className="contact-info-column">
               <div className="contact-info-card">
-                <span className="info-card-label">CURRENT ROLE &amp; LOCATION</span>
-                <p className="info-card-val">Junior Full-Stack Developer at BIMPulse</p>
-                <p className="info-card-sub"><i className="fa-solid fa-location-dot" style={{ color: 'var(--emerald-bright)' }} /> Casablanca, Morocco</p>
+                <span className="info-card-label">{translateText("CURRENT ROLE & LOCATION")}</span>
+                <p className="info-card-val">{translateText("Junior Full-Stack Developer at BIMPulse")}</p>
+                <p className="info-card-sub"><i className="fa-solid fa-location-dot" style={{ color: 'var(--emerald-bright)' }} />{translateText(" Casablanca, Morocco")}</p>
               </div>
 
               <div className="contact-info-card">
-                <span className="info-card-label">DIRECT EMAIL</span>
+                <span className="info-card-label">{translateText("DIRECT EMAIL")}</span>
                 <p className="info-card-val">
-                  <a href="mailto:obaidbelmaaris@gmail.com" id="contact-email-link">obaidbelmaaris@gmail.com</a>
+                  <a href="mailto:obaidbelmaaris@gmail.com" id="contact-email-link">{translateText("obaidbelmaaris@gmail.com")}</a>
                 </p>
               </div>
 
@@ -1639,7 +1572,7 @@ export default function App() {
                   className="contact-quick-link"
                   id="contact-linkedin-link"
                 >
-                  <i className="fa-brands fa-linkedin-in" /> LinkedIn Profile <span className="link-arrow">↗</span>
+                  <i className="fa-brands fa-linkedin-in" />{translateText(" LinkedIn Profile ")}<span className="link-arrow">↗</span>
                 </a>
                 <a
                   href="https://github.com/Abdellah-BELMAARIS"
@@ -1648,7 +1581,7 @@ export default function App() {
                   className="contact-quick-link"
                   id="contact-github-link"
                 >
-                  <i className="fa-brands fa-github" /> GitHub Repositories <span className="link-arrow">↗</span>
+                  <i className="fa-brands fa-github" />{translateText(" GitHub Repositories ")}<span className="link-arrow">↗</span>
                 </a>
                 <a
                   href="assets/Abdellah_BELMAARIS_CV.pdf"
@@ -1656,7 +1589,7 @@ export default function App() {
                   className="contact-quick-link highlight"
                   id="contact-cv-download-link"
                 >
-                  <i className="fa-solid fa-file-arrow-down" /> Download Curriculum Vitae (PDF) <span className="link-arrow">↗</span>
+                  <i className="fa-solid fa-file-arrow-down" />{translateText(" Download Curriculum Vitae (PDF) ")}<span className="link-arrow">↗</span>
                 </a>
               </div>
             </div>
@@ -1665,7 +1598,7 @@ export default function App() {
             <div className="contact-form-column">
               <form className="contact-form-redesign" onSubmit={handleContactSubmit} id="contact-form">
                 <div className="form-group honeypot" aria-hidden="true" style={{ display: 'none' }}>
-                  <label htmlFor="form-website">Website</label>
+                  <label htmlFor="form-website">{translateText("Website")}</label>
                   <input
                     id="form-website"
                     tabIndex={-1}
@@ -1676,12 +1609,12 @@ export default function App() {
                 </div>
 
                 <div className="form-field-wrapper">
-                  <label htmlFor="form-name" className="form-label">YOUR NAME</label>
+                  <label htmlFor="form-name" className="form-label">{translateText("YOUR NAME")}</label>
                   <input
                     type="text"
                     id="form-name"
                     className="form-input"
-                    placeholder="Jane Doe"
+                    placeholder={translateText("Jane Doe")}
                     autoComplete="name"
                     value={formName}
                     onChange={(e) => setFormName(e.target.value)}
@@ -1691,12 +1624,12 @@ export default function App() {
                 </div>
 
                 <div className="form-field-wrapper">
-                  <label htmlFor="form-email" className="form-label">EMAIL ADDRESS</label>
+                  <label htmlFor="form-email" className="form-label">{translateText("EMAIL ADDRESS")}</label>
                   <input
                     type="email"
                     id="form-email"
                     className="form-input"
-                    placeholder="jane@company.com"
+                    placeholder={translateText("jane@company.com")}
                     autoComplete="email"
                     value={formEmail}
                     onChange={(e) => setFormEmail(e.target.value)}
@@ -1706,11 +1639,11 @@ export default function App() {
                 </div>
 
                 <div className="form-field-wrapper">
-                  <label htmlFor="form-message" className="form-label">MESSAGE</label>
+                  <label htmlFor="form-message" className="form-label">{translateText("MESSAGE")}</label>
                   <textarea
                     id="form-message"
                     className="form-textarea"
-                    placeholder="Tell me about your project, idea, or role…"
+                    placeholder={translateText("Tell me about your project, idea, or role…")}
                     value={formMessage}
                     onChange={(e) => setFormMessage(e.target.value)}
                     required
@@ -1722,7 +1655,7 @@ export default function App() {
 
                 {formStatus && (
                   <div className={`form-status ${formStatus.type}`} role="status" aria-live="polite">
-                    {formStatus.text}
+                    {translateText(formStatus.text)}
                   </div>
                 )}
 
@@ -1733,7 +1666,7 @@ export default function App() {
                   disabled={isSubmitting}
                 >
                   <i className={`fa-solid ${isSubmitting ? 'fa-spinner fa-spin' : 'fa-paper-plane'}`} style={{ marginRight: '8px' }} />
-                  {isSubmitting ? 'Sending…' : 'Send a Message →'}
+                  {translateText(isSubmitting ? 'Sending…' : 'Send a Message →')}
                 </button>
               </form>
             </div>
@@ -1745,22 +1678,22 @@ export default function App() {
       <footer className="footer-redesign">
         <div className="footer-top-row">
           <div className="footer-brand">
-            <span className="footer-logo">AB.</span>
+            <span className="footer-logo">{translateText("AB.")}</span>
             <div className="footer-brand-meta">
-              <span className="footer-name">Abdellah BELMAARIS</span>
-              <span className="footer-role">Junior Full-Stack Developer • BIMPulse • Morocco</span>
+              <span className="footer-name">{translateText("Abdellah BELMAARIS")}</span>
+              <span className="footer-role">{translateText("Junior Full-Stack Developer • BIMPulse • Morocco")}</span>
             </div>
           </div>
           <div className="footer-links-group">
-            <a href="https://linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">{translateText("LinkedIn")}</a>
             <span className="footer-sep">·</span>
-            <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">{translateText("GitHub")}</a>
             <span className="footer-sep">·</span>
-            <a href="mailto:obaidbelmaaris@gmail.com">Email</a>
+            <a href="mailto:obaidbelmaaris@gmail.com">{translateText("Email")}</a>
           </div>
         </div>
         <div className="footer-bottom-row">
-          <p>Designed &amp; developed by Abdellah BELMAARIS © 2026</p>
+          <p>{translateText("Designed & developed by Abdellah BELMAARIS © 2026")}</p>
         </div>
       </footer>
 
@@ -1770,7 +1703,7 @@ export default function App() {
           <motion.button
             className="scroll-to-top"
             onClick={scrollToTop}
-            aria-label="Scroll to top"
+            aria-label={translateText("Scroll to top")}
             id="scroll-to-top-btn"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1801,10 +1734,10 @@ export default function App() {
             }}
           >
             <div className="modal-content-wrapper">
-              <button className="modal-close" aria-label="Close credential preview" id="cert-modal-close">
+              <button className="modal-close" aria-label={translateText("Close credential preview")} id="cert-modal-close">
                 <i className="fa-solid fa-xmark" />
               </button>
-              <img src={selectedCert} alt="Enlarged Credential" className="modal-img" />
+              <img src={selectedCert} alt={translateText("Enlarged Credential")} className="modal-img" />
             </div>
           </motion.div>
         )}
@@ -1825,10 +1758,8 @@ export default function App() {
             <div className="video-modal-content">
               <div className="video-modal-header">
                 <h3 className="video-modal-title">
-                  <i className="fa-solid fa-circle-play" style={{ color: 'var(--emerald-bright)', marginRight: '8px' }} />
-                  Project Walkthrough Demos
-                </h3>
-                <button className="video-modal-close" aria-label="Close video player" id="video-modal-close-btn">
+                  <i className="fa-solid fa-circle-play" style={{ color: 'var(--emerald-bright)', marginRight: '8px' }} />{translateText("Project Walkthrough Demos")}</h3>
+                <button className="video-modal-close" aria-label={translateText("Close video player")} id="video-modal-close-btn">
                   <i className="fa-solid fa-xmark" />
                 </button>
               </div>
@@ -1844,7 +1775,7 @@ export default function App() {
                     onClick={() => setVideoSrc(tab.src)}
                     id={`video-tab-${tab.label.replace(/\s+/g, '-').toLowerCase()}`}
                   >
-                    {tab.label}
+                    {translateText(tab.label)}
                   </button>
                 ))}
               </div>
