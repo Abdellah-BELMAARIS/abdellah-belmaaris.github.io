@@ -444,6 +444,7 @@ export default function ThreeBackground() {
 
   return (
     <div
+      className="portfolio-scene"
       style={{
         position: 'fixed',
         top: 0,
@@ -454,7 +455,7 @@ export default function ThreeBackground() {
         pointerEvents: 'none',
         overflow: 'hidden',
         // Deep cinematic midnight-navy gradient (matching reference screenshot)
-        background: 'radial-gradient(ellipse 90% 70% at 70% 25%, #0b223a 0%, #071324 45%, #040912 100%)',
+        background: 'var(--scene-background)',
       }}
       aria-hidden="true"
     >
@@ -475,7 +476,7 @@ export default function ThreeBackground() {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse 85% 75% at 50% 35%, transparent 20%, rgba(3, 6, 10, 0.85) 90%)',
+          background: 'var(--scene-vignette)',
           pointerEvents: 'none',
         }}
       />
@@ -492,12 +493,12 @@ export default function ThreeBackground() {
           gap: '8px',
           padding: '6px 14px',
           borderRadius: '999px',
-          background: 'rgba(6, 15, 26, 0.75)',
+          background: 'var(--surface-glass)',
           border: '1px solid rgba(0, 229, 255, 0.25)',
           backdropFilter: 'blur(8px)',
           fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
           fontSize: '0.72rem',
-          color: '#38bdf8',
+          color: 'var(--accent)',
           letterSpacing: '0.5px',
           boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4)',
           pointerEvents: 'auto',

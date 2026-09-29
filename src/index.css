@@ -4424,3 +4424,762 @@ body, .header, section, .footer, .contact-form, .stat-card, .exp-card, .skill-ca
 
 
 
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   PROFESSIONAL RESPONSIVE POLISH PASS
+   Keeps the existing cinematic theme while making every section feel organized
+   on laptop, tablet, and phone screens.
+   ══════════════════════════════════════════════════════════════════════════════ */
+:root {
+    --page-max: 1180px;
+    --page-gutter: clamp(18px, 5vw, 72px);
+    --section-y: clamp(72px, 9vw, 112px);
+    --card-radius-pro: 10px;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+    background: var(--bg-base);
+}
+
+body {
+    width: 100%;
+    min-width: 320px;
+    background: var(--bg-base);
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+
+button,
+a,
+input,
+textarea {
+    font: inherit;
+}
+
+#main-content {
+    position: relative;
+    z-index: 2;
+}
+
+section {
+    width: min(100% - (var(--page-gutter) * 2), var(--page-max));
+    margin-inline: auto;
+    padding: var(--section-y) 0;
+    border-bottom-color: rgba(0, 229, 255, 0.1);
+}
+
+.hero-redesign-section {
+    width: 100%;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding: clamp(96px, 12vh, 132px) var(--page-gutter) clamp(56px, 9vh, 96px);
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.section-title {
+    font-size: clamp(1.6rem, 3vw, 2.45rem);
+    line-height: 1.16;
+    margin-bottom: clamp(22px, 4vw, 34px);
+    overflow-wrap: anywhere;
+}
+
+.section-title::after {
+    min-width: 44px;
+}
+
+.section-intro,
+.project-summary-text,
+.contact-subheadline,
+.about-body-p,
+.exp-desc,
+.detail-item,
+.personal-desc {
+    text-wrap: pretty;
+}
+
+.hero-name-heading {
+    max-width: 9ch;
+    overflow-wrap: normal;
+}
+
+.hero-statement {
+    max-width: 680px;
+    text-wrap: balance;
+}
+
+.hero-tech-line,
+.hero-socials-row,
+.hero-cta-actions,
+.project-actions-row,
+.personal-actions,
+.exp-actions-row,
+.company-profile-actions,
+.contact-links-stack,
+.project-key-badges-row,
+.project-tech-stack-row,
+.exp-skills,
+.edu-skills-row,
+.github-repo-meta,
+.msg-links-row {
+    min-width: 0;
+}
+
+.btn,
+.header-resume-btn,
+.hero-social-link,
+.contact-quick-link,
+.msg-link-btn,
+.ai-chip-btn,
+.video-modal-tab,
+.case-study-tab,
+.type-filter-btn,
+.skills-filter-btn {
+    min-height: 40px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.featured-project-card,
+.personal-project-card,
+.tech-category-card,
+.credential-row-item,
+.education-card,
+.exp-card,
+.about-fact-card,
+.contact-info-card,
+.contact-form-redesign,
+.embedded-terminal-wrapper,
+.ai-terminal-card,
+.github-repo-card,
+.company-profile-card,
+.exp-junction-container {
+    border-radius: var(--card-radius-pro);
+}
+
+.featured-project-card,
+.personal-project-card,
+.tech-category-card,
+.contact-form-redesign,
+.embedded-terminal-wrapper {
+    background: linear-gradient(180deg, rgba(10, 25, 47, 0.78), rgba(6, 16, 30, 0.7));
+}
+
+.about-two-col-layout,
+.contact-layout-grid,
+.project-card-footer,
+.exp-header,
+.project-header-row,
+.credential-row-item,
+.ai-terminal-header {
+    min-width: 0;
+}
+
+.about-code-snippet,
+.snippet-body,
+.msg-code-block,
+.code-box,
+.architecture-diagram-container {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.snippet-body,
+.code-content,
+.msg-code-block pre {
+    white-space: pre;
+}
+
+.personal-projects-grid,
+.tech-stack-grid,
+.github-grid,
+.education-grid,
+.security-cards-grid,
+.schema-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.ai-terminal-container,
+.embedded-terminal-wrapper {
+    min-width: 0;
+}
+
+.ai-terminal-controls,
+.ai-terminal-modes,
+.ai-terminal-chips-wrapper,
+.ai-terminal-input-form,
+.terminal-msg,
+.msg-header,
+.msg-content {
+    min-width: 0;
+}
+
+.terminal-title,
+.msg-badge,
+.msg-author,
+.msg-link-btn,
+.github-repo-card h3,
+.info-card-val,
+.contact-quick-link,
+.credential-name,
+.credential-issuer,
+.personal-title,
+.project-display-title,
+.arch-badge,
+.exp-skill-tag,
+.tech-chip,
+.tech-pill-large {
+    overflow-wrap: anywhere;
+}
+
+.terminal-msg {
+    max-width: min(92%, 760px);
+}
+
+.modal.active {
+    padding: clamp(14px, 4vw, 28px);
+}
+
+.video-modal-content,
+.case-study-content-card,
+.modal-content-wrapper {
+    width: min(100%, 1080px);
+    max-height: calc(100svh - 32px);
+    overflow: auto;
+}
+
+@media (min-width: 1280px) {
+    .hero-grid-layout {
+        max-width: var(--page-max);
+    }
+
+    .featured-project-card,
+    .exp-card,
+    .embedded-terminal-wrapper,
+    .contact-form-redesign {
+        box-shadow: 0 18px 48px -20px rgba(2, 10, 22, 0.9), 0 0 32px rgba(0, 229, 255, 0.07);
+    }
+}
+
+@media (max-width: 1100px) {
+    :root {
+        --page-gutter: clamp(18px, 4vw, 42px);
+    }
+
+    .hero-grid-layout {
+        max-width: 920px;
+    }
+
+    .contact-layout-grid {
+        gap: 34px;
+    }
+
+    .featured-project-card {
+        padding: clamp(26px, 4vw, 34px);
+    }
+}
+
+@media (max-width: 960px) {
+    .hero-redesign-section {
+        align-items: flex-start;
+        padding-top: 104px;
+    }
+
+    .hero-grid-layout {
+        gap: 46px;
+    }
+
+    .hero-copy-column {
+        max-width: 720px;
+    }
+
+    .hero-right-portrait {
+        order: -1;
+    }
+
+    .hero-portrait-frame {
+        width: min(74vw, 330px);
+    }
+
+    .project-header-row,
+    .project-card-footer,
+    .credential-row-item,
+    .exp-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .credential-left {
+        align-items: flex-start;
+    }
+
+    .credential-right {
+        width: 100%;
+    }
+
+    .credential-preview-trigger {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --page-gutter: 18px;
+        --section-y: 64px;
+    }
+
+    .header {
+        height: 64px;
+        padding: 0 16px;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+    }
+
+    .theme-toggle,
+    .hamburger {
+        width: 38px;
+        height: 38px;
+    }
+
+    .nav-list {
+        width: min(86vw, 360px);
+        gap: 28px;
+        padding: 88px 28px 32px;
+        justify-content: flex-start;
+    }
+
+    .nav-link {
+        font-size: 0.92rem;
+    }
+
+    .hero-redesign-section {
+        min-height: auto;
+        padding-top: 92px;
+    }
+
+    .hero-name-heading {
+        font-size: clamp(2.6rem, 15vw, 4.1rem);
+        line-height: 0.96;
+    }
+
+    .hero-kicker-badge,
+    .hero-tech-line,
+    .hero-socials-row {
+        font-size: 0.72rem;
+    }
+
+    .hero-tech-line {
+        gap: 8px;
+    }
+
+    .hero-tech-line .tech-sep {
+        display: none;
+    }
+
+    .hero-cta-actions,
+    .project-actions-row,
+    .personal-actions,
+    .exp-actions-row {
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .hero-cta-actions .btn,
+    .project-actions-row .btn,
+    .personal-actions .btn,
+    .exp-actions-row .btn,
+    .contact-submit-button {
+        width: 100%;
+    }
+
+    .hero-socials-row {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    .social-sep {
+        display: none;
+    }
+
+    .about-two-col-layout,
+    .contact-layout-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-visual-column {
+        order: 2;
+    }
+
+    .about-copy-column {
+        order: 1;
+    }
+
+    .stats-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 42px;
+        padding-top: 36px;
+    }
+
+    .stat-card {
+        padding: 20px 12px;
+    }
+
+    .featured-project-card,
+    .personal-project-card,
+    .tech-category-card,
+    .contact-info-card,
+    .contact-form-redesign,
+    .embedded-terminal-wrapper,
+    .exp-card,
+    .exp-junction-container {
+        padding: 22px;
+    }
+
+    .project-display-title,
+    .contact-big-headline {
+        letter-spacing: 0;
+    }
+
+    .modern-journal-feature-list {
+        grid-template-columns: 1fr;
+        padding: 14px;
+    }
+
+    .ai-terminal-header,
+    .ai-terminal-chips-wrapper {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ai-terminal-modes {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .terminal-mode-btn {
+        justify-content: center;
+        padding-inline: 8px;
+    }
+
+    .ai-terminal-body {
+        padding: 16px;
+        min-height: 260px;
+        max-height: 380px;
+    }
+
+    .terminal-msg {
+        max-width: 100%;
+        padding: 13px 14px;
+    }
+
+    .msg-time {
+        margin-left: 0;
+    }
+
+    .ai-terminal-input-form {
+        padding: 10px;
+    }
+
+    .ai-terminal-input {
+        font-size: 0.8rem;
+    }
+
+    .contact-quick-link {
+        gap: 12px;
+        justify-content: flex-start;
+    }
+
+    .contact-quick-link .link-arrow {
+        margin-left: auto;
+    }
+
+    .footer-redesign {
+        padding: 42px 18px 34px;
+    }
+
+    .footer-brand {
+        align-items: flex-start;
+    }
+
+    .footer-links-group {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 540px) {
+    .loading-content {
+        width: min(100% - 36px, 320px);
+    }
+
+    .loading-name {
+        font-size: 0.78rem;
+    }
+
+    .section-arch-divider {
+        gap: 10px;
+    }
+
+    .section-arch-code {
+        font-size: 0.64rem;
+        letter-spacing: 0.6px;
+    }
+
+    .section-title::after {
+        display: none;
+    }
+
+    .hero-kicker-badge {
+        width: fit-content;
+        max-width: 100%;
+        white-space: normal;
+    }
+
+    .hero-statement {
+        font-size: 1rem;
+    }
+
+    .hero-portrait-wrapper {
+        width: 100%;
+    }
+
+    .hero-portrait-frame {
+        width: min(100%, 300px);
+        margin-inline: auto;
+    }
+
+    .hero-status-floating-pill {
+        left: 50%;
+        right: auto;
+        width: min(94%, 300px);
+        transform: translateX(-50%);
+    }
+
+    .project-key-badges-row,
+    .project-tech-stack-row,
+    .exp-skills,
+    .category-tags-list,
+    .personal-tech,
+    .edu-skills-row {
+        gap: 7px;
+    }
+
+    .arch-badge,
+    .tech-chip,
+    .exp-skill-tag,
+    .tech-pill-large,
+    .personal-metric-chip {
+        font-size: 0.7rem;
+    }
+
+    .featured-project-card,
+    .personal-project-card,
+    .tech-category-card,
+    .contact-info-card,
+    .contact-form-redesign,
+    .embedded-terminal-wrapper,
+    .exp-card,
+    .exp-junction-container {
+        padding: 18px;
+    }
+
+    .credential-row-item {
+        padding: 18px;
+    }
+
+    .credential-left {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .credential-year {
+        width: fit-content;
+    }
+
+    .stats-row {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        min-height: 132px;
+    }
+
+    .contact-big-headline {
+        font-size: clamp(2rem, 12vw, 2.7rem);
+    }
+
+    .contact-subheadline {
+        font-size: 1rem;
+        margin-bottom: 32px;
+    }
+
+    .form-input,
+    .form-textarea {
+        padding: 13px 14px;
+    }
+
+    .video-modal-tabs,
+    .case-study-tabs {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .scroll-to-top {
+        right: 16px;
+        bottom: 16px;
+    }
+}
+
+@media (max-width: 380px) {
+    :root {
+        --page-gutter: 14px;
+    }
+
+    .hero-name-heading {
+        font-size: 2.35rem;
+    }
+
+    .hero-job-title,
+    .about-headline,
+    .project-display-title {
+        font-size: 1.15rem;
+    }
+
+    .btn {
+        padding-inline: 14px;
+        white-space: normal;
+    }
+
+    .ai-terminal-modes {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile hero legibility and polish refinement */
+.hero-redesign-section {
+    overflow: hidden;
+}
+
+.hero-copy-column,
+.hero-portrait-column {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .hero-redesign-section::before {
+        content: "";
+        position: absolute;
+        inset: 64px 0 auto 0;
+        height: 54%;
+        background: linear-gradient(180deg, rgba(4, 9, 18, 0.82), rgba(4, 9, 18, 0.56) 56%, rgba(4, 9, 18, 0));
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .hero-copy-column {
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero-name-heading {
+        font-size: clamp(2.45rem, 13.5vw, 3.55rem);
+        max-width: 100%;
+        margin-bottom: 12px;
+    }
+
+    .hero-job-title {
+        font-size: clamp(0.98rem, 4.4vw, 1.16rem);
+        line-height: 1.3;
+    }
+
+    .hero-statement {
+        max-width: 34rem;
+        margin-top: 10px;
+    }
+
+    .hero-tech-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 18px 0 22px;
+    }
+
+    .hero-tech-line .tech-item {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding: 5px 10px;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        border-radius: 6px;
+        background: rgba(6, 18, 32, 0.74);
+        color: var(--white);
+        text-shadow: none;
+    }
+
+    .hero-cta-actions {
+        gap: 10px;
+    }
+
+    .hero-cta-actions .btn {
+        min-height: 48px;
+        border-radius: 6px;
+    }
+
+    .hero-socials-row {
+        margin-top: 12px;
+        padding-top: 2px;
+        align-items: center;
+    }
+
+    .hero-social-link,
+    .hero-location-text {
+        min-height: 28px;
+        display: inline-flex;
+        align-items: center;
+        padding-right: 8px;
+    }
+
+    .hero-right-portrait {
+        margin-top: 28px;
+    }
+}
+
+@media (max-width: 430px) {
+    .hero-redesign-section {
+        padding-inline: 18px;
+    }
+
+    .hero-name-heading {
+        font-size: clamp(2.35rem, 12.3vw, 3.18rem);
+        line-height: 1;
+    }
+
+    .hero-kicker-badge {
+        font-size: 0.66rem;
+        line-height: 1.35;
+    }
+
+    .hero-statement {
+        font-size: 0.96rem;
+        line-height: 1.62;
+    }
+
+    .hero-tech-line .tech-item {
+        font-size: 0.68rem;
+        min-height: 28px;
+        padding-inline: 9px;
+    }
+}

@@ -611,7 +611,7 @@ export default function App() {
               <div className="hero-job-title">Junior Full-Stack Developer</div>
 
               <p className="hero-statement">
-                Building modern digital solutions at the intersection of software development, engineering and emerging technologies.
+                Building practical web applications with Python and Django at BIMPulse Digital, with a growing focus on AI, data and engineering technology.
               </p>
 
               <div className="hero-tech-line">
@@ -744,13 +744,18 @@ export default function App() {
         "AEC Digital Solutions"
     ]
     core_stack = {
-        "development": ["Python", "Django", "HTML", "CSS", "SQL"],
+        "development": [
+            "Python", "Django", "HTML", "CSS", "SQL"
+        ],
         "data": ["Pandas", "Matplotlib", "Data Analysis"],
         "exploring": ["AI", "Cybersecurity"]
     }
 
     def mission(self):
-        return "Build reliable software with real-world purpose."`}
+        return (
+            "Build reliable software "
+            "with real-world purpose."
+        )`}
                     </code>
                   </pre>
                 </div>
@@ -766,19 +771,19 @@ export default function App() {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <h3 className="about-headline">
-                Building software with a real-world purpose.
+                A practical approach to building software.
               </h3>
 
               <p className="about-body-p">
-                I'm Abdellah BELMAARIS, a Junior Full-Stack Developer at BIMPulse, focused on building modern, practical digital solutions.
+                I'm Abdellah BELMAARIS, a Junior Full-Stack Developer at BIMPulse Digital in Casablanca, Morocco. I build web applications with Python, Django and SQL, connecting backend logic with responsive, easy-to-use interfaces.
               </p>
 
               <p className="about-body-p">
-                My work and learning span the full development process—from backend logic and databases to responsive interfaces and user-focused functionality. At BIMPulse, I continue developing this experience within an environment connected to BIM, engineering, construction technologies and the digital transformation of the AEC industry.
+                At BIMPulse, I contribute to digital projects connected to BIM, engineering and construction. This experience helps me translate practical requirements into useful features while developing my skills in a professional environment.
               </p>
 
               <p className="about-body-p">
-                Alongside full-stack development, I'm expanding my knowledge in artificial intelligence, data analysis and software engineering, with a strong interest in applying technology to real-world challenges.
+                My background combines homeschooling, self-directed learning, technical courses and hands-on projects. I'm continuing to grow in full-stack development while exploring AI, data analysis and cybersecurity fundamentals.
               </p>
             </motion.div>
           </div>
@@ -860,6 +865,14 @@ export default function App() {
             </div>
           </div>
 
+          <aside className="professional-mention" aria-labelledby="mention-title">
+            <span className="section-arch-code">LINKEDIN / PROFESSIONAL RECOGNITION</span>
+            <h3 id="mention-title">Contributing to BIMPulse Academy</h3>
+            <p>In LinkedIn posts about the platform's development and launch, Abdelhamid BELMAARIS acknowledged my contribution to BIMPulse Academy, a learning platform for AECO professionals.</p>
+            <p className="mention-attribution">Abdelhamid BELMAARIS · Civil engineer and BIM professional</p>
+            <a href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">View my LinkedIn profile <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></a>
+          </aside>
+
           {/* Large Flagship BIMPulse Card (Rule 10, 11) */}
           <motion.div
             className="exp-card exp-flagship"
@@ -883,7 +896,7 @@ export default function App() {
                 </div>
               </div>
               <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days" /> 2026 — PRESENT</span>
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days" /> AUG 2026 — PRESENT · Apprenticeship</span>
                 <span className="exp-location"><i className="fa-solid fa-location-dot" /> Casablanca, Morocco</span>
               </div>
             </div>
@@ -1025,7 +1038,7 @@ export default function App() {
           <h2 className="section-title">Projects built to solve real problems.</h2>
 
           <div className="featured-work-grid">
-            {/* Project 01: Academy Management Platform (Rule 14) */}
+            {/* Project 01: School Management System */}
             <motion.div
               className="featured-project-card"
               initial={{ opacity: 0, y: 25 }}
@@ -1038,56 +1051,47 @@ export default function App() {
                 <span className="project-type-tag">Selected Project</span>
               </div>
 
-              <h3 className="project-display-title">ACADEMY MANAGEMENT PLATFORM</h3>
+              <h3 className="project-display-title">School Management System</h3>
 
               <p className="project-summary-text">
-                Multi-role academy management platform designed around complex academic workflows.
+                A multilingual school administration platform built with Flask and SQLAlchemy. It provides dedicated dashboards for school leaders, teachers, students, and parents, alongside academic management tools and secure, role-based access.
               </p>
 
               {/* Engineering Highlights / Metrics (Rule 14) */}
               <div className="project-key-badges-row">
                 <span className="arch-badge">
-                  <i className="fa-solid fa-shield-halved" /> 14 ROLES RBAC
+                  <i className="fa-solid fa-shield-halved" /> ROLE-BASED ACCESS
                 </span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-vial-circle-check" /> 36/36 TESTS
+                  <i className="fa-solid fa-language" /> MULTILINGUAL
                 </span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-database" /> STRICT MVC &amp; NORMALIZATION
+                  <i className="fa-solid fa-school" /> ACADEMIC MANAGEMENT
                 </span>
               </div>
 
               <div className="project-detail-breakdown">
                 <div className="detail-item">
-                  <span className="detail-label">PROBLEM:</span> Educational platforms often suffer from fragile relational schemas when managing courses, grades, faculty records, and multi-tier student portals concurrently.
+                  <span className="detail-label">DASHBOARDS:</span> Dedicated spaces for school leaders, teachers, students, and parents.
                 </div>
                 <div className="detail-item">
-                  <span className="detail-label">SOLUTION:</span> Designed and implemented a modular MVC architecture in Django with customized relational schemas, multi-tier authentication middleware, and robust form validation.
+                  <span className="detail-label">PLATFORM:</span> Academic administration tools with multilingual support and secure access based on each user's role.
                 </div>
               </div>
 
               <div className="project-tech-stack-row">
                 <span className="tech-chip">Python</span>
-                <span className="tech-chip">Django</span>
-                <span className="tech-chip">SQL</span>
-                <span className="tech-chip">PostgreSQL</span>
-                <span className="tech-chip">Bootstrap 5</span>
+                <span className="tech-chip">Flask</span>
+                <span className="tech-chip">SQLAlchemy</span>
               </div>
 
               <div className="project-actions-row">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => setCaseStudyOpen(true)}
-                  id="case-study-btn-academy"
-                >
-                  Case Study <span className="btn-arrow">→</span>
-                </button>
                 <a
-                  href="https://github.com/Abdellah-BELMAARIS"
+                  href="https://github.com/Abdellah-BELMAARIS/SchoolManagement"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-secondary"
-                  id="github-btn-academy"
+                  id="school-github-btn"
                 >
                   <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> GitHub Repository
                 </a>
@@ -1107,16 +1111,16 @@ export default function App() {
                 <span className="project-type-tag">Selected Project</span>
               </div>
 
-              <h3 className="project-display-title">THE MODERN JOURNAL</h3>
+              <h3 className="project-display-title">The Modern Journal</h3>
 
               <p className="project-summary-text">
-                Full-featured content publishing platform built with Django.
+                A Django-powered publishing platform for creating and discovering articles. It includes search, categories and tags, user authentication, likes and comments, and analytics to support a complete content-publishing experience.
               </p>
 
               {/* Exact feature bullets from Rule 16 */}
               <div className="modern-journal-feature-list">
                 <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Rich article publishing</div>
-                <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Role-based authentication</div>
+                <div className="feature-bullet-item"><i className="fa-solid fa-check" /> User authentication</div>
                 <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Search</div>
                 <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Categories &amp; tags</div>
                 <div className="feature-bullet-item"><i className="fa-solid fa-check" /> Likes &amp; comments</div>
@@ -1171,6 +1175,13 @@ export default function App() {
               </div>
 
               <div className="project-actions-row">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setCaseStudyOpen(true)}
+                  id="case-study-btn-journal"
+                >
+                  Case Study <span className="btn-arrow">→</span>
+                </button>
                 <a
                   href="https://abdellah-belmaaris.github.io/modern-journal.github.io/"
                   target="_blank"
@@ -1199,7 +1210,7 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* Project 03: Professional Work — BIMPulse Digital Platform (Rule 17) */}
+            {/* Project 03: Judhoor Al-Bayan */}
             <motion.div
               className="featured-project-card"
               initial={{ opacity: 0, y: 25 }}
@@ -1208,57 +1219,54 @@ export default function App() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="project-header-row">
-                <span className="project-overline-code">PROFESSIONAL WORK / 01</span>
-                <span className="project-type-tag professional-tag">Professional Work</span>
+                <span className="project-overline-code">03 / WEB APPLICATION</span>
+                <span className="project-type-tag">Selected Project</span>
               </div>
 
-              <h3 className="project-display-title">BIMPULSE DIGITAL PLATFORM</h3>
+              <h3 className="project-display-title">Judhoor Al-Bayan</h3>
 
               <p className="project-summary-text">
-                Internal web applications and IFC data utilities connecting BIM engineering workflows with live web collaboration.
+                A bilingual Quran and Islamic-learning platform built with Django. Users can read Quran text and Mushaf pages, explore Quranic roots, access Hadith and Adhkar, and find prayer times and Qibla direction in one place.
               </p>
 
               <div className="project-key-badges-row">
                 <span className="arch-badge">
-                  <i className="fa-solid fa-building" /> ENTERPRISE AEC TOOLING
+                  <i className="fa-solid fa-language" /> BILINGUAL
                 </span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-cubes" /> IFC &amp; BIM STANDARDS
+                  <i className="fa-solid fa-book-open" /> QURAN &amp; ISLAMIC LEARNING
                 </span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-layer-group" /> FULL-STACK ARCHITECTURE
+                  <i className="fa-solid fa-compass" /> PRAYER TIMES &amp; QIBLA
                 </span>
               </div>
 
               <div className="project-detail-breakdown">
                 <div className="detail-item">
-                  <span className="detail-label">CONTEXT:</span> Developing responsive web applications, relational database schemas, and RESTful APIs in Python and Django to bridge BIM engineering workflows with real-time web access.
+                  <span className="detail-label">READ &amp; EXPLORE:</span> Quran text, Mushaf pages, and Quranic roots.
+                </div>
+                <div className="detail-item">
+                  <span className="detail-label">DAILY RESOURCES:</span> Hadith, Adhkar, prayer times, and Qibla direction.
                 </div>
               </div>
 
               <div className="project-tech-stack-row">
                 <span className="tech-chip">Python</span>
-                <span className="tech-chip">Django REST Framework</span>
-                <span className="tech-chip">PostgreSQL</span>
-                <span className="tech-chip">SQL</span>
-                <span className="tech-chip">HTML5 / CSS3</span>
-                <span className="tech-chip">BIM &amp; IFC Standards</span>
+                <span className="tech-chip">Django</span>
               </div>
 
               <div className="project-actions-row">
                 <a
-                  href="https://www.thebimpulse.com/"
+                  href="https://github.com/Abdellah-BELMAARIS/quran-site"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary"
-                  id="bimpulse-platform-link"
+                  className="btn btn-secondary"
+                  id="judhoor-github-btn"
                 >
-                  Visit BIMPulse <span className="btn-arrow">↗</span>
+                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> GitHub Repository
                 </a>
-                <span className="private-repo-note">
-                  <i className="fa-solid fa-lock" /> Enterprise Proprietary Work
-                </span>
               </div>
+
             </motion.div>
           </div>
         </section>
