@@ -13,16 +13,6 @@ interface Stat {
   icon: string;
 }
 
-interface GitHubRepo {
-  name: string;
-  html_url: string;
-  description: string | null;
-  language: string | null;
-  stargazers_count: number;
-  forks_count: number;
-  updated_at: string;
-}
-
 interface CertCard {
   platform: string;
   degree: string;
@@ -42,17 +32,6 @@ interface EdCard {
   icon: string;
 }
 
-interface PersonalProject {
-  id: string;
-  title: string;
-  subtitle: string;
-  desc: string;
-  metrics: string[];
-  tech: string[];
-  github?: string;
-  live?: string;
-}
-
 // ─── Static Data ──────────────────────────────────────────────────────────────
 
 const STATS_DATA: Stat[] = [
@@ -60,37 +39,6 @@ const STATS_DATA: Stat[] = [
   { value: 4, suffix: '+', label: 'Production Projects', icon: 'fa-solid fa-folder-open' },
   { value: 14, suffix: '', label: 'RBAC Roles Built', icon: 'fa-solid fa-shield-halved' },
   { value: 4, suffix: '', label: 'Certifications', icon: 'fa-solid fa-award' },
-];
-
-const PERSONAL_PROJECTS: PersonalProject[] = [
-  {
-    id: 'pygame-arcade',
-    title: 'PyGame 3D Web Arcade & WASM Console',
-    subtitle: '3D retro cabinet interface hosting 16 WebAssembly-compiled Python games',
-    desc: 'Compiles 16 native Python PyGame arcade classics to WebAssembly via Pygbag. Features interactive 3D cabinet selector with dynamic Three.js lighting and responsive browser deck controls.',
-    metrics: ['16 Python Classics in WebAssembly', 'Locked 60 FPS WebGL Rendering', 'Zero-Install Browser Execution'],
-    tech: ['Three.js', 'Python', 'WebAssembly (Pygbag)', 'Vite', 'HTML5 Canvas'],
-    github: 'https://github.com/Abdellah-BELMAARIS/PyGame_Projects',
-    live: 'https://Abdellah-BELMAARIS.github.io/PyGame_Projects/'
-  },
-  {
-    id: 'dev-pulse',
-    title: 'Dev-Pulse — Developer Activity Telemetry',
-    subtitle: 'Local Python data pipeline with sub-200ms visual analytical reports',
-    desc: 'Local developer telemetry engine that parses unstructured system logs, cleans high-dimensional activity streams with Pandas, and generates automated Matplotlib visual performance reports.',
-    metrics: ['<200ms High-Throughput Report Generation', '100% Privacy-First Local Processing', 'Automated Matplotlib Statistical Visuals'],
-    tech: ['Python', 'Pandas', 'Matplotlib', 'Data Pipelines', 'Regex Tokenization'],
-    github: 'https://github.com/Abdellah-BELMAARIS/Dev-Pulse'
-  },
-  {
-    id: 'oop-architecture',
-    title: 'OOP Architecture & Software Patterns Library',
-    subtitle: 'Modular design patterns and clean architecture in Python',
-    desc: 'Production-oriented implementations of classical Gang of Four software design patterns in Python, demonstrating modular separation of concerns, dependency injection, and clean architecture.',
-    metrics: ['PEP-8 Compliant Modular Codebase', 'Complete Test Suite Coverage', 'Production Design Pattern Blueprints'],
-    tech: ['Python 3.12', 'Design Patterns', 'Unit Testing', 'Clean Architecture'],
-    github: 'https://github.com/Abdellah-BELMAARIS'
-  }
 ];
 
 const CERTIFICATIONS_DATA: CertCard[] = [
@@ -281,7 +229,9 @@ function StatCard({ stat, isVisible }: { stat: Stat; isVisible: boolean }) {
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>(() =>
+    window.localStorage.getItem('portfolio-theme') === 'light' ? 'light' : 'dark'
+  );
   const [menuActive, setMenuActive] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
@@ -293,10 +243,6 @@ export default function App() {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [caseStudyOpen, setCaseStudyOpen] = useState(false);
   const [videoSrc, setVideoSrc] = useState('assets/demo1.mp4');
-
-  // GitHub Repos
-  const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([]);
-  const [githubLoading, setGithubLoading] = useState(true);
 
   // Stats Intersection Observer
   const [statsVisible, setStatsVisible] = useState(false);
@@ -316,6 +262,7 @@ export default function App() {
   // Theme synchronization
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem('portfolio-theme', theme);
   }, [theme]);
 
   // Lock body scroll on mobile menu
@@ -330,26 +277,10 @@ export default function App() {
     };
   }, [menuActive]);
 
-  // GitHub API fetch
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch('https://api.github.com/users/Abdellah-BELMAARIS/repos?sort=updated&per_page=6', {
-      signal: controller.signal,
-      headers: { Accept: 'application/vnd.github+json' }
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error('GitHub request failed'))))
-      .then((repos: GitHubRepo[]) => {
-        setGithubRepos(repos.filter((repo) => repo.name !== 'abdellah-belmaaris.github.io').slice(0, 4));
-      })
-      .catch(() => setGithubRepos([]))
-      .finally(() => setGithubLoading(false));
-    return () => controller.abort();
-  }, []);
-
-  // Scroll Spy for 8 sections
+  // Scroll Spy for 7 sections
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'experience', 'work', 'personal-projects', 'skills', 'certifications', 'contact'];
+      const sections = ['hero', 'about', 'experience', 'work', 'skills', 'certifications', 'contact'];
       const scrollPosition = window.scrollY + 250;
 
       for (const section of sections) {
@@ -369,7 +300,7 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Carousel autoplay
+  // Project screenshot carousel autoplay
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % PROJECT_IMAGES.length);
@@ -460,16 +391,15 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Section items for right-side indicator (Rule 28)
+  // Section items for right-side indicator
   const SECTION_INDICATORS = [
     { id: 'hero', num: '01' },
     { id: 'about', num: '02' },
     { id: 'experience', num: '03' },
     { id: 'work', num: '04' },
-    { id: 'personal-projects', num: '05' },
-    { id: 'skills', num: '06' },
-    { id: 'certifications', num: '07' },
-    { id: 'contact', num: '08' }
+    { id: 'skills', num: '05' },
+    { id: 'certifications', num: '06' },
+    { id: 'contact', num: '07' }
   ];
 
   return (
@@ -536,6 +466,7 @@ export default function App() {
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
             title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            aria-pressed={theme === 'light'}
           >
             <i className={`fa-solid ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`} aria-hidden="true" />
           </button>
@@ -1025,7 +956,7 @@ export default function App() {
           <h2 className="section-title">Projects built to solve real problems.</h2>
 
           <div className="featured-work-grid">
-            {/* Project 01: Academy Management Platform (Rule 14) */}
+            {/* Project 01: School Management System */}
             <motion.div
               className="featured-project-card"
               initial={{ opacity: 0, y: 25 }}
@@ -1038,58 +969,50 @@ export default function App() {
                 <span className="project-type-tag">Selected Project</span>
               </div>
 
-              <h3 className="project-display-title">ACADEMY MANAGEMENT PLATFORM</h3>
+              <h3 className="project-display-title">SCHOOL MANAGEMENT SYSTEM</h3>
 
               <p className="project-summary-text">
-                Multi-role academy management platform designed around complex academic workflows.
+                A multilingual academic portal for directors, teachers, students, and parents.
               </p>
 
-              {/* Engineering Highlights / Metrics (Rule 14) */}
               <div className="project-key-badges-row">
                 <span className="arch-badge">
-                  <i className="fa-solid fa-shield-halved" /> 14 ROLES RBAC
+                  <i className="fa-solid fa-users" /> FOUR ROLE DASHBOARDS
                 </span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-vial-circle-check" /> 36/36 TESTS
+                  <i className="fa-solid fa-language" /> ENGLISH · ARABIC · FRENCH
                 </span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-database" /> STRICT MVC &amp; NORMALIZATION
+                  <i className="fa-solid fa-shield-halved" /> CSRF · MFA · AUDIT LOGS
                 </span>
               </div>
 
               <div className="project-detail-breakdown">
                 <div className="detail-item">
-                  <span className="detail-label">PROBLEM:</span> Educational platforms often suffer from fragile relational schemas when managing courses, grades, faculty records, and multi-tier student portals concurrently.
+                  <span className="detail-label">SCOPE:</span> Academic administration for school leadership, teachers, students, and families, with learning resources and assessment tools.
                 </div>
                 <div className="detail-item">
-                  <span className="detail-label">SOLUTION:</span> Designed and implemented a modular MVC architecture in Django with customized relational schemas, multi-tier authentication middleware, and robust form validation.
+                  <span className="detail-label">ENGINEERING:</span> Built with Flask and SQLAlchemy, including role-aware dashboards, Arabic right-to-left support, secure authentication, and school data isolation.
                 </div>
               </div>
 
               <div className="project-tech-stack-row">
                 <span className="tech-chip">Python</span>
-                <span className="tech-chip">Django</span>
-                <span className="tech-chip">SQL</span>
+                <span className="tech-chip">Flask</span>
+                <span className="tech-chip">SQLAlchemy</span>
                 <span className="tech-chip">PostgreSQL</span>
-                <span className="tech-chip">Bootstrap 5</span>
+                <span className="tech-chip">Bootstrap</span>
               </div>
 
               <div className="project-actions-row">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => setCaseStudyOpen(true)}
-                  id="case-study-btn-academy"
-                >
-                  Case Study <span className="btn-arrow">→</span>
-                </button>
                 <a
-                  href="https://github.com/Abdellah-BELMAARIS"
+                  href="https://github.com/Abdellah-BELMAARIS/SchoolManagement"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-secondary"
-                  id="github-btn-academy"
+                  className="btn btn-primary"
+                  id="github-btn-school-management"
                 >
-                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> GitHub Repository
+                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> View on GitHub <span className="btn-arrow">↗</span>
                 </a>
               </div>
             </motion.div>
@@ -1187,6 +1110,13 @@ export default function App() {
                 >
                   <i className="fa-solid fa-circle-play" style={{ marginRight: '6px' }} /> Video Demo
                 </button>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setCaseStudyOpen(true)}
+                  id="case-study-btn-journal"
+                >
+                  Engineering Case Study <span className="btn-arrow">→</span>
+                </button>
                 <a
                   href="https://github.com/Abdellah-BELMAARIS/modern-journal.github.io"
                   target="_blank"
@@ -1199,7 +1129,7 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* Project 03: Professional Work — BIMPulse Digital Platform (Rule 17) */}
+            {/* Project 03: Judhoor Al-Bayan */}
             <motion.div
               className="featured-project-card"
               initial={{ opacity: 0, y: 25 }}
@@ -1208,180 +1138,65 @@ export default function App() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="project-header-row">
-                <span className="project-overline-code">PROFESSIONAL WORK / 01</span>
-                <span className="project-type-tag professional-tag">Professional Work</span>
+                <span className="project-overline-code">03 / QURAN &amp; STUDY</span>
+                <span className="project-type-tag">Selected Project</span>
               </div>
 
-              <h3 className="project-display-title">BIMPULSE DIGITAL PLATFORM</h3>
+              <h3 className="project-display-title">JUDHOOR AL-BAYAN</h3>
 
               <p className="project-summary-text">
-                Internal web applications and IFC data utilities connecting BIM engineering workflows with live web collaboration.
+                A bilingual Django platform for Quran reading, Islamic study, and everyday practice.
               </p>
 
               <div className="project-key-badges-row">
                 <span className="arch-badge">
-                  <i className="fa-solid fa-building" /> ENTERPRISE AEC TOOLING
+                  <i className="fa-solid fa-book-quran" /> QURAN &amp; ROOT STUDY
                 </span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-cubes" /> IFC &amp; BIM STANDARDS
+                  <i className="fa-solid fa-mosque" /> HADITH &amp; ADHKAR
                 </span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-layer-group" /> FULL-STACK ARCHITECTURE
+                  <i className="fa-solid fa-compass" /> PRAYER TIMES &amp; QIBLA
                 </span>
               </div>
 
               <div className="project-detail-breakdown">
                 <div className="detail-item">
-                  <span className="detail-label">CONTEXT:</span> Developing responsive web applications, relational database schemas, and RESTful APIs in Python and Django to bridge BIM engineering workflows with real-time web access.
+                  <span className="detail-label">EXPERIENCE:</span> Read Quran text and Mushaf pages, explore Quranic roots, browse Hadith and Adhkar, and track learning progress.
+                </div>
+                <div className="detail-item">
+                  <span className="detail-label">INTEGRATIONS:</span> Quran text, translations, audio recitation, prayer-time data, and Qibla direction are brought together in one bilingual platform.
                 </div>
               </div>
 
               <div className="project-tech-stack-row">
                 <span className="tech-chip">Python</span>
-                <span className="tech-chip">Django REST Framework</span>
-                <span className="tech-chip">PostgreSQL</span>
-                <span className="tech-chip">SQL</span>
-                <span className="tech-chip">HTML5 / CSS3</span>
-                <span className="tech-chip">BIM &amp; IFC Standards</span>
+                <span className="tech-chip">Django</span>
+                <span className="tech-chip">JavaScript</span>
+                <span className="tech-chip">HTML &amp; CSS</span>
+                <span className="tech-chip">Bootstrap</span>
               </div>
 
               <div className="project-actions-row">
                 <a
-                  href="https://www.thebimpulse.com/"
+                  href="https://github.com/Abdellah-BELMAARIS/quran-site"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary"
-                  id="bimpulse-platform-link"
+                  id="github-btn-quran-site"
                 >
-                  Visit BIMPulse <span className="btn-arrow">↗</span>
+                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> View on GitHub <span className="btn-arrow">↗</span>
                 </a>
-                <span className="private-repo-note">
-                  <i className="fa-solid fa-lock" /> Enterprise Proprietary Work
-                </span>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* ─── 05 PERSONAL PROJECTS (Rule 17: Selected Projects vs Experiments) ─── */}
-        <section id="personal-projects" className="personal-projects-section">
-          {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
-            <span className="section-arch-code">05 / PERSONAL PROJECTS</span>
-            <div className="section-arch-line" />
-          </div>
-
-          <h2 className="section-title">Independent Engineering &amp; Experiments</h2>
-          <p className="section-intro">
-            Hands-on technical exploration, 3D WebAssembly architectures, and data engineering pipelines built outside client production boundaries.
-          </p>
-
-          <div className="personal-projects-grid">
-            {PERSONAL_PROJECTS.map((proj, idx) => (
-              <motion.div
-                key={proj.id}
-                className="personal-project-card"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-              >
-                <div className="personal-header">
-                  <span className="personal-kicker">SELECTED PROJECT</span>
-                  <h3 className="personal-title">{proj.title}</h3>
-                </div>
-
-                <p className="personal-desc">{proj.desc}</p>
-
-                <div className="personal-metrics">
-                  {proj.metrics.map((m, mIdx) => (
-                    <span className="personal-metric-chip" key={mIdx}>
-                      <i className="fa-solid fa-circle-check" /> {m}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="personal-tech">
-                  {proj.tech.map((t) => (
-                    <span className="tech-chip" key={t}>{t}</span>
-                  ))}
-                </div>
-
-                <div className="personal-actions">
-                  {proj.live && (
-                    <a
-                      href={proj.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-primary"
-                      id={`personal-live-${proj.id}`}
-                    >
-                      Play Live <span className="btn-arrow">↗</span>
-                    </a>
-                  )}
-                  {proj.github && (
-                    <a
-                      href={proj.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-secondary"
-                      id={`personal-github-${proj.id}`}
-                    >
-                      <i className="fa-brands fa-github" style={{ marginRight: '6px' }} /> GitHub
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Real-time GitHub Repositories */}
-          <div className="github-section-wrap" style={{ marginTop: '50px' }}>
-            <h3 className="github-subheading">
-              <i className="fa-brands fa-github" style={{ marginRight: '8px', color: 'var(--emerald-bright)' }} />
-              Live GitHub Activity
-            </h3>
-            {githubLoading ? (
-              <p className="github-state">Loading latest public repositories…</p>
-            ) : githubRepos.length > 0 ? (
-              <div className="github-grid">
-                {githubRepos.map((repo) => (
-                  <a
-                    className="github-repo-card"
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    key={repo.name}
-                  >
-                    <div className="github-repo-heading">
-                      <i className="fa-brands fa-github" />
-                      <i className="fa-solid fa-arrow-up-right-from-square" />
-                    </div>
-                    <h4>{repo.name}</h4>
-                    <p>{repo.description || 'Public development repository.'}</p>
-                    <div className="github-repo-meta">
-                      <span>{repo.language || 'Code'}</span>
-                      <span><i className="fa-solid fa-star" /> {repo.stargazers_count}</span>
-                      <span><i className="fa-solid fa-code-fork" /> {repo.forks_count}</span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            ) : (
-              <p className="github-state">
-                <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">
-                  Visit my full GitHub profile directly ↗
-                </a>
-              </p>
-            )}
-          </div>
-        </section>
-
-        {/* ─── 06 TECH STACK (Rule 18, 19: No Percentages, Clean Groups + Terminal) */}
+        {/* ─── 05 TECH STACK ────────────────────────────────────────────────── */}
         <section id="skills" className="tech-stack-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">06 / TECH STACK</span>
+            <span className="section-arch-code">05 / TECH STACK</span>
             <div className="section-arch-line" />
           </div>
 
@@ -1506,11 +1321,11 @@ export default function App() {
           </div>
         </section>
 
-        {/* ─── 07 CERTIFICATIONS (Rule 20: Clean Credentials List & Preview) ───── */}
+        {/* ─── 06 CERTIFICATIONS ───────────────────────────────────────────── */}
         <section id="certifications" className="credentials-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">07 / CREDENTIALS</span>
+            <span className="section-arch-code">06 / CREDENTIALS</span>
             <div className="section-arch-line" />
           </div>
 
@@ -1574,11 +1389,11 @@ export default function App() {
           </div>
         </section>
 
-        {/* ─── 08 CONTACT (Rule 29: Have an idea? LET'S BUILD SOMETHING MEANINGFUL) */}
+        {/* ─── 07 CONTACT ───────────────────────────────────────────────────── */}
         <section id="contact" className="contact-redesign-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">08 / CONTACT</span>
+            <span className="section-arch-code">07 / CONTACT</span>
             <div className="section-arch-line" />
           </div>
 

@@ -444,6 +444,7 @@ export default function ThreeBackground() {
 
   return (
     <div
+      id="bg-canvas"
       style={{
         position: 'fixed',
         top: 0,
@@ -453,8 +454,7 @@ export default function ThreeBackground() {
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden',
-        // Deep cinematic midnight-navy gradient (matching reference screenshot)
-        background: 'radial-gradient(ellipse 90% 70% at 70% 25%, #0b223a 0%, #071324 45%, #040912 100%)',
+        background: 'var(--scene-background)',
       }}
       aria-hidden="true"
     >
@@ -475,7 +475,7 @@ export default function ThreeBackground() {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse 85% 75% at 50% 35%, transparent 20%, rgba(3, 6, 10, 0.85) 90%)',
+          background: 'var(--scene-vignette)',
           pointerEvents: 'none',
         }}
       />
@@ -492,14 +492,14 @@ export default function ThreeBackground() {
           gap: '8px',
           padding: '6px 14px',
           borderRadius: '999px',
-          background: 'rgba(6, 15, 26, 0.75)',
-          border: '1px solid rgba(0, 229, 255, 0.25)',
+          background: 'var(--telemetry-background)',
+          border: '1px solid var(--telemetry-border)',
           backdropFilter: 'blur(8px)',
           fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
           fontSize: '0.72rem',
-          color: '#38bdf8',
+          color: 'var(--telemetry-text)',
           letterSpacing: '0.5px',
-          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4)',
+          boxShadow: 'var(--telemetry-shadow)',
           pointerEvents: 'auto',
           userSelect: 'none',
         }}
@@ -510,14 +510,14 @@ export default function ThreeBackground() {
             width: '7px',
             height: '7px',
             borderRadius: '50%',
-            background: '#00e5ff',
-            boxShadow: '0 0 8px #00e5ff',
+            background: 'var(--cyan-bright)',
+            boxShadow: '0 0 8px var(--cyan-bright)',
             display: 'inline-block',
             animation: 'pulse 2s infinite',
           }}
         />
         <span>AI Neural Mesh</span>
-        <span style={{ color: '#10b981', fontWeight: 600 }}>[Dynamic]</span>
+        <span style={{ color: 'var(--emerald)', fontWeight: 600 }}>[Dynamic]</span>
       </div>
     </div>
   );
