@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import ThreeBackground from './components/ThreeBackground';
 import CaseStudyModal from './components/CaseStudyModal';
 import AiDevTerminal from './components/AiDevTerminal';
@@ -170,41 +170,31 @@ const PROJECT_IMAGES = [
 // ─── Loading Screen Component (Rule 32: Fast, intentional intro) ─────────────
 
 function LoadingScreen({ onFinish }: { onFinish: () => void }) {
-  const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState<'loading' | 'done'>('loading');
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const steps = [15, 35, 60, 85, 100];
-    let idx = 0;
-    const interval = setInterval(() => {
-      if (idx < steps.length) {
-        setProgress(steps[idx]);
-        idx++;
-      } else {
-        clearInterval(interval);
-        setPhase('done');
-        setTimeout(onFinish, 400);
-      }
-    }, 180);
-    return () => clearInterval(interval);
-  }, [onFinish]);
+    const timer = window.setTimeout(onFinish, reduceMotion ? 200 : 1150);
+    return () => window.clearTimeout(timer);
+  }, [onFinish, reduceMotion]);
 
   return (
     <motion.div
       className="loading-screen"
+      role="status"
+      aria-label="Opening Abdellah Belmaaris portfolio"
       initial={{ opacity: 1 }}
-      animate={{ opacity: phase === 'done' ? 0 : 1 }}
-      transition={{ duration: 0.4 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: reduceMotion ? 0 : 0.25 }}
     >
       <div className="loading-content">
         <motion.div
           className="loading-logo"
-          initial={{ opacity: 0, y: -15 }}
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
           <span className="loading-logo-ab">AB</span>
-          <span className="loading-logo-dot" />
+          <span className="loading-logo-dot" aria-hidden="true" />
         </motion.div>
         <motion.p
           className="loading-name"
@@ -215,19 +205,19 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
           ABDELLAH BELMAARIS
         </motion.p>
         <motion.span
-          style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--emerald-bright)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '16px', display: 'block' }}
+          className="loading-role"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.4 }}
         >
           Junior Full-Stack Developer • BIMPulse
         </motion.span>
-        <div className="loading-bar-wrapper">
+        <div className="loading-bar-wrapper" aria-hidden="true">
           <motion.div
             className="loading-bar-fill"
-            initial={{ width: '0%' }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            initial={{ scaleX: reduceMotion ? 1 : 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: reduceMotion ? 0 : 0.95, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
       </div>
@@ -280,7 +270,9 @@ function StatCard({ stat, isVisible }: { stat: Stat; isVisible: boolean }) {
 // ─── Main Application Component ───────────────────────────────────────────────
 
 export default function App() {
+  const reduceMotion = useReducedMotion();
   const [isLoading, setIsLoading] = useState(true);
+  const finishIntro = useCallback(() => setIsLoading(false), []);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [menuActive, setMenuActive] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -478,7 +470,7 @@ export default function App() {
 
       {/* Loading Splash Screen (Rule 32) */}
       <AnimatePresence>
-        {isLoading && <LoadingScreen onFinish={() => setIsLoading(false)} />}
+        {isLoading && <LoadingScreen onFinish={finishIntro} />}
       </AnimatePresence>
 
       {/* 3D WebGL Background: Cinematic BIM wireframes, emerald glow, subtle particles (Rule 4, 5, 6) */}
@@ -865,13 +857,41 @@ export default function App() {
             </div>
           </div>
 
-          <aside className="professional-mention" aria-labelledby="mention-title">
-            <span className="section-arch-code">LINKEDIN / PROFESSIONAL RECOGNITION</span>
-            <h3 id="mention-title">Contributing to BIMPulse Academy</h3>
-            <p>In LinkedIn posts about the platform's development and launch, Abdelhamid BELMAARIS acknowledged my contribution to BIMPulse Academy, a learning platform for AECO professionals.</p>
-            <p className="mention-attribution">Abdelhamid BELMAARIS · Civil engineer and BIM professional</p>
-            <a href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">View my LinkedIn profile <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></a>
-          </aside>
+          <motion.aside
+            className="professional-mention"
+            aria-labelledby="mention-title"
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.08 } } }}
+          >
+            <motion.div
+              className="mention-heading"
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: reduceMotion ? 0 : 0.35 }}
+            >
+              <span className="mention-network-icon" aria-hidden="true"><i className="fa-brands fa-linkedin-in" /></span>
+              <div>
+                <span className="section-arch-code">LINKEDIN MENTIONS</span>
+                <h3 id="mention-title">Contributing to BIMPulse Academy</h3>
+              </div>
+            </motion.div>
+            <motion.p
+              className="mention-summary"
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: reduceMotion ? 0 : 0.35 }}
+            >
+              In LinkedIn posts about the platform's development and launch, Abdelhamid BELMAARIS acknowledged my contribution to BIMPulse Academy, a learning platform for AECO professionals.
+            </motion.p>
+            <motion.div
+              className="mention-footer"
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: reduceMotion ? 0 : 0.35 }}
+            >
+              <p className="mention-attribution"><strong>Abdelhamid BELMAARIS</strong><span>Civil engineer and BIM professional</span></p>
+              <a className="mention-profile-link" href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">View my LinkedIn profile <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></a>
+            </motion.div>
+          </motion.aside>
 
           {/* Large Flagship BIMPulse Card (Rule 10, 11) */}
           <motion.div
