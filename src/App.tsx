@@ -1,6 +1,6 @@
 import { t as translateText } from './i18n';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 import ThreeBackground from './components/ThreeBackground';
 import CaseStudyModal from './components/CaseStudyModal';
 import AiDevTerminal from './components/AiDevTerminal';
@@ -339,6 +339,14 @@ export default function App() {
   const language = useLanguage();
   const reduceMotion = useReducedMotion();
   const [isLoading, setIsLoading] = useState(true);
+
+  // Professional physics-based scroll progress reading indicator
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001
+  });
   const finishIntro = useCallback(() => {
     setIsLoading(false);
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -547,22 +555,45 @@ export default function App() {
     setIsSubmitting(true);
     setFormStatus({ type: 'info', text: 'Sending message…' });
 
+    const payload = {
+      name: formName.trim(),
+      email: formEmail.trim(),
+      message: formMessage.trim(),
+      _subject: `Portfolio contact from ${formName.trim()}`,
+      _replyto: formEmail.trim(),
+      source: 'abdellah-belmaaris.github.io'
+    };
+
     try {
-      // 1. Primary Direct Web Endpoint
+      // 1. Direct Gmail SMTP API endpoint (Active via local Vite server & serverless proxy)
+      try {
+        const smtpRes = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+        if (smtpRes.ok) {
+          setFormStatus({ type: 'success', text: 'Message sent successfully! I will reply shortly.' });
+          setFormName('');
+          setFormEmail('');
+          setFormMessage('');
+          return;
+        }
+      } catch {
+        // Fall back to direct web delivery
+      }
+
+      // 2. Direct Web Endpoint (ShipMyForm)
       const response = await fetch('https://shipmyform.com/to/obaidbelmaaris@gmail.com', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: formName.trim(),
-          email: formEmail.trim(),
-          message: formMessage.trim(),
-          _subject: `Portfolio contact from ${formName.trim()}`,
-          _replyto: formEmail.trim(),
-          source: 'abdellah-belmaaris.github.io'
-        })
+        body: JSON.stringify(payload)
       });
 
       if (response.ok) {
@@ -573,19 +604,14 @@ export default function App() {
         return;
       }
 
-      // 2. Secondary Direct Endpoint
+      // 3. Secondary Direct Endpoint
       const fbResponse = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: formName.trim(),
-          email: formEmail.trim(),
-          message: formMessage.trim(),
-          _subject: `Portfolio inquiry from ${formName.trim()}`
-        })
+        body: JSON.stringify(payload)
       });
 
       if (fbResponse.ok) {
@@ -630,6 +656,9 @@ export default function App() {
 
   return (
     <>
+      {/* Top Global Scroll Progress Bar for All Devices */}
+      <motion.div className="global-scroll-progress-bar" style={{ scaleX }} />
+
       <a className="skip-link" href="#main-content">{translateText("Skip to main content")}</a>
 
       {/* Loading Splash Screen (Rule 32) */}

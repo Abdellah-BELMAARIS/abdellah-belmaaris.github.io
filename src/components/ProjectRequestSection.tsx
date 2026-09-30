@@ -23,6 +23,45 @@ const TIMELINE_OPTIONS = [
   'Flexible'
 ];
 
+export interface ClientTypeOption {
+  id: string;
+  title: string;
+  badge: string;
+  desc: string;
+  icon: string;
+}
+
+export const CLIENT_TYPES: ClientTypeOption[] = [
+  {
+    id: 'company',
+    title: 'Company / Business',
+    badge: 'Enterprise',
+    desc: 'Business platforms, internal systems, corporate websites & dashboards',
+    icon: 'fa-solid fa-building'
+  },
+  {
+    id: 'startup',
+    title: 'Startup / Founder',
+    badge: 'MVP & Launch',
+    desc: 'Rapid prototype, SaaS platform, product MVP & full-stack development',
+    icon: 'fa-solid fa-rocket'
+  },
+  {
+    id: 'personal',
+    title: 'Personal / Individual',
+    badge: 'Individual',
+    desc: 'Portfolios, personal branding, creator projects & bespoke tools',
+    icon: 'fa-solid fa-user'
+  },
+  {
+    id: 'agency',
+    title: 'Agency / Partner',
+    badge: 'Collaboration',
+    desc: 'White-label development, freelance subcontracting & client overflow',
+    icon: 'fa-solid fa-handshake'
+  }
+];
+
 export default function ProjectRequestSection({
   selectedServices,
   onToggleService,
@@ -44,6 +83,7 @@ export default function ProjectRequestSection({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
+  const [clientType, setClientType] = useState('company');
   const [description, setDescription] = useState('');
   const [budget, setBudget] = useState('Not sure yet');
   const [timeline, setTimeline] = useState('Within 1 month');
@@ -54,11 +94,14 @@ export default function ProjectRequestSection({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedSummary, setCopiedSummary] = useState(false);
 
   // Stored submission preview for confirmation screen
   const [submittedData, setSubmittedData] = useState<{
     name: string;
     email: string;
+    company: string;
+    clientType: string;
     services: string[];
     timeline: string;
     budget: string;
@@ -91,6 +134,7 @@ export default function ProjectRequestSection({
     setIsSubmitting(true);
     setErrorMessage(null);
 
+    const currentClientTypeObj = CLIENT_TYPES.find((c) => c.id === clientType) || CLIENT_TYPES[0];
     const primarySubjectService = selectedServices[0] || 'Client Inquiry';
     const servicesListText = selectedServices.map((s) => `✓ ${s}`).join('\n');
 
@@ -101,6 +145,7 @@ CLIENT
 Name: ${name.trim()}
 Email: ${email.trim()}
 Company: ${company.trim() || 'None specified'}
+Profile / Entity: ${currentClientTypeObj.title} (${currentClientTypeObj.badge})
 
 SERVICES
 ${servicesListText}
@@ -118,33 +163,65 @@ SOURCE
 abdellah-belmaaris.github.io
 `.trim();
 
+    const payload = {
+      name: name.trim(),
+      email: email.trim(),
+      company: company.trim() || 'Not specified',
+      clientType: currentClientTypeObj.title,
+      services: selectedServices.join(', '),
+      timeline,
+      budget,
+      description: description.trim(),
+      _subject: `New Portfolio Project Request — ${primarySubjectService} [${currentClientTypeObj.badge}]`,
+      _replyto: email.trim(),
+      source: 'abdellah-belmaaris.github.io',
+      summary: formattedSummary
+    };
+
     try {
-      // 1. Primary Direct Web Endpoint
+      // 1. Direct Gmail SMTP API endpoint (Active via local Vite server & serverless proxy)
+      try {
+        const smtpRes = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+        if (smtpRes.ok) {
+          setSubmittedData({
+            name: name.trim(),
+            email: email.trim(),
+            company: company.trim() || 'Not specified',
+            clientType: currentClientTypeObj.title,
+            services: [...selectedServices],
+            timeline,
+            budget
+          });
+          setIsSubmitted(true);
+          return;
+        }
+      } catch {
+        // Fall back to direct web delivery
+      }
+
+      // 2. Direct Web Delivery Endpoint (ShipMyForm)
       const response = await fetch('https://shipmyform.com/to/obaidbelmaaris@gmail.com', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim(),
-          company: company.trim() || 'Not specified',
-          services: selectedServices.join(', '),
-          timeline,
-          budget,
-          description: description.trim(),
-          _subject: `New Portfolio Project Request — ${primarySubjectService}`,
-          _replyto: email.trim(),
-          source: 'abdellah-belmaaris.github.io',
-          summary: formattedSummary
-        })
+        body: JSON.stringify(payload)
       });
 
       if (response.ok) {
         setSubmittedData({
           name: name.trim(),
           email: email.trim(),
+          company: company.trim() || 'Not specified',
+          clientType: currentClientTypeObj.title,
           services: [...selectedServices],
           timeline,
           budget
@@ -153,31 +230,22 @@ abdellah-belmaaris.github.io
         return;
       }
 
-      // 2. Secondary Direct Endpoint
+      // 3. Secondary Direct Endpoint
       const fbResponse = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          _subject: `New Portfolio Project Request — ${primarySubjectService}`,
-          _replyto: email.trim(),
-          name: name.trim(),
-          email: email.trim(),
-          company: company.trim() || 'Not specified',
-          services: selectedServices.join(', '),
-          timeline,
-          budget,
-          description: description.trim(),
-          summary: formattedSummary
-        })
+        body: JSON.stringify(payload)
       });
 
       if (fbResponse.ok) {
         setSubmittedData({
           name: name.trim(),
           email: email.trim(),
+          company: company.trim() || 'Not specified',
+          clientType: currentClientTypeObj.title,
           services: [...selectedServices],
           timeline,
           budget
@@ -192,6 +260,8 @@ abdellah-belmaaris.github.io
       setSubmittedData({
         name: name.trim(),
         email: email.trim(),
+        company: company.trim() || 'Not specified',
+        clientType: currentClientTypeObj.title,
         services: [...selectedServices],
         timeline,
         budget
@@ -375,6 +445,44 @@ abdellah-belmaaris.github.io
                   />
                 </div>
 
+                {/* Freelance Target Client Profile (Company, Startup, Personal, Agency) */}
+                <div className="form-field-wrapper client-profile-wrapper">
+                  <div className="services-selector-header">
+                    <label className="form-label">
+                      <i className="fa-solid fa-user-tag" style={{ color: 'var(--cyan-bright)', marginRight: '8px' }} />
+                      {translateText("WHO IS THIS PROJECT FOR?")} <span className="req-star">*</span>
+                    </label>
+                    <span className="services-hint">
+                      {translateText("Select your profile / entity type")}
+                    </span>
+                  </div>
+
+                  <div className="client-types-grid" role="radiogroup" aria-label={translateText("Client type selector")}>
+                    {CLIENT_TYPES.map((type) => {
+                      const isActive = clientType === type.id;
+                      return (
+                        <button
+                          key={type.id}
+                          type="button"
+                          role="radio"
+                          aria-checked={isActive}
+                          className={`client-type-card ${isActive ? 'active' : ''}`}
+                          onClick={() => setClientType(type.id)}
+                        >
+                          <div className="client-type-header">
+                            <div className="client-type-icon">
+                              <i className={type.icon} />
+                            </div>
+                            <span className="client-type-badge">{translateText(type.badge)}</span>
+                          </div>
+                          <h4 className="client-type-name">{translateText(type.title)}</h4>
+                          <p className="client-type-desc">{translateText(type.desc)}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 {/* What service do you need? (Checkboxes / Multi-select) */}
                 <div className="form-field-wrapper">
                   <div className="services-selector-header">
@@ -529,6 +637,20 @@ abdellah-belmaaris.github.io
                     </div>
 
                     <div className="summary-field">
+                      <span className="summary-label">{translateText("CLIENT TYPE")}:</span>
+                      <span className="summary-value" style={{ color: 'var(--cyan-bright)', fontWeight: 600 }}>
+                        {submittedData.clientType}
+                      </span>
+                    </div>
+
+                    {submittedData.company && submittedData.company !== 'None specified' && (
+                      <div className="summary-field">
+                        <span className="summary-label">{translateText("COMPANY / ORGANIZATION")}:</span>
+                        <span className="summary-value">{submittedData.company}</span>
+                      </div>
+                    )}
+
+                    <div className="summary-field">
                       <span className="summary-label">{translateText("SERVICES")}:</span>
                       <div className="summary-services-list">
                         {submittedData.services.map((s) => (
@@ -560,6 +682,19 @@ abdellah-belmaaris.github.io
                     }}
                   >
                     {translateText("Back to portfolio")}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => {
+                      const text = `Client: ${submittedData?.name} (${submittedData?.email})\nProfile: ${submittedData?.clientType}\nCompany: ${submittedData?.company || 'None'}\nServices: ${submittedData?.services.join(', ')}\nTimeline: ${submittedData?.timeline}\nBudget: ${submittedData?.budget}`;
+                      navigator.clipboard.writeText(text);
+                      setCopiedSummary(true);
+                      setTimeout(() => setCopiedSummary(false), 2500);
+                    }}
+                  >
+                    <i className={copiedSummary ? "fa-solid fa-check" : "fa-regular fa-copy"} style={{ marginRight: '6px' }} />
+                    {copiedSummary ? translateText("Message copied to clipboard! ✓") : translateText("Copy Message")}
                   </button>
                   <a
                     href="#work"
