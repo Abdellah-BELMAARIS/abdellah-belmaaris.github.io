@@ -254,10 +254,16 @@ function useAnimatedCounter(target: number, isVisible: boolean, duration = 1400)
   return count;
 }
 
-function StatCard({ stat, isVisible }: { stat: Stat; isVisible: boolean }) {
+function StatCard({ stat, isVisible, index }: { stat: Stat; isVisible: boolean; index: number }) {
   const count = useAnimatedCounter(stat.value, isVisible);
   return (
-    <div className="stat-card">
+    <motion.div
+      className="stat-card"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="stat-icon">
         <i className={stat.icon} />
       </div>
@@ -265,7 +271,7 @@ function StatCard({ stat, isVisible }: { stat: Stat; isVisible: boolean }) {
         {translateText(count)}{translateText(stat.suffix)}
       </div>
       <div className="stat-label">{translateText(stat.label)}</div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -275,7 +281,39 @@ export default function App() {
   const language = useLanguage();
   const reduceMotion = useReducedMotion();
   const [isLoading, setIsLoading] = useState(true);
-  const finishIntro = useCallback(() => setIsLoading(false), []);
+  const finishIntro = useCallback(() => {
+    setIsLoading(false);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    });
+  }, []);
+
+  const reveal = useCallback(
+    (delay = 0, y = 20) =>
+      reduceMotion
+        ? {}
+        : {
+            initial: { opacity: 0, y },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true, amount: 0.15 },
+            transition: { duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }
+          },
+    [reduceMotion]
+  );
+
+  // Always start at top of page on load / refresh / tab enter
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, 25);
+    return () => clearTimeout(timer);
+  }, []);
+
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [menuActive, setMenuActive] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -737,12 +775,12 @@ export default function App() {
         {/* ─── 03 FEATURED WORK SECTION (Rule 13, 14, 15, 16, 17) ──────────────── */}
         <section id="work" className="work-section">
           {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
+          <motion.div className="section-arch-divider" {...reveal(0, 14)}>
             <span className="section-arch-code">{translateText("03 / SELECTED WORK")}</span>
             <div className="section-arch-line" />
-          </div>
+          </motion.div>
 
-          <h2 className="section-title">{translateText("Projects built to solve real problems.")}</h2>
+          <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("Projects built to solve real problems.")}</motion.h2>
 
           <div className="featured-work-grid">
             {/* Project 01: School Management System */}
@@ -959,13 +997,13 @@ export default function App() {
         {/* ─── 03 PERSONAL PROJECTS (Rule 17: Selected Projects vs Experiments) ─── */}
         <section id="personal-projects" className="personal-projects-section">
           {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
+          <motion.div className="section-arch-divider" {...reveal(0, 14)}>
             <span className="section-arch-code">{translateText("03 / PERSONAL PROJECTS")}</span>
             <div className="section-arch-line" />
-          </div>
+          </motion.div>
 
-          <h2 className="section-title">{translateText("Independent Engineering & Experiments")}</h2>
-          <p className="section-intro">{translateText("Hands-on technical exploration, 3D WebAssembly architectures, and data engineering pipelines built outside client production boundaries.")}</p>
+          <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("Independent Engineering & Experiments")}</motion.h2>
+          <motion.p className="section-intro" {...reveal(0.1, 18)}>{translateText("Hands-on technical exploration, 3D WebAssembly architectures, and data engineering pipelines built outside client production boundaries.")}</motion.p>
 
           <div className="personal-projects-grid">
             {PERSONAL_PROJECTS.map((proj, idx) => (
@@ -1026,19 +1064,20 @@ export default function App() {
 
           {/* Real-time GitHub Repositories */}
           <div className="github-section-wrap" style={{ marginTop: '50px' }}>
-            <h3 className="github-subheading">
-              <i className="fa-brands fa-github" style={{ marginRight: '8px', color: 'var(--emerald-bright)' }} />{translateText("Live GitHub Activity")}</h3>
+            <motion.h3 className="github-subheading" {...reveal(0.06, 16)}>
+              <i className="fa-brands fa-github" style={{ marginRight: '8px', color: 'var(--emerald-bright)' }} />{translateText("Live GitHub Activity")}</motion.h3>
             {translateText(githubLoading ? (
               <p className="github-state">{translateText('Loading latest public repositories…')}</p>
             ) : githubRepos.length > 0 ? (
               <div className="github-grid">
-                {githubRepos.map((repo) => (
-                  <a
+                {githubRepos.map((repo, rIdx) => (
+                  <motion.a
                     className="github-repo-card"
                     href={repo.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     key={repo.name}
+                    {...reveal(rIdx * 0.08, 20)}
                   >
                     <div className="github-repo-heading">
                       <i className="fa-brands fa-github" />
@@ -1051,7 +1090,7 @@ export default function App() {
                       <span><i className="fa-solid fa-star" /> {repo.stargazers_count}</span>
                       <span><i className="fa-solid fa-code-fork" /> {repo.forks_count}</span>
                     </div>
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             ) : (
@@ -1067,12 +1106,12 @@ export default function App() {
         {/* ─── 04 ABOUT SECTION (Rule 8 & 9: Exact Copy & 3 Facts) ─────────────── */}
         <section id="about" className="about-section">
           {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
+          <motion.div className="section-arch-divider" {...reveal(0, 14)}>
             <span className="section-arch-code">{translateText("04 / ABOUT")}</span>
             <div className="section-arch-line" />
-          </div>
+          </motion.div>
 
-          <h2 className="section-title">{translateText("Who I am")}</h2>
+          <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("Who I am")}</motion.h2>
 
           <div className="about-two-col-layout">
             {/* Left Column: Abstract Architectural & Code Motif */}
@@ -1181,7 +1220,7 @@ export default function App() {
           {/* Animated Numeric Metrics Row */}
           <div className="stats-row" ref={statsRef}>
             {STATS_DATA.map((stat, idx) => (
-              <StatCard key={idx} stat={stat} isVisible={statsVisible} />
+              <StatCard key={idx} stat={stat} isVisible={statsVisible} index={idx} />
             ))}
           </div>
         </section>
@@ -1189,15 +1228,15 @@ export default function App() {
         {/* ─── 05 EXPERIENCE SECTION (Rule 10, 11, 12: Visual Junction & Copy) ── */}
         <section id="experience" className="experience-section">
           {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
+          <motion.div className="section-arch-divider" {...reveal(0, 14)}>
             <span className="section-arch-code">{translateText("05 / EXPERIENCE")}</span>
             <div className="section-arch-line" />
-          </div>
+          </motion.div>
 
-          <h2 className="section-title">{translateText("PROFESSIONAL EXPERIENCE")}</h2>
+          <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("PROFESSIONAL EXPERIENCE")}</motion.h2>
 
           {/* Architectural Visual Junction Diagram (Rule 10) */}
-          <div className="exp-junction-container" aria-label={translateText("Professional Position Diagram")}>
+          <motion.div className="exp-junction-container" aria-label={translateText("Professional Position Diagram")} {...reveal(0.08, 22)}>
             <div className="exp-junction-diagram">
               <div className="junction-vertical-top">{translateText("SOFTWARE")}</div>
               <div className="junction-stem-top" />
@@ -1212,14 +1251,14 @@ export default function App() {
               <div className="junction-vertical-bottom">{translateText("ENGINEERING / AEC")}</div>
             </div>
             <div className="junction-caption">{translateText("Junior Full-Stack Developer operating at the intersection of web architecture and AEC digital transformation")}</div>
-          </div>
+          </motion.div>
 
           <motion.aside
             className="professional-mention"
             aria-labelledby="mention-title"
             initial={reduceMotion ? false : 'hidden'}
             whileInView="visible"
-            viewport={{ once: true, amount: 0.25, margin: '-80px 0px -40px 0px' }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={{ hidden: {}, visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.08 } } }}
           >
             <motion.div
@@ -1286,7 +1325,7 @@ export default function App() {
             </div>
 
             {/* BIMPulse Academy Addition (Rule 12) */}
-            <div className="bimpulse-academy-callout">
+            <motion.div className="bimpulse-academy-callout" {...reveal(0.12, 18)}>
               <div className="callout-header">
                 <span className="callout-label">{translateText("PROFESSIONAL WORK / 01")}</span>
                 <h4 className="callout-title">{translateText("BIMPulse Academy")}</h4>
@@ -1297,7 +1336,7 @@ export default function App() {
                 <span className="mini-tag">{translateText("BIM & IFC Standards")}</span>
                 <span className="mini-tag">{translateText("Digital Solutions")}</span>
               </div>
-            </div>
+            </motion.div>
 
             <div className="exp-actions-row">
               <a

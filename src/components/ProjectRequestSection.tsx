@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { t as translateText } from '../i18n';
 import { SERVICES_DATA } from './ServicesSection';
 
@@ -28,6 +28,18 @@ export default function ProjectRequestSection({
   onToggleService,
   onClearServices
 }: ProjectRequestSectionProps) {
+  const reduceMotion = useReducedMotion();
+
+  const reveal = (delay = 0, y = 18) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, amount: 0.15 },
+          transition: { duration: 0.48, delay, ease: [0.22, 1, 0.36, 1] }
+        };
+
   // Form State
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -164,12 +176,12 @@ abdellah-belmaaris.github.io
   return (
     <section id="request-project" className="request-project-section">
       {/* Architectural Line Transition */}
-      <div className="section-arch-divider">
+      <motion.div className="section-arch-divider" {...reveal(0, 14)}>
         <span className="section-arch-code">{translateText("08 / START A PROJECT")}</span>
         <div className="section-arch-line" />
-      </div>
+      </motion.div>
 
-      <div className="request-header-row">
+      <motion.div className="request-header-row" {...reveal(0.06, 20)}>
         <div>
           <span className="services-kicker">{translateText("REQUEST A SERVICE")}</span>
           <h2 className="section-title">{translateText("Have a project in mind?")}</h2>
@@ -177,12 +189,12 @@ abdellah-belmaaris.github.io
         <p className="request-lead-text">
           {translateText("Tell me what you're looking for and I'll get back to you.")}
         </p>
-      </div>
+      </motion.div>
 
       <div className="request-layout-grid">
         {/* Left Side: Client Benefits & Direct Contacts */}
         <div className="request-info-column">
-          <div className="request-guarantee-card">
+          <motion.div className="request-guarantee-card" {...reveal(0.1, 22)}>
             <div className="guarantee-icon">
               <i className="fa-solid fa-handshake-angle" />
             </div>
@@ -211,9 +223,9 @@ abdellah-belmaaris.github.io
                 <span>{translateText("Rapid turnaround with response under 24 hours")}</span>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
-          <div className="request-availability-card">
+          <motion.div className="request-availability-card" {...reveal(0.18, 22)}>
             <div className="availability-status">
               <span className="status-live-dot" />
               <span>{translateText("Accepting New Projects & Remote Contracts")}</span>
@@ -226,11 +238,11 @@ abdellah-belmaaris.github.io
               <i className="fa-solid fa-location-dot" />
               <span>{translateText("Casablanca, Morocco • Available Worldwide")}</span>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Right Side: Interactive Project Request Form or Confirmation */}
-        <div className="request-form-column">
+        <motion.div className="request-form-column" {...reveal(0.12, 22)}>
           <AnimatePresence mode="wait">
             {!isSubmitted ? (
               <motion.form
@@ -513,7 +525,7 @@ abdellah-belmaaris.github.io
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

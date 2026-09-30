@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { t as translateText } from '../i18n';
 
 export interface ServiceItem {
@@ -93,15 +93,27 @@ export default function ServicesSection({
   onToggleService,
   onRequestService
 }: ServicesSectionProps) {
+  const reduceMotion = useReducedMotion();
+
+  const reveal = (delay = 0, y = 18) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, amount: 0.15 },
+          transition: { duration: 0.48, delay, ease: [0.22, 1, 0.36, 1] }
+        };
+
   return (
     <section id="services" className="services-section">
       {/* Architectural Line Transition */}
-      <div className="section-arch-divider">
+      <motion.div className="section-arch-divider" {...reveal(0, 14)}>
         <span className="section-arch-code">{translateText("02 / SERVICES")}</span>
         <div className="section-arch-line" />
-      </div>
+      </motion.div>
 
-      <div className="services-header-row">
+      <motion.div className="services-header-row" {...reveal(0.06, 20)}>
         <div>
           <span className="services-kicker">{translateText("WHAT I CAN BUILD FOR YOU")}</span>
           <h2 className="section-title">{translateText("Services & Technical Solutions")}</h2>
@@ -111,7 +123,7 @@ export default function ServicesSection({
             "Client-focused web development, custom software, and digital platforms. Select one or more services to receive a tailored project proposal."
           )}
         </p>
-      </div>
+      </motion.div>
 
       {/* Services Grid */}
       <div className="services-cards-grid">

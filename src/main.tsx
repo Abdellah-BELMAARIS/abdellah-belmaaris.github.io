@@ -15,6 +15,8 @@ function startAtTop() {
 
 startAtTop()
 window.addEventListener('pageshow', startAtTop)
+window.addEventListener('DOMContentLoaded', startAtTop)
+window.addEventListener('load', startAtTop)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
