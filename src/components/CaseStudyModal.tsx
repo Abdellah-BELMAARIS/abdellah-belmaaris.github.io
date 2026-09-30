@@ -1,3 +1,4 @@
+import { t as translateText } from '../i18n';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -6,7 +7,59 @@ interface CaseStudyModalProps {
   onClose: () => void;
 }
 
-type TabType = 'architecture' | 'performance' | 'workflow';
+type TabType = 'architecture' | 'performance' | 'workflow' | 'gallery';
+
+interface CaseStudyGalleryItem {
+  num: string;
+  label: string;
+  title: string;
+  badge: string;
+  img: string;
+  desc: string;
+}
+
+const CASE_STUDY_GALLERY: CaseStudyGalleryItem[] = [
+  {
+    num: '01',
+    label: 'Journal 1',
+    title: 'About & Platform Vision',
+    badge: 'Platform Vision',
+    img: 'assets/journal1.png',
+    desc: 'Platform mission, architectural standards, verified quality benchmarks, and modern UI values.'
+  },
+  {
+    num: '02',
+    label: 'Journal 2',
+    title: 'Author & Content Dashboard',
+    badge: 'Telemetry & CRUD',
+    img: 'assets/journal2.png',
+    desc: 'Full-featured user dashboard with live telemetry (Total Users, Posts, Views, Subscribers) and post management table.'
+  },
+  {
+    num: '03',
+    label: 'Journal 3',
+    title: 'Platform Homepage & Featured Insights',
+    badge: 'Storefront',
+    img: 'assets/journal3.png',
+    desc: 'Main storefront showcasing hero search bar, dark/light theme toggle, and curated multi-tag insight cards.'
+  },
+  {
+    num: '04',
+    label: 'Journal 4',
+    title: 'Explore Portal & Trending Topics',
+    badge: 'Content Discovery',
+    img: 'assets/journal4.png',
+    desc: 'Explore discovery feed with most viewed stories banner, trending articles, and dynamic topic filter chips.'
+  },
+  {
+    num: '05',
+    label: 'Journal 5',
+    title: 'Article Reading Experience & Author Bio',
+    badge: 'Reader Experience',
+    img: 'assets/journal5.png',
+    desc: 'Rich typographical article reading layout with live like counter, author bio card, and recommended reading sidebar.'
+  }
+];
 
 export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps) {
   const [activeTab, setActiveTab] = useState<TabType>('architecture');
@@ -35,13 +88,11 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
           {/* Header */}
           <div className="case-study-header">
             <div className="case-study-title-area">
-              <span className="case-study-overline">Featured Project Deep Dive</span>
+              <span className="case-study-overline">{translateText("Featured Project Deep Dive")}</span>
               <h3 className="case-study-title">
-                <i className="fa-solid fa-gears" style={{ color: 'var(--accent)', marginRight: '10px' }}></i>
-                The Modern Journal — Engineering Case Study
-              </h3>
+                <i className="fa-solid fa-gears" style={{ color: 'var(--accent)', marginRight: '10px' }}></i>{translateText("The Modern Journal — Engineering Case Study")}</h3>
             </div>
-            <button className="case-study-close" onClick={onClose} aria-label="Close case study" id="case-study-close-btn">
+            <button className="case-study-close" onClick={onClose} aria-label={translateText("Close case study")} id="case-study-close-btn">
               <i className="fa-solid fa-xmark"></i>
             </button>
           </div>
@@ -51,7 +102,8 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
             {[
               { id: 'architecture', label: 'System & Data Architecture', icon: 'fa-solid fa-sitemap' },
               { id: 'performance', label: 'Security & Performance', icon: 'fa-solid fa-shield-halved' },
-              { id: 'workflow', label: 'CI/CD & DevOps Workflow', icon: 'fa-solid fa-terminal' }
+              { id: 'workflow', label: 'CI/CD & DevOps Workflow', icon: 'fa-solid fa-terminal' },
+              { id: 'gallery', label: 'Platform Gallery (5 Views)', icon: 'fa-solid fa-images' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -60,7 +112,7 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
                 id={`case-study-tab-${tab.id}`}
               >
                 <i className={`${tab.icon}`} style={{ marginRight: '8px' }}></i>
-                {tab.label}
+                {translateText(tab.label)}
               </button>
             ))}
           </div>
@@ -77,11 +129,8 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
               >
                 <div className="pane-section">
                   <h4 className="pane-section-title">
-                    <i className="fa-solid fa-network-wired" style={{ color: 'var(--accent)' }}></i> System Architecture Flow
-                  </h4>
-                  <p className="pane-section-desc">
-                    The platform follows a secure, decoupled monolithic pattern powered by Django. Below is the request-response lifecycle illustrating authorization verification, query optimization, and background tasks.
-                  </p>
+                    <i className="fa-solid fa-network-wired" style={{ color: 'var(--accent)' }}></i>{translateText(" System Architecture Flow")}</h4>
+                  <p className="pane-section-desc">{translateText("The platform follows a secure, decoupled monolithic pattern powered by Django. Below is the request-response lifecycle illustrating authorization verification, query optimization, and background tasks.")}</p>
 
                   {/* SVG Architecture Flowchart */}
                   <div className="architecture-diagram-container">
@@ -147,11 +196,8 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
 
                 <div className="pane-section" style={{ marginTop: '25px' }}>
                   <h4 className="pane-section-title">
-                    <i className="fa-solid fa-database" style={{ color: 'var(--accent)' }}></i> Database Relational Schema
-                  </h4>
-                  <p className="pane-section-desc">
-                    The relational schema is structured to guarantee referential integrity and support advanced query filtering. Indexes are placed on search vectors, slug fields, and foreign keys.
-                  </p>
+                    <i className="fa-solid fa-database" style={{ color: 'var(--accent)' }}></i>{translateText(" Database Relational Schema")}</h4>
+                  <p className="pane-section-desc">{translateText("The relational schema is structured to guarantee referential integrity and support advanced query filtering. Indexes are placed on search vectors, slug fields, and foreign keys.")}</p>
 
                   <div className="schema-grid">
                     {[
@@ -179,19 +225,19 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
                       <div className="schema-card" key={model.name}>
                         <div className="schema-card-header">
                           <i className="fa-solid fa-table" style={{ color: 'var(--accent)', marginRight: '8px' }}></i>
-                          <span>{model.name}</span>
+                          <span>{translateText(model.name)}</span>
                         </div>
                         <div className="schema-card-body">
-                          <div className="schema-subtitle">Attributes</div>
+                          <div className="schema-subtitle">{translateText("Attributes")}</div>
                           <ul className="schema-list">
                             {model.fields.map((f) => (
-                              <li key={f} className={f.includes('(PK)') || f.includes('(FK)') ? 'highlight-attribute' : ''}>{f}</li>
+                              <li key={f} className={f.includes('(PK)') || f.includes('(FK)') ? 'highlight-attribute' : ''}>{translateText(f)}</li>
                             ))}
                           </ul>
-                          <div className="schema-subtitle" style={{ marginTop: '8px' }}>Relations</div>
+                          <div className="schema-subtitle" style={{ marginTop: '8px' }}>{translateText("Relations")}</div>
                           <ul className="schema-list-relations">
                             {model.relations.map((r) => (
-                              <li key={r}><i className="fa-solid fa-link" style={{ fontSize: '0.65rem', marginRight: '4px' }}></i> {r}</li>
+                              <li key={r}><i className="fa-solid fa-link" style={{ fontSize: '0.65rem', marginRight: '4px' }}></i> {translateText(r)}</li>
                             ))}
                           </ul>
                         </div>
@@ -212,17 +258,13 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
               >
                 <div className="pane-section">
                   <h4 className="pane-section-title">
-                    <i className="fa-solid fa-gauge-high" style={{ color: 'var(--accent)' }}></i> Resolving the N+1 Query Problem
-                  </h4>
-                  <p className="pane-section-desc">
-                    In database-driven applications, a common performance bottleneck is fetching related objects inside a loop, which executes $N$ extra queries for $N$ records. In Django, this was optimized using Eager Loading to execute exactly 1 query.
-                  </p>
+                    <i className="fa-solid fa-gauge-high" style={{ color: 'var(--accent)' }}></i>{translateText(" Resolving the N+1 Query Problem")}</h4>
+                  <p className="pane-section-desc">{translateText("In database-driven applications, a common performance bottleneck is fetching related objects inside a loop, which executes $N$ extra queries for $N$ records. In Django, this was optimized using Eager Loading to execute exactly 1 query.")}</p>
 
                   <div className="code-comparison-grid">
                     <div className="code-box naive">
                       <div className="code-box-header">
-                        <span className="bullet red"></span> Naive Approach (Produces N+1 Queries)
-                      </div>
+                        <span className="bullet red"></span>{translateText(" Naive Approach (Produces N+1 Queries)")}</div>
                       <pre className="code-content">
 {`# Retrieves posts, but triggers a database hit
 # for every single author and category in a loop.
@@ -237,8 +279,7 @@ for post in posts:
 
                     <div className="code-box optimized">
                       <div className="code-box-header">
-                        <span className="bullet green"></span> Optimized Approach (Constant O(1) Queries)
-                      </div>
+                        <span className="bullet green"></span>{translateText(" Optimized Approach (Constant O(1) Queries)")}</div>
                       <pre className="code-content">
 {`# Executes a SQL JOIN (select_related) and
 # an ID-in-list query (prefetch_related) upfront.
@@ -255,17 +296,13 @@ posts = Post.objects.filter(
                   </div>
                   <div className="performance-metric-callout">
                     <i className="fa-solid fa-chart-line" style={{ marginRight: '8px' }}></i>
-                    <strong>Performance Benefit:</strong> Reduced database roundtrips by <strong>70%</strong> and decreased server response time from 350ms to <strong>85ms</strong> on lists containing 20+ posts.
-                  </div>
+                    <strong>{translateText("Performance Benefit:")}</strong>{translateText(" Reduced database roundtrips by ")}<strong>70%</strong>{translateText(" and decreased server response time from 350ms to ")}<strong>{translateText("85ms")}</strong>{translateText(" on lists containing 20+ posts.")}</div>
                 </div>
 
                 <div className="pane-section" style={{ marginTop: '25px' }}>
                   <h4 className="pane-section-title">
-                    <i className="fa-solid fa-shield-halved" style={{ color: 'var(--accent)' }}></i> Security Architecture
-                  </h4>
-                  <p className="pane-section-desc">
-                    Integrating security best practices into the core development flow ensures data confidentiality and protection against common OWASP Top 10 vulnerabilities.
-                  </p>
+                    <i className="fa-solid fa-shield-halved" style={{ color: 'var(--accent)' }}></i>{translateText(" Security Architecture")}</h4>
+                  <p className="pane-section-desc">{translateText("Integrating security best practices into the core development flow ensures data confidentiality and protection against common OWASP Top 10 vulnerabilities.")}</p>
 
                   <div className="security-cards-grid">
                     {[
@@ -293,9 +330,9 @@ posts = Post.objects.filter(
                       <div className="security-detail-card" key={sec.title}>
                         <div className="security-detail-header">
                           <i className={sec.icon} style={{ color: 'var(--accent)', marginRight: '10px' }}></i>
-                          <h5>{sec.title}</h5>
+                          <h5>{translateText(sec.title)}</h5>
                         </div>
-                        <p>{sec.desc}</p>
+                        <p>{translateText(sec.desc)}</p>
                       </div>
                     ))}
                   </div>
@@ -313,16 +350,12 @@ posts = Post.objects.filter(
               >
                 <div className="pane-section">
                   <h4 className="pane-section-title">
-                    <i className="fa-solid fa-repeat" style={{ color: 'var(--accent)' }}></i> CI/CD Pipelines (GitHub Actions)
-                  </h4>
-                  <p className="pane-section-desc">
-                    Automated integration pipelines run tests, check formatting compliance, and execute security vulnerability audits on every branch push.
-                  </p>
+                    <i className="fa-solid fa-repeat" style={{ color: 'var(--accent)' }}></i>{translateText(" CI/CD Pipelines (GitHub Actions)")}</h4>
+                  <p className="pane-section-desc">{translateText("Automated integration pipelines run tests, check formatting compliance, and execute security vulnerability audits on every branch push.")}</p>
 
                   <div className="code-box">
                     <div className="code-box-header">
-                      <i className="fa-brands fa-github" style={{ marginRight: '6px' }}></i> .github/workflows/backend-test.yml
-                    </div>
+                      <i className="fa-brands fa-github" style={{ marginRight: '6px' }}></i>{translateText(" .github/workflows/backend-test.yml")}</div>
                     <pre className="code-content" style={{ fontSize: '0.8rem' }}>
 {`name: Python Backend CI
 
@@ -351,17 +384,13 @@ jobs:
 
                 <div className="pane-section" style={{ marginTop: '25px' }}>
                   <h4 className="pane-section-title">
-                    <i className="fa-brands fa-docker" style={{ color: 'var(--accent)' }}></i> Containerization (Docker)
-                  </h4>
-                  <p className="pane-section-desc">
-                    Docker isolates the Django application, database, and caching layers to guarantee consistency between local development and production environments.
-                  </p>
+                    <i className="fa-brands fa-docker" style={{ color: 'var(--accent)' }}></i>{translateText(" Containerization (Docker)")}</h4>
+                  <p className="pane-section-desc">{translateText("Docker isolates the Django application, database, and caching layers to guarantee consistency between local development and production environments.")}</p>
 
                   <div className="code-comparison-grid">
                     <div className="code-box">
                       <div className="code-box-header">
-                        <i className="fa-brands fa-docker" style={{ marginRight: '6px' }}></i> Dockerfile
-                      </div>
+                        <i className="fa-brands fa-docker" style={{ marginRight: '6px' }}></i>{translateText(" Dockerfile")}</div>
                       <pre className="code-content" style={{ fontSize: '0.75rem' }}>
 {`FROM python:3.11-slim-buster
 
@@ -382,8 +411,7 @@ CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]`}
 
                     <div className="code-box">
                       <div className="code-box-header">
-                        <i className="fa-brands fa-docker" style={{ marginRight: '6px' }}></i> docker-compose.yml
-                      </div>
+                        <i className="fa-brands fa-docker" style={{ marginRight: '6px' }}></i>{translateText(" docker-compose.yml")}</div>
                       <pre className="code-content" style={{ fontSize: '0.75rem' }}>
 {`version: '3.8'
 
@@ -414,6 +442,54 @@ volumes:
   postgres_data:`}
                       </pre>
                     </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {activeTab === 'gallery' && (
+              <motion.div
+                key="gallery"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25 }}
+                className="case-study-tab-pane"
+              >
+                <div className="pane-section">
+                  <h4 className="pane-section-title">
+                    <i className="fa-solid fa-images" style={{ color: 'var(--accent)' }}></i>
+                    {translateText(" Platform Views & Interface Architecture (5 Screenshots)")}
+                  </h4>
+                  <p className="pane-section-desc">
+                    {translateText("Explore the 5 core user interfaces of The Modern Journal, from administrative telemetry and mission statements to reader-focused typography and discovery search.")}
+                  </p>
+
+                  <div className="case-study-gallery-list">
+                    {CASE_STUDY_GALLERY.map((screen) => (
+                      <div key={screen.num} className="case-study-gallery-card">
+                        <div className="case-study-gallery-preview">
+                          <img src={screen.img} alt={`${screen.label} - ${screen.title}`} className="case-study-gallery-img" />
+                          <a
+                            href={screen.img}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="case-study-gallery-expand-btn"
+                            title={translateText("Open original image")}
+                          >
+                            <i className="fa-solid fa-arrow-up-right-from-square" />
+                            <span>{translateText("Enlarge")}</span>
+                          </a>
+                        </div>
+                        <div className="case-study-gallery-info">
+                          <div className="case-study-gallery-meta">
+                            <span className="case-study-gallery-num">{screen.label} ({screen.num}/05)</span>
+                            <span className="case-study-gallery-badge">{translateText(screen.badge)}</span>
+                          </div>
+                          <h5 className="case-study-gallery-title">{translateText(screen.title)}</h5>
+                          <p className="case-study-gallery-desc">{translateText(screen.desc)}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </motion.div>

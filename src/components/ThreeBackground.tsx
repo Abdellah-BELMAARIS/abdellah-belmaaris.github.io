@@ -444,7 +444,7 @@ export default function ThreeBackground() {
 
   return (
     <div
-      id="bg-canvas"
+      className="portfolio-scene"
       style={{
         position: 'fixed',
         top: 0,
@@ -454,6 +454,7 @@ export default function ThreeBackground() {
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden',
+        // Deep cinematic midnight-navy gradient (matching reference screenshot)
         background: 'var(--scene-background)',
       }}
       aria-hidden="true"
@@ -492,14 +493,14 @@ export default function ThreeBackground() {
           gap: '8px',
           padding: '6px 14px',
           borderRadius: '999px',
-          background: 'var(--telemetry-background)',
-          border: '1px solid var(--telemetry-border)',
+          background: 'var(--surface-glass)',
+          border: '1px solid rgba(0, 229, 255, 0.25)',
           backdropFilter: 'blur(8px)',
           fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
           fontSize: '0.72rem',
-          color: 'var(--telemetry-text)',
+          color: 'var(--accent)',
           letterSpacing: '0.5px',
-          boxShadow: 'var(--telemetry-shadow)',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4)',
           pointerEvents: 'auto',
           userSelect: 'none',
         }}
@@ -510,14 +511,14 @@ export default function ThreeBackground() {
             width: '7px',
             height: '7px',
             borderRadius: '50%',
-            background: 'var(--cyan-bright)',
-            boxShadow: '0 0 8px var(--cyan-bright)',
+            background: '#00e5ff',
+            boxShadow: '0 0 8px #00e5ff',
             display: 'inline-block',
             animation: 'pulse 2s infinite',
           }}
         />
         <span>AI Neural Mesh</span>
-        <span style={{ color: 'var(--emerald)', fontWeight: 600 }}>[Dynamic]</span>
+        <span style={{ color: '#10b981', fontWeight: 600 }}>[Dynamic]</span>
       </div>
     </div>
   );
