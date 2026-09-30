@@ -262,7 +262,7 @@ function StatCard({ stat, isVisible, index }: { stat: Stat; isVisible: boolean; 
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] as const }}
     >
       <div className="stat-icon">
         <i className={stat.icon} />
@@ -297,7 +297,7 @@ export default function App() {
             initial: { opacity: 0, y },
             whileInView: { opacity: 1, y: 0 },
             viewport: { once: true, amount: 0.15 },
-            transition: { duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }
+            transition: { duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] as const }
           },
     [reduceMotion]
   );
@@ -1431,13 +1431,13 @@ export default function App() {
         {/* ─── 06 TECH STACK (Rule 18, 19: No Percentages, Clean Groups + Terminal) */}
         <section id="skills" className="tech-stack-section">
           {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
+          <motion.div className="section-arch-divider" {...reveal(0, 14)}>
             <span className="section-arch-code">{translateText("06 / TECH STACK")}</span>
             <div className="section-arch-line" />
-          </div>
+          </motion.div>
 
-          <h2 className="section-title">{translateText("CORE CAPABILITIES & TOOLS")}</h2>
-          <p className="section-intro">{translateText("Categorized by engineering discipline. AI and Data serve as high-value supporting capabilities alongside primary full-stack development foundations.")}</p>
+          <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("CORE CAPABILITIES & TOOLS")}</motion.h2>
+          <motion.p className="section-intro" {...reveal(0.1, 18)}>{translateText("Categorized by engineering discipline. AI and Data serve as high-value supporting capabilities alongside primary full-stack development foundations.")}</motion.p>
 
           <div className="tech-stack-grid">
             {/* 1. Development */}
@@ -1546,25 +1546,25 @@ export default function App() {
           </div>
 
           {/* Embedded Interactive AI & Engineering Console Playground */}
-          <div className="embedded-terminal-wrapper" style={{ marginTop: '50px' }}>
+          <motion.div className="embedded-terminal-wrapper" style={{ marginTop: '50px' }} {...reveal(0.12, 22)}>
             <div className="terminal-section-intro">
               <span className="section-arch-code">{translateText("INTERACTIVE CLI & ARCHITECTURE SIMULATION")}</span>
               <h3 style={{ fontSize: '1.25rem', marginTop: '6px', color: 'var(--white)' }}>{translateText("Query Abdellah's Architecture Live")}</h3>
             </div>
             <AiDevTerminal />
-          </div>
+          </motion.div>
         </section>
 
         {/* ─── 07 CERTIFICATIONS (Rule 20: Clean Credentials List & Preview) ───── */}
         <section id="certifications" className="credentials-section">
           {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
+          <motion.div className="section-arch-divider" {...reveal(0, 14)}>
             <span className="section-arch-code">{translateText("07 / CREDENTIALS")}</span>
             <div className="section-arch-line" />
-          </div>
+          </motion.div>
 
-          <h2 className="section-title">{translateText("CONTINUOUS LEARNING")}</h2>
-          <p className="section-intro">{translateText("Verified technical credentials validating applied AI engineering, Python data analysis, and software development.")}</p>
+          <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("CONTINUOUS LEARNING")}</motion.h2>
+          <motion.p className="section-intro" {...reveal(0.1, 18)}>{translateText("Verified technical credentials validating applied AI engineering, Python data analysis, and software development.")}</motion.p>
 
           <div className="credentials-compact-list">
             {CERTIFICATIONS_DATA.map((cert, idx) => (
@@ -1597,10 +1597,10 @@ export default function App() {
 
           {/* Education & Specialized Tracks */}
           <div className="education-tracks-wrap" style={{ marginTop: '40px' }}>
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', color: 'var(--white)', fontFamily: 'var(--font-display)', fontWeight: 600 }}>{translateText("Specialized Study Tracks")}</h3>
+            <motion.h3 style={{ fontSize: '1.2rem', marginBottom: '20px', color: 'var(--white)', fontFamily: 'var(--font-display)', fontWeight: 600 }} {...reveal(0.06, 16)}>{translateText("Specialized Study Tracks")}</motion.h3>
             <div className="education-grid">
               {EDUCATION_DATA.map((ed, idx) => (
-                <div className="education-card" key={idx}>
+                <motion.div className="education-card" key={idx} {...reveal(idx * 0.08, 20)}>
                   <div className="edu-header">
                     <div className="edu-logo"><i className={ed.icon} /></div>
                     <span className="edu-platform">{translateText(ed.platform)}</span>
@@ -1612,7 +1612,7 @@ export default function App() {
                       <span className="exp-skill-tag" key={skill}>{translateText(skill)}</span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -1628,31 +1628,33 @@ export default function App() {
         {/* ─── 09 CONTACT (Rule 29: Have an idea? LET'S BUILD SOMETHING MEANINGFUL) */}
         <section id="contact" className="contact-redesign-section">
           {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
+          <motion.div className="section-arch-divider" {...reveal(0, 14)}>
             <span className="section-arch-code">{translateText("09 / CONTACT")}</span>
             <div className="section-arch-line" />
-          </div>
+          </motion.div>
 
-          <span className="contact-kicker">{translateText("Have an idea?")}</span>
-          <h2 className="contact-big-headline">{translateText("LET'S BUILD SOMETHING MEANINGFUL.")}</h2>
-          <p className="contact-subheadline">{translateText("Professional collaborations, development opportunities and interesting digital projects.")}</p>
+          <motion.div {...reveal(0.06, 20)}>
+            <span className="contact-kicker">{translateText("Have an idea?")}</span>
+            <h2 className="contact-big-headline">{translateText("LET'S BUILD SOMETHING MEANINGFUL.")}</h2>
+            <p className="contact-subheadline">{translateText("Professional collaborations, development opportunities and interesting digital projects.")}</p>
+          </motion.div>
 
           <div className="contact-layout-grid">
             <div className="contact-info-column">
-              <div className="contact-info-card">
+              <motion.div className="contact-info-card" {...reveal(0.1, 20)}>
                 <span className="info-card-label">{translateText("CURRENT ROLE & LOCATION")}</span>
                 <p className="info-card-val">{translateText("Junior Full-Stack Developer at BIMPulse")}</p>
                 <p className="info-card-sub"><i className="fa-solid fa-location-dot" style={{ color: 'var(--emerald-bright)' }} />{translateText(" Casablanca, Morocco")}</p>
-              </div>
+              </motion.div>
 
-              <div className="contact-info-card">
+              <motion.div className="contact-info-card" {...reveal(0.16, 20)}>
                 <span className="info-card-label">{translateText("DIRECT EMAIL")}</span>
                 <p className="info-card-val">
                   <a href="mailto:obaidbelmaaris@gmail.com" id="contact-email-link">{translateText("obaidbelmaaris@gmail.com")}</a>
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="contact-links-stack">
+              <motion.div className="contact-links-stack" {...reveal(0.22, 20)}>
                 <a
                   href="https://linkedin.com/in/abdellah-belmaaris"
                   target="_blank"
@@ -1679,12 +1681,12 @@ export default function App() {
                 >
                   <i className="fa-solid fa-file-arrow-down" />{translateText(" Download Curriculum Vitae (PDF) ")}<span className="link-arrow">↗</span>
                 </a>
-              </div>
+              </motion.div>
             </div>
 
             {/* Clean Contact Form with Validation */}
             <div className="contact-form-column">
-              <form className="contact-form-redesign" onSubmit={handleContactSubmit} id="contact-form">
+              <motion.form className="contact-form-redesign" onSubmit={handleContactSubmit} id="contact-form" {...reveal(0.12, 22)}>
                 <div className="form-group honeypot" aria-hidden="true" style={{ display: 'none' }}>
                   <label htmlFor="form-website">{translateText("Website")}</label>
                   <input
@@ -1756,7 +1758,7 @@ export default function App() {
                   <i className={`fa-solid ${isSubmitting ? 'fa-spinner fa-spin' : 'fa-paper-plane'}`} style={{ marginRight: '8px' }} />
                   {translateText(isSubmitting ? 'Sending…' : 'Send a Message →')}
                 </button>
-              </form>
+              </motion.form>
             </div>
           </div>
         </section>
@@ -1766,7 +1768,7 @@ export default function App() {
       <FloatingProjectButton />
 
       {/* ─── 09 FOOTER (Rule 30: Simple, Clean Footer) ────────────────────────── */}
-      <footer className="footer-redesign">
+      <motion.footer className="footer-redesign" {...reveal(0.06, 16)}>
         <div className="footer-top-row">
           <div className="footer-brand">
             <span className="footer-logo">{translateText("AB.")}</span>
@@ -1786,7 +1788,7 @@ export default function App() {
         <div className="footer-bottom-row">
           <p>{translateText("Designed & developed by Abdellah BELMAARIS © 2026")}</p>
         </div>
-      </footer>
+      </motion.footer>
 
       {/* Scroll-to-Top Button */}
       <AnimatePresence>
