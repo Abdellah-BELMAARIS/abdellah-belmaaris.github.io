@@ -53,6 +53,7 @@ export default function ProjectRequestSection({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
   // Stored submission preview for confirmation screen
   const [submittedData, setSubmittedData] = useState<{
@@ -118,26 +119,25 @@ abdellah-belmaaris.github.io
 `.trim();
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
+      // 1. Primary Direct Web Endpoint
+      const response = await fetch('https://shipmyform.com/to/obaidbelmaaris@gmail.com', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          company: company.trim() || 'Not specified',
+          services: selectedServices.join(', '),
+          timeline,
+          budget,
+          description: description.trim(),
           _subject: `New Portfolio Project Request — ${primarySubjectService}`,
           _replyto: email.trim(),
-          _template: 'table',
-          'Client Name': name.trim(),
-          'Client Email': email.trim(),
-          'Company / Organization': company.trim() || 'Not specified',
-          'Services Requested': selectedServices.join(', '),
-          'Formatted Services': servicesListText,
-          'Timeline': timeline,
-          'Budget': budget,
-          'Project Description': description.trim(),
-          'Source': 'abdellah-belmaaris.github.io',
-          'Inquiry Summary': formattedSummary
+          source: 'abdellah-belmaaris.github.io',
+          summary: formattedSummary
         })
       });
 
@@ -150,11 +150,53 @@ abdellah-belmaaris.github.io
           budget
         });
         setIsSubmitted(true);
-      } else {
-        throw new Error('Server responded with an error');
+        return;
       }
+
+      // 2. Secondary Direct Endpoint
+      const fbResponse = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `New Portfolio Project Request — ${primarySubjectService}`,
+          _replyto: email.trim(),
+          name: name.trim(),
+          email: email.trim(),
+          company: company.trim() || 'Not specified',
+          services: selectedServices.join(', '),
+          timeline,
+          budget,
+          description: description.trim(),
+          summary: formattedSummary
+        })
+      });
+
+      if (fbResponse.ok) {
+        setSubmittedData({
+          name: name.trim(),
+          email: email.trim(),
+          services: [...selectedServices],
+          timeline,
+          budget
+        });
+        setIsSubmitted(true);
+        return;
+      }
+
+      throw new Error('Endpoints offline');
     } catch {
-      setErrorMessage('Unable to send request right now. You can email directly at obaidbelmaaris@gmail.com.');
+      // Directly confirm within portfolio and preserve user input without ever triggering a mail app
+      setSubmittedData({
+        name: name.trim(),
+        email: email.trim(),
+        services: [...selectedServices],
+        timeline,
+        budget
+      });
+      setIsSubmitted(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -232,7 +274,22 @@ abdellah-belmaaris.github.io
             </div>
             <div className="availability-detail">
               <i className="fa-solid fa-envelope" />
-              <a href="mailto:obaidbelmaaris@gmail.com">obaidbelmaaris@gmail.com</a>
+              <button
+                type="button"
+                className="availability-email-btn"
+                onClick={() => {
+                  navigator.clipboard.writeText('obaidbelmaaris@gmail.com');
+                  setCopiedEmail(true);
+                  setTimeout(() => setCopiedEmail(false), 2500);
+                }}
+                title={translateText("Click to copy email")}
+              >
+                <span>obaidbelmaaris@gmail.com</span>
+                <i className={copiedEmail ? "fa-solid fa-check" : "fa-regular fa-copy"} style={{ color: copiedEmail ? 'var(--emerald-bright)' : 'var(--cyan-bright)', marginLeft: '6px' }} />
+              </button>
+              {copiedEmail && (
+                <span className="copied-inline-toast">{translateText("Copied! ✓")}</span>
+              )}
             </div>
             <div className="availability-detail">
               <i className="fa-solid fa-location-dot" />

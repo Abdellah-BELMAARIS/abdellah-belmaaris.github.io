@@ -403,4 +403,9 @@ export const translations: Record<string, [string, string]> = {
   'Main storefront showcasing hero search bar, dark/light theme toggle, and curated multi-tag insight cards.': ['Vitrine principale avec barre de recherche, sélecteur de thème clair/sombre et cartes d’articles thématiques.', 'واجهة المنصة الرئيسية مع شريط بحث، ومبدل المظهر الداكن/الفاتح، وبطاقات المقالات المصنفة.'],
   'Explore discovery feed with most viewed stories banner, trending articles, and dynamic topic filter chips.': ['Flux d’exploration avec bandeau des articles les plus vus, tendances et filtres par thématiques dynamiques.', 'بوابة الاستكشاف مع شريط للمقالات الأكثر قراءة، والمنشورات الرائجة، وفلاتر المواضيع التفاعلية.'],
   'Rich typographical article reading layout with live like counter, author bio card, and recommended reading sidebar.': ['Mise en page soignée pour la lecture d’articles avec compteur de likes, fiche auteur et suggestions de lecture.', 'تصميم قراءة أنيق ومريح مع عداد إعجابات فوري، وبطاقة تعريف بالكاتب، وشريط قراءات مقترحة.'],
+  'Copied to clipboard! ✓': ['Copié dans le presse-papiers ! ✓', 'تم النسخ إلى الحافظة! ✓'],
+  'Click to copy email': ['Cliquer pour copier l’e-mail', 'انقر لنسخ البريد الإلكتروني'],
+  'Copy Message': ['Copier le message', 'نسخ الرسالة'],
+  'Message copied to clipboard! ✓': ['Message copié dans le presse-papiers ! ✓', 'تم نسخ الرسالة إلى الحافظة! ✓'],
+  'Message received! Thank you for reaching out.': ['Message bien reçu ! Merci pour votre prise de contact.', 'تم استلام الرسالة بنجاح! شكراً لتواصلك.'],
 };

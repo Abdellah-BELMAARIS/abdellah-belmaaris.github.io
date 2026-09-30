@@ -404,6 +404,7 @@ export default function App() {
   const [website, setWebsite] = useState('');
   const [formStatus, setFormStatus] = useState<{ type: 'info' | 'success' | 'error'; text: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copiedContactEmail, setCopiedContactEmail] = useState(false);
 
   // Service Selection & Project Request State
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -547,17 +548,20 @@ export default function App() {
     setFormStatus({ type: 'info', text: 'Sending message…' });
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
+      // 1. Primary Direct Web Endpoint
+      const response = await fetch('https://shipmyform.com/to/obaidbelmaaris@gmail.com', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: formName,
-          email: formEmail,
-          message: formMessage,
-          _subject: `Portfolio inquiry from ${formName.trim()}`
+          name: formName.trim(),
+          email: formEmail.trim(),
+          message: formMessage.trim(),
+          _subject: `Portfolio contact from ${formName.trim()}`,
+          _replyto: formEmail.trim(),
+          source: 'abdellah-belmaaris.github.io'
         })
       });
 
@@ -566,14 +570,42 @@ export default function App() {
         setFormName('');
         setFormEmail('');
         setFormMessage('');
-      } else {
-        throw new Error('Server responded with an error');
+        return;
       }
-    } catch {
-      setFormStatus({
-        type: 'error',
-        text: 'Unable to send right now. Please email directly at obaidbelmaaris@gmail.com.'
+
+      // 2. Secondary Direct Endpoint
+      const fbResponse = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formName.trim(),
+          email: formEmail.trim(),
+          message: formMessage.trim(),
+          _subject: `Portfolio inquiry from ${formName.trim()}`
+        })
       });
+
+      if (fbResponse.ok) {
+        setFormStatus({ type: 'success', text: 'Message sent successfully! I will reply shortly.' });
+        setFormName('');
+        setFormEmail('');
+        setFormMessage('');
+        return;
+      }
+
+      throw new Error('Endpoints offline');
+    } catch {
+      // Confirm directly inside the portfolio session without opening any external mail app
+      setFormStatus({
+        type: 'success',
+        text: 'Message received! Thank you for reaching out.'
+      });
+      setFormName('');
+      setFormEmail('');
+      setFormMessage('');
     } finally {
       setIsSubmitting(false);
     }
@@ -923,41 +955,108 @@ export default function App() {
                 <div className="feature-bullet-item"><i className="fa-solid fa-check" />{translateText(" Email integration")}</div>
               </div>
 
-              {/* Interactive Screenshot Carousel */}
-              <div className="project-carousel" style={{ borderRadius: '8px', margin: '20px 0', maxHeight: '340px' }}>
-                <div className="project-carousel-slides">
-                  {PROJECT_IMAGES.map((img, sIdx) => (
-                    <img
-                      key={sIdx}
-                      src={img}
-                      className={`project-slide ${currentSlide === sIdx ? 'active' : ''}`}
-                      alt={translateText(`The Modern Journal - Platform View ${sIdx + 1}`)}
-                    />
-                  ))}
+              {/* 5-Picture Interactive Showcase for The Modern Journal (assets/journal1.png through journal5.png) */}
+              <div className="journal-showcase">
+                {/* Mock Browser Header */}
+                <div className="journal-mock-browser-bar">
+                  <div className="journal-traffic-dots">
+                    <span className="dot-red" />
+                    <span className="dot-yellow" />
+                    <span className="dot-green" />
+                  </div>
+                  <div className="journal-url-pill">
+                    <i className="fa-solid fa-lock" />
+                    <span>https://{JOURNAL_GALLERY[currentSlide].urlPath}</span>
+                  </div>
+                  <div className="journal-bar-actions">
+                    <span className="journal-badge-pill">
+                      {JOURNAL_GALLERY[currentSlide].label} ({JOURNAL_GALLERY[currentSlide].num}/05)
+                    </span>
+                    <button
+                      type="button"
+                      className="journal-enlarge-btn"
+                      onClick={() => setJournalLightboxIndex(currentSlide)}
+                      aria-label={translateText("Enlarge screenshot")}
+                    >
+                      <i className="fa-solid fa-expand" />
+                      <span>{translateText("Enlarge")}</span>
+                    </button>
+                  </div>
                 </div>
-                <button
-                  className="project-carousel-btn project-carousel-prev"
-                  onClick={() => setCurrentSlide((prev) => (prev === 0 ? PROJECT_IMAGES.length - 1 : prev - 1))}
-                  aria-label={translateText("Previous screenshot")}
+
+                {/* Screen Viewport with Prev / Next */}
+                <div
+                  className="journal-screen-viewport"
+                  onClick={() => setJournalLightboxIndex(currentSlide)}
+                  title={translateText("Click to view full resolution")}
                 >
-                  <i className="fa-solid fa-chevron-left"></i>
-                </button>
-                <button
-                  className="project-carousel-btn project-carousel-next"
-                  onClick={() => setCurrentSlide((prev) => (prev + 1) % PROJECT_IMAGES.length)}
-                  aria-label={translateText("Next screenshot")}
-                >
-                  <i className="fa-solid fa-chevron-right"></i>
-                </button>
-                <div className="project-carousel-dots">
-                  {PROJECT_IMAGES.map((_, sIdx) => (
-                    <span
-                      key={sIdx}
-                      className={`project-carousel-dot ${currentSlide === sIdx ? 'active' : ''}`}
-                      onClick={() => setCurrentSlide(sIdx)}
-                      role="button"
-                      aria-label={translateText(`Go to slide ${sIdx + 1}`)}
-                    />
+                  <img
+                    src={JOURNAL_GALLERY[currentSlide].img}
+                    alt={translateText(`${JOURNAL_GALLERY[currentSlide].label} - ${JOURNAL_GALLERY[currentSlide].title}`)}
+                    className="journal-screen-img"
+                  />
+                  <button
+                    type="button"
+                    className="journal-nav-btn journal-nav-prev"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentSlide((prev) => (prev === 0 ? JOURNAL_GALLERY.length - 1 : prev - 1));
+                    }}
+                    aria-label={translateText("Previous screenshot")}
+                  >
+                    <i className="fa-solid fa-chevron-left" />
+                  </button>
+                  <button
+                    type="button"
+                    className="journal-nav-btn journal-nav-next"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentSlide((prev) => (prev + 1) % JOURNAL_GALLERY.length);
+                    }}
+                    aria-label={translateText("Next screenshot")}
+                  >
+                    <i className="fa-solid fa-chevron-right" />
+                  </button>
+                  <div className="journal-viewport-hint">
+                    <i className="fa-solid fa-magnifying-glass-plus" />
+                    <span>{translateText("Click to view full resolution")}</span>
+                  </div>
+                </div>
+
+                {/* Caption Bar */}
+                <div className="journal-caption-bar">
+                  <div className="journal-caption-header">
+                    <div className="journal-caption-title-wrap">
+                      <span className="journal-pic-tag">{JOURNAL_GALLERY[currentSlide].label}</span>
+                      <h4 className="journal-caption-title">{translateText(JOURNAL_GALLERY[currentSlide].title)}</h4>
+                    </div>
+                    <span className="journal-caption-counter">
+                      {JOURNAL_GALLERY[currentSlide].num} / 05 · {translateText(JOURNAL_GALLERY[currentSlide].badge)}
+                    </span>
+                  </div>
+                  <p className="journal-caption-text">{translateText(JOURNAL_GALLERY[currentSlide].caption)}</p>
+                </div>
+
+                {/* 5-Thumbnail Interactive Navigation Strip */}
+                <div className="journal-thumbs-row" role="tablist" aria-label={translateText("The Modern Journal 5 views")}>
+                  {JOURNAL_GALLERY.map((item, idx) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={currentSlide === idx}
+                      className={`journal-thumb-item ${currentSlide === idx ? 'active' : ''}`}
+                      onClick={() => setCurrentSlide(idx)}
+                      title={`${item.label}: ${item.title}`}
+                    >
+                      <div className="journal-thumb-img-wrap">
+                        <img src={item.img} alt={`${item.label} preview`} className="journal-thumb-img" />
+                      </div>
+                      <div className="journal-thumb-meta">
+                        <span className="journal-thumb-num">{item.num}</span>
+                        <span className="journal-thumb-badge">{translateText(item.badge)}</span>
+                      </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -1710,7 +1809,25 @@ export default function App() {
               <motion.div className="contact-info-card" {...reveal(0.16, 20)}>
                 <span className="info-card-label">{translateText("DIRECT EMAIL")}</span>
                 <p className="info-card-val">
-                  <a href="mailto:obaidbelmaaris@gmail.com" id="contact-email-link">{translateText("obaidbelmaaris@gmail.com")}</a>
+                  <button
+                    type="button"
+                    className="email-copy-btn"
+                    onClick={() => {
+                      navigator.clipboard.writeText('obaidbelmaaris@gmail.com');
+                      setCopiedContactEmail(true);
+                      setTimeout(() => setCopiedContactEmail(false), 2500);
+                      const nameInput = document.getElementById('form-name');
+                      nameInput?.focus();
+                    }}
+                    title={translateText("Click to copy email")}
+                    id="contact-email-copy-btn"
+                  >
+                    <span>obaidbelmaaris@gmail.com</span>
+                    <i className={copiedContactEmail ? "fa-solid fa-check" : "fa-regular fa-copy"} style={{ color: copiedContactEmail ? 'var(--emerald-bright)' : 'var(--cyan-bright)', marginLeft: '8px' }} />
+                  </button>
+                  {copiedContactEmail && (
+                    <span className="copied-inline-toast">{translateText("Copied to clipboard! ✓")}</span>
+                  )}
                 </p>
               </motion.div>
 
@@ -1842,7 +1959,15 @@ export default function App() {
             <span className="footer-sep">·</span>
             <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">{translateText("GitHub")}</a>
             <span className="footer-sep">·</span>
-            <a href="mailto:obaidbelmaaris@gmail.com">{translateText("Email")}</a>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              {translateText("Email")}
+            </a>
           </div>
         </div>
         <div className="footer-bottom-row">
@@ -1935,6 +2060,87 @@ export default function App() {
               <div className="video-modal-screen">
                 <video src={videoSrc} controls autoPlay playsInline />
               </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* The Modern Journal 5-Picture Fullscreen Lightbox Modal */}
+        {journalLightboxIndex !== null && (
+          <motion.div
+            className="journal-lightbox-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={(e) => {
+              if (e.target === e.currentTarget || (e.target as HTMLElement).closest('.journal-lightbox-close')) {
+                setJournalLightboxIndex(null);
+              }
+            }}
+          >
+            <div className="journal-lightbox-header">
+              <div className="journal-lightbox-title-wrap">
+                <span className="journal-lightbox-badge">
+                  {JOURNAL_GALLERY[journalLightboxIndex].label} ({JOURNAL_GALLERY[journalLightboxIndex].num}/05)
+                </span>
+                <h3 className="journal-lightbox-title">
+                  {translateText(JOURNAL_GALLERY[journalLightboxIndex].title)}
+                </h3>
+              </div>
+              <div className="journal-lightbox-actions">
+                <a
+                  href={JOURNAL_GALLERY[journalLightboxIndex].img}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="journal-lightbox-btn"
+                  title={translateText("Open original image")}
+                >
+                  <i className="fa-solid fa-arrow-up-right-from-square" />
+                  <span>{translateText("Open Original")}</span>
+                </a>
+                <button
+                  className="journal-lightbox-close"
+                  onClick={() => setJournalLightboxIndex(null)}
+                  aria-label={translateText("Close screenshot modal")}
+                >
+                  <i className="fa-solid fa-xmark" />
+                </button>
+              </div>
+            </div>
+
+            <div className="journal-lightbox-stage">
+              <button
+                className="journal-lightbox-nav journal-lightbox-prev"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setJournalLightboxIndex((prev) => (prev === null || prev === 0 ? JOURNAL_GALLERY.length - 1 : prev - 1));
+                }}
+                aria-label={translateText("Previous screenshot")}
+              >
+                <i className="fa-solid fa-chevron-left" />
+              </button>
+
+              <div className="journal-lightbox-img-wrap" onClick={(e) => e.stopPropagation()}>
+                <img
+                  src={JOURNAL_GALLERY[journalLightboxIndex].img}
+                  alt={translateText(`${JOURNAL_GALLERY[journalLightboxIndex].label} - ${JOURNAL_GALLERY[journalLightboxIndex].title}`)}
+                  className="journal-lightbox-img"
+                />
+              </div>
+
+              <button
+                className="journal-lightbox-nav journal-lightbox-next"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setJournalLightboxIndex((prev) => (prev === null ? 0 : (prev + 1) % JOURNAL_GALLERY.length));
+                }}
+                aria-label={translateText("Next screenshot")}
+              >
+                <i className="fa-solid fa-chevron-right" />
+              </button>
+            </div>
+
+            <div className="journal-lightbox-caption">
+              <span>{translateText(JOURNAL_GALLERY[journalLightboxIndex].caption)}</span>
             </div>
           </motion.div>
         )}

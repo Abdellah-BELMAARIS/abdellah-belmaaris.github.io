@@ -7,7 +7,59 @@ interface CaseStudyModalProps {
   onClose: () => void;
 }
 
-type TabType = 'architecture' | 'performance' | 'workflow';
+type TabType = 'architecture' | 'performance' | 'workflow' | 'gallery';
+
+interface CaseStudyGalleryItem {
+  num: string;
+  label: string;
+  title: string;
+  badge: string;
+  img: string;
+  desc: string;
+}
+
+const CASE_STUDY_GALLERY: CaseStudyGalleryItem[] = [
+  {
+    num: '01',
+    label: 'Journal 1',
+    title: 'About & Platform Vision',
+    badge: 'Platform Vision',
+    img: 'assets/journal1.png',
+    desc: 'Platform mission, architectural standards, verified quality benchmarks, and modern UI values.'
+  },
+  {
+    num: '02',
+    label: 'Journal 2',
+    title: 'Author & Content Dashboard',
+    badge: 'Telemetry & CRUD',
+    img: 'assets/journal2.png',
+    desc: 'Full-featured user dashboard with live telemetry (Total Users, Posts, Views, Subscribers) and post management table.'
+  },
+  {
+    num: '03',
+    label: 'Journal 3',
+    title: 'Platform Homepage & Featured Insights',
+    badge: 'Storefront',
+    img: 'assets/journal3.png',
+    desc: 'Main storefront showcasing hero search bar, dark/light theme toggle, and curated multi-tag insight cards.'
+  },
+  {
+    num: '04',
+    label: 'Journal 4',
+    title: 'Explore Portal & Trending Topics',
+    badge: 'Content Discovery',
+    img: 'assets/journal4.png',
+    desc: 'Explore discovery feed with most viewed stories banner, trending articles, and dynamic topic filter chips.'
+  },
+  {
+    num: '05',
+    label: 'Journal 5',
+    title: 'Article Reading Experience & Author Bio',
+    badge: 'Reader Experience',
+    img: 'assets/journal5.png',
+    desc: 'Rich typographical article reading layout with live like counter, author bio card, and recommended reading sidebar.'
+  }
+];
 
 export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps) {
   const [activeTab, setActiveTab] = useState<TabType>('architecture');
@@ -50,7 +102,8 @@ export default function CaseStudyModal({ isOpen, onClose }: CaseStudyModalProps)
             {[
               { id: 'architecture', label: 'System & Data Architecture', icon: 'fa-solid fa-sitemap' },
               { id: 'performance', label: 'Security & Performance', icon: 'fa-solid fa-shield-halved' },
-              { id: 'workflow', label: 'CI/CD & DevOps Workflow', icon: 'fa-solid fa-terminal' }
+              { id: 'workflow', label: 'CI/CD & DevOps Workflow', icon: 'fa-solid fa-terminal' },
+              { id: 'gallery', label: 'Platform Gallery (5 Views)', icon: 'fa-solid fa-images' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -389,6 +442,54 @@ volumes:
   postgres_data:`}
                       </pre>
                     </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {activeTab === 'gallery' && (
+              <motion.div
+                key="gallery"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.25 }}
+                className="case-study-tab-pane"
+              >
+                <div className="pane-section">
+                  <h4 className="pane-section-title">
+                    <i className="fa-solid fa-images" style={{ color: 'var(--accent)' }}></i>
+                    {translateText(" Platform Views & Interface Architecture (5 Screenshots)")}
+                  </h4>
+                  <p className="pane-section-desc">
+                    {translateText("Explore the 5 core user interfaces of The Modern Journal, from administrative telemetry and mission statements to reader-focused typography and discovery search.")}
+                  </p>
+
+                  <div className="case-study-gallery-list">
+                    {CASE_STUDY_GALLERY.map((screen) => (
+                      <div key={screen.num} className="case-study-gallery-card">
+                        <div className="case-study-gallery-preview">
+                          <img src={screen.img} alt={`${screen.label} - ${screen.title}`} className="case-study-gallery-img" />
+                          <a
+                            href={screen.img}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="case-study-gallery-expand-btn"
+                            title={translateText("Open original image")}
+                          >
+                            <i className="fa-solid fa-arrow-up-right-from-square" />
+                            <span>{translateText("Enlarge")}</span>
+                          </a>
+                        </div>
+                        <div className="case-study-gallery-info">
+                          <div className="case-study-gallery-meta">
+                            <span className="case-study-gallery-num">{screen.label} ({screen.num}/05)</span>
+                            <span className="case-study-gallery-badge">{translateText(screen.badge)}</span>
+                          </div>
+                          <h5 className="case-study-gallery-title">{translateText(screen.title)}</h5>
+                          <p className="case-study-gallery-desc">{translateText(screen.desc)}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </motion.div>
