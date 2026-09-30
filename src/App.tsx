@@ -381,6 +381,7 @@ export default function App() {
 
   // Modals
   const [selectedCert, setSelectedCert] = useState<string | null>(null);
+  const [journalLightboxIndex, setJournalLightboxIndex] = useState<number | null>(null);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [caseStudyOpen, setCaseStudyOpen] = useState(false);
   const [videoSrc, setVideoSrc] = useState('assets/demo1.mp4');
@@ -520,6 +521,7 @@ export default function App() {
       if (e.key === 'Escape') {
         setMenuActive(false);
         setSelectedCert(null);
+        setJournalLightboxIndex(null);
         setVideoModalOpen(false);
         setCaseStudyOpen(false);
       }
