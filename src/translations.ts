@@ -332,7 +332,7 @@ export const translations: Record<string, [string, string]> = {
   'Tell me what you\'re looking for and I\'ll get back to you.': ['Décrivez-moi vos besoins et je reviendrai vers vous rapidement.', 'أخبرني بما تبحث عنه وسأرد عليك في أقرب وقت.'],
   'Direct Developer Collaboration': ['Collaboration directe avec le développeur', 'تعاون مباشر مع المطور'],
   'Work directly with the developer building your software. No intermediaries, no miscommunications — just focused engineering.': ['Collaborez directement avec le développeur de votre logiciel. Pas d’intermédiaires, pas d’incompréhensions — une ingénierie dédiée.', 'اعمل مباشرة مع المطور الذي يبني نظامك البرمجي. بدون وسطاء أو سوء تفاهم — هندسة برمجية مركزة.'],
-  'Free project scoping & architecture review': ['Cadrage de projet et revue d’architecture offerts', 'تحديد نطاق المشروع ومراجعة الهيكلية البرمجية مجاناً'],
+  'Initial consultation & technical roadmap': ['Consultation initiale et feuille de route technique', 'استشارة أولية وخطة طريق تقنية'],
   'Transparent milestones & regular sprint demos': ['Jalons transparents et démonstrations régulières', 'مراحل عمل واضحة وعروض توضيحية دورية للتقدم'],
   'Clean Python, Django, and SQL production standards': ['Standards de production rigoureux en Python, Django et SQL', 'معايير إنتاجية نظيفة في Python وDjango وSQL'],
   'Rapid turnaround with response under 24 hours': ['Démarrage rapide et réponse garantie sous 24 heures', 'تنفيذ سريع ورد مضمون في أقل من 24 ساعة'],

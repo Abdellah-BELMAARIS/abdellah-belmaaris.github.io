@@ -320,7 +320,7 @@ abdellah-belmaaris.github.io
             <ul className="guarantee-list">
               <li>
                 <i className="fa-solid fa-check" />
-                <span>{translateText("Free project scoping & architecture review")}</span>
+                <span>{translateText("Initial consultation & technical roadmap")}</span>
               </li>
               <li>
                 <i className="fa-solid fa-check" />
