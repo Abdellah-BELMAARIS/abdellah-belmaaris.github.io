@@ -165,13 +165,71 @@ const EDUCATION_DATA: EdCard[] = [
   }
 ];
 
-const PROJECT_IMAGES = [
-  "assets/journal1.png",
-  "assets/journal2.png",
-  "assets/journal3.png",
-  "assets/journal4.png",
-  "assets/journal5.png"
+interface JournalScreenshotItem {
+  id: string;
+  img: string;
+  num: string;
+  label: string;
+  title: string;
+  badge: string;
+  urlPath: string;
+  caption: string;
+}
+
+const JOURNAL_GALLERY: JournalScreenshotItem[] = [
+  {
+    id: 'journal-1',
+    img: 'assets/journal1.png',
+    num: '01',
+    label: 'Journal 1',
+    title: 'About & Platform Vision',
+    badge: 'System Mission',
+    urlPath: 'themodernjournal.com/about',
+    caption: 'Platform mission, architectural standards, verified quality benchmarks, and modern UI values.'
+  },
+  {
+    id: 'journal-2',
+    img: 'assets/journal2.png',
+    num: '02',
+    label: 'Journal 2',
+    title: 'Author & Content Dashboard',
+    badge: 'Telemetry & CRUD',
+    urlPath: 'themodernjournal.com/dashboard',
+    caption: 'Full-featured user dashboard with live telemetry (Total Users, Posts, Views, Subscribers) and post management table.'
+  },
+  {
+    id: 'journal-3',
+    img: 'assets/journal3.png',
+    num: '03',
+    label: 'Journal 3',
+    title: 'Platform Homepage & Featured Insights',
+    badge: 'Storefront',
+    urlPath: 'themodernjournal.com/',
+    caption: 'Main storefront showcasing hero search bar, dark/light theme toggle, and curated multi-tag insight cards.'
+  },
+  {
+    id: 'journal-4',
+    img: 'assets/journal4.png',
+    num: '04',
+    label: 'Journal 4',
+    title: 'Explore Portal & Trending Topics',
+    badge: 'Dynamic Curation',
+    urlPath: 'themodernjournal.com/explore',
+    caption: 'Explore discovery feed with most viewed stories banner, trending articles, and dynamic topic filter chips.'
+  },
+  {
+    id: 'journal-5',
+    img: 'assets/journal5.png',
+    num: '05',
+    label: 'Journal 5',
+    title: 'Article Reading Experience & Author Bio',
+    badge: 'Reader Experience',
+    urlPath: 'themodernjournal.com/article/augmented-reality-trends',
+    caption: 'Rich typographical article reading layout with live like counter, author bio card, and recommended reading sidebar.'
+  }
 ];
+
+const PROJECT_IMAGES = JOURNAL_GALLERY.map((j) => j.img);
 
 // ─── Loading Screen Component (Rule 32: Fast, intentional intro) ─────────────
 
