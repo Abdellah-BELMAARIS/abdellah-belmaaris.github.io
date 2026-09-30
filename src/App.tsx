@@ -4,9 +4,13 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import ThreeBackground from './components/ThreeBackground';
 import CaseStudyModal from './components/CaseStudyModal';
 import AiDevTerminal from './components/AiDevTerminal';
+import ServicesSection from './components/ServicesSection';
+import ProjectRequestSection from './components/ProjectRequestSection';
+import FloatingProjectButton from './components/FloatingProjectButton';
 import { useLanguage, setLanguage, type Language } from './i18n';
 
 // ─── Interfaces ───────────────────────────────────────────────────────────────
+
 
 interface Stat {
   value: number;
@@ -304,6 +308,25 @@ export default function App() {
   const [formStatus, setFormStatus] = useState<{ type: 'info' | 'success' | 'error'; text: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Service Selection & Project Request State
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+
+  const handleToggleService = useCallback((serviceTitle: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(serviceTitle) ? prev.filter((s) => s !== serviceTitle) : [...prev, serviceTitle]
+    );
+  }, []);
+
+  const handleRequestService = useCallback((serviceTitle: string) => {
+    setSelectedServices((prev) => (prev.includes(serviceTitle) ? prev : [...prev, serviceTitle]));
+    const formEl = document.getElementById('request-project');
+    formEl?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const handleClearServices = useCallback(() => {
+    setSelectedServices([]);
+  }, []);
+
   // Theme synchronization
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -337,10 +360,21 @@ export default function App() {
     return () => controller.abort();
   }, []);
 
-  // Scroll Spy for 8 sections
+  // Scroll Spy for sections
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'experience', 'work', 'personal-projects', 'skills', 'certifications', 'contact'];
+      const sections = [
+        'hero',
+        'services',
+        'work',
+        'personal-projects',
+        'about',
+        'experience',
+        'skills',
+        'certifications',
+        'request-project',
+        'contact'
+      ];
       const scrollPosition = window.scrollY + 250;
 
       for (const section of sections) {
@@ -454,13 +488,14 @@ export default function App() {
   // Section items for right-side indicator (Rule 28)
   const SECTION_INDICATORS = [
     { id: 'hero', num: '01' },
-    { id: 'about', num: '02' },
-    { id: 'experience', num: '03' },
-    { id: 'work', num: '04' },
-    { id: 'personal-projects', num: '05' },
+    { id: 'services', num: '02' },
+    { id: 'work', num: '03' },
+    { id: 'about', num: '04' },
+    { id: 'experience', num: '05' },
     { id: 'skills', num: '06' },
     { id: 'certifications', num: '07' },
-    { id: 'contact', num: '08' }
+    { id: 'request-project', num: '08' },
+    { id: 'contact', num: '09' }
   ];
 
   return (
@@ -481,7 +516,8 @@ export default function App() {
       {/* Right-Side Minimalist Section Progress Track (Rule 28) */}
       <nav className="section-progress-track" aria-label={translateText("Section Indicator")}>
         {SECTION_INDICATORS.map((sec, idx) => {
-          const isActive = activeSection === sec.id;
+          const isActive =
+            activeSection === sec.id || (sec.id === 'work' && activeSection === 'personal-projects');
           return (
             <React.Fragment key={sec.id}>
               <a
@@ -505,7 +541,7 @@ export default function App() {
         onClick={() => setMenuActive(false)}
       />
 
-      {/* Navbar: AB. About Experience Work Skills Credentials Contact [ Download CV ↗ ] (Rule 1) */}
+      {/* Navbar: AB. Services Work About Experience Skills Credentials Start a Project Contact [ Download CV ↗ ] */}
       <header className="header">
         <a href="#hero" className="logo" aria-label={translateText("Abdellah BELMAARIS Homepage")}>
           <span className="logo-text">{translateText("AB")}<span className="logo-dot">.</span></span>
@@ -555,17 +591,23 @@ export default function App() {
         <nav aria-label={translateText("Primary navigation")}>
           <ul className={`nav-list ${menuActive ? 'active' : ''}`}>
             {[
+              { id: 'services', label: 'Services' },
+              { id: 'work', label: 'Work' },
               { id: 'about', label: 'About' },
               { id: 'experience', label: 'Experience' },
-              { id: 'work', label: 'Work' },
               { id: 'skills', label: 'Skills' },
               { id: 'certifications', label: 'Credentials' },
+              { id: 'request-project', label: 'Start a Project' },
               { id: 'contact', label: 'Contact' }
             ].map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+                  className={`nav-link ${
+                    activeSection === item.id || (item.id === 'work' && activeSection === 'personal-projects')
+                      ? 'active'
+                      : ''
+                  }`}
                   onClick={() => setMenuActive(false)}
                   id={`nav-link-${item.id}`}
                 >
@@ -597,38 +639,31 @@ export default function App() {
               transition={{ duration: 0.65 }}
             >
               <div className="hero-kicker-badge">
-                <span className="kicker-pulse-dot" />{translateText("FULL-STACK DEVELOPER • BIMPULSE")}</div>
+                <span className="kicker-pulse-dot" />{translateText("FULL-STACK DEVELOPER & WEB SOLUTIONS")}</div>
 
               <h1 className="hero-name-heading">{translateText("Abdellah")}<br />
                 <span className="hero-surname">{translateText("BELMAARIS")}</span>
               </h1>
 
-              <div className="hero-job-title">{translateText("Junior Full-Stack Developer")}</div>
+              <div className="hero-job-title">{translateText("Full-Stack Developer & Web Solutions")}</div>
 
-              <p className="hero-statement">{translateText("Building practical web applications with Python and Django at BIMPulse Digital, with a growing focus on AI, data and engineering technology.")}</p>
+              <p className="hero-statement">{translateText("I design and develop professional websites, web applications, blogs, dashboards and custom digital solutions for individuals and businesses.")}</p>
 
               <div className="hero-tech-line">
                 <span className="tech-item">{translateText("Python")}</span>
                 <span className="tech-sep">·</span>
                 <span className="tech-item">{translateText("Django")}</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">{translateText("HTML")}</span>
-                <span className="tech-sep">·</span>
-                <span className="tech-item">{translateText("CSS")}</span>
-                <span className="tech-sep">·</span>
                 <span className="tech-item">{translateText("SQL")}</span>
+                <span className="tech-sep">·</span>
+                <span className="tech-item">{translateText("Web Development")}</span>
               </div>
 
               <div className="hero-cta-actions">
-                <a href="#work" className="btn btn-primary" id="hero-explore-work-btn">{translateText("Explore My Work ")}<span className="btn-arrow">→</span>
+                <a href="#request-project" className="btn btn-primary" id="hero-start-project-btn">{translateText("Start a Project ")}<span className="btn-arrow">→</span>
                 </a>
-                <a
-                  href="assets/Abdellah_BELMAARIS_CV.pdf"
-                  className="btn btn-secondary"
-                  download
-                  id="hero-download-cv-btn"
-                >
-                  <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px' }} />{translateText("Download CV")}</a>
+                <a href="#services" className="btn btn-secondary" id="hero-explore-services-btn">{translateText("Explore Services")}</a>
+                <a href="#work" className="btn btn-secondary" id="hero-view-work-btn">{translateText("View My Work")}</a>
               </div>
 
               <div className="hero-socials-row">
@@ -692,336 +727,18 @@ export default function App() {
           </div>
         </section>
 
-        {/* ─── 02 ABOUT SECTION (Rule 8 & 9: Exact Copy & 3 Facts) ─────────────── */}
-        <section id="about" className="about-section">
-          {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
-            <span className="section-arch-code">{translateText("02 / ABOUT")}</span>
-            <div className="section-arch-line" />
-          </div>
+        {/* ─── 02 SERVICES (Rule: Client-Facing Services & Solutions) ───────────── */}
+        <ServicesSection
+          selectedServices={selectedServices}
+          onToggleService={handleToggleService}
+          onRequestService={handleRequestService}
+        />
 
-          <h2 className="section-title">{translateText("Who I am")}</h2>
-
-          <div className="about-two-col-layout">
-            {/* Left Column: Abstract Architectural & Code Motif */}
-            <motion.div
-              className="about-visual-column"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="about-visual-card">
-                <div className="about-code-snippet">
-                  <div className="snippet-header">
-                    <span className="snippet-dot red" />
-                    <span className="snippet-dot yellow" />
-                    <span className="snippet-dot green" />
-                    <span className="snippet-title">{translateText("developer_profile.py")}</span>
-                  </div>
-                  <pre className="snippet-body">
-                    <code>
-{`class DeveloperProfile:
-    name = "Abdellah BELMAARIS"
-    role = "Junior Full-Stack Developer"
-    company = "BIMPulse"
-    environment = [
-        "Software Engineering",
-        "BIM / IFC Standards",
-        "AEC Digital Solutions"
-    ]
-    core_stack = {
-        "development": [
-            "Python", "Django", "HTML", "CSS", "SQL"
-        ],
-        "data": ["Pandas", "Matplotlib", "Data Analysis"],
-        "exploring": ["AI", "Cybersecurity"]
-    }
-
-    def mission(self):
-        return (
-            "Build reliable software "
-            "with real-world purpose."
-        )`}
-                    </code>
-                  </pre>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right Column: Exact About Copy (Rule 8) */}
-            <motion.div
-              className="about-copy-column"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <h3 className="about-headline">{translateText("A practical approach to building software.")}</h3>
-
-              <p className="about-body-p">{translateText("I'm Abdellah BELMAARIS, a Junior Full-Stack Developer at BIMPulse Digital in Casablanca, Morocco. I build web applications with Python, Django and SQL, connecting backend logic with responsive, easy-to-use interfaces.")}</p>
-
-              <p className="about-body-p">{translateText("At BIMPulse, I contribute to digital projects connected to BIM, engineering and construction. This experience helps me translate practical requirements into useful features while developing my skills in a professional environment.")}</p>
-
-              <p className="about-body-p">{translateText("My background combines homeschooling, self-directed learning, technical courses and hands-on projects. I'm continuing to grow in full-stack development while exploring AI, data analysis and cybersecurity fundamentals.")}</p>
-            </motion.div>
-          </div>
-
-          {/* 3 Small About Facts Below Paragraphs (Rule 9) */}
-          <div className="about-facts-grid">
-            <motion.div
-              className="about-fact-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.05 }}
-            >
-              <span className="fact-num">01</span>
-              <h4 className="fact-title">{translateText("FULL-STACK")}</h4>
-              <p className="fact-desc">{translateText("Web applications from backend logic to responsive interfaces.")}</p>
-            </motion.div>
-
-            <motion.div
-              className="about-fact-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.12 }}
-            >
-              <span className="fact-num">02</span>
-              <h4 className="fact-title">{translateText("PROFESSIONAL")}</h4>
-              <p className="fact-desc">{translateText("Junior Full-Stack Developer at BIMPulse.")}</p>
-            </motion.div>
-
-            <motion.div
-              className="about-fact-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.19 }}
-            >
-              <span className="fact-num">03</span>
-              <h4 className="fact-title">{translateText("EXPLORING")}</h4>
-              <p className="fact-desc">{translateText("AI, data and emerging software technologies.")}</p>
-            </motion.div>
-          </div>
-
-          {/* Animated Numeric Metrics Row */}
-          <div className="stats-row" ref={statsRef}>
-            {STATS_DATA.map((stat, idx) => (
-              <StatCard key={idx} stat={stat} isVisible={statsVisible} />
-            ))}
-          </div>
-        </section>
-
-        {/* ─── 03 EXPERIENCE SECTION (Rule 10, 11, 12: Visual Junction & Copy) ── */}
-        <section id="experience" className="experience-section">
-          {/* Architectural Line Transition (Rule 27) */}
-          <div className="section-arch-divider">
-            <span className="section-arch-code">{translateText("03 / EXPERIENCE")}</span>
-            <div className="section-arch-line" />
-          </div>
-
-          <h2 className="section-title">{translateText("PROFESSIONAL EXPERIENCE")}</h2>
-
-          {/* Architectural Visual Junction Diagram (Rule 10) */}
-          <div className="exp-junction-container" aria-label={translateText("Professional Position Diagram")}>
-            <div className="exp-junction-diagram">
-              <div className="junction-vertical-top">{translateText("SOFTWARE")}</div>
-              <div className="junction-stem-top" />
-              <div className="junction-horizontal-row">
-                <span className="junction-node left">{translateText("BIM / IFC")}</span>
-                <span className="junction-line-h" />
-                <span className="junction-center-hub">●</span>
-                <span className="junction-line-h" />
-                <span className="junction-node right">{translateText("DIGITAL PRODUCTS")}</span>
-              </div>
-              <div className="junction-stem-bottom" />
-              <div className="junction-vertical-bottom">{translateText("ENGINEERING / AEC")}</div>
-            </div>
-            <div className="junction-caption">{translateText("Junior Full-Stack Developer operating at the intersection of web architecture and AEC digital transformation")}</div>
-          </div>
-
-          <motion.aside
-            className="professional-mention"
-            aria-labelledby="mention-title"
-            initial={reduceMotion ? false : 'hidden'}
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.25, margin: '-80px 0px -40px 0px' }}
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.08 } } }}
-          >
-            <motion.div
-              className="mention-heading"
-              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: reduceMotion ? 0 : 0.35 }}
-            >
-              <span className="mention-network-icon" aria-hidden="true"><i className="fa-brands fa-linkedin-in" /></span>
-              <div>
-                <span className="section-arch-code">{translateText("LINKEDIN MENTIONS")}</span>
-                <h3 id="mention-title">{translateText("Contributing to BIMPulse Academy")}</h3>
-              </div>
-            </motion.div>
-            <motion.p
-              className="mention-summary"
-              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: reduceMotion ? 0 : 0.35 }}
-            >{translateText("In LinkedIn posts about the platform's development and launch, Abdelhamid BELMAARIS acknowledged my contribution to BIMPulse Academy, a learning platform for AECO professionals.")}</motion.p>
-            <motion.div
-              className="mention-footer"
-              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: reduceMotion ? 0 : 0.35 }}
-            >
-              <p className="mention-attribution"><strong>{translateText("Abdelhamid BELMAARIS")}</strong><span>{translateText("Civil engineer and BIM professional")}</span></p>
-              <a className="mention-profile-link" href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">{translateText("View my LinkedIn profile ")}<i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></a>
-            </motion.div>
-          </motion.aside>
-
-          {/* Large Flagship BIMPulse Card (Rule 10, 11) */}
-          <motion.div
-            className="exp-card exp-flagship"
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="exp-flagship-badge">
-              <span className="bimpulse-indicator-dot" />{translateText(" CURRENT PROFESSIONAL POSITION")}</div>
-
-            <div className="exp-header">
-              <div className="exp-role-info">
-                <div className="exp-company-brand">
-                  <img src="assets/bimpulse-logo.png" alt={translateText("BIMPulse")} className="exp-bimpulse-logo" />
-                  <div>
-                    <h3 className="exp-role">{translateText("Junior Full-Stack Developer")}</h3>
-                    <span className="exp-company">{translateText("BIMPulse")}</span>
-                  </div>
-                </div>
-              </div>
-              <div className="exp-meta">
-                <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" AUG 2026 — PRESENT · Apprenticeship")}</span>
-                <span className="exp-location"><i className="fa-solid fa-location-dot" />{translateText(" Casablanca, Morocco")}</span>
-              </div>
-            </div>
-
-            {/* Exact Description Copy (Rule 11) */}
-            <p className="exp-desc">{translateText("Junior Full-Stack Developer contributing within a professional environment connecting software development with BIM, engineering, construction technologies and AEC digital transformation.")}</p>
-
-            {/* Specific Tags (Rule 11) */}
-            <div className="exp-skills">
-              {['BIMPulse', 'BIM / IFC', 'Engineering', 'AEC Digital Solutions', 'New Technologies', 'Python', 'Django', 'SQL', 'HTML & CSS'].map((s) => (
-                <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
-              ))}
-            </div>
-
-            {/* BIMPulse Academy Addition (Rule 12) */}
-            <div className="bimpulse-academy-callout">
-              <div className="callout-header">
-                <span className="callout-label">{translateText("PROFESSIONAL WORK / 01")}</span>
-                <h4 className="callout-title">{translateText("BIMPulse Academy")}</h4>
-              </div>
-              <p className="callout-desc">{translateText("Learning platform dedicated to AECO (Architecture, Engineering, Construction & Operations) professionals, providing specialized certified training, BIM courses, and technical digital engineering workflows.")}</p>
-              <div className="callout-tags">
-                <span className="mini-tag">{translateText("AEC Training")}</span>
-                <span className="mini-tag">{translateText("BIM & IFC Standards")}</span>
-                <span className="mini-tag">{translateText("Digital Solutions")}</span>
-              </div>
-            </div>
-
-            <div className="exp-actions-row">
-              <a
-                className="btn btn-primary"
-                href="https://www.thebimpulse.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                id="bimpulse-official-link"
-              >{translateText("Discover BIMPulse ")}<span className="btn-arrow">↗</span>
-              </a>
-              <span className="private-repo-note">
-                <i className="fa-solid fa-shield-halved" />{translateText(" Real-world engineering & software development")}</span>
-            </div>
-          </motion.div>
-
-          {/* Development Milestones Timeline */}
-          <div className="experience-timeline" style={{ marginTop: '30px' }}>
-            <motion.div
-              className="exp-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="exp-header">
-                <div>
-                  <h3 className="exp-role">{translateText("Django Developer")}</h3>
-                  <span className="exp-company">{translateText("Self-directed & Production Web Work")}</span>
-                </div>
-                <div className="exp-meta">
-                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" May 2026 – Present")}</span>
-                </div>
-              </div>
-              <p className="exp-desc">{translateText("Engineering secure backend architectures, role-based access control (RBAC), and relational schemas in Django and Django REST Framework. Optimizing queries and database performance.")}</p>
-              <div className="exp-skills">
-                {['Django', 'Django REST Framework', 'Python', 'PostgreSQL', 'SQL Optimization', 'RESTful APIs'].map((s) => (
-                  <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="exp-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <div className="exp-header">
-                <div>
-                  <h3 className="exp-role">{translateText("Python Developer")}</h3>
-                  <span className="exp-company">{translateText("Self-directed Foundation & Systems")}</span>
-                </div>
-                <div className="exp-meta">
-                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" Jan 2020 – Present")}</span>
-                </div>
-              </div>
-              <p className="exp-desc">{translateText("Building object-oriented software, data transformation pipelines, algorithms, and automation utilities across the Python ecosystem.")}</p>
-              <div className="exp-skills">
-                {['Python (Async & OOP)', 'Data Pipelines', 'Pandas', 'Algorithms', 'Software Engineering'].map((s) => (
-                  <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="exp-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="exp-header">
-                <div>
-                  <h3 className="exp-role">{translateText("Web Developer")}</h3>
-                  <span className="exp-company">{translateText("Full-Stack Application Development")}</span>
-                </div>
-                <div className="exp-meta">
-                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" Feb 2023 – Jun 2026")}</span>
-                </div>
-              </div>
-              <p className="exp-desc">{translateText("Building full-stack web applications, translating functional requirements into modular backends and responsive user interfaces.")}</p>
-              <div className="exp-skills">
-                {['Web Development', 'Django', 'Bootstrap 5', 'HTML5', 'CSS3', 'REST APIs'].map((s) => (
-                  <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ─── 04 FEATURED WORK SECTION (Rule 13, 14, 15, 16, 17) ──────────────── */}
+        {/* ─── 03 FEATURED WORK SECTION (Rule 13, 14, 15, 16, 17) ──────────────── */}
         <section id="work" className="work-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">{translateText("04 / SELECTED WORK")}</span>
+            <span className="section-arch-code">{translateText("03 / SELECTED WORK")}</span>
             <div className="section-arch-line" />
           </div>
 
@@ -1239,11 +956,11 @@ export default function App() {
           </div>
         </section>
 
-        {/* ─── 05 PERSONAL PROJECTS (Rule 17: Selected Projects vs Experiments) ─── */}
+        {/* ─── 03 PERSONAL PROJECTS (Rule 17: Selected Projects vs Experiments) ─── */}
         <section id="personal-projects" className="personal-projects-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">{translateText("05 / PERSONAL PROJECTS")}</span>
+            <span className="section-arch-code">{translateText("03 / PERSONAL PROJECTS")}</span>
             <div className="section-arch-line" />
           </div>
 
@@ -1344,6 +1061,331 @@ export default function App() {
                 </a>
               </p>
             ))}
+          </div>
+        </section>
+
+        {/* ─── 04 ABOUT SECTION (Rule 8 & 9: Exact Copy & 3 Facts) ─────────────── */}
+        <section id="about" className="about-section">
+          {/* Architectural Line Transition (Rule 27) */}
+          <div className="section-arch-divider">
+            <span className="section-arch-code">{translateText("04 / ABOUT")}</span>
+            <div className="section-arch-line" />
+          </div>
+
+          <h2 className="section-title">{translateText("Who I am")}</h2>
+
+          <div className="about-two-col-layout">
+            {/* Left Column: Abstract Architectural & Code Motif */}
+            <motion.div
+              className="about-visual-column"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="about-visual-card">
+                <div className="about-code-snippet">
+                  <div className="snippet-header">
+                    <span className="snippet-dot red" />
+                    <span className="snippet-dot yellow" />
+                    <span className="snippet-dot green" />
+                    <span className="snippet-title">{translateText("developer_profile.py")}</span>
+                  </div>
+                  <pre className="snippet-body">
+                    <code>
+{`class DeveloperProfile:
+    name = "Abdellah BELMAARIS"
+    role = "Junior Full-Stack Developer"
+    company = "BIMPulse"
+    environment = [
+        "Software Engineering",
+        "BIM / IFC Standards",
+        "AEC Digital Solutions"
+    ]
+    core_stack = {
+        "development": [
+            "Python", "Django", "HTML", "CSS", "SQL"
+        ],
+        "data": ["Pandas", "Matplotlib", "Data Analysis"],
+        "exploring": ["AI", "Cybersecurity"]
+    }
+
+    def mission(self):
+        return (
+            "Build reliable software "
+            "with real-world purpose."
+        )`}
+                    </code>
+                  </pre>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Column: Exact About Copy (Rule 8) */}
+            <motion.div
+              className="about-copy-column"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <h3 className="about-headline">{translateText("A practical approach to building software.")}</h3>
+
+              <p className="about-body-p">{translateText("I'm Abdellah BELMAARIS, a Junior Full-Stack Developer at BIMPulse Digital in Casablanca, Morocco. I build web applications with Python, Django and SQL, connecting backend logic with responsive, easy-to-use interfaces.")}</p>
+
+              <p className="about-body-p">{translateText("At BIMPulse, I contribute to digital projects connected to BIM, engineering and construction. This experience helps me translate practical requirements into useful features while developing my skills in a professional environment.")}</p>
+
+              <p className="about-body-p">{translateText("My background combines homeschooling, self-directed learning, technical courses and hands-on projects. I'm continuing to grow in full-stack development while exploring AI, data analysis and cybersecurity fundamentals.")}</p>
+            </motion.div>
+          </div>
+
+          {/* 3 Small About Facts Below Paragraphs (Rule 9) */}
+          <div className="about-facts-grid">
+            <motion.div
+              className="about-fact-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+            >
+              <span className="fact-num">01</span>
+              <h4 className="fact-title">{translateText("FULL-STACK")}</h4>
+              <p className="fact-desc">{translateText("Web applications from backend logic to responsive interfaces.")}</p>
+            </motion.div>
+
+            <motion.div
+              className="about-fact-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.12 }}
+            >
+              <span className="fact-num">02</span>
+              <h4 className="fact-title">{translateText("PROFESSIONAL")}</h4>
+              <p className="fact-desc">{translateText("Junior Full-Stack Developer at BIMPulse.")}</p>
+            </motion.div>
+
+            <motion.div
+              className="about-fact-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.19 }}
+            >
+              <span className="fact-num">03</span>
+              <h4 className="fact-title">{translateText("EXPLORING")}</h4>
+              <p className="fact-desc">{translateText("AI, data and emerging software technologies.")}</p>
+            </motion.div>
+          </div>
+
+          {/* Animated Numeric Metrics Row */}
+          <div className="stats-row" ref={statsRef}>
+            {STATS_DATA.map((stat, idx) => (
+              <StatCard key={idx} stat={stat} isVisible={statsVisible} />
+            ))}
+          </div>
+        </section>
+
+        {/* ─── 05 EXPERIENCE SECTION (Rule 10, 11, 12: Visual Junction & Copy) ── */}
+        <section id="experience" className="experience-section">
+          {/* Architectural Line Transition (Rule 27) */}
+          <div className="section-arch-divider">
+            <span className="section-arch-code">{translateText("05 / EXPERIENCE")}</span>
+            <div className="section-arch-line" />
+          </div>
+
+          <h2 className="section-title">{translateText("PROFESSIONAL EXPERIENCE")}</h2>
+
+          {/* Architectural Visual Junction Diagram (Rule 10) */}
+          <div className="exp-junction-container" aria-label={translateText("Professional Position Diagram")}>
+            <div className="exp-junction-diagram">
+              <div className="junction-vertical-top">{translateText("SOFTWARE")}</div>
+              <div className="junction-stem-top" />
+              <div className="junction-horizontal-row">
+                <span className="junction-node left">{translateText("BIM / IFC")}</span>
+                <span className="junction-line-h" />
+                <span className="junction-center-hub">●</span>
+                <span className="junction-line-h" />
+                <span className="junction-node right">{translateText("DIGITAL PRODUCTS")}</span>
+              </div>
+              <div className="junction-stem-bottom" />
+              <div className="junction-vertical-bottom">{translateText("ENGINEERING / AEC")}</div>
+            </div>
+            <div className="junction-caption">{translateText("Junior Full-Stack Developer operating at the intersection of web architecture and AEC digital transformation")}</div>
+          </div>
+
+          <motion.aside
+            className="professional-mention"
+            aria-labelledby="mention-title"
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25, margin: '-80px 0px -40px 0px' }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.08 } } }}
+          >
+            <motion.div
+              className="mention-heading"
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: reduceMotion ? 0 : 0.35 }}
+            >
+              <span className="mention-network-icon" aria-hidden="true"><i className="fa-brands fa-linkedin-in" /></span>
+              <div>
+                <span className="section-arch-code">{translateText("LINKEDIN MENTIONS")}</span>
+                <h3 id="mention-title">{translateText("Contributing to BIMPulse Academy")}</h3>
+              </div>
+            </motion.div>
+            <motion.p
+              className="mention-summary"
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: reduceMotion ? 0 : 0.35 }}
+            >{translateText("In LinkedIn posts about the platform's development and launch, Abdelhamid BELMAARIS acknowledged my contribution to BIMPulse Academy, a learning platform for AECO professionals.")}</motion.p>
+            <motion.div
+              className="mention-footer"
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: reduceMotion ? 0 : 0.35 }}
+            >
+              <p className="mention-attribution"><strong>{translateText("Abdelhamid BELMAARIS")}</strong><span>{translateText("Civil engineer and BIM professional")}</span></p>
+              <a className="mention-profile-link" href="https://www.linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">{translateText("View my LinkedIn profile ")}<i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" /></a>
+            </motion.div>
+          </motion.aside>
+
+          {/* Large Flagship BIMPulse Card (Rule 10, 11) */}
+          <motion.div
+            className="exp-card exp-flagship"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="exp-flagship-badge">
+              <span className="bimpulse-indicator-dot" />{translateText(" CURRENT PROFESSIONAL POSITION")}</div>
+
+            <div className="exp-header">
+              <div className="exp-role-info">
+                <div className="exp-company-brand">
+                  <img src="assets/bimpulse-logo.png" alt={translateText("BIMPulse")} className="exp-bimpulse-logo" />
+                  <div>
+                    <h3 className="exp-role">{translateText("Junior Full-Stack Developer")}</h3>
+                    <span className="exp-company">{translateText("BIMPulse")}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="exp-meta">
+                <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" AUG 2026 — PRESENT · Apprenticeship")}</span>
+                <span className="exp-location"><i className="fa-solid fa-location-dot" />{translateText(" Casablanca, Morocco")}</span>
+              </div>
+            </div>
+
+            {/* Exact Description Copy (Rule 11) */}
+            <p className="exp-desc">{translateText("Junior Full-Stack Developer contributing within a professional environment connecting software development with BIM, engineering, construction technologies and AEC digital transformation.")}</p>
+
+            {/* Specific Tags (Rule 11) */}
+            <div className="exp-skills">
+              {['BIMPulse', 'BIM / IFC', 'Engineering', 'AEC Digital Solutions', 'New Technologies', 'Python', 'Django', 'SQL', 'HTML & CSS'].map((s) => (
+                <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
+              ))}
+            </div>
+
+            {/* BIMPulse Academy Addition (Rule 12) */}
+            <div className="bimpulse-academy-callout">
+              <div className="callout-header">
+                <span className="callout-label">{translateText("PROFESSIONAL WORK / 01")}</span>
+                <h4 className="callout-title">{translateText("BIMPulse Academy")}</h4>
+              </div>
+              <p className="callout-desc">{translateText("Learning platform dedicated to AECO (Architecture, Engineering, Construction & Operations) professionals, providing specialized certified training, BIM courses, and technical digital engineering workflows.")}</p>
+              <div className="callout-tags">
+                <span className="mini-tag">{translateText("AEC Training")}</span>
+                <span className="mini-tag">{translateText("BIM & IFC Standards")}</span>
+                <span className="mini-tag">{translateText("Digital Solutions")}</span>
+              </div>
+            </div>
+
+            <div className="exp-actions-row">
+              <a
+                className="btn btn-primary"
+                href="https://www.thebimpulse.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                id="bimpulse-official-link"
+              >{translateText("Discover BIMPulse ")}<span className="btn-arrow">↗</span>
+              </a>
+              <span className="private-repo-note">
+                <i className="fa-solid fa-shield-halved" />{translateText(" Real-world engineering & software development")}</span>
+            </div>
+          </motion.div>
+
+          {/* Development Milestones Timeline */}
+          <div className="experience-timeline" style={{ marginTop: '30px' }}>
+            <motion.div
+              className="exp-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="exp-header">
+                <div>
+                  <h3 className="exp-role">{translateText("Django Developer")}</h3>
+                  <span className="exp-company">{translateText("Self-directed & Production Web Work")}</span>
+                </div>
+                <div className="exp-meta">
+                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" May 2026 – Present")}</span>
+                </div>
+              </div>
+              <p className="exp-desc">{translateText("Engineering secure backend architectures, role-based access control (RBAC), and relational schemas in Django and Django REST Framework. Optimizing queries and database performance.")}</p>
+              <div className="exp-skills">
+                {['Django', 'Django REST Framework', 'Python', 'PostgreSQL', 'SQL Optimization', 'RESTful APIs'].map((s) => (
+                  <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="exp-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="exp-header">
+                <div>
+                  <h3 className="exp-role">{translateText("Python Developer")}</h3>
+                  <span className="exp-company">{translateText("Self-directed Foundation & Systems")}</span>
+                </div>
+                <div className="exp-meta">
+                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" Jan 2020 – Present")}</span>
+                </div>
+              </div>
+              <p className="exp-desc">{translateText("Building object-oriented software, data transformation pipelines, algorithms, and automation utilities across the Python ecosystem.")}</p>
+              <div className="exp-skills">
+                {['Python (Async & OOP)', 'Data Pipelines', 'Pandas', 'Algorithms', 'Software Engineering'].map((s) => (
+                  <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="exp-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="exp-header">
+                <div>
+                  <h3 className="exp-role">{translateText("Web Developer")}</h3>
+                  <span className="exp-company">{translateText("Full-Stack Application Development")}</span>
+                </div>
+                <div className="exp-meta">
+                  <span className="exp-duration"><i className="fa-solid fa-calendar-days" />{translateText(" Feb 2023 – Jun 2026")}</span>
+                </div>
+              </div>
+              <p className="exp-desc">{translateText("Building full-stack web applications, translating functional requirements into modular backends and responsive user interfaces.")}</p>
+              <div className="exp-skills">
+                {['Web Development', 'Django', 'Bootstrap 5', 'HTML5', 'CSS3', 'REST APIs'].map((s) => (
+                  <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -1537,11 +1579,18 @@ export default function App() {
           </div>
         </section>
 
-        {/* ─── 08 CONTACT (Rule 29: Have an idea? LET'S BUILD SOMETHING MEANINGFUL) */}
+        {/* ─── 08 START A PROJECT (Rule: Client-Facing Project Inquiry Engine) ──── */}
+        <ProjectRequestSection
+          selectedServices={selectedServices}
+          onToggleService={handleToggleService}
+          onClearServices={handleClearServices}
+        />
+
+        {/* ─── 09 CONTACT (Rule 29: Have an idea? LET'S BUILD SOMETHING MEANINGFUL) */}
         <section id="contact" className="contact-redesign-section">
           {/* Architectural Line Transition (Rule 27) */}
           <div className="section-arch-divider">
-            <span className="section-arch-code">{translateText("08 / CONTACT")}</span>
+            <span className="section-arch-code">{translateText("09 / CONTACT")}</span>
             <div className="section-arch-line" />
           </div>
 
@@ -1673,6 +1722,9 @@ export default function App() {
           </div>
         </section>
       </main>
+
+      {/* Persistent Floating Project CTA Button (Rule 28) */}
+      <FloatingProjectButton />
 
       {/* ─── 09 FOOTER (Rule 30: Simple, Clean Footer) ────────────────────────── */}
       <footer className="footer-redesign">

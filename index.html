@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Immediate Top-of-Page Scroll Enforcement -->
+    <script>
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+    </script>
+
     <!-- SEO Primary Meta -->
     <title>Abdellah BELMAARIS | Junior Full-Stack Developer at BIMPulse</title>
     <meta name="description" content="Portfolio of Abdellah BELMAARIS — Junior Full-Stack Developer at BIMPulse Digital specializing in Python, Django, SQL, HTML, CSS, and modern web applications. Based in Casablanca, Morocco." />
