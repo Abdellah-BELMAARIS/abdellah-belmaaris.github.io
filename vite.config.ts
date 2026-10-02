@@ -34,7 +34,8 @@ function gmailSmtpPlugin(): Plugin {
                 fromName: data.name ? `${data.name} (Portfolio Inquiry)` : 'Portfolio Client',
                 replyTo: data.email,
                 subject: data._subject || data.subject || `New Portfolio Message from ${data.name || 'Visitor'}`,
-                text: data.summary || data.message || JSON.stringify(data, null, 2)
+                text: data.summary || data.message || JSON.stringify(data, null, 2),
+                data: data
               });
               res.setHeader('Content-Type', 'application/json');
               res.statusCode = 200;

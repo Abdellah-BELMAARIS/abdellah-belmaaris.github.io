@@ -1,32 +1,6 @@
-// Serverless Handler for Gmail SMTP Email Delivery with Portfolio Design
-// Compatible with Vercel, Netlify Functions, and Node.js server environments
-
-const tls = require('tls');
-const fs = require('fs');
-const path = require('path');
-
-function getEnvValue(key, fallback = '') {
-  if (process.env[key]) return process.env[key];
-  try {
-    const candidates = [
-      path.resolve(__dirname, '.env'),
-      path.resolve(__dirname, '../.env'),
-      path.resolve(process.cwd(), '.env')
-    ];
-    for (const p of candidates) {
-      if (fs.existsSync(p)) {
-        const text = fs.readFileSync(p, 'utf8');
-        for (const line of text.split('\n')) {
-          const trimmed = line.trim();
-          if (trimmed && !trimmed.startsWith('#') && trimmed.startsWith(key + '=')) {
-            return trimmed.slice(key.length + 1).trim().replace(/^["']|["']$/g, '');
-          }
-        }
-      }
-    }
-  } catch {}
-  return fallback;
-}
+// High-End Portfolio Design Email Template
+// Matches the visual aesthetics of Abdellah BELMAARIS's portfolio:
+// Dark theme canvas (#0B0F19), slate card (#111827), emerald accents (#10B981), cyan (#06B6D4) and modern typography.
 
 function escapeHtml(text) {
   if (!text) return '';
@@ -49,6 +23,7 @@ function buildPortfolioEmailHtml(data = {}) {
   const description = escapeHtml(rawDescription);
   const subject = escapeHtml(data._subject || data.subject || 'New Portfolio Inquiry');
 
+  // Handle services
   let services = [];
   if (Array.isArray(data.services)) {
     services = data.services;
@@ -100,12 +75,15 @@ function buildPortfolioEmailHtml(data = {}) {
 </head>
 <body style="margin: 0; padding: 24px 12px; background-color: #0b0f19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f1f5f9; -webkit-font-smoothing: antialiased; line-height: 1.5;">
 
+  <!-- Outer Email Container -->
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 620px; margin: 0 auto; background-color: #111827; border: 1px solid #1e293b; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);">
     
+    <!-- Top Glowing Gradient Bar -->
     <tr>
       <td style="height: 4px; background: linear-gradient(90deg, #10b981 0%, #06b6d4 50%, #6366f1 100%);"></td>
     </tr>
 
+    <!-- Brand Header -->
     <tr>
       <td style="padding: 28px 28px 20px 28px; background-color: #111827; border-bottom: 1px solid #1e293b;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -126,9 +104,11 @@ function buildPortfolioEmailHtml(data = {}) {
       </td>
     </tr>
 
+    <!-- Main Content Area -->
     <tr>
       <td style="padding: 28px;">
 
+        <!-- Client Information Card -->
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #162032; border: 1px solid #243049; border-radius: 12px; overflow: hidden; margin-bottom: 24px;">
           <tr>
             <td style="padding: 18px 20px; border-bottom: 1px solid #243049;">
@@ -187,6 +167,7 @@ function buildPortfolioEmailHtml(data = {}) {
         </table>
 
         ${servicesHtml ? `
+        <!-- Services Section -->
         <div style="margin-bottom: 24px;">
           <div style="color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">
             REQUESTED TECHNICAL SERVICES
@@ -198,6 +179,7 @@ function buildPortfolioEmailHtml(data = {}) {
         </div>
         ` : ''}
 
+        <!-- Description / Message Box -->
         <div style="margin-bottom: 28px;">
           <div style="color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">
             ${sectionTitle}
@@ -205,6 +187,7 @@ function buildPortfolioEmailHtml(data = {}) {
           <div style="background-color: #0d131f; border-left: 4px solid #10b981; border-top: 1px solid #1e293b; border-right: 1px solid #1e293b; border-bottom: 1px solid #1e293b; border-radius: 0 10px 10px 0; padding: 18px 20px; color: #e2e8f0; font-size: 14px; line-height: 1.65; white-space: pre-wrap; word-break: break-word;">${description || '(No additional text provided)'}</div>
         </div>
 
+        <!-- Action Call to Action Buttons -->
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 8px;">
           <tr>
             <td>
@@ -221,6 +204,7 @@ function buildPortfolioEmailHtml(data = {}) {
       </td>
     </tr>
 
+    <!-- Footer Area -->
     <tr>
       <td style="padding: 22px 28px; background-color: #0d131f; border-top: 1px solid #1e293b; text-align: center;">
         <p style="margin: 0 0 6px 0; color: #94a3b8; font-size: 12px; font-weight: 600;">
@@ -243,153 +227,6 @@ function buildPortfolioEmailHtml(data = {}) {
 </html>`.trim();
 }
 
-function sendGmail({ to, fromName, subject, text, html, data, replyTo, user, pass }) {
-  return new Promise((resolve, reject) => {
-    const gmailUser = user || getEnvValue('GMAIL_USER', 'obaidbelmaaris@gmail.com');
-    const rawPass = pass || getEnvValue('GMAIL_APP_PASS', '');
-    const gmailPass = rawPass.replace(/\s+/g, '');
-
-    if (!gmailPass) {
-      return reject(new Error('Missing GMAIL_APP_PASS environment variable.'));
-    }
-
-    let emailHtml = html;
-    if (!emailHtml) {
-      emailHtml = buildPortfolioEmailHtml(data || {
-        name: fromName,
-        email: replyTo,
-        message: text,
-        subject
-      });
-    }
-
-    const socket = tls.connect(465, 'smtp.gmail.com', () => {});
-    socket.setEncoding('utf8');
-    let state = 'INIT';
-
-    socket.on('data', (raw) => {
-      const resp = raw.toString();
-
-      if (state === 'INIT' && resp.startsWith('220')) {
-        state = 'EHLO';
-        socket.write('EHLO localhost\r\n');
-      } else if (state === 'EHLO' && (resp.includes('250-AUTH') || resp.includes('250 AUTH'))) {
-        state = 'AUTH';
-        const auth = Buffer.from(`\0${gmailUser}\0${gmailPass}`).toString('base64');
-        socket.write(`AUTH PLAIN ${auth}\r\n`);
-      } else if (state === 'AUTH') {
-        if (resp.startsWith('235')) {
-          state = 'MAIL';
-          socket.write(`MAIL FROM:<${gmailUser}>\r\n`);
-        } else {
-          socket.end();
-          return reject(new Error('Gmail Authentication failed: ' + resp.trim()));
-        }
-      } else if (state === 'MAIL' && resp.startsWith('250')) {
-        state = 'RCPT';
-        socket.write(`RCPT TO:<${to || gmailUser}>\r\n`);
-      } else if (state === 'RCPT' && resp.startsWith('250')) {
-        state = 'DATA';
-        socket.write('DATA\r\n');
-      } else if (state === 'DATA' && resp.startsWith('354')) {
-        state = 'SENDING';
-        const subjectEncoded = `=?UTF-8?B?${Buffer.from(subject || 'Portfolio Inquiry').toString('base64')}?=`;
-        const cleanFromName = (fromName || 'Abdellah Portfolio Dispatch').replace(/["\r\n]/g, '');
-
-        let messageBody = '';
-        const boundary = `----=_Part_Portfolio_${Date.now()}_${Math.random().toString(36).substring(2)}`;
-
-        const headers = [
-          `From: "${cleanFromName}" <${gmailUser}>`,
-          `To: <${to || gmailUser}>`,
-          replyTo ? `Reply-To: <${replyTo}>` : '',
-          `Subject: ${subjectEncoded}`,
-          'MIME-Version: 1.0'
-        ];
-
-        if (emailHtml) {
-          headers.push(`Content-Type: multipart/alternative; boundary="${boundary}"`);
-
-          const plainTextContent = text || 'New project request received from your portfolio. Please view in an HTML-compatible client.';
-
-          messageBody = [
-            headers.filter(Boolean).join('\r\n'),
-            '', // Crucial blank line separating top headers from MIME parts
-            `--${boundary}`,
-            'Content-Type: text/plain; charset=UTF-8',
-            'Content-Transfer-Encoding: 8bit',
-            '',
-            plainTextContent,
-            '',
-            `--${boundary}`,
-            'Content-Type: text/html; charset=UTF-8',
-            'Content-Transfer-Encoding: 8bit',
-            '',
-            emailHtml,
-            '',
-            `--${boundary}--`,
-            ''
-          ].join('\r\n');
-        } else {
-          headers.push('Content-Type: text/plain; charset=UTF-8');
-          headers.push('Content-Transfer-Encoding: 8bit');
-
-          messageBody = [
-            headers.filter(Boolean).join('\r\n'),
-            '',
-            text || ''
-          ].join('\r\n');
-        }
-
-        socket.write(`${messageBody}\r\n.\r\n`);
-      } else if (state === 'SENDING' && resp.startsWith('250')) {
-        state = 'DONE';
-        socket.write('QUIT\r\n');
-        resolve({ success: true, message: 'Portfolio-designed email delivered via Gmail SMTP' });
-      }
-    });
-
-    socket.on('error', (err) => reject(err));
-
-    setTimeout(() => {
-      if (state !== 'DONE') {
-        socket.destroy();
-        reject(new Error('Gmail SMTP connection timed out'));
-      }
-    }, 15000);
-  });
-}
-
-module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method Not Allowed' });
-    return;
-  }
-
-  try {
-    const data = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-    const result = await sendGmail({
-      to: 'obaidbelmaaris@gmail.com',
-      fromName: data.name ? `${data.name} (Portfolio Inquiry)` : 'Portfolio Client',
-      replyTo: data.email,
-      subject: data._subject || data.subject || `New Portfolio Inquiry from ${data.name || 'Visitor'}`,
-      text: data.summary || data.message || JSON.stringify(data, null, 2),
-      data: data
-    });
-
-    res.status(200).json({ ok: true, success: true, method: 'gmail-smtp', result });
-  } catch (error) {
-    console.error('SMTP Delivery Error:', error);
-    res.status(500).json({ ok: false, error: error.message });
-  }
+module.exports = {
+  buildPortfolioEmailHtml
 };
