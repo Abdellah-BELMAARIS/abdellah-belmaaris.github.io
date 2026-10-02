@@ -561,6 +561,8 @@ export default function App() {
       message: formMessage.trim(),
       _subject: `Portfolio contact from ${formName.trim()}`,
       _replyto: formEmail.trim(),
+      _captcha: 'false',
+      _template: 'table',
       source: 'abdellah-belmaaris.github.io'
     };
 
@@ -576,35 +578,20 @@ export default function App() {
           body: JSON.stringify(payload)
         });
         if (smtpRes.ok) {
-          setFormStatus({ type: 'success', text: 'Message sent successfully! I will reply shortly.' });
-          setFormName('');
-          setFormEmail('');
-          setFormMessage('');
-          return;
+          const resData = await smtpRes.json().catch(() => ({}));
+          if (resData.ok || resData.success) {
+            setFormStatus({ type: 'success', text: 'Message sent successfully! I will reply shortly.' });
+            setFormName('');
+            setFormEmail('');
+            setFormMessage('');
+            return;
+          }
         }
       } catch {
-        // Fall back to direct web delivery
+        // Fall back to FormSubmit direct endpoint
       }
 
-      // 2. Direct Web Endpoint (ShipMyForm)
-      const response = await fetch('https://shipmyform.com/to/obaidbelmaaris@gmail.com', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        setFormStatus({ type: 'success', text: 'Message sent successfully! I will reply shortly.' });
-        setFormName('');
-        setFormEmail('');
-        setFormMessage('');
-        return;
-      }
-
-      // 3. Secondary Direct Endpoint
+      // 2. Direct Web Delivery Endpoint (FormSubmit - Reliable static form backend)
       const fbResponse = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
         method: 'POST',
         headers: {
@@ -615,11 +602,14 @@ export default function App() {
       });
 
       if (fbResponse.ok) {
-        setFormStatus({ type: 'success', text: 'Message sent successfully! I will reply shortly.' });
-        setFormName('');
-        setFormEmail('');
-        setFormMessage('');
-        return;
+        const fbData = await fbResponse.json().catch(() => ({}));
+        if (fbData.success === 'true' || fbData.success === true || fbResponse.status === 200) {
+          setFormStatus({ type: 'success', text: 'Message sent successfully! I will reply shortly.' });
+          setFormName('');
+          setFormEmail('');
+          setFormMessage('');
+          return;
+        }
       }
 
       throw new Error('Endpoints offline');
