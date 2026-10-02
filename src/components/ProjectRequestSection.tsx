@@ -167,13 +167,15 @@ abdellah-belmaaris.github.io
       name: name.trim(),
       email: email.trim(),
       company: company.trim() || 'Not specified',
-      clientType: currentClientTypeObj.title,
+      client_type: currentClientTypeObj.title,
       services: selectedServices.join(', '),
       timeline,
       budget,
       description: description.trim(),
       _subject: `New Portfolio Project Request — ${primarySubjectService} [${currentClientTypeObj.badge}]`,
       _replyto: email.trim(),
+      _captcha: 'false',
+      _template: 'table',
       source: 'abdellah-belmaaris.github.io',
       summary: formattedSummary
     };
@@ -190,6 +192,38 @@ abdellah-belmaaris.github.io
           body: JSON.stringify(payload)
         });
         if (smtpRes.ok) {
+          const resData = await smtpRes.json().catch(() => ({}));
+          if (resData.ok || resData.success) {
+            setSubmittedData({
+              name: name.trim(),
+              email: email.trim(),
+              company: company.trim() || 'Not specified',
+              clientType: currentClientTypeObj.title,
+              services: [...selectedServices],
+              timeline,
+              budget
+            });
+            setIsSubmitted(true);
+            return;
+          }
+        }
+      } catch {
+        // Fall back to FormSubmit direct endpoint
+      }
+
+      // 2. Direct Web Delivery Endpoint (FormSubmit - Reliable static form backend)
+      const fbResponse = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (fbResponse.ok) {
+        const fbData = await fbResponse.json().catch(() => ({}));
+        if (fbData.success === 'true' || fbData.success === true || fbResponse.status === 200) {
           setSubmittedData({
             name: name.trim(),
             email: email.trim(),
@@ -202,56 +236,6 @@ abdellah-belmaaris.github.io
           setIsSubmitted(true);
           return;
         }
-      } catch {
-        // Fall back to direct web delivery
-      }
-
-      // 2. Direct Web Delivery Endpoint (ShipMyForm)
-      const response = await fetch('https://shipmyform.com/to/obaidbelmaaris@gmail.com', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        setSubmittedData({
-          name: name.trim(),
-          email: email.trim(),
-          company: company.trim() || 'Not specified',
-          clientType: currentClientTypeObj.title,
-          services: [...selectedServices],
-          timeline,
-          budget
-        });
-        setIsSubmitted(true);
-        return;
-      }
-
-      // 3. Secondary Direct Endpoint
-      const fbResponse = await fetch('https://formsubmit.co/ajax/obaidbelmaaris@gmail.com', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (fbResponse.ok) {
-        setSubmittedData({
-          name: name.trim(),
-          email: email.trim(),
-          company: company.trim() || 'Not specified',
-          clientType: currentClientTypeObj.title,
-          services: [...selectedServices],
-          timeline,
-          budget
-        });
-        setIsSubmitted(true);
-        return;
       }
 
       throw new Error('Endpoints offline');
