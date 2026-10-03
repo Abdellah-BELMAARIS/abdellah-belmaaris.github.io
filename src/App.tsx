@@ -935,14 +935,24 @@ export default function App() {
               </div>
 
               <div className="project-actions-row">
-                <a
-                  href="https://github.com/Abdellah-BELMAARIS/SchoolManagement"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <span
                   className="btn btn-secondary"
-                  id="school-github-btn"
+                  id="school-private-badge"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    cursor: 'default',
+                    opacity: 0.95,
+                    border: '1px solid rgba(16, 185, 129, 0.35)',
+                    background: 'rgba(16, 185, 129, 0.08)',
+                    color: '#e2e8f0',
+                    fontSize: '13px'
+                  }}
                 >
-                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} />{translateText(" GitHub Repository")}</a>
+                  <i className="fa-solid fa-lock" style={{ color: '#10b981' }} />
+                  {translateText("Private Proprietary Repository")}
+                </span>
               </div>
             </motion.div>
 
@@ -1158,14 +1168,24 @@ export default function App() {
               </div>
 
               <div className="project-actions-row">
-                <a
-                  href="https://github.com/Abdellah-BELMAARIS/quran-site"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <span
                   className="btn btn-secondary"
-                  id="judhoor-github-btn"
+                  id="judhoor-private-badge"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    cursor: 'default',
+                    opacity: 0.95,
+                    border: '1px solid rgba(16, 185, 129, 0.35)',
+                    background: 'rgba(16, 185, 129, 0.08)',
+                    color: '#e2e8f0',
+                    fontSize: '13px'
+                  }}
                 >
-                  <i className="fa-brands fa-github" style={{ marginRight: '6px' }} />{translateText(" GitHub Repository")}</a>
+                  <i className="fa-solid fa-lock" style={{ color: '#10b981' }} />
+                  {translateText("Private Proprietary Repository")}
+                </span>
               </div>
 
             </motion.div>

@@ -1,5 +1,6 @@
 // Official names, credential titles, and source-code examples remain unchanged.
 export const translations: Record<string, [string, string]> = {
+  'Private Proprietary Repository': ['Dépôt privé propriétaire', 'مستودع برمجي خاص ومحمي'],
   'Public development repository.': ['Dépôt public de développement.', 'مستودع برمجي عام للتطوير المفتوح.'],
   "Give me an executive overview of Abdellah's background in Full-Stack Dev and AI.": ['Présentez le parcours d’Abdellah en développement full-stack et en IA.', 'قدم ملخصاً تنفيذياً لمسار عبد الله في تطوير الويب الشامل (Full-Stack) وهندسة الذكاء الاصطناعي.'],
   'How does Abdellah build and integrate AI, LLMs, and RAG systems with web applications?': ['Comment Abdellah intègre-t-il l’IA, les LLM et le RAG aux applications web ?', 'كيف يبني ويدمج عبد الله حلول الذكاء الاصطناعي، والنماذج اللغوية الكبيرة (LLMs)، وأنظمة RAG في تطبيقات الويب؟'],
