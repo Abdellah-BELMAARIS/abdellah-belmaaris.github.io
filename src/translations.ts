@@ -481,6 +481,18 @@ export const translations: Record<string, [string, string]> = {
   'Connect & Resources': ['Contact & Ressources', 'قنوات التواصل والمصادر'],
   '100% Client-Side Bundle · React 19 · Vite · TypeScript · Static PWA': ['Bundle 100% côté client · React 19 · Vite · TypeScript · PWA statique', 'حزمة كاملة تعمل في جانب العميل 100% · React 19 · Vite · TypeScript · تطبيق ويب PWA'],
   'Scroll to Top ↑': ['Haut de page ↑', 'العودة لأعلى الصفحة ↑'],
-  'Email Copied!': ['E-mail copié !', 'تم نسخ البريد الإلكتروني!']
+  'Email Copied!': ['E-mail copié !', 'تم نسخ البريد الإلكتروني!'],
+  'Theme: Cyber Obsidian': ['Thème : Cyber Obsidian', 'المظهر: سايبر أوبسيديان'],
+  'Theme: Galactic Violet': ['Thème : Violet Galactique', 'المظهر: بنفسجي مجري'],
+  'Theme: Arctic Light': ['Thème : Blanc Arctique', 'المظهر: أبيض قطبي'],
+  'Select Theme': ['Choisir le thème', 'اختيار المظهر'],
+  'Palettes': ['Palettes', 'المظاهر'],
+  'Cyber Obsidian': ['Cyber Obsidian', 'سايبر أوبسيديان'],
+  'Galactic Violet': ['Violet Galactique', 'بنفسجي مجري'],
+  'Arctic Light': ['Blanc Arctique', 'أبيض قطبي'],
+  'Deep Tech Navy & Electric Cyan': ['Bleu marine tech & cyan électrique', 'كحلي تقني داكن مع سماوي فاقع'],
+  'Cosmic Nebula & Neon Orchid': ['Nébuleuse cosmique & orchidée néon', 'سديم كوني مع بنفسجي ووردي متوهج'],
+  'Architectural Daylight & Oceanic Teal': ['Lumière architecturale & sarcelle océanique', 'إضاءة معمارية نهارية مع فيروزي محيطي'],
+  'Active': ['Actif', 'نشط']
 };
 

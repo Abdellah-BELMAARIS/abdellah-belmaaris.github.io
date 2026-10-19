@@ -11,6 +11,7 @@ import HolographicIdBadge from './components/HolographicIdBadge';
 import SynapticSkillsMesh from './components/SynapticSkillsMesh';
 import RetroArcadeConsoleModal from './components/RetroArcadeConsoleModal';
 import FooterGrandEnding from './components/FooterGrandEnding';
+import ThemeChooser, { type ThemeType } from './components/ThemeChooser';
 import { useLanguage, setLanguage, type Language } from './i18n';
 
 // ─── Interfaces ───────────────────────────────────────────────────────────────
@@ -395,7 +396,15 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<ThemeType>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('portfolio-theme');
+      if (saved === 'dark' || saved === 'violet' || saved === 'light') {
+        return saved as ThemeType;
+      }
+    }
+    return 'dark';
+  });
   const [menuActive, setMenuActive] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
@@ -449,9 +458,14 @@ export default function App() {
     setSelectedServices([]);
   }, []);
 
-  // Theme synchronization
+  // Theme synchronization and persistence
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem('portfolio-theme', theme);
+    } catch {
+      // Ignore storage errors in restricted iframe/browser modes
+    }
   }, [theme]);
 
   // Lock body scroll on mobile menu
@@ -734,15 +748,10 @@ export default function App() {
             <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '6px' }} />
             {translateText("Download CV ")}<span className="btn-arrow">↗</span>
           </a>
-          <button
-            className="theme-toggle"
-            type="button"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            aria-label={translateText(`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`)}
-            title={translateText(`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`)}
-          >
-            <i className={`fa-solid ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`} aria-hidden="true" />
-          </button>
+          <ThemeChooser
+            currentTheme={theme}
+            onThemeChange={(newTheme) => setTheme(newTheme)}
+          />
           <button
             className={`hamburger ${menuActive ? 'active' : ''}`}
             onClick={() => setMenuActive(!menuActive)}
