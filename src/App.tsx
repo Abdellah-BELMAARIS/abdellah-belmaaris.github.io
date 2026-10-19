@@ -7,6 +7,9 @@ import AiDevTerminal from './components/AiDevTerminal';
 import ServicesSection from './components/ServicesSection';
 import ProjectRequestSection from './components/ProjectRequestSection';
 import FloatingProjectButton from './components/FloatingProjectButton';
+import HolographicIdBadge from './components/HolographicIdBadge';
+import SynapticSkillsMesh from './components/SynapticSkillsMesh';
+import RetroArcadeConsoleModal from './components/RetroArcadeConsoleModal';
 import { useLanguage, setLanguage, type Language } from './i18n';
 
 // ─── Interfaces ───────────────────────────────────────────────────────────────
@@ -33,11 +36,13 @@ interface CertCard {
   platform: string;
   degree: string;
   date: string;
+  year: string;
   credentialId: string;
   img: string;
   skills?: string[];
   icon: string;
   link?: string;
+  badge?: string;
 }
 
 interface EdCard {
@@ -103,41 +108,50 @@ const CERTIFICATIONS_DATA: CertCard[] = [
   {
     platform: "DataCamp",
     degree: "Python Data Associate",
-    date: "Issued Feb 2026 · Expires Feb 2028",
+    date: "Issued Feb 23, 2026 · Valid through Feb 2028",
+    year: "2026",
     credentialId: "PDA0019412806212",
     img: "assets/python_data_associate.jpg",
-    icon: "fa-solid fa-graduation-cap",
-    skills: ["Python Data Associate", "Data Analysis", "SQL", "Pandas"],
-    link: "https://www.datacamp.com/certificate/PDA0019412806212"
+    icon: "fa-solid fa-chart-line",
+    skills: ["Python", "Data Analysis", "SQL", "Pandas"],
+    link: "https://www.datacamp.com/certificate/PDA0019412806212",
+    badge: "DATACAMP CERTIFIED"
   },
   {
     platform: "DataCamp",
-    degree: "Associate AI Engineer for Developers",
-    date: "Issued Apr 2026 · Expires Apr 2028",
+    degree: "AI Engineer for Developers Associate",
+    date: "Issued Apr 14, 2026 · Valid through Apr 2028",
+    year: "2026",
     credentialId: "AIEDA0011678564836",
     img: "assets/certificate_ai_engineer.png",
     icon: "fa-solid fa-brain",
     skills: ["Applied AI", "Prompt Engineering", "LLMs", "RAG Concepts"],
-    link: "https://www.datacamp.com/certificate/AIEDA0011678564836"
+    link: "https://www.datacamp.com/certificate/AIEDA0011678564836",
+    badge: "DATACAMP CERTIFIED"
   },
   {
     platform: "المدرسة - Almdrasa",
     degree: "Cybersecurity Fundamentals",
-    date: "Issued Feb 2026",
+    date: "Issued Feb 2026 · Verified Credential",
+    year: "2026",
     credentialId: "77F16BFF2A-77EB48CD64-1451D2521",
     img: "assets/cybersecurity_fundamentals.jpg",
     icon: "fa-solid fa-shield-halved",
     skills: ["Cybersecurity Fundamentals", "Session Security", "Access Control"],
-    link: "https://almdrasa.com/"
+    link: "https://almdrasa.com/",
+    badge: "ALMDRASA VERIFIED"
   },
   {
-    platform: "Self-Taught Professional Track",
-    degree: "Associate Python Developer (Django Developer)",
-    date: "Jan 2026 – Jun 2026",
-    credentialId: "30 HR · Professional Track, Django Developer",
+    platform: "DataCamp",
+    degree: "Associate Python Developer",
+    date: "Completed Nov 05, 2025 · 30 HR Track",
+    year: "2025",
+    credentialId: "#736,739 · Statement of Accomplishment",
     img: "assets/certificate.png",
-    icon: "fa-solid fa-award",
-    skills: ["Django", "Django REST Framework", "Relational Databases", "APIs"]
+    icon: "fa-brands fa-python",
+    skills: ["Python Development", "OOP & Design Patterns", "Data Structures", "Algorithms"],
+    link: "https://www.datacamp.com/",
+    badge: "DATACAMP STATEMENT"
   }
 ];
 
@@ -392,6 +406,7 @@ export default function App() {
   const [journalLightboxIndex, setJournalLightboxIndex] = useState<number | null>(null);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [caseStudyOpen, setCaseStudyOpen] = useState(false);
+  const [arcadeModalOpen, setArcadeModalOpen] = useState(false);
   const [videoSrc, setVideoSrc] = useState('assets/demo1.mp4');
 
   // GitHub Repos
@@ -533,6 +548,7 @@ export default function App() {
         setJournalLightboxIndex(null);
         setVideoModalOpen(false);
         setCaseStudyOpen(false);
+        setArcadeModalOpen(false);
       }
     };
     window.addEventListener('keydown', handleKey);
@@ -710,10 +726,12 @@ export default function App() {
           <a
             href="assets/Abdellah_BELMAARIS_CV.pdf"
             className="header-resume-btn"
-            download
+            download="Abdellah_BELMAARIS_CV.pdf"
             id="header-cv-btn"
             title={translateText("Download Abdellah BELMAARIS CV (PDF)")}
-          >{translateText("Download CV ")}<span className="btn-arrow">↗</span>
+          >
+            <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '6px' }} />
+            {translateText("Download CV ")}<span className="btn-arrow">↗</span>
           </a>
           <button
             className="theme-toggle"
@@ -767,10 +785,13 @@ export default function App() {
             <li className="mobile-cv-item">
               <a
                 href="assets/Abdellah_BELMAARIS_CV.pdf"
-                download
+                download="Abdellah_BELMAARIS_CV.pdf"
                 className="nav-link mobile-cv-link"
                 onClick={() => setMenuActive(false)}
-              >{translateText("Download CV ↗")}</a>
+              >
+                <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '6px' }} />
+                {translateText("Download CV ↗")}
+              </a>
             </li>
           </ul>
         </nav>
@@ -811,6 +832,16 @@ export default function App() {
               <div className="hero-cta-actions">
                 <a href="#request-project" className="btn btn-primary" id="hero-start-project-btn">{translateText("Start a Project ")}<span className="btn-arrow">→</span>
                 </a>
+                <a
+                  href="assets/Abdellah_BELMAARIS_CV.pdf"
+                  download="Abdellah_BELMAARIS_CV.pdf"
+                  className="btn btn-secondary hero-cv-action-btn"
+                  id="hero-download-cv-btn"
+                  title={translateText("Download Abdellah BELMAARIS CV (PDF)")}
+                >
+                  <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px', color: 'var(--accent)' }} />
+                  {translateText("Download CV")}
+                </a>
                 <a href="#services" className="btn btn-secondary" id="hero-explore-services-btn">{translateText("Explore Services")}</a>
                 <a href="#work" className="btn btn-secondary" id="hero-view-work-btn">{translateText("View My Work")}</a>
               </div>
@@ -839,39 +870,14 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* Right Column: Portrait Composition with Rim Light & Particle Halo */}
+            {/* Right Column: Futuristic Holographic 3D ID Badge with Parallax Tilt & Conic Laser Beam */}
             <motion.div
               className="hero-portrait-column"
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.15 }}
             >
-              <div className="hero-portrait-wrapper">
-                {/* Cinematic Ambient Glow Behind Portrait */}
-                <div className="portrait-cinematic-glow" aria-hidden="true" />
-                <div className="portrait-arch-wireframe" aria-hidden="true" />
-
-                <div className="hero-portrait-frame">
-                  <img
-                    src="assets/avatar.jpg"
-                    alt={translateText("Abdellah BELMAARIS — Junior Full-Stack Developer at BIMPulse")}
-                    className="hero-portrait-img"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/450x520/101820/10B981?text=Abdellah+BELMAARIS';
-                    }}
-                  />
-                  <div className="portrait-rim-light" />
-                </div>
-
-                {/* Live Engineering Status Badge */}
-                <div className="hero-status-floating-pill">
-                  <span className="pill-dot" />
-                  <div className="pill-text-group">
-                    <span className="pill-role">{translateText("Junior Full-Stack Developer")}</span>
-                    <span className="pill-company">{translateText("BIMPulse • AEC & Software")}</span>
-                  </div>
-                </div>
-              </div>
+              <HolographicIdBadge />
             </motion.div>
           </div>
         </section>
@@ -919,6 +925,26 @@ export default function App() {
                   <i className="fa-solid fa-language" />{translateText(" MULTILINGUAL")}</span>
                 <span className="arch-badge">
                   <i className="fa-solid fa-school" />{translateText(" ACADEMIC MANAGEMENT")}</span>
+              </div>
+
+              {/* High-Tech Project Telemetry HUD */}
+              <div className="project-telemetry-hud">
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">SECURITY</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-shield-halved" /> 14 RBAC Roles</span>
+                </div>
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">LATENCY</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-bolt" /> &lt; 120ms API</span>
+                </div>
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">LOCALIZATION</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-language" /> Multilingual</span>
+                </div>
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">DATABASE</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-database" /> SQLAlchemy ORM</span>
+                </div>
               </div>
 
               <div className="project-detail-breakdown">
@@ -1090,6 +1116,26 @@ export default function App() {
                 </div>
               </div>
 
+              {/* High-Tech Project Telemetry HUD */}
+              <div className="project-telemetry-hud">
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">STACK</span>
+                  <span className="telemetry-stat-val"><i className="fa-brands fa-python" /> Django + SQL</span>
+                </div>
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">ACCESS</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-shield-halved" /> RBAC & Auth</span>
+                </div>
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">OPTIMIZATION</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-bolt" /> N+1 Query Index</span>
+                </div>
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">PLATFORM</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-globe" /> Multi-Tag CMS</span>
+                </div>
+              </div>
+
               <div className="project-tech-stack-row">
                 <span className="tech-chip">{translateText("Python")}</span>
                 <span className="tech-chip">{translateText("Django")}</span>
@@ -1153,6 +1199,26 @@ export default function App() {
                   <i className="fa-solid fa-book-open" />{translateText(" QURAN & ISLAMIC LEARNING")}</span>
                 <span className="arch-badge">
                   <i className="fa-solid fa-compass" />{translateText(" PRAYER TIMES & QIBLA")}</span>
+              </div>
+
+              {/* High-Tech Project Telemetry HUD */}
+              <div className="project-telemetry-hud">
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">FRAMEWORK</span>
+                  <span className="telemetry-stat-val"><i className="fa-brands fa-python" /> Django Core</span>
+                </div>
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">LANGUAGE</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-language" /> Bilingual AR/EN</span>
+                </div>
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">CONTENT</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-book-open" /> Mushaf & Roots</span>
+                </div>
+                <div className="telemetry-stat-chip">
+                  <span className="telemetry-stat-label">STATUS</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-lock" /> Proprietary</span>
+                </div>
               </div>
 
               <div className="project-detail-breakdown">
@@ -1234,7 +1300,72 @@ export default function App() {
                   ))}
                 </div>
 
+                {/* High-Tech Project Telemetry HUD */}
+                {proj.id === 'pygame-arcade' && (
+                  <div className="project-telemetry-hud">
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">GRAPHICS</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-bolt" /> 60 FPS WebGL</span>
+                    </div>
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">CATALOG</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-gamepad" /> 16 WASM Games</span>
+                    </div>
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">RUNTIME</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-microchip" /> Pygbag WASM</span>
+                    </div>
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">DEPLOYMENT</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-circle-check" /> 100% Client-Side</span>
+                    </div>
+                  </div>
+                )}
+                {proj.id === 'dev-pulse' && (
+                  <div className="project-telemetry-hud">
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">REPORT SPEED</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-bolt" /> &lt; 200ms Reports</span>
+                    </div>
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">PRIVACY</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-shield-halved" /> 100% Local</span>
+                    </div>
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">DATA ENGINE</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-chart-line" /> Pandas Vectorized</span>
+                    </div>
+                  </div>
+                )}
+                {proj.id === 'oop-architecture' && (
+                  <div className="project-telemetry-hud">
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">TEST COVERAGE</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-circle-check" /> 100% Suites</span>
+                    </div>
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">STANDARDS</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-code" /> Strict PEP-8</span>
+                    </div>
+                    <div className="telemetry-stat-chip">
+                      <span className="telemetry-stat-label">PATTERNS</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-cubes" /> Gang of Four</span>
+                    </div>
+                  </div>
+                )}
+
                 <div className="personal-actions">
+                  {proj.id === 'pygame-arcade' && (
+                    <button
+                      type="button"
+                      className="telemetry-interactive-btn"
+                      onClick={() => setArcadeModalOpen(true)}
+                      id="open-arcade-simulator-btn"
+                    >
+                      <i className="fa-solid fa-gamepad" />
+                      <span>{translateText("Launch Arcade Console (Simulator)")}</span>
+                    </button>
+                  )}
                   {proj.live && (
                     <a
                       href={proj.live}
@@ -1637,7 +1768,10 @@ export default function App() {
           <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("CORE CAPABILITIES & TOOLS")}</motion.h2>
           <motion.p className="section-intro" {...reveal(0.1, 18)}>{translateText("Categorized by engineering discipline. AI and Data serve as high-value supporting capabilities alongside primary full-stack development foundations.")}</motion.p>
 
-          <div className="tech-stack-grid">
+          {/* Interactive Synaptic Neural Architecture Mesh */}
+          <SynapticSkillsMesh />
+
+          <div className="tech-stack-grid" style={{ marginTop: '40px' }}>
             {/* 1. Development */}
             <motion.div
               className="tech-category-card"
@@ -1764,30 +1898,89 @@ export default function App() {
           <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("CONTINUOUS LEARNING")}</motion.h2>
           <motion.p className="section-intro" {...reveal(0.1, 18)}>{translateText("Verified technical credentials validating applied AI engineering, Python data analysis, and software development.")}</motion.p>
 
-          <div className="credentials-compact-list">
+          {/* Authentic Certificate Photo Showcase Grid */}
+          <div className="credentials-cards-grid">
             {CERTIFICATIONS_DATA.map((cert, idx) => (
               <motion.div
                 key={idx}
-                className="credential-row-item"
-                initial={{ opacity: 0, y: 15 }}
+                className="credential-showcase-card"
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.06 }}
-                onClick={() => setSelectedCert(cert.img)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => e.key === 'Enter' && setSelectedCert(cert.img)}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
               >
-                <div className="credential-left">
-                  <span className="credential-year">2026</span>
-                  <div className="credential-info">
-                    <h4 className="credential-name">{translateText(cert.degree)}</h4>
-                    <span className="credential-issuer">{translateText(cert.platform)} · {translateText(cert.credentialId)}</span>
+                {/* Real Certificate Photo Thumbnail with Click-to-Enlarge Lightbox */}
+                <div
+                  className="credential-photo-frame"
+                  onClick={() => setSelectedCert(cert.img)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && setSelectedCert(cert.img)}
+                  title={translateText("Click to view full certificate photo")}
+                >
+                  <img
+                    src={cert.img}
+                    alt={translateText(cert.degree)}
+                    className="credential-photo-img"
+                    loading="lazy"
+                  />
+                  <div className="credential-photo-overlay">
+                    <span className="credential-photo-badge">
+                      <i className="fa-solid fa-magnifying-glass-plus" /> {translateText("View Full Certificate")}
+                    </span>
                   </div>
                 </div>
-                <div className="credential-right">
-                  <span className="credential-preview-trigger">{translateText("Preview Credential ")}<span className="btn-arrow">↗</span>
-                  </span>
+
+                {/* Credential Card Details */}
+                <div className="credential-card-content">
+                  <div className="credential-card-meta-top">
+                    <span className="credential-platform-tag">
+                      <i className={cert.icon} /> {translateText(cert.platform)}
+                    </span>
+                    <span className="credential-year-tag">{cert.year}</span>
+                  </div>
+
+                  <h4 className="credential-card-title">{translateText(cert.degree)}</h4>
+
+                  <div className="credential-id-row">
+                    <span className="credential-id-label">{translateText("ID / Code:")}</span>
+                    <code className="credential-id-code">{cert.credentialId}</code>
+                  </div>
+
+                  <p className="credential-card-date">
+                    <i className="fa-solid fa-calendar-check" style={{ marginRight: '6px', color: 'var(--emerald-bright)' }} />
+                    {translateText(cert.date)}
+                  </p>
+
+                  {cert.skills && (
+                    <div className="credential-skills-row">
+                      {cert.skills.map((skill) => (
+                        <span key={skill} className="exp-skill-tag">{translateText(skill)}</span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="credential-actions-row">
+                    <button
+                      type="button"
+                      className="credential-action-btn primary"
+                      onClick={() => setSelectedCert(cert.img)}
+                      id={`cert-view-btn-${idx}`}
+                    >
+                      <i className="fa-solid fa-image" /> {translateText("View Photo")}
+                    </button>
+                    {cert.link && (
+                      <a
+                        href={cert.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="credential-action-btn secondary"
+                        id={`cert-verify-link-${idx}`}
+                      >
+                        <i className="fa-solid fa-shield-check" /> {translateText("Verify")} <span className="btn-arrow">↗</span>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -1891,7 +2084,7 @@ export default function App() {
                 </a>
                 <a
                   href="assets/Abdellah_BELMAARIS_CV.pdf"
-                  download
+                  download="Abdellah_BELMAARIS_CV.pdf"
                   className="contact-quick-link highlight"
                   id="contact-cv-download-link"
                 >
@@ -2040,7 +2233,7 @@ export default function App() {
         {/* Certificate Image Lightbox Modal */}
         {selectedCert && (
           <motion.div
-            className="modal active"
+            className="modal active cert-lightbox-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -2050,11 +2243,69 @@ export default function App() {
               }
             }}
           >
-            <div className="modal-content-wrapper">
-              <button className="modal-close" aria-label={translateText("Close credential preview")} id="cert-modal-close">
-                <i className="fa-solid fa-xmark" />
-              </button>
-              <img src={selectedCert} alt={translateText("Enlarged Credential")} className="modal-img" />
+            <div className="modal-content-wrapper cert-modal-content-wrapper">
+              {(() => {
+                const found = CERTIFICATIONS_DATA.find(c => c.img === selectedCert);
+                return (
+                  <>
+                    <div className="cert-modal-header">
+                      <div className="cert-modal-header-info">
+                        <span className="cert-modal-kicker">
+                          <i className="fa-solid fa-award" style={{ color: 'var(--accent)', marginRight: '6px' }} />
+                          {translateText("Verified Industry Credential")}
+                        </span>
+                        <h3 className="cert-modal-degree-title">
+                          {found ? translateText(found.degree) : translateText("Enlarged Credential")}
+                        </h3>
+                      </div>
+                      <button
+                        className="modal-close"
+                        aria-label={translateText("Close credential preview")}
+                        id="cert-modal-close"
+                        onClick={() => setSelectedCert(null)}
+                      >
+                        <i className="fa-solid fa-xmark" />
+                      </button>
+                    </div>
+
+                    <div className="cert-modal-body">
+                      <img
+                        src={selectedCert}
+                        alt={found ? translateText(found.degree) : translateText("Enlarged Credential")}
+                        className="modal-img cert-modal-img"
+                      />
+                    </div>
+
+                    {found && (
+                      <div className="cert-modal-footer">
+                        <div className="cert-modal-footer-meta">
+                          <span className="cert-modal-issuer">
+                            <i className={found.icon} style={{ marginRight: '6px' }} />
+                            {translateText(found.platform)}
+                          </span>
+                          <span className="cert-modal-sep">·</span>
+                          <code className="cert-modal-id-badge">{found.credentialId}</code>
+                          <span className="cert-modal-sep">·</span>
+                          <span className="cert-modal-date-text">{translateText(found.date)}</span>
+                        </div>
+                        <div className="cert-modal-footer-actions">
+                          {found.link && (
+                            <a
+                              href={found.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="btn btn-secondary cert-verify-action-btn"
+                            >
+                              <i className="fa-solid fa-shield-check" style={{ marginRight: '6px', color: 'var(--emerald-bright)' }} />
+                              {translateText("Verify Official Credential ↗")}
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
             </div>
           </motion.div>
         )}
@@ -2184,6 +2435,12 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ─── Retro Arcade WASM Console Modal ─── */}
+      <RetroArcadeConsoleModal
+        isOpen={arcadeModalOpen}
+        onClose={() => setArcadeModalOpen(false)}
+      />
     </>
   );
 }

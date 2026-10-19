@@ -334,12 +334,13 @@ class RAGQueryEngine:
                         <a
                           key={lIdx}
                           href={link.url}
+                          download={link.url.endsWith('.pdf') ? 'Abdellah_BELMAARIS_CV.pdf' : undefined}
                           target={link.external ? "_blank" : undefined}
                           rel={link.external ? "noopener noreferrer" : undefined}
                           className="msg-link-btn"
                         >
                           {translateText(link.label)}
-                          <i className={`fa-solid ${link.external ? 'fa-arrow-up-right-from-square' : 'fa-arrow-down'}`} style={{ marginLeft: '6px' }} />
+                          <i className={`fa-solid ${link.url.endsWith('.pdf') ? 'fa-file-arrow-down' : link.external ? 'fa-arrow-up-right-from-square' : 'fa-arrow-down'}`} style={{ marginLeft: '6px' }} />
                         </a>
                       ))}
                     </div>
