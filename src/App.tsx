@@ -10,6 +10,7 @@ import FloatingProjectButton from './components/FloatingProjectButton';
 import HolographicIdBadge from './components/HolographicIdBadge';
 import SynapticSkillsMesh from './components/SynapticSkillsMesh';
 import RetroArcadeConsoleModal from './components/RetroArcadeConsoleModal';
+import FooterGrandEnding from './components/FooterGrandEnding';
 import { useLanguage, setLanguage, type Language } from './i18n';
 
 // ─── Interfaces ───────────────────────────────────────────────────────────────
@@ -2176,36 +2177,11 @@ export default function App() {
       {/* Persistent Floating Project CTA Button (Rule 28) */}
       <FloatingProjectButton />
 
-      {/* ─── 09 FOOTER (Rule 30: Simple, Clean Footer) ────────────────────────── */}
-      <motion.footer className="footer-redesign" {...reveal(0.06, 16)}>
-        <div className="footer-top-row">
-          <div className="footer-brand">
-            <span className="footer-logo">{translateText("AB.")}</span>
-            <div className="footer-brand-meta">
-              <span className="footer-name">{translateText("Abdellah BELMAARIS")}</span>
-              <span className="footer-role">{translateText("Junior Full-Stack Developer • BIMPulse • Morocco")}</span>
-            </div>
-          </div>
-          <div className="footer-links-group">
-            <a href="https://linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer">{translateText("LinkedIn")}</a>
-            <span className="footer-sep">·</span>
-            <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">{translateText("GitHub")}</a>
-            <span className="footer-sep">·</span>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              {translateText("Email")}
-            </a>
-          </div>
-        </div>
-        <div className="footer-bottom-row">
-          <p>{translateText("Designed & developed by Abdellah BELMAARIS © 2026")}</p>
-        </div>
-      </motion.footer>
+      {/* ─── 09 GRAND ENDING & COMPREHENSIVE ARCHITECTURAL FOOTER ─────────── */}
+      <FooterGrandEnding
+        onOpenArcade={() => setArcadeModalOpen(true)}
+        onScrollToTop={scrollToTop}
+      />
 
       {/* Scroll-to-Top Button */}
       <AnimatePresence>

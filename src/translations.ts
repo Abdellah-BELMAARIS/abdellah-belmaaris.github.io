@@ -469,6 +469,18 @@ export const translations: Record<string, [string, string]> = {
   '#736,739 · Statement of Accomplishment': ['#736,739 · Attestation de réussite', '#736,739 · بيان إنجاز واعتماد رسمي'],
   'Associate Python Developer': ['Associate Python Developer', 'مطور Python معتمد (Associate)'],
   'Statement of Accomplishment': ['Attestation de réussite', 'بيان إنجاز رسمي'],
-  'CV': ['CV', 'السيرة الذاتية']
+  'CV': ['CV', 'السيرة الذاتية'],
+  'READY TO BUILD SOMETHING MEANINGFUL?': ['PRÊT À CONSTRUIRE UN PROJET SIGNIFICATIF ?', 'هل أنت جاهز لبناء مشروع تقني متميز؟'],
+  'Whether you are looking for a Full-Stack Web Developer, a Django REST Backend Architect, or an Applied AI & Data Engineer — let’s build high-impact solutions together.': ['Que vous recherchiez un développeur web full-stack, un architecte backend Django REST ou un ingénieur en IA appliquée — créons ensemble des solutions performantes.', 'سواء كنت تبحث عن مطور ويب متكامل، أو مهندس واجهات خلفية بأنظمة Django REST، أو متخصص في الذكاء الاصطناعي التطبيقي والبيانات — لنبنِ معاً حلولاً برمجية متطورة.'],
+  'AVAILABLE FOR CONTRACTS & NEW ROLES': ['DISPONIBLE POUR CONTRATS ET NOUVEAUX POSTES', 'متاح لعقود العمل والمشاريع التقنية الجديدة'],
+  'Start a Project Inquiry →': ['Lancer une demande de projet →', 'طلب دراسة مشروع جديد ←'],
+  'Launch 3D Web Arcade 🕹️': ['Lancer la Console Arcade 3D 🕹️', 'تشغيل كابينة ألعاب الويب ثلاثية الأبعاد 🕹️'],
+  'Casablanca Local Time': ['Heure locale de Casablanca', 'التوقيت المحلي في الدار البيضاء'],
+  'LIVE TELEMETRY': ['TÉLÉMÉTRIE EN DIRECT', 'مؤشرات القياس المباشرة'],
+  'Quick Directory': ['Répertoire rapide', 'دليل الوصول السريع'],
+  'Connect & Resources': ['Contact & Ressources', 'قنوات التواصل والمصادر'],
+  '100% Client-Side Bundle · React 19 · Vite · TypeScript · Static PWA': ['Bundle 100% côté client · React 19 · Vite · TypeScript · PWA statique', 'حزمة كاملة تعمل في جانب العميل 100% · React 19 · Vite · TypeScript · تطبيق ويب PWA'],
+  'Scroll to Top ↑': ['Haut de page ↑', 'العودة لأعلى الصفحة ↑'],
+  'Email Copied!': ['E-mail copié !', 'تم نسخ البريد الإلكتروني!']
 };
 
