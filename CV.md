@@ -1,65 +1,86 @@
-# Abdellah BELMAARIS
-**Junior Full-Stack Developer at BIMPulse • Applied AI & Django Specialist**  
-Casablanca, Morocco · obaidbelmaaris@gmail.com · [LinkedIn](https://linkedin.com/in/abdellah-belmaaris) · [GitHub](https://github.com/Abdellah-BELMAARIS) · [Portfolio](https://abdellah-belmaaris.github.io)
+# Abdellah BELMAARIS — Curriculum Vitae
+**Junior Full-Stack Developer & Backend Systems Specialist**  
+BIMPulse • Casablanca, Morocco  
+obaidbelmaaris@gmail.com · [LinkedIn](https://linkedin.com/in/abdellah-belmaaris) · [GitHub](https://github.com/Abdellah-BELMAARIS) · [Portfolio](https://abdellah-belmaaris.github.io)
 
 ---
 
-## Executive Profile
-Junior Full-Stack Developer operating at the intersection of web architecture and AEC digital transformation at BIMPulse. Specializes in building modular Python backends, Django REST APIs, relational PostgreSQL schemas, and modern responsive frontends. Certified by DataCamp in Applied AI Engineering (LLMs, RAG) and Python Data Analytics.
+## Executive Summary
+Performance-driven Full-Stack Software Developer operating at the intersection of enterprise backend architecture, AEC digital transformation, and applied artificial intelligence at BIMPulse. Specialized in engineering high-throughput Python/Django REST backends, normalized PostgreSQL schemas, and modern responsive React/TypeScript interfaces. Proven track record in eliminating severe N+1 SQL bottlenecks to constant O(1) query time and architecting granular 14-role Role-Based Access Control (RBAC) security engines. Certified by DataCamp in Applied AI Engineering (LLMs, RAG Architectures) and Python Data Analytics.
 
 ---
 
-## Professional Experience
+## Key Engineering Metrics
+- **14 Roles**: Role-Based Access Control (RBAC) security architecture
+- **O(1) Time**: SQL Query Optimization resolving N+1 bottlenecks
+- **4+ Certifications**: DataCamp Applied AI & Python Certified
+- **< 200ms**: High-throughput telemetry pipeline performance
+
+---
+
+## Technical Core & Capabilities
+- **Backend & Core Languages**: Python 3.12, Django, Django REST Framework, PostgreSQL, Relational Database Modeling, SQL Optimization, RESTful APIs, JWT Authentication, 14 RBAC Roles, Celery, Redis.
+- **Frontend & Web Interfaces**: React 19, TypeScript, JavaScript (ES6+), HTML5 Semantic, Modern CSS3 Architecture, Three.js, WebGL, Responsive UI, Vite, Framer Motion.
+- **Data & Applied AI**: Pandas, NumPy, Matplotlib, LLM API Integration, RAG Architectures, Prompt Engineering, Data Cleaning Pipelines.
+- **Architecture & DevOps**: Clean Architecture, Gang of Four (GoF) Design Patterns, Git / GitHub CI/CD, Docker, Linux, Unit Testing (pytest), PEP-8, OWASP Security Guidelines.
+
+---
+
+## Professional Work Experience
 
 ### Junior Full-Stack Developer — BIMPulse
-*Casablanca, Morocco (Apprenticeship) | Aug 2026 – Present*
-- Contributing to **BIMPulse Academy**, an enterprise learning platform for AECO (Architecture, Engineering, Construction & Operations) professionals.
-- Engineered backend services and relational data models complying with international **BIM / IFC industry standards**.
-- Developed performant backend APIs in Python & Django coupled with modular, accessible client-side interfaces.
-- Acknowledged by senior engineering leadership on LinkedIn for architectural contributions to production platform milestones.
+*Casablanca, Morocco (Apprenticeship) | Aug 2026 – Present*  
+*AEC & Digital Engineering Software Solutions*
+- Engineered and deployed core application modules for **BIMPulse Academy**, an enterprise digital learning platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.
+- Developed backend services and relational data models strictly adhering to international **BIM / IFC digital engineering standards**.
+- Engineered scalable REST APIs in Python & Django coupled with modular, mobile-responsive user interfaces.
+- Modeled normalized PostgreSQL schemas and optimized database transactions for high-traffic student enrollment flows.
+- Formally commended by senior engineering leadership on LinkedIn for architectural milestones and technical contributions to platform delivery.
 
-### Django & Backend Developer — Self-Directed & Production Work
-*Casablanca, Morocco | May 2026 – Present*
-- Engineered enterprise-grade **Role-Based Access Control (RBAC)** supporting 14 distinct roles with granular permission matrices.
-- Eliminated the **N+1 query bottleneck** using eager loading (`select_related` and `prefetch_related`), reducing loop query latency to constant O(1) performance.
-- Built robust Django REST Framework endpoints with JWT authentication, custom query search indexing, and automated transactional emails.
+### Django & Backend Systems Developer — Self-Directed & Production Systems
+*Casablanca, Morocco | May 2026 – Aug 2026*
+*Enterprise Web Platforms & API Architecture*
+- Architected enterprise-grade **Role-Based Access Control (RBAC)** supporting **14 discrete user roles** with granular permission matrices and security auditing.
+- Eliminated severe **N+1 query bottlenecks** using eager loading (`select_related` and `prefetch_related`), reducing database roundtrips to constant O(1) query time.
+- Integrated automated transactional emails, custom full-text search indexing, and resilient logging mechanisms.
 
-### Python Developer & Data Systems — Core Systems & Automation
-*Jan 2020 – Present*
-- Built automated data extraction pipelines, unstructured log tokenizers, and algorithms across the Python ecosystem.
-- Designed modular object-oriented software implementing classical Gang of Four design patterns and strict PEP-8 compliance.
+### Python Developer & Data Systems — Systems Engineering & Automation
+*Casablanca, Morocco | Jan 2020 – Present*
+*Software Architecture, Automation & Data Engineering*
+- Constructed automated high-throughput data processing pipelines, unstructured server log tokenizers, and computational algorithms in Python 3.12.
+- Authored a production-grade software library implementing classical **Gang of Four (GoF) software design patterns** with full unit test coverage and clean dependency injection.
 
----
-
-## Verified Industry Credentials
-- **AI Engineer for Developers Associate** — DataCamp (Credential ID: `AIEDA0011678564836`, Issued Apr 2026 · Valid through Apr 2028)
-- **Python Data Associate** — DataCamp (Credential ID: `PDA0019412806212`, Issued Feb 2026 · Valid through Feb 2028)
-- **Cybersecurity Fundamentals** — المدرسة / Almdrasa (Credential ID: `77F16BFF2A-77EB48CD64-1451D2521`, Issued Feb 2026)
-- **Associate Python Developer (30 HR Track)** — DataCamp (#736,739 Statement of Accomplishment, Nov 2025)
+### Full-Stack Web Developer — Full-Stack Application Development
+*Casablanca, Morocco | Feb 2023 – Jun 2026*
+*Full-Stack Web Development & CMS Solutions*
+- Engineered full-stack web applications translating functional requirements into modular backends and responsive user interfaces.
+- Developed **The Modern Journal CMS**, a scalable publishing platform featuring multi-user roles, live readership analytics telemetry, and responsive typography.
 
 ---
 
 ## Standout Production Projects
-- **The Modern Journal — Architectural Django CMS**: Full-featured CMS with 14 RBAC roles, O(1) eager loading query optimization, author telemetry dashboard, and full-text search indexing.
-- **PyGame 3D Web Arcade & WASM Console**: 16 native Python games compiled to WebAssembly via Pygbag, rendered at 60 FPS in browser with Three.js 3D cabinet selector.
-- **Dev-Pulse — Developer Activity Telemetry Engine**: Local data pipeline parsing system logs with Pandas and generating automated Matplotlib visual reports in <200ms.
-- **OOP Architecture & Software Patterns Library**: Production GoF design patterns in Python 3.12 with clean architecture and unit test suites.
+- **The Modern Journal — Django CMS**: Multi-user publishing platform with 14 RBAC user roles, live telemetry analytics, O(1) query-optimized data retrieval, and full-text search.
+- **PyGame 3D Web Arcade & WASM Console**: 16 native Python Pygame arcade games compiled to WebAssembly via Pygbag, executing at locked 60 FPS in-browser with Three.js 3D cabinet selector.
+- **Dev-Pulse — Developer Activity Telemetry**: Local data telemetry engine parsing high-dimensional system logs with Pandas and generating automated statistical Matplotlib performance visuals in <200ms.
+- **OOP Patterns & Software Architecture Library**: Production Gang of Four design patterns in Python 3.12 with clean architecture, dependency inversion, and comprehensive test suites.
 
 ---
 
-## Technical Capabilities
-- **Core Languages & Frameworks**: Python 3.12, Django, Django REST Framework, PostgreSQL, SQL, React, TypeScript, HTML5, CSS3, REST APIs.
-- **Data & Applied AI**: Pandas, Matplotlib, Data Pipelines, LLM API Integration, Prompt Engineering, RAG Concepts.
-- **Engineering & Systems**: 14 RBAC Roles, Clean Architecture, Design Patterns (GoF), WebAssembly (Pygbag), Three.js, Git/GitHub, Docker, Unit Testing.
+## Verified Industry Credentials
+- **AI Engineer for Developers Associate** — DataCamp (ID: `AIEDA0011678564836` · Valid through Apr 2028)
+- **Python Data Associate** — DataCamp (ID: `PDA0019412806212` · Valid through Feb 2028)
+- **Cybersecurity Fundamentals** — المدرسة / Almdrasa (ID: `77F16BFF2A-77EB48CD64-1451D2521` · Feb 2026)
+- **Associate Python Developer (30 HR Track)** — DataCamp (#736,739 Statement of Accomplishment · Nov 2025)
 
 ---
 
-## Education
-- **Specialized Track: Backend Architecture & Systems** (2023 – 2026)
-- **Career Track: Backend Developer** — DataCamp
-- **Data Science & Analytics Foundations** — DataCamp
+## Education & Specializations
+- **Backend Architecture & Systems Engineering**: Specialized Track · Self-directed Engineering (Jan 2023 – Present)
+- **Career Track: Backend Developer**: DataCamp Professional Career Track
+- **Data Science & Analytics Foundations**: DataCamp Skill Track
 
-## Languages
-- **English**: Professional Working Proficiency
-- **French**: Professional Working Proficiency
-- **Arabic**: Native Proficiency
+---
+
+## Languages & Standards
+- **Languages**: English (Professional Working), French (Professional Working), Arabic (Native)
+- **Engineering Standards**: BIM / IFC Industry Standards, PEP-8 Python Standards, RESTful API Design, Clean Architecture, OWASP Security Guidelines

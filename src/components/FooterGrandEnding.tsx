@@ -106,6 +106,19 @@ export default function FooterGrandEnding({
           >
             <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px', color: 'var(--accent)' }} />
             <span>{translateText("Download CV (PDF)")}</span>
+            <span className="btn-arrow" style={{ marginLeft: '4px' }}>↓</span>
+          </a>
+
+          <a
+            href="cv.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary footer-action-btn"
+            id="footer-view-cv-btn"
+            title={translateText("View Abdellah BELMAARIS Interactive CV")}
+          >
+            <i className="fa-solid fa-file-lines" style={{ marginRight: '8px', color: '#10b981' }} />
+            <span>{translateText("View CV (Online)")}</span>
             <span className="btn-arrow" style={{ marginLeft: '4px' }}>↗</span>
           </a>
 
@@ -283,9 +296,22 @@ export default function FooterGrandEnding({
                 href="assets/Abdellah_BELMAARIS_CV.pdf"
                 download="Abdellah_BELMAARIS_CV.pdf"
                 className="footer-connect-link highlight-cv"
+                title={translateText("Download Abdellah BELMAARIS CV (PDF)")}
               >
                 <i className="fa-solid fa-file-arrow-down" />
                 <span>{translateText("Download Curriculum Vitae (PDF)")}</span>
+                <span className="footer-connect-arrow">↓</span>
+              </a>
+
+              <a
+                href="cv.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-connect-link highlight-cv"
+                title={translateText("View Abdellah BELMAARIS Interactive CV")}
+              >
+                <i className="fa-solid fa-file-lines" style={{ color: '#10b981' }} />
+                <span>{translateText("View CV (Online)")}</span>
                 <span className="footer-connect-arrow">↗</span>
               </a>
 

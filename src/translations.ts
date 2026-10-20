@@ -493,6 +493,11 @@ export const translations: Record<string, [string, string]> = {
   'Deep Tech Navy & Electric Cyan': ['Bleu marine tech & cyan électrique', 'كحلي تقني داكن مع سماوي فاقع'],
   'Cosmic Nebula & Neon Orchid': ['Nébuleuse cosmique & orchidée néon', 'سديم كوني مع بنفسجي ووردي متوهج'],
   'Architectural Daylight & Oceanic Teal': ['Lumière architecturale & sarcelle océanique', 'إضاءة معمارية نهارية مع فيروزي محيطي'],
-  'Active': ['Actif', 'نشط']
+  'Active': ['Actif', 'نشط'],
+  'Download CV ': ['Télécharger le CV ', 'تحميل السيرة الذاتية '],
+  'View CV': ['Voir le CV', 'معاينة السيرة الذاتية'],
+  'View CV (Online)': ['Voir le CV (En ligne)', 'معاينة السيرة الذاتية (أونلاين)'],
+  'View Interactive CV (Online) ': ['Consulter le CV interactif ', 'معاينة السيرة الذاتية التفاعلية '],
+  'View Abdellah BELMAARIS Interactive CV': ['Consulter le CV interactif d’Abdellah BELMAARIS', 'معاينة السيرة الذاتية التفاعلية لعبد الله بالمعريس']
 };
 

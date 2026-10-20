@@ -480,16 +480,25 @@ export default function App() {
     };
   }, [menuActive]);
 
-  // GitHub API fetch
+  // GitHub API fetch (Filter excluded repos and display top 3)
   useEffect(() => {
     const controller = new AbortController();
-    fetch('https://api.github.com/users/Abdellah-BELMAARIS/repos?sort=updated&per_page=6', {
+    fetch('https://api.github.com/users/Abdellah-BELMAARIS/repos?sort=updated&per_page=15', {
       signal: controller.signal,
       headers: { Accept: 'application/vnd.github+json' }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('GitHub request failed'))))
       .then((repos: GitHubRepo[]) => {
-        setGithubRepos(repos.filter((repo) => repo.name !== 'abdellah-belmaaris.github.io').slice(0, 4));
+        const excludedNames = ['abdellah-belmaaris.github.io', 'associate-ai-engineer-for-developers'];
+        const filtered = repos.filter((repo) => {
+          const clean = repo.name.trim().toLowerCase();
+          return (
+            !excludedNames.includes(clean) &&
+            !clean.includes('associate-ai-engineer') &&
+            !clean.includes('associate-ai')
+          );
+        });
+        setGithubRepos(filtered.slice(0, 3));
       })
       .catch(() => setGithubRepos([]))
       .finally(() => setGithubLoading(false));
@@ -746,7 +755,7 @@ export default function App() {
             title={translateText("Download Abdellah BELMAARIS CV (PDF)")}
           >
             <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '6px' }} />
-            {translateText("Download CV ")}<span className="btn-arrow">↗</span>
+            {translateText("Download CV ")}<span className="btn-arrow">↓</span>
           </a>
           <ThemeChooser
             currentTheme={theme}
@@ -798,9 +807,23 @@ export default function App() {
                 download="Abdellah_BELMAARIS_CV.pdf"
                 className="nav-link mobile-cv-link"
                 onClick={() => setMenuActive(false)}
+                title={translateText("Download Abdellah BELMAARIS CV (PDF)")}
               >
-                <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '6px' }} />
-                {translateText("Download CV ↗")}
+                <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '6px', color: 'var(--accent)' }} />
+                {translateText("Download CV (PDF)")}
+              </a>
+            </li>
+            <li className="mobile-cv-item">
+              <a
+                href="cv.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link mobile-cv-link"
+                onClick={() => setMenuActive(false)}
+                title={translateText("View Abdellah BELMAARIS Interactive CV")}
+              >
+                <i className="fa-solid fa-file-lines" style={{ marginRight: '6px', color: '#10b981' }} />
+                {translateText("View CV (Online)")}
               </a>
             </li>
           </ul>
@@ -851,6 +874,17 @@ export default function App() {
                 >
                   <i className="fa-solid fa-file-arrow-down" style={{ marginRight: '8px', color: 'var(--accent)' }} />
                   {translateText("Download CV")}
+                </a>
+                <a
+                  href="cv.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary hero-view-cv-btn"
+                  id="hero-view-cv-btn"
+                  title={translateText("View Abdellah BELMAARIS Interactive CV")}
+                >
+                  <i className="fa-solid fa-file-lines" style={{ marginRight: '8px', color: '#10b981' }} />
+                  {translateText("View CV")}
                 </a>
                 <a href="#services" className="btn btn-secondary" id="hero-explore-services-btn">{translateText("Explore Services")}</a>
                 <a href="#work" className="btn btn-secondary" id="hero-view-work-btn">{translateText("View My Work")}</a>
@@ -1405,11 +1439,21 @@ export default function App() {
           <div className="github-section-wrap" style={{ marginTop: '50px' }}>
             <motion.h3 className="github-subheading" {...reveal(0.06, 16)}>
               <i className="fa-brands fa-github" style={{ marginRight: '8px', color: 'var(--emerald-bright)' }} />{translateText("Live GitHub Activity")}</motion.h3>
-            {translateText(githubLoading ? (
+            {githubLoading ? (
               <p className="github-state">{translateText('Loading latest public repositories…')}</p>
             ) : githubRepos.length > 0 ? (
               <div className="github-grid">
-                {githubRepos.map((repo, rIdx) => (
+                {githubRepos
+                  .filter((repo) => {
+                    const clean = repo.name.trim().toLowerCase();
+                    return (
+                      !clean.includes('associate-ai-engineer') &&
+                      !clean.includes('associate-ai') &&
+                      clean !== 'abdellah-belmaaris.github.io'
+                    );
+                  })
+                  .slice(0, 3)
+                  .map((repo, rIdx) => (
                   <motion.a
                     className="github-repo-card"
                     href={repo.html_url}
@@ -1438,7 +1482,7 @@ export default function App() {
                   {translateText('Visit my full GitHub profile directly ↗')}
                 </a>
               </p>
-            ))}
+            )}
           </div>
         </section>
 
@@ -2097,8 +2141,19 @@ export default function App() {
                   download="Abdellah_BELMAARIS_CV.pdf"
                   className="contact-quick-link highlight"
                   id="contact-cv-download-link"
+                  title={translateText("Download Abdellah BELMAARIS CV (PDF)")}
                 >
-                  <i className="fa-solid fa-file-arrow-down" />{translateText(" Download Curriculum Vitae (PDF) ")}<span className="link-arrow">↗</span>
+                  <i className="fa-solid fa-file-arrow-down" />{translateText(" Download Curriculum Vitae (PDF) ")}<span className="link-arrow">↓</span>
+                </a>
+                <a
+                  href="cv.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-quick-link highlight"
+                  id="contact-cv-view-link"
+                  title={translateText("View Abdellah BELMAARIS Interactive CV")}
+                >
+                  <i className="fa-solid fa-file-lines" />{translateText(" View Interactive CV (Online) ")}<span className="link-arrow">↗</span>
                 </a>
               </motion.div>
             </div>
