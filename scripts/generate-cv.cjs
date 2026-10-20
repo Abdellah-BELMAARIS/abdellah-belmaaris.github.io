@@ -3,9 +3,17 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 
 const rootDir = path.resolve(__dirname, '..');
-const avatarCvPath = path.join(rootDir, 'public', 'assets', 'avatar_cv.jpg');
-const avatarOriginalPath = path.join(rootDir, 'public', 'assets', 'avatar.jpg');
+const publicAssetsDir = path.join(rootDir, 'public', 'assets');
+const avatarCvPath = path.join(publicAssetsDir, 'avatar_cv.jpg');
+const avatarOriginalPath = path.join(publicAssetsDir, 'avatar.jpg');
 
+// Certificate Images
+const certAiPath = path.join(publicAssetsDir, 'certificate_ai_engineer.png');
+const certPythonDataPath = path.join(publicAssetsDir, 'python_data_associate.jpg');
+const certCyberPath = path.join(publicAssetsDir, 'cybersecurity_fundamentals.jpg');
+const certPythonDevPath = path.join(publicAssetsDir, 'certificate.png');
+
+// Convert to Base64 for instant, offline, and PDF print embedding
 let avatarBase64 = '';
 if (fs.existsSync(avatarCvPath)) {
   avatarBase64 = `data:image/jpeg;base64,${fs.readFileSync(avatarCvPath).toString('base64')}`;
@@ -13,102 +21,77 @@ if (fs.existsSync(avatarCvPath)) {
   avatarBase64 = `data:image/jpeg;base64,${fs.readFileSync(avatarOriginalPath).toString('base64')}`;
 }
 
+const certAiBase64 = fs.existsSync(certAiPath) ? `data:image/png;base64,${fs.readFileSync(certAiPath).toString('base64')}` : 'assets/certificate_ai_engineer.png';
+const certPythonDataBase64 = fs.existsSync(certPythonDataPath) ? `data:image/jpeg;base64,${fs.readFileSync(certPythonDataPath).toString('base64')}` : 'assets/python_data_associate.jpg';
+const certCyberBase64 = fs.existsSync(certCyberPath) ? `data:image/jpeg;base64,${fs.readFileSync(certCyberPath).toString('base64')}` : 'assets/cybersecurity_fundamentals.jpg';
+const certPythonDevBase64 = fs.existsSync(certPythonDevPath) ? `data:image/png;base64,${fs.readFileSync(certPythonDevPath).toString('base64')}` : 'assets/certificate.png';
+
 const cvHtml = `<!DOCTYPE html>
 <html lang="en" data-cv-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Abdellah BELMAARIS — Executive Curriculum Vitae</title>
-  <meta name="description" content="Official Curriculum Vitae of Abdellah BELMAARIS — Full-Stack Developer & Backend Systems Specialist at BIMPulse.">
+  <meta name="description" content="Official Curriculum Vitae of Abdellah BELMAARIS — Full-Stack Developer & Backend Systems Specialist at BIMPulse. Verified Certifications & Standout Projects.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ─── Visual Theme Design System ────────────────────────────────────────── */
     :root {
-      /* Screen Theme: Cyber Obsidian Pro (Default) */
-      --bg-canvas: #070b14;
-      --bg-page: #0c1222;
-      --bg-card: rgba(18, 27, 47, 0.75);
-      --bg-card-subtle: rgba(23, 34, 59, 0.6);
-      --bg-pill: rgba(2, 132, 199, 0.15);
-      --border: rgba(255, 255, 255, 0.1);
-      --border-accent: rgba(56, 189, 248, 0.35);
+      /* Screen Theme: Cyber Obsidian Pro (Default Dark) */
+      --bg-canvas: #060a12;
+      --bg-surface: #0a1120;
+      --bg-card: rgba(13, 22, 40, 0.78);
+      --bg-card-hover: rgba(18, 30, 54, 0.92);
+      --bg-card-subtle: rgba(16, 27, 49, 0.6);
+      --bg-pill: rgba(0, 229, 255, 0.08);
+      --bg-pill-hover: rgba(0, 229, 255, 0.16);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-accent: rgba(0, 229, 255, 0.28);
       --border-emerald: rgba(16, 185, 129, 0.35);
       --text: #f8fafc;
       --text-muted: #cbd5e1;
       --text-sub: #94a3b8;
-      --accent: #38bdf8;
+      --accent: #00e5ff;
       --accent-dark: #0284c7;
-      --accent-gradient: linear-gradient(135deg, #00e5ff 0%, #0284c7 100%);
+      --accent-glow: rgba(0, 229, 255, 0.2);
       --emerald: #10b981;
-      --emerald-gradient: linear-gradient(135deg, #34d399 0%, #059669 100%);
-      --purple: #a855f7;
-      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --gold: #f59e0b;
+      --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06);
+      --card-radius: 14px;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
     }
 
     [data-cv-theme="light"] {
-      --bg-canvas: #eef2f6;
-      --bg-page: #ffffff;
-      --bg-card: #f8fafc;
-      --bg-card-subtle: #f1f5f9;
-      --bg-pill: rgba(2, 132, 199, 0.08);
+      /* Crisp Clean Arctic Light */
+      --bg-canvas: #f1f5f9;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --bg-card-subtle: #f8fafc;
+      --bg-pill: rgba(0, 118, 138, 0.07);
+      --bg-pill-hover: rgba(0, 118, 138, 0.14);
       --border: #e2e8f0;
-      --border-accent: #bae6fd;
-      --border-emerald: #a7f3d0;
+      --border-accent: rgba(0, 118, 138, 0.28);
+      --border-emerald: rgba(5, 133, 103, 0.3);
       --text: #0f172a;
       --text-muted: #334155;
       --text-sub: #64748b;
-      --accent: #0284c7;
-      --accent-dark: #0369a1;
-      --accent-gradient: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-      --emerald: #059669;
-      --emerald-gradient: linear-gradient(135deg, #059669 0%, #047857 100%);
-      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 0 0 1px #e2e8f0;
+      --accent: #00768a;
+      --accent-dark: #005a6a;
+      --accent-glow: rgba(0, 118, 138, 0.15);
+      --emerald: #058567;
+      --emerald-glow: rgba(5, 133, 103, 0.18);
+      --gold: #b45309;
+      --card-shadow: 0 10px 30px rgba(0, 45, 65, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
     }
 
-    [data-cv-theme="light"] .screen-action-bar {
-      background: rgba(255, 255, 255, 0.94);
-      border-bottom: 1px solid #cbd5e1;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    }
-    [data-cv-theme="light"] .action-bar-brand {
-      color: #0f172a;
-    }
-    [data-cv-theme="light"] .btn-action.btn-ghost {
-      background: rgba(15, 23, 42, 0.05);
-      border-color: rgba(15, 23, 42, 0.15);
-      color: #0f172a;
-    }
-    [data-cv-theme="light"] .btn-action.btn-ghost:hover {
-      background: rgba(15, 23, 42, 0.1);
-      color: #0f172a;
-    }
-    [data-cv-theme="light"] .doc-spec-pill {
-      background: rgba(2, 132, 199, 0.1);
-      color: #0284c7;
-      border-color: rgba(2, 132, 199, 0.25);
-    }
-    [data-cv-theme="light"] .theme-toggle-btn {
-      background: rgba(15, 23, 42, 0.05);
-      border-color: rgba(15, 23, 42, 0.15);
-      color: #0f172a;
-    }
-    [data-cv-theme="light"] .cv-card {
-      background: #ffffff;
-      border-color: #e2e8f0;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-    }
-    [data-cv-theme="light"] .metric-card {
-      background: #ffffff;
-      border-color: #e2e8f0;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-    }
-
-    * {
+    /* ─── Global Reset & Typography ────────────────────────────────────────── */
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -116,698 +99,1055 @@ const cvHtml = `<!DOCTYPE html>
 
     body {
       font-family: var(--font-sans);
-      background: var(--bg-canvas);
+      background-color: var(--bg-canvas);
       color: var(--text);
-      line-height: 1.44;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       padding-bottom: 60px;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* ─── Screen Header Toolbar ────────────────────────────────────────────── */
+    /* ─── Executive Screen Action Bar ──────────────────────────────────────── */
     .screen-action-bar {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(12, 18, 34, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10, 17, 32, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      padding: 10px 20px;
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      transition: all 0.3s ease;
     }
+
+    [data-cv-theme="light"] .screen-action-bar {
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid #cbd5e1;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .action-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
     .action-bar-brand {
       display: flex;
       align-items: center;
       gap: 10px;
-      color: #fff;
-      font-weight: 700;
-      font-size: 13.5px;
-      white-space: nowrap;
+      text-decoration: none;
+      color: var(--text);
     }
-    .action-bar-brand .logo-badge {
-      background: var(--accent-gradient);
-      color: #000;
-      padding: 3px 8px;
+
+    .action-bar-logo {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--accent);
+      background: rgba(0, 229, 255, 0.12);
+      padding: 4px 10px;
       border-radius: 6px;
-      font-weight: 800;
-      font-size: 11.5px;
-      letter-spacing: 0.5px;
-      display: inline-flex;
-      align-items: center;
+      border: 1px solid var(--border-accent);
     }
-    .doc-spec-pill {
+
+    [data-cv-theme="light"] .action-bar-logo {
+      background: rgba(0, 118, 138, 0.1);
+    }
+
+    .action-bar-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .doc-spec-badge {
       font-family: var(--font-mono);
-      font-size: 10.5px;
-      background: rgba(2, 132, 199, 0.2);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      padding: 2px 7px;
-      border-radius: 4px;
-      white-space: nowrap;
-    }
-    .action-bar-buttons {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .btn-action {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--emerald);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--border-emerald);
+      padding: 3px 8px;
+      border-radius: 12px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 12px;
-      border-radius: 7px;
-      font-size: 12px;
+    }
+
+    .doc-spec-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+    }
+
+    .action-bar-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      font-family: var(--font-sans);
       border: 1px solid transparent;
-      white-space: nowrap;
     }
-    .btn-action.btn-accent {
-      background: #0284c7;
+
+    .btn-action.btn-primary {
+      background: linear-gradient(135deg, #00e5ff 0%, #0284c7 100%);
+      color: #040912;
+      box-shadow: 0 4px 14px rgba(0, 229, 255, 0.3);
+    }
+
+    [data-cv-theme="light"] .btn-action.btn-primary {
+      background: linear-gradient(135deg, #00768a 0%, #0369a1 100%);
       color: #ffffff;
-      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.4);
+      box-shadow: 0 4px 14px rgba(0, 118, 138, 0.25);
     }
-    .btn-action.btn-accent:hover {
-      background: #0369a1;
+
+    .btn-action.btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.45);
+    }
+
+    .btn-action.btn-ghost {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border);
+      color: var(--text-muted);
+    }
+
+    [data-cv-theme="light"] .btn-action.btn-ghost {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+
+    .btn-action.btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      border-color: var(--border-accent);
       transform: translateY(-1px);
     }
-    .btn-action.btn-ghost {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.16);
-      color: #e2e8f0;
+
+    [data-cv-theme="light"] .btn-action.btn-ghost:hover {
+      background: #f8fafc;
+      color: #0f172a;
+      border-color: var(--accent);
     }
-    .btn-action.btn-ghost:hover {
-      background: rgba(255, 255, 255, 0.16);
-      color: #ffffff;
-    }
+
     .theme-toggle-btn {
-      width: 32px;
-      height: 32px;
+      width: 38px;
+      height: 38px;
       padding: 0;
-      display: inline-flex;
-      align-items: center;
       justify-content: center;
-      border-radius: 7px;
+      border-radius: 8px;
     }
 
-    /* ─── Document Container (A4 Pro Layout) ─────────────────────────────────── */
-    .cv-pages-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      margin: 24px auto;
-      max-width: 100%;
-      padding: 0 12px;
+    /* ─── Main Spacious Document Canvas ────────────────────────────────────── */
+    .cv-main-container {
+      max-width: 1200px;
+      margin: 32px auto 0;
+      padding: 0 24px;
     }
 
-    .cv-page {
-      width: 210mm;
-      height: 297mm;
-      max-height: 297mm;
-      box-sizing: border-box;
-      background: var(--bg-page);
-      border-radius: 10px;
-      box-shadow: var(--card-shadow);
-      border: 1px solid var(--border);
-      padding: 10mm 12mm 8mm 12mm;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
-      transition: background-color 0.25s, border-color 0.25s;
-    }
-
-    .cv-page-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ─── Visual Header Card ───────────────────────────────────────────────── */
-    .cv-header-pro {
-      display: grid;
-      grid-template-columns: 82px 1fr;
-      gap: 18px;
-      align-items: center;
-      padding: 10px 14px;
+    /* ─── Hero Identity Header Card ────────────────────────────────────────── */
+    .cv-hero-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      border-left: 4px solid var(--accent);
-      margin-bottom: 8px;
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      padding: 28px 32px;
+      margin-bottom: 24px;
       position: relative;
+      overflow: hidden;
     }
+
+    .cv-hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--emerald) 50%, #8b5cf6 100%);
+    }
+
+    .cv-hero-grid {
+      display: grid;
+      grid-template-columns: 104px 1fr;
+      gap: 26px;
+      align-items: center;
+    }
+
     .cv-avatar-wrap {
       position: relative;
-      width: 80px;
-      height: 80px;
+      width: 104px;
+      height: 104px;
+      flex-shrink: 0;
     }
+
     .cv-avatar {
-      width: 80px;
-      height: 80px;
+      width: 104px;
+      height: 104px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
-      border: 2.5px solid var(--accent);
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+      border: 3px solid var(--accent);
+      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
     }
+
+    [data-cv-theme="light"] .cv-avatar {
+      box-shadow: 0 6px 20px rgba(0, 118, 138, 0.2);
+    }
+
     .cv-avatar-status {
       position: absolute;
-      bottom: 2px;
-      right: 2px;
-      width: 14px;
-      height: 14px;
+      bottom: 4px;
+      right: 4px;
+      width: 18px;
+      height: 18px;
       background: var(--emerald);
-      border: 2.5px solid var(--bg-page);
+      border: 3px solid var(--bg-card);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
     }
-    .cv-identity-block {
+
+    .cv-hero-body {
       display: flex;
       flex-direction: column;
     }
-    .cv-role-kicker {
+
+    .cv-kicker-pill {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 8px;
       font-family: var(--font-mono);
-      font-size: 9.2px;
+      font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.8px;
       color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 1px;
+      margin-bottom: 4px;
     }
+
     .cv-full-name {
-      font-size: 24px;
+      font-size: 2.2rem;
       font-weight: 800;
-      letter-spacing: -0.6px;
-      line-height: 1.1;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
       color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-    .cv-headline {
-      font-size: 12.5px;
+
+    .cv-verified-badge {
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .cv-headline-role {
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--accent);
-      margin-top: 1px;
+      margin-top: 4px;
     }
+
     .cv-headline-company {
       color: var(--text-muted);
       font-weight: 600;
     }
 
-    /* Visual Contact Badges */
-    .cv-contacts-bar {
+    /* Contact Links Strip */
+    .cv-contacts-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px 12px;
-      margin-top: 6px;
-      font-size: 10.5px;
-      color: var(--text-muted);
-    }
-    .cv-contact-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      text-decoration: none;
-      color: var(--text-muted);
-      font-weight: 500;
-      padding: 1.5px 6px;
-      border-radius: 4px;
-      background: var(--bg-pill);
-      border: 1px solid var(--border-accent);
-      transition: all 0.2s;
-    }
-    .cv-contact-item:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-    .cv-contact-item i {
-      color: var(--accent);
-      font-size: 10px;
+      gap: 8px 12px;
+      margin-top: 14px;
     }
 
-    /* ─── Visual Metrics Grid ──────────────────────────────────────────────── */
+    .cv-contact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 8px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-accent);
+      transition: all 0.2s ease;
+    }
+
+    .cv-contact-chip i {
+      color: var(--accent);
+      font-size: 0.85rem;
+    }
+
+    .cv-contact-chip:hover {
+      background: var(--bg-pill-hover);
+      color: var(--text);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ─── Impact Metrics Strip ─────────────────────────────────────────────── */
     .cv-metrics-strip {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 7px;
-      margin-bottom: 8px;
+      gap: 14px;
+      margin-bottom: 24px;
     }
+
     .cv-metric-box {
-      text-align: center;
-      padding: 6px 4px;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 7px;
+      border-radius: var(--card-radius);
+      padding: 16px 18px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: all 0.25s ease;
       position: relative;
       overflow: hidden;
-      border-top: 2px solid var(--accent);
     }
-    .cv-metric-box:nth-child(2) { border-top-color: var(--emerald); }
-    .cv-metric-box:nth-child(3) { border-top-color: #818cf8; }
-    .cv-metric-box:nth-child(4) { border-top-color: #f59e0b; }
+
+    .cv-metric-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .cv-metric-box:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
     .cv-metric-val {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 1.35rem;
       font-weight: 800;
-      color: var(--text);
+      color: var(--accent);
       line-height: 1.2;
     }
+
     .cv-metric-lbl {
-      font-size: 8.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .cv-metric-sub {
+      font-size: 0.72rem;
       color: var(--text-sub);
     }
 
-    /* ─── Visual Section Titles ────────────────────────────────────────────── */
-    .section-title-visual {
+    /* ─── Two-Column Executive Body Layout ──────────────────────────────────── */
+    .cv-content-split {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .cv-col-main, .cv-col-side {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ─── Section Header ───────────────────────────────────────────────────── */
+    .cv-section-title {
+      display: flex;
       justify-content: space-between;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--text);
-      margin: 8px 0 5px;
-      padding-bottom: 3px;
-      border-bottom: 1.5px solid var(--border);
-    }
-    .title-left {
-      display: flex;
       align-items: center;
-      gap: 6px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 16px;
     }
-    .title-left i {
+
+    .cv-section-title .title-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text);
+    }
+
+    .cv-section-title .title-text i {
       color: var(--accent);
-      font-size: 11px;
+      font-size: 1rem;
     }
-    .section-badge-code {
+
+    .cv-section-title .section-code-badge {
       font-family: var(--font-mono);
-      font-size: 8.5px;
+      font-size: 0.72rem;
       font-weight: 700;
       color: var(--text-sub);
       background: var(--bg-pill);
-      padding: 1px 5px;
-      border-radius: 3px;
+      padding: 3px 8px;
+      border-radius: 6px;
     }
 
     /* ─── Executive Summary Card ───────────────────────────────────────────── */
     .cv-summary-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 6px;
-      padding: 7px 10px;
-      margin-bottom: 7px;
-    }
-    .cv-summary-text {
-      font-size: 10.4px;
-      line-height: 1.48;
+      border-radius: var(--card-radius);
+      padding: 20px 24px;
+      box-shadow: var(--card-shadow);
+      font-size: 0.95rem;
+      line-height: 1.7;
       color: var(--text-muted);
-      text-align: justify;
     }
-    .cv-summary-text strong {
+
+    .cv-summary-card strong {
       color: var(--text);
       font-weight: 700;
     }
 
-    /* ─── Visual Technical Competencies Matrix ─────────────────────────────── */
-    .skills-matrix-visual {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px 10px;
-      margin-bottom: 7px;
-    }
-    .skill-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 5px 8px;
-    }
-    .skill-card-header {
+    /* ─── Experience Timeline Cards ────────────────────────────────────────── */
+    .exp-cards-stack {
       display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 9.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--accent);
-      margin-bottom: 3px;
-    }
-    .skill-card-header i {
-      font-size: 9px;
-    }
-    .skill-pills-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 3.5px;
-    }
-    .skill-tag {
-      font-size: 9.2px;
-      font-weight: 600;
-      padding: 1.5px 5.5px;
-      border-radius: 3px;
-      background: var(--bg-card-subtle);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-    .skill-tag.core {
-      background: var(--bg-pill);
-      border-color: var(--border-accent);
-      color: var(--accent);
-      font-weight: 700;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    /* ─── Visual Work Experience Cards ─────────────────────────────────────── */
-    .exp-visual-card {
+    .exp-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 7px 10px;
-      margin-bottom: 6px;
+      border-radius: var(--card-radius);
+      padding: 22px 24px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.25s ease;
       position: relative;
-      border-left: 3px solid var(--accent);
     }
-    .exp-visual-card.highlight {
-      border-left-color: var(--emerald);
+
+    .exp-card.highlight {
+      border-left: 4px solid var(--emerald);
+      background: linear-gradient(135deg, rgba(13, 22, 40, 0.9) 0%, rgba(16, 185, 129, 0.05) 100%);
     }
-    .exp-top-row {
+
+    [data-cv-theme="light"] .exp-card.highlight {
+      background: linear-gradient(135deg, #ffffff 0%, rgba(5, 133, 103, 0.04) 100%);
+    }
+
+    .exp-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    .exp-top-bar {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 1px;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
     }
+
     .exp-role-title {
-      font-size: 11.8px;
+      font-size: 1.1rem;
       font-weight: 800;
       color: var(--text);
+      line-height: 1.3;
     }
+
     .exp-date-chip {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 0.75rem;
       font-weight: 700;
-      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 12px;
       background: var(--bg-pill);
+      color: var(--accent);
       border: 1px solid var(--border-accent);
-      padding: 1.5px 6px;
-      border-radius: 4px;
+      white-space: nowrap;
     }
+
     .exp-date-chip.active-chip {
+      background: rgba(16, 185, 129, 0.12);
       color: var(--emerald);
       border-color: var(--border-emerald);
-      background: rgba(16, 185, 129, 0.15);
     }
+
     .exp-company-sub {
-      font-size: 10px;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--accent);
-      margin-bottom: 4px;
+      margin: 4px 0 12px 0;
     }
+
     .exp-company-sub span {
       color: var(--text-sub);
       font-weight: 500;
     }
+
     .exp-bullets-list {
       list-style: none;
-      padding-left: 0;
-    }
-    .exp-bullets-list li {
-      font-size: 10px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.9rem;
       color: var(--text-muted);
-      line-height: 1.44;
-      margin-bottom: 2.5px;
-      position: relative;
-      padding-left: 12px;
+      line-height: 1.6;
     }
+
+    .exp-bullets-list li {
+      position: relative;
+      padding-left: 20px;
+    }
+
     .exp-bullets-list li::before {
-      content: '◈';
+      content: '▹';
       position: absolute;
       left: 0;
       color: var(--accent);
-      font-size: 9px;
-      top: -1px;
+      font-size: 1rem;
+      line-height: 1.4;
     }
-    .exp-visual-card.highlight .exp-bullets-list li::before {
-      color: var(--emerald);
-    }
-    .exp-bullets-list li strong {
+
+    .exp-bullets-list strong {
       color: var(--text);
-      font-weight: 700;
     }
+
     .exp-tags-strip {
       display: flex;
       flex-wrap: wrap;
-      gap: 3.5px;
-      margin-top: 4px;
-      padding-top: 4px;
-      border-top: 1px dashed var(--border);
-    }
-    .exp-mini-tag {
-      font-family: var(--font-mono);
-      font-size: 8.5px;
-      font-weight: 600;
-      padding: 1px 5px;
-      border-radius: 3px;
-      background: var(--bg-card-subtle);
-      border: 1px solid var(--border);
-      color: var(--text-sub);
+      gap: 6px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
     }
 
-    /* ─── Visual Projects Grid (Page 2) ────────────────────────────────────── */
-    .projects-visual-grid {
+    .exp-mini-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--bg-pill);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+    }
+
+    /* ─── Projects Showcase Cards ──────────────────────────────────────────── */
+    .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-      margin-bottom: 7px;
+      gap: 16px;
     }
-    .project-visual-card {
+
+    .project-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 7px 9px;
+      border-radius: var(--card-radius);
+      padding: 18px 20px;
+      box-shadow: var(--card-shadow);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: all 0.25s ease;
     }
+
+    .project-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
     .project-card-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2px;
-    }
-    .project-card-title {
-      font-size: 10.8px;
-      font-weight: 800;
-      color: var(--text);
-    }
-    .project-badge-tag {
-      font-family: var(--font-mono);
-      font-size: 8px;
-      font-weight: 700;
-      padding: 1px 5px;
-      border-radius: 3px;
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--emerald);
-      border: 1px solid var(--border-emerald);
-      white-space: nowrap;
-    }
-    .project-card-desc {
-      font-size: 9.5px;
-      color: var(--text-muted);
-      line-height: 1.38;
-      margin-bottom: 4px;
-    }
-    .project-pills-row {
-      display: flex;
-      gap: 6px;
-      font-size: 8.6px;
-      color: var(--accent);
-      font-weight: 700;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
-    /* ─── Visual Credentials Grid ──────────────────────────────────────────── */
-    .credentials-visual-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-      margin-bottom: 7px;
-    }
-    .cred-visual-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 6px;
-      padding: 6px 8px;
-    }
-    .cred-visual-card:nth-child(2) { border-left-color: var(--emerald); }
-    .cred-visual-card:nth-child(3) { border-left-color: #f59e0b; }
-    .cred-visual-card:nth-child(4) { border-left-color: #818cf8; }
-    .cred-title-row {
-      font-size: 10.5px;
+    .project-title {
+      font-size: 0.96rem;
       font-weight: 800;
       color: var(--text);
-      line-height: 1.25;
     }
-    .cred-meta-row {
-      font-size: 9.2px;
+
+    .project-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--emerald);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid var(--border-emerald);
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .project-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
       color: var(--text-sub);
+    }
+
+    .project-pills span {
+      background: var(--bg-pill);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .project-pills span i {
+      color: var(--accent);
+      font-size: 0.7rem;
+    }
+
+    /* ─── SIDEBAR: VERIFIED INDUSTRY CERTIFICATES (WITH REAL PHOTOS) ────────── */
+    .cert-showcase-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cert-photo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-photo-card:hover {
+      border-color: var(--border-accent);
+      box-shadow: 0 12px 30px rgba(0, 229, 255, 0.16);
+      transform: translateY(-2px);
+    }
+
+    /* Visual Certificate Image Container */
+    .cert-image-thumb-wrap {
+      position: relative;
+      width: 100%;
+      height: 160px;
+      background: #040810;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    [data-cv-theme="light"] .cert-image-thumb-wrap {
+      background: #e2e8f0;
+    }
+
+    .cert-image-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .cert-photo-card:hover .cert-image-thumb {
+      transform: scale(1.04);
+    }
+
+    .cert-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 9, 18, 0.65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    .cert-photo-card:hover .cert-image-overlay {
+      opacity: 1;
+    }
+
+    .cert-zoom-btn {
+      background: var(--accent);
+      color: #040912;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 229, 255, 0.4);
+    }
+
+    /* Certificate Card Content */
+    .cert-card-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cert-title-link {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      line-height: 1.35;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cert-title-link:hover {
+      color: var(--accent);
+    }
+
+    .cert-issuer-row {
       display: flex;
       justify-content: space-between;
-      margin-top: 1px;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-sub);
     }
-    .cred-code-chip {
+
+    .cert-issuer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--emerald);
+      font-weight: 600;
+    }
+
+    .cert-id-chip {
       font-family: var(--font-mono);
-      font-size: 8.4px;
-      color: var(--accent);
+      font-size: 0.68rem;
       background: var(--bg-pill);
       border: 1px solid var(--border-accent);
-      padding: 1px 4px;
-      border-radius: 3px;
-      display: inline-block;
+      color: var(--accent);
+      padding: 2px 7px;
+      border-radius: 4px;
+      align-self: flex-start;
       margin-top: 2px;
     }
 
-    /* ─── Visual Education & Languages 2-Col Split ─────────────────────────── */
-    .bottom-visual-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 5px;
+    /* ─── SIDEBAR: SKILLS MATRIX & CORE CAPABILITIES ───────────────────────── */
+    .skills-matrix-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
-    .edu-visual-card, .lang-visual-card {
+
+    .skill-category-box {
       background: var(--bg-card);
       border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 14px 16px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .skill-cat-header {
+      font-size: 0.86rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-cat-header i {
+      font-size: 0.8rem;
+    }
+
+    .skill-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-pill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 3px 9px;
       border-radius: 6px;
-      padding: 6px 9px;
+      background: var(--bg-pill);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
     }
-    .edu-row-item {
-      margin-bottom: 4px;
+
+    .skill-pill.core {
+      background: rgba(0, 229, 255, 0.12);
+      color: var(--accent);
+      border-color: var(--border-accent);
+      font-weight: 700;
     }
-    .edu-row-item:last-child {
-      margin-bottom: 0;
+
+    /* ─── SIDEBAR: EDUCATION & TRACKS ──────────────────────────────────────── */
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 16px 18px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    .edu-row-title {
-      font-size: 10.2px;
+
+    .edu-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .edu-item:not(:last-child) {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .edu-title {
+      font-size: 0.9rem;
       font-weight: 800;
       color: var(--text);
     }
-    .edu-row-inst {
-      font-size: 9.2px;
-      color: var(--text-muted);
+
+    .edu-inst {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
     }
-    .edu-row-date {
+
+    .edu-date {
       font-family: var(--font-mono);
-      font-size: 8.5px;
+      font-size: 0.72rem;
       color: var(--text-sub);
     }
 
-    /* ─── Page Footers ─────────────────────────────────────────────────────── */
-    .cv-page-footer {
-      padding-top: 5px;
+    /* ─── SIDEBAR: LANGUAGES & STANDARDS ───────────────────────────────────── */
+    .lang-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 16px 18px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .lang-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .lang-item-row span:last-child {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+    }
+
+    /* ─── Interactive Lightbox Modal ───────────────────────────────────────── */
+    .cert-lightbox-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(3, 7, 18, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .cert-lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .cert-modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cert-modal-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+    }
+
+    .cert-modal-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cert-modal-close {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.1rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .cert-modal-close:hover {
+      background: var(--accent);
+      color: #040912;
+    }
+
+    .cert-modal-body {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+      background: #02050b;
+    }
+
+    .cert-modal-body img {
+      max-width: 100%;
+      max-height: 72vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .cert-modal-footer {
+      padding: 12px 20px;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 8.8px;
+      font-size: 0.8rem;
       color: var(--text-sub);
-    }
-    .cv-page-footer a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 700;
+      background: var(--bg-card);
     }
 
-    /* ─── Mobile Responsiveness (Phones 320px - 768px) ─────────────────────── */
-    @media (max-width: 800px) {
-      body {
-        padding-bottom: 30px;
+    /* ─── Responsive Media Queries ─────────────────────────────────────────── */
+    @media (max-width: 980px) {
+      .cv-content-split {
+        grid-template-columns: 1fr;
       }
-      .screen-action-bar {
-        padding: 8px 12px;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
+      .cv-metrics-strip {
+        grid-template-columns: repeat(2, 1fr);
       }
-      .action-bar-brand {
-        justify-content: space-between;
-        font-size: 12.5px;
+    }
+
+    @media (max-width: 680px) {
+      .cv-main-container {
+        padding: 0 14px;
+        margin-top: 16px;
       }
-      .action-bar-buttons {
-        justify-content: space-between;
-        gap: 6px;
-      }
-      .btn-action {
-        padding: 6px 10px;
-        font-size: 11px;
-        flex: 1;
-        justify-content: center;
-      }
-      .theme-toggle-btn {
-        flex: 0 0 32px;
-      }
-      .cv-pages-wrapper {
-        margin: 12px auto;
-        padding: 0 8px;
-        gap: 16px;
-      }
-      .cv-page {
-        width: 100%;
-        height: auto;
-        max-height: none;
-        padding: 16px 12px;
-        border-radius: 8px;
-      }
-      .cv-header-pro {
+      .cv-hero-grid {
         grid-template-columns: 1fr;
         text-align: center;
-        padding: 14px 10px;
       }
       .cv-avatar-wrap {
         margin: 0 auto;
       }
-      .cv-contacts-bar {
+      .cv-full-name {
+        justify-content: center;
+        font-size: 1.7rem;
+      }
+      .cv-contacts-grid {
         justify-content: center;
       }
-      .cv-metrics-strip {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
-      }
-      .skills-matrix-visual,
-      .projects-visual-grid,
-      .credentials-visual-grid,
-      .bottom-visual-split {
+      .projects-grid {
         grid-template-columns: 1fr;
-        gap: 6px;
       }
-      .cv-page-footer {
+      .screen-action-bar {
+        padding: 10px 14px;
         flex-direction: column;
-        gap: 4px;
-        text-align: center;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .action-bar-left, .action-bar-buttons {
+        justify-content: space-between;
       }
     }
 
-    /* ─── Print Engine (Forces Pristine 2-Page White A4) ───────────────────── */
+    /* ─── Pristine Multi-Page Print Engine (A4 PDF Print) ───────────────────── */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 0;
+        margin: 10mm 12mm 10mm 12mm;
       }
       body, html {
         background: #ffffff !important;
@@ -815,437 +1155,340 @@ const cvHtml = `<!DOCTYPE html>
         padding: 0 !important;
         margin: 0 !important;
       }
-      .screen-action-bar {
+      .screen-action-bar, .cert-lightbox-modal, .cert-image-overlay {
         display: none !important;
       }
-      .cv-pages-wrapper {
+      .cv-main-container {
+        max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        gap: 0 !important;
       }
-      .cv-page {
-        width: 210mm !important;
-        height: 297mm !important;
-        max-height: 297mm !important;
-        margin: 0 !important;
-        padding: 9.5mm 12mm 7.5mm 12mm !important;
+      .cv-hero-card, .cv-metric-box, .cv-summary-card, .exp-card, .project-card,
+      .cert-photo-card, .skill-category-box, .edu-card, .lang-card {
         background: #ffffff !important;
         color: #0f172a !important;
+        border: 1px solid #cbd5e1 !important;
         box-shadow: none !important;
-        border-radius: 0 !important;
-        border: none !important;
-        page-break-after: always !important;
-        break-after: page !important;
+      }
+      .cv-content-split {
+        grid-template-columns: 1fr 340px !important;
+        gap: 16px !important;
+      }
+      .cert-image-thumb-wrap {
+        height: 120px !important;
+      }
+      .cert-image-thumb {
+        object-fit: cover !important;
+      }
+      .exp-role-title, .cv-full-name, .project-title, .edu-title, .cert-title-link {
+        color: #0f172a !important;
+      }
+      .exp-company-sub, .cv-headline-role, .edu-inst, .cert-id-chip {
+        color: #00768a !important;
+      }
+      .exp-card {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
-        overflow: hidden !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
       }
-      .cv-page:last-child {
-        page-break-after: avoid !important;
-        break-after: avoid !important;
-      }
-      .cv-header-pro,
-      .cv-summary-card,
-      .cv-metric-box,
-      .skill-card,
-      .exp-visual-card,
-      .project-visual-card,
-      .cred-visual-card,
-      .edu-visual-card,
-      .lang-visual-card {
-        background: #f8fafc !important;
-        border-color: #cbd5e1 !important;
-        color: #0f172a !important;
-        box-shadow: none !important;
-      }
-      .cv-full-name,
-      .exp-role-title,
-      .project-card-title,
-      .cred-title-row,
-      .edu-row-title,
-      .cv-metric-val {
-        color: #0f172a !important;
-      }
-      .cv-summary-text,
-      .exp-bullets-list li,
-      .project-card-desc,
-      .edu-row-inst {
-        color: #334155 !important;
-      }
-      .skill-tag,
-      .exp-mini-tag {
-        background: #f1f5f9 !important;
-        border-color: #cbd5e1 !important;
-        color: #1e293b !important;
-      }
-      .cv-contact-item {
-        background: #f1f5f9 !important;
-        border-color: #cbd5e1 !important;
-        color: #334155 !important;
+      .cert-photo-card {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Screen Toolbar -->
-  <aside class="screen-action-bar" aria-label="CV controls">
-    <div class="action-bar-brand">
-      <span class="logo-badge">AB.</span>
-      <span style="font-weight: 700;">Abdellah BELMAARIS — Executive CV</span>
-      <span class="doc-spec-pill">2 Pages · ATS Ready · PDF</span>
+  <!-- ─── Screen Control & Action Bar ──────────────────────────────────────── -->
+  <header class="screen-action-bar">
+    <div class="action-bar-left">
+      <a href="index.html" class="action-bar-brand" title="Return to Abdellah BELMAARIS Portfolio">
+        <span class="action-bar-logo">AB.</span>
+        <span class="action-bar-title">Abdellah BELMAARIS</span>
+      </a>
+      <span class="doc-spec-badge">Authenticated Executive CV</span>
     </div>
+
     <div class="action-bar-buttons">
-      <a href="/" class="btn-action btn-ghost" title="Return to interactive portfolio">
-        <i class="fa-solid fa-arrow-left"></i> Portfolio
+      <a href="assets/Abdellah_BELMAARIS_CV.pdf" download="Abdellah_BELMAARIS_CV.pdf" class="btn-action btn-primary" title="Download Official High-Resolution PDF">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span>Download PDF</span>
       </a>
-      <a href="/assets/Abdellah_BELMAARIS_CV.pdf" download="Abdellah_BELMAARIS_CV.pdf" class="btn-action btn-accent" id="cv-download-pdf-btn" title="Download official high-res PDF file">
-        <i class="fa-solid fa-file-arrow-down"></i> Download PDF
-      </a>
-      <button onclick="window.print()" class="btn-action btn-ghost" title="Print document or save via browser engine">
-        <i class="fa-solid fa-print"></i> Print
+
+      <button type="button" class="btn-action btn-ghost" onclick="window.print()" title="Print or Save to Local PDF">
+        <i class="fa-solid fa-print"></i>
+        <span>Print</span>
       </button>
-      <button onclick="toggleTheme()" class="btn-action btn-ghost theme-toggle-btn" id="theme-btn" title="Toggle Visual Dark / Paper Light">
+
+      <button type="button" class="btn-action btn-ghost theme-toggle-btn" id="theme-toggle-btn" title="Toggle Light / Dark Mode">
         <i class="fa-solid fa-sun" id="theme-icon"></i>
       </button>
-      <a href="/CV.md" target="_blank" class="btn-action btn-ghost" title="View Markdown plain text">
-        <i class="fa-solid fa-code"></i> MD
+
+      <a href="index.html" class="btn-action btn-ghost" title="Back to Interactive Portfolio">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Portfolio</span>
       </a>
     </div>
-  </aside>
+  </header>
 
-  <!-- Physical Document Wrapper -->
-  <main class="cv-pages-wrapper">
+  <!-- ─── Spacious Executive Document Container ────────────────────────────── -->
+  <main class="cv-main-container">
 
-    <!-- ════════════════════ PAGE 1 ════════════════════ -->
-    <article class="cv-page cv-page-1">
-      <div class="cv-page-content">
-
-        <!-- Visual Header Card -->
-        <header class="cv-header-pro">
-          <div class="cv-avatar-wrap">
-            <img src="${avatarBase64}" alt="Abdellah BELMAARIS" class="cv-avatar" />
-            <span class="cv-avatar-status" title="Active & Available"></span>
-          </div>
-          <div class="cv-identity-block">
-            <span class="cv-role-kicker">
-              <i class="fa-solid fa-circle-check"></i> Available for Full-Stack & Backend Engineering Roles
-            </span>
-            <h1 class="cv-full-name">Abdellah BELMAARIS</h1>
-            <div class="cv-headline">
-              Junior Full-Stack Developer & Backend Systems Specialist
-              <span class="cv-headline-company">• BIMPulse (Casablanca, Morocco)</span>
-            </div>
-
-            <div class="cv-contacts-bar">
-              <span class="cv-contact-item">
-                <i class="fa-solid fa-location-dot"></i> Casablanca, Morocco
-              </span>
-              <a href="mailto:obaidbelmaaris@gmail.com" class="cv-contact-item">
-                <i class="fa-solid fa-envelope"></i> obaidbelmaaris@gmail.com
-              </a>
-              <a href="https://linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer" class="cv-contact-item">
-                <i class="fa-brands fa-linkedin"></i> linkedin.com/in/abdellah-belmaaris
-              </a>
-              <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer" class="cv-contact-item">
-                <i class="fa-brands fa-github"></i> github.com/Abdellah-BELMAARIS
-              </a>
-              <a href="https://abdellah-belmaaris.github.io" target="_blank" rel="noopener noreferrer" class="cv-contact-item">
-                <i class="fa-solid fa-globe"></i> abdellah-belmaaris.github.io
-              </a>
-            </div>
-          </div>
-        </header>
-
-        <!-- Visual Metrics Strip -->
-        <div class="cv-metrics-strip">
-          <div class="cv-metric-box">
-            <div class="cv-metric-val">14 ROLES</div>
-            <div class="cv-metric-lbl">RBAC Architecture</div>
-          </div>
-          <div class="cv-metric-box">
-            <div class="cv-metric-val">O(1) TIME</div>
-            <div class="cv-metric-lbl">SQL Optimization</div>
-          </div>
-          <div class="cv-metric-box">
-            <div class="cv-metric-val">4+ CERTS</div>
-            <div class="cv-metric-lbl">DataCamp AI & Python</div>
-          </div>
-          <div class="cv-metric-box">
-            <div class="cv-metric-val">&lt; 200ms</div>
-            <div class="cv-metric-lbl">Telemetry Engine</div>
-          </div>
+    <!-- Hero Profile & Identity Card -->
+    <header class="cv-hero-card">
+      <div class="cv-hero-grid">
+        <div class="cv-avatar-wrap">
+          <img src="${avatarBase64}" alt="Abdellah BELMAARIS Avatar" class="cv-avatar">
+          <span class="cv-avatar-status" title="Status: Active & Available for Roles"></span>
         </div>
 
-        <!-- Visual Executive Summary Card -->
+        <div class="cv-hero-body">
+          <div class="cv-kicker-pill">
+            <i class="fa-solid fa-terminal"></i>
+            <span>Junior Full-Stack Developer at BIMPulse • Applied AI & Backend Systems</span>
+          </div>
+
+          <h1 class="cv-full-name">
+            Abdellah BELMAARIS
+            <i class="fa-solid fa-circle-check cv-verified-badge" title="Verified Professional Identity"></i>
+          </h1>
+
+          <div class="cv-headline-role">
+            Full-Stack Software Developer <span class="cv-headline-company">• BIMPulse & Enterprise Systems</span>
+          </div>
+
+          <div class="cv-contacts-grid">
+            <a href="mailto:obaidbelmaaris@gmail.com" class="cv-contact-chip">
+              <i class="fa-solid fa-envelope"></i> obaidbelmaaris@gmail.com
+            </a>
+            <a href="tel:+212654624382" class="cv-contact-chip">
+              <i class="fa-solid fa-phone"></i> +212 654 624 382
+            </a>
+            <span class="cv-contact-chip">
+              <i class="fa-solid fa-location-dot"></i> Casablanca, Morocco
+            </span>
+            <a href="https://linkedin.com/in/abdellah-belmaaris" target="_blank" rel="noopener noreferrer" class="cv-contact-chip">
+              <i class="fa-brands fa-linkedin"></i> linkedin.com/in/abdellah-belmaaris
+            </a>
+            <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer" class="cv-contact-chip">
+              <i class="fa-brands fa-github"></i> github.com/Abdellah-BELMAARIS
+            </a>
+            <a href="https://abdellah-belmaaris.github.io" target="_blank" rel="noopener noreferrer" class="cv-contact-chip">
+              <i class="fa-solid fa-globe"></i> abdellah-belmaaris.github.io
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Key Impact Metrics Strip -->
+    <div class="cv-metrics-strip">
+      <div class="cv-metric-box">
+        <div class="cv-metric-val">O(1) TIME</div>
+        <div class="cv-metric-lbl">SQL Optimization</div>
+        <div class="cv-metric-sub">Eager Loading & Eliminated N+1</div>
+      </div>
+      <div class="cv-metric-box">
+        <div class="cv-metric-val">14 ROLES</div>
+        <div class="cv-metric-lbl">RBAC Architecture</div>
+        <div class="cv-metric-sub">Granular Permission Matrix</div>
+      </div>
+      <div class="cv-metric-box">
+        <div class="cv-metric-val">4+ CERTS</div>
+        <div class="cv-metric-lbl">Industry Certifications</div>
+        <div class="cv-metric-sub">DataCamp AI & Python Verified</div>
+      </div>
+      <div class="cv-metric-box">
+        <div class="cv-metric-val">&lt; 200ms</div>
+        <div class="cv-metric-lbl">Telemetry Engine</div>
+        <div class="cv-metric-sub">Log Analytics & Data Pipelines</div>
+      </div>
+    </div>
+
+    <!-- Executive Body Split Grid -->
+    <div class="cv-content-split">
+
+      <!-- ─── PRIMARY LEFT COLUMN (Career & Projects) ─────────────────────── -->
+      <div class="cv-col-main">
+
+        <!-- Executive Profile -->
         <section>
-          <div class="section-title-visual">
-            <span class="title-left"><i class="fa-solid fa-user-astronaut"></i> Executive Summary</span>
-            <span class="section-badge-code">01 // PROFILE</span>
+          <div class="cv-section-title">
+            <span class="title-text"><i class="fa-solid fa-user-astronaut"></i> Executive Summary</span>
+            <span class="section-code-badge">01 // PROFILE</span>
           </div>
           <div class="cv-summary-card">
-            <p class="cv-summary-text">
-              Performance-driven <strong>Full-Stack Software Developer</strong> operating at the intersection of enterprise backend architecture, AEC digital transformation, and applied artificial intelligence at <strong>BIMPulse</strong>. Specialized in engineering high-throughput <strong>Python/Django REST</strong> backends, normalized <strong>PostgreSQL</strong> schemas, and modern responsive <strong>React/TypeScript</strong> interfaces. Proven track record in eliminating severe N+1 SQL bottlenecks to <strong>constant O(1) query time</strong> and architecting granular <strong>14-role Role-Based Access Control (RBAC)</strong> security engines. Certified by DataCamp in Applied AI Engineering (LLMs, RAG Architectures) and Python Data Analytics.
+            <p>
+              Performance-driven <strong>Full-Stack Software Developer</strong> operating at the intersection of enterprise backend architecture, AEC digital engineering, and applied artificial intelligence at <strong>BIMPulse</strong>. Specialized in engineering high-throughput <strong>Python/Django REST</strong> backends, normalized <strong>PostgreSQL</strong> schemas, and modern responsive <strong>React/TypeScript</strong> interfaces. Proven track record in eliminating severe N+1 database bottlenecks down to <strong>constant O(1) query time</strong> and architecting granular <strong>14-role Role-Based Access Control (RBAC)</strong> engines. Certified by DataCamp in Applied AI Engineering (LLMs, RAG Architectures) and Python Data Analytics.
             </p>
           </div>
         </section>
 
-        <!-- Visual Technical Stack Matrix -->
+        <!-- Professional Work Experience -->
         <section>
-          <div class="section-title-visual">
-            <span class="title-left"><i class="fa-solid fa-layer-group"></i> Technical Core & Capabilities</span>
-            <span class="section-badge-code">02 // STACK</span>
+          <div class="cv-section-title">
+            <span class="title-text"><i class="fa-solid fa-briefcase"></i> Professional Work Experience</span>
+            <span class="section-code-badge">02 // CAREER</span>
           </div>
-          <div class="skills-matrix-visual">
-            <div class="skill-card">
-              <div class="skill-card-header">
-                <i class="fa-solid fa-server"></i> Backend & Systems
+
+          <div class="exp-cards-stack">
+            <!-- Role 1: BIMPulse -->
+            <article class="exp-card highlight">
+              <div class="exp-top-bar">
+                <h3 class="exp-role-title">Junior Full-Stack Developer</h3>
+                <span class="exp-date-chip active-chip">AUG 2026 — PRESENT</span>
               </div>
-              <div class="skill-pills-wrap">
-                <span class="skill-tag core">Python 3.12</span>
-                <span class="skill-tag core">Django</span>
-                <span class="skill-tag core">Django REST Framework</span>
-                <span class="skill-tag core">PostgreSQL</span>
-                <span class="skill-tag">SQL Optimization</span>
-                <span class="skill-tag">RESTful APIs</span>
-                <span class="skill-tag">JWT</span>
-                <span class="skill-tag">14 RBAC Roles</span>
-                <span class="skill-tag">Celery / Redis</span>
+              <div class="exp-company-sub">
+                BIMPulse • Casablanca, Morocco <span>(Apprenticeship) · AEC & Digital Engineering Solutions</span>
               </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header">
-                <i class="fa-solid fa-code"></i> Frontend Engineering
+              <ul class="exp-bullets-list">
+                <li>Engineered and deployed core application modules for <strong>BIMPulse Academy</strong>, an enterprise digital training platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.</li>
+                <li>Developed backend services and normalized PostgreSQL relational data models strictly adhering to international <strong>BIM / IFC digital engineering standards</strong>.</li>
+                <li>Engineered scalable REST APIs in Python & Django paired with modular, mobile-responsive user interfaces.</li>
+                <li>Modeled normalized PostgreSQL schemas and optimized database transactions for high-traffic student enrollment flows.</li>
+                <li>Formally commended by senior engineering leadership on LinkedIn for architectural milestones and technical contributions to platform delivery.</li>
+              </ul>
+              <div class="exp-tags-strip">
+                <span class="exp-mini-tag">Python 3.12</span>
+                <span class="exp-mini-tag">Django REST</span>
+                <span class="exp-mini-tag">PostgreSQL</span>
+                <span class="exp-mini-tag">BIM / IFC</span>
+                <span class="exp-mini-tag">BIMPulse Academy</span>
+                <span class="exp-mini-tag">React</span>
               </div>
-              <div class="skill-pills-wrap">
-                <span class="skill-tag core">React 19</span>
-                <span class="skill-tag core">TypeScript</span>
-                <span class="skill-tag">JavaScript (ES6+)</span>
-                <span class="skill-tag">HTML5 / Semantic CSS3</span>
-                <span class="skill-tag">Three.js / WebGL</span>
-                <span class="skill-tag">Vite</span>
-                <span class="skill-tag">Responsive UI</span>
-                <span class="skill-tag">Framer Motion</span>
+            </article>
+
+            <!-- Role 2: Django Developer -->
+            <article class="exp-card">
+              <div class="exp-top-bar">
+                <h3 class="exp-role-title">Django & Backend Systems Developer</h3>
+                <span class="exp-date-chip">MAY 2026 — AUG 2026</span>
               </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header">
-                <i class="fa-solid fa-brain"></i> Applied AI & Data
+              <div class="exp-company-sub">
+                Self-Directed & Production Systems <span>· Casablanca, Morocco · Enterprise Web Platforms</span>
               </div>
-              <div class="skill-pills-wrap">
-                <span class="skill-tag core">Pandas</span>
-                <span class="skill-tag">NumPy</span>
-                <span class="skill-tag">Matplotlib</span>
-                <span class="skill-tag core">LLM API Integration</span>
-                <span class="skill-tag">RAG Architectures</span>
-                <span class="skill-tag">Prompt Engineering</span>
-                <span class="skill-tag">Data Cleaning Pipelines</span>
+              <ul class="exp-bullets-list">
+                <li>Architected enterprise-grade <strong>Role-Based Access Control (RBAC)</strong> supporting <strong>14 discrete user roles</strong> with granular permission matrices and security auditing.</li>
+                <li>Eliminated severe <strong>N+1 query bottlenecks</strong> using eager loading (<code>select_related</code> and <code>prefetch_related</code>), reducing database roundtrips to constant O(1) query time.</li>
+                <li>Integrated automated transactional emails, custom full-text search indexing, and resilient structured application logging.</li>
+              </ul>
+              <div class="exp-tags-strip">
+                <span class="exp-mini-tag">Django</span>
+                <span class="exp-mini-tag">14 RBAC Roles</span>
+                <span class="exp-mini-tag">O(1) Eager Loading</span>
+                <span class="exp-mini-tag">SQL Optimization</span>
+                <span class="exp-mini-tag">PostgreSQL</span>
               </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header">
-                <i class="fa-solid fa-cubes"></i> Architecture & DevOps
+            </article>
+
+            <!-- Role 3: Python Systems -->
+            <article class="exp-card">
+              <div class="exp-top-bar">
+                <h3 class="exp-role-title">Python Developer & Data Systems</h3>
+                <span class="exp-date-chip">JAN 2020 — PRESENT</span>
               </div>
-              <div class="skill-pills-wrap">
-                <span class="skill-tag core">Clean Architecture</span>
-                <span class="skill-tag">GoF Design Patterns</span>
-                <span class="skill-tag">Git / GitHub CI/CD</span>
-                <span class="skill-tag">Docker</span>
-                <span class="skill-tag">Linux</span>
-                <span class="skill-tag">pytest</span>
-                <span class="skill-tag">PEP-8</span>
-                <span class="skill-tag">OWASP Security</span>
+              <div class="exp-company-sub">
+                Systems Engineering & Automation <span>· Core Codebases & Open Source</span>
               </div>
-            </div>
+              <ul class="exp-bullets-list">
+                <li>Constructed automated high-throughput data processing pipelines, unstructured server log tokenizers, and computational algorithms in Python 3.12.</li>
+                <li>Authored a production-grade software library implementing classical <strong>Gang of Four (GoF) design patterns</strong> with 100% pytest test suite coverage and clean dependency injection.</li>
+              </ul>
+              <div class="exp-tags-strip">
+                <span class="exp-mini-tag">Python 3.12</span>
+                <span class="exp-mini-tag">Design Patterns</span>
+                <span class="exp-mini-tag">Pandas</span>
+                <span class="exp-mini-tag">pytest</span>
+                <span class="exp-mini-tag">Data Pipelines</span>
+              </div>
+            </article>
+
+            <!-- Role 4: Full-Stack Web -->
+            <article class="exp-card">
+              <div class="exp-top-bar">
+                <h3 class="exp-role-title">Web Developer — Full-Stack Applications</h3>
+                <span class="exp-date-chip">FEB 2023 — JUN 2026</span>
+              </div>
+              <div class="exp-company-sub">
+                Full-Stack Application Development <span>· Casablanca, Morocco</span>
+              </div>
+              <ul class="exp-bullets-list">
+                <li>Engineered full-stack web applications translating functional requirements into modular backends and responsive user interfaces.</li>
+                <li>Developed <strong>The Modern Journal CMS</strong>, a scalable publishing platform featuring multi-user roles, live readership analytics telemetry, and responsive typography.</li>
+              </ul>
+              <div class="exp-tags-strip">
+                <span class="exp-mini-tag">Web Development</span>
+                <span class="exp-mini-tag">Django</span>
+                <span class="exp-mini-tag">Bootstrap 5</span>
+                <span class="exp-mini-tag">HTML5 / CSS3</span>
+                <span class="exp-mini-tag">REST APIs</span>
+              </div>
+            </article>
           </div>
         </section>
 
-        <!-- Visual Professional Work Experience (Part 1) -->
+        <!-- Standout Production Projects -->
         <section>
-          <div class="section-title-visual">
-            <span class="title-left"><i class="fa-solid fa-briefcase"></i> Professional Work Experience</span>
-            <span class="section-badge-code">03 // CAREER</span>
+          <div class="cv-section-title">
+            <span class="title-text"><i class="fa-solid fa-code-branch"></i> Standout Production Projects</span>
+            <span class="section-code-badge">03 // SYSTEMS</span>
           </div>
 
-          <!-- Role 1: BIMPulse -->
-          <article class="exp-visual-card highlight">
-            <div class="exp-top-row">
-              <h3 class="exp-role-title">Junior Full-Stack Developer</h3>
-              <span class="exp-date-chip active-chip">AUG 2026 — PRESENT</span>
-            </div>
-            <div class="exp-company-sub">
-              BIMPulse • Casablanca, Morocco <span>(Apprenticeship) · AEC & Digital Engineering Software Solutions</span>
-            </div>
-            <ul class="exp-bullets-list">
-              <li>Engineered and deployed core application modules for <strong>BIMPulse Academy</strong>, an enterprise digital training platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.</li>
-              <li>Developed backend services and normalized PostgreSQL relational data models strictly adhering to international <strong>BIM / IFC digital engineering standards</strong>.</li>
-              <li>Engineered scalable REST APIs in Python & Django paired with modular, mobile-responsive user interfaces.</li>
-              <li>Modeled normalized PostgreSQL schemas and optimized database transactions for high-traffic student enrollment flows.</li>
-              <li>Formally commended by senior engineering leadership on LinkedIn for architectural milestones and technical contributions to platform delivery.</li>
-            </ul>
-            <div class="exp-tags-strip">
-              <span class="exp-mini-tag">Python 3.12</span>
-              <span class="exp-mini-tag">Django REST</span>
-              <span class="exp-mini-tag">PostgreSQL</span>
-              <span class="exp-mini-tag">BIM / IFC</span>
-              <span class="exp-mini-tag">BIMPulse Academy</span>
-              <span class="exp-mini-tag">React</span>
-            </div>
-          </article>
-
-          <!-- Role 2: Django Developer -->
-          <article class="exp-visual-card">
-            <div class="exp-top-row">
-              <h3 class="exp-role-title">Django & Backend Systems Developer</h3>
-              <span class="exp-date-chip">MAY 2026 — AUG 2026</span>
-            </div>
-            <div class="exp-company-sub">
-              Self-Directed & Production Systems <span>· Casablanca, Morocco · Enterprise Web Platforms</span>
-            </div>
-            <ul class="exp-bullets-list">
-              <li>Architected enterprise-grade <strong>Role-Based Access Control (RBAC)</strong> supporting <strong>14 discrete user roles</strong> with granular permission matrices and security auditing.</li>
-              <li>Eliminated severe <strong>N+1 query bottlenecks</strong> using eager loading (<code>select_related</code> and <code>prefetch_related</code>), reducing database roundtrips to constant O(1) query time.</li>
-              <li>Integrated automated transactional emails, custom full-text search indexing, and resilient structured application logging.</li>
-            </ul>
-            <div class="exp-tags-strip">
-              <span class="exp-mini-tag">Django</span>
-              <span class="exp-mini-tag">14 RBAC Roles</span>
-              <span class="exp-mini-tag">O(1) Eager Loading</span>
-              <span class="exp-mini-tag">SQL Optimization</span>
-              <span class="exp-mini-tag">PostgreSQL</span>
-            </div>
-          </article>
-        </section>
-
-      </div>
-
-      <!-- Page 1 Footer -->
-      <footer class="cv-page-footer">
-        <span>Abdellah BELMAARIS — Executive Curriculum Vitae • Authenticated Document</span>
-        <span>Page 1 of 2</span>
-      </footer>
-    </article>
-
-
-    <!-- ════════════════════ PAGE 2 ════════════════════ -->
-    <article class="cv-page cv-page-2">
-      <div class="cv-page-content">
-
-        <!-- Professional Experience (Continued) -->
-        <section>
-          <div class="section-title-visual">
-            <span class="title-left"><i class="fa-solid fa-briefcase"></i> Work Experience (Continued)</span>
-            <span class="section-badge-code">03 // CONT.</span>
-          </div>
-
-          <!-- Role 3: Python Systems -->
-          <article class="exp-visual-card">
-            <div class="exp-top-row">
-              <h3 class="exp-role-title">Python Developer & Data Systems</h3>
-              <span class="exp-date-chip">JAN 2020 — PRESENT</span>
-            </div>
-            <div class="exp-company-sub">
-              Systems Engineering & Automation <span>· Core Codebases & Open Source</span>
-            </div>
-            <ul class="exp-bullets-list">
-              <li>Constructed automated high-throughput data processing pipelines, unstructured server log tokenizers, and computational algorithms in Python 3.12.</li>
-              <li>Authored a production-grade software library implementing classical <strong>Gang of Four (GoF) design patterns</strong> with 100% pytest test suite coverage and clean dependency injection.</li>
-            </ul>
-            <div class="exp-tags-strip">
-              <span class="exp-mini-tag">Python 3.12</span>
-              <span class="exp-mini-tag">Design Patterns</span>
-              <span class="exp-mini-tag">Pandas</span>
-              <span class="exp-mini-tag">pytest</span>
-              <span class="exp-mini-tag">Data Pipelines</span>
-            </div>
-          </article>
-
-          <!-- Role 4: Full-Stack Web -->
-          <article class="exp-visual-card">
-            <div class="exp-top-row">
-              <h3 class="exp-role-title">Web Developer — Full-Stack Applications</h3>
-              <span class="exp-date-chip">FEB 2023 — JUN 2026</span>
-            </div>
-            <div class="exp-company-sub">
-              Full-Stack Application Development <span>· Casablanca, Morocco</span>
-            </div>
-            <ul class="exp-bullets-list">
-              <li>Engineered full-stack web applications translating functional requirements into modular backends and responsive user interfaces.</li>
-              <li>Developed <strong>The Modern Journal CMS</strong>, a scalable publishing platform featuring multi-user roles, live readership analytics telemetry, and responsive typography.</li>
-            </ul>
-            <div class="exp-tags-strip">
-              <span class="exp-mini-tag">Web Development</span>
-              <span class="exp-mini-tag">Django</span>
-              <span class="exp-mini-tag">Bootstrap 5</span>
-              <span class="exp-mini-tag">HTML5 / CSS3</span>
-              <span class="exp-mini-tag">REST APIs</span>
-            </div>
-          </article>
-        </section>
-
-        <!-- Featured Production Projects -->
-        <section>
-          <div class="section-title-visual">
-            <span class="title-left"><i class="fa-solid fa-code-branch"></i> Standout Production Projects</span>
-            <span class="section-badge-code">04 // SYSTEMS</span>
-          </div>
-          <div class="projects-visual-grid">
-            <div class="project-visual-card">
+          <div class="projects-grid">
+            <div class="project-card">
               <div class="project-card-top">
-                <span class="project-card-title">The Modern Journal — CMS</span>
-                <span class="project-badge-tag">14 RBAC Roles</span>
+                <h4 class="project-title">The Modern Journal — CMS</h4>
+                <span class="project-badge">14 RBAC Roles</span>
               </div>
-              <p class="project-card-desc">
+              <p class="project-desc">
                 Production multi-user publishing engine featuring granular role matrices, live analytics telemetry (views, users, posts), constant O(1) database query resolution, and transactional email triggers.
               </p>
-              <div class="project-pills-row">
+              <div class="project-pills">
                 <span><i class="fa-solid fa-bolt"></i> O(1) Queries</span>
                 <span><i class="fa-solid fa-shield"></i> RBAC Security</span>
                 <span><i class="fa-solid fa-database"></i> PostgreSQL</span>
               </div>
             </div>
 
-            <div class="project-visual-card">
+            <div class="project-card">
               <div class="project-card-top">
-                <span class="project-card-title">PyGame 3D Web Arcade (WASM)</span>
-                <span class="project-badge-tag">16 Games WASM</span>
+                <h4 class="project-title">PyGame 3D Web Arcade (WASM)</h4>
+                <span class="project-badge">16 Games WASM</span>
               </div>
-              <p class="project-card-desc">
+              <p class="project-desc">
                 Compiled 16 native Python Pygame arcade games to WebAssembly via Pygbag. Features interactive 3D cabinet selector with dynamic Three.js lighting and locked 60 FPS WebGL rendering.
               </p>
-              <div class="project-pills-row">
+              <div class="project-pills">
                 <span><i class="fa-solid fa-gamepad"></i> 16 Python Games</span>
                 <span><i class="fa-solid fa-cube"></i> Three.js</span>
                 <span><i class="fa-solid fa-microchip"></i> WASM</span>
               </div>
             </div>
 
-            <div class="project-visual-card">
+            <div class="project-card">
               <div class="project-card-top">
-                <span class="project-card-title">Dev-Pulse — Developer Telemetry</span>
-                <span class="project-badge-tag">&lt; 200ms Reports</span>
+                <h4 class="project-title">Dev-Pulse — Developer Telemetry</h4>
+                <span class="project-badge">&lt; 200ms Reports</span>
               </div>
-              <p class="project-card-desc">
+              <p class="project-desc">
                 Local data telemetry engine parsing high-dimensional unstructured system logs; performs cleaning with Pandas and automatically generates statistical Matplotlib visual performance reports in under 200ms.
               </p>
-              <div class="project-pills-row">
+              <div class="project-pills">
                 <span><i class="fa-solid fa-chart-line"></i> Pandas</span>
                 <span><i class="fa-solid fa-chart-pie"></i> Matplotlib</span>
                 <span><i class="fa-solid fa-lock"></i> 100% Local</span>
               </div>
             </div>
 
-            <div class="project-visual-card">
+            <div class="project-card">
               <div class="project-card-top">
-                <span class="project-card-title">OOP Patterns & Architecture</span>
-                <span class="project-badge-tag">GoF Library</span>
+                <h4 class="project-title">OOP Patterns & Architecture</h4>
+                <span class="project-badge">GoF Library</span>
               </div>
-              <p class="project-card-desc">
+              <p class="project-desc">
                 Reference implementation of Gang of Four software design patterns in Python demonstrating modular separation of concerns, dependency inversion, clean architecture, and complete unit test suites.
               </p>
-              <div class="project-pills-row">
+              <div class="project-pills">
                 <span><i class="fa-solid fa-check-double"></i> Pytest</span>
                 <span><i class="fa-solid fa-sitemap"></i> Clean Arch</span>
                 <span><i class="fa-solid fa-code"></i> PEP-8</span>
@@ -1254,229 +1497,398 @@ const cvHtml = `<!DOCTYPE html>
           </div>
         </section>
 
-        <!-- Verified Industry Credentials -->
+      </div>
+
+
+      <!-- ─── SECONDARY RIGHT COLUMN (Certificates & Credentials) ────────── -->
+      <aside class="cv-col-side">
+
+        <!-- Verified Industry Credentials Showcase WITH REAL PHOTOS -->
         <section>
-          <div class="section-title-visual">
-            <span class="title-left"><i class="fa-solid fa-award"></i> Verified Industry Credentials</span>
-            <span class="section-badge-code">05 // VERIFIED</span>
+          <div class="cv-section-title">
+            <span class="title-text"><i class="fa-solid fa-award"></i> Verified Credentials</span>
+            <span class="section-code-badge">04 // CERTS</span>
           </div>
-          <div class="credentials-visual-grid">
-            <div class="cred-visual-card">
-              <div class="cred-title-row">AI Engineer for Developers Associate</div>
-              <div class="cred-meta-row">
-                <span>DataCamp Certified</span>
-                <span>Apr 2026 – Apr 2028</span>
+
+          <div class="cert-showcase-stack">
+
+            <!-- Certificate 1: AI Engineer -->
+            <article class="cert-photo-card">
+              <div class="cert-image-thumb-wrap" onclick="openCertModal('${certAiBase64}', 'AI Engineer for Developers Associate', 'DataCamp Certified • ID: AIEDA0011678564836')">
+                <img src="${certAiBase64}" alt="AI Engineer for Developers Associate Certificate Photo" class="cert-image-thumb" loading="lazy">
+                <div class="cert-image-overlay">
+                  <span class="cert-zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                </div>
               </div>
-              <code class="cred-code-chip">ID: AIEDA0011678564836</code>
+              <div class="cert-card-body">
+                <a href="https://www.datacamp.com/certificate/AIEDA0011678564836" target="_blank" rel="noopener noreferrer" class="cert-title-link">
+                  <span>AI Engineer for Developers Associate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; color: var(--accent);"></i>
+                </a>
+                <div class="cert-issuer-row">
+                  <span class="cert-issuer-badge"><i class="fa-solid fa-certificate"></i> DataCamp</span>
+                  <span>Apr 2026 – Apr 2028</span>
+                </div>
+                <code class="cert-id-chip">ID: AIEDA0011678564836</code>
+              </div>
+            </article>
+
+            <!-- Certificate 2: Python Data Associate -->
+            <article class="cert-photo-card">
+              <div class="cert-image-thumb-wrap" onclick="openCertModal('${certPythonDataBase64}', 'Python Data Associate', 'DataCamp Certified • ID: PDA0019412806212')">
+                <img src="${certPythonDataBase64}" alt="Python Data Associate Certificate Photo" class="cert-image-thumb" loading="lazy">
+                <div class="cert-image-overlay">
+                  <span class="cert-zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                </div>
+              </div>
+              <div class="cert-card-body">
+                <a href="https://www.datacamp.com/certificate/PDA0019412806212" target="_blank" rel="noopener noreferrer" class="cert-title-link">
+                  <span>Python Data Associate</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; color: var(--accent);"></i>
+                </a>
+                <div class="cert-issuer-row">
+                  <span class="cert-issuer-badge"><i class="fa-solid fa-certificate"></i> DataCamp</span>
+                  <span>Feb 2026 – Feb 2028</span>
+                </div>
+                <code class="cert-id-chip">ID: PDA0019412806212</code>
+              </div>
+            </article>
+
+            <!-- Certificate 3: Cybersecurity Fundamentals -->
+            <article class="cert-photo-card">
+              <div class="cert-image-thumb-wrap" onclick="openCertModal('${certCyberBase64}', 'Cybersecurity Fundamentals', 'المدرسة - Almdrasa • Verified ID: 77F16BFF2A')">
+                <img src="${certCyberBase64}" alt="Cybersecurity Fundamentals Certificate Photo" class="cert-image-thumb" loading="lazy">
+                <div class="cert-image-overlay">
+                  <span class="cert-zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                </div>
+              </div>
+              <div class="cert-card-body">
+                <a href="https://almdrasa.com/" target="_blank" rel="noopener noreferrer" class="cert-title-link">
+                  <span>Cybersecurity Fundamentals</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; color: var(--accent);"></i>
+                </a>
+                <div class="cert-issuer-row">
+                  <span class="cert-issuer-badge"><i class="fa-solid fa-shield-halved"></i> Almdrasa</span>
+                  <span>Issued Feb 2026</span>
+                </div>
+                <code class="cert-id-chip">ID: 77F16BFF2A-77EB48CD64</code>
+              </div>
+            </article>
+
+            <!-- Certificate 4: Associate Python Developer -->
+            <article class="cert-photo-card">
+              <div class="cert-image-thumb-wrap" onclick="openCertModal('${certPythonDevBase64}', 'Associate Python Developer (30 HR)', 'DataCamp Statement of Accomplishment • #736,739')">
+                <img src="${certPythonDevBase64}" alt="Associate Python Developer Certificate Photo" class="cert-image-thumb" loading="lazy">
+                <div class="cert-image-overlay">
+                  <span class="cert-zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                </div>
+              </div>
+              <div class="cert-card-body">
+                <a href="assets/certificate.png" target="_blank" rel="noopener noreferrer" class="cert-title-link">
+                  <span>Associate Python Developer (30 HR)</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; color: var(--accent);"></i>
+                </a>
+                <div class="cert-issuer-row">
+                  <span class="cert-issuer-badge"><i class="fa-solid fa-code"></i> DataCamp</span>
+                  <span>Nov 2025 · 30 HR Track</span>
+                </div>
+                <code class="cert-id-chip">Statement #736,739</code>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- Technical Core Capabilities Matrix -->
+        <section>
+          <div class="cv-section-title">
+            <span class="title-text"><i class="fa-solid fa-layer-group"></i> Technical Core</span>
+            <span class="section-code-badge">05 // STACK</span>
+          </div>
+
+          <div class="skills-matrix-stack">
+            <div class="skill-category-box">
+              <div class="skill-cat-header"><i class="fa-solid fa-server"></i> Backend & Systems</div>
+              <div class="skill-pills-row">
+                <span class="skill-pill core">Python 3.12</span>
+                <span class="skill-pill core">Django</span>
+                <span class="skill-pill core">Django REST Framework</span>
+                <span class="skill-pill core">PostgreSQL</span>
+                <span class="skill-pill">SQL Optimization</span>
+                <span class="skill-pill">RESTful APIs</span>
+                <span class="skill-pill">JWT</span>
+                <span class="skill-pill">14 RBAC Roles</span>
+                <span class="skill-pill">Celery / Redis</span>
+              </div>
             </div>
 
-            <div class="cred-visual-card">
-              <div class="cred-title-row">Python Data Associate</div>
-              <div class="cred-meta-row">
-                <span>DataCamp Certified</span>
-                <span>Feb 2026 – Feb 2028</span>
+            <div class="skill-category-box">
+              <div class="skill-cat-header"><i class="fa-solid fa-code"></i> Frontend Engineering</div>
+              <div class="skill-pills-row">
+                <span class="skill-pill core">React 19</span>
+                <span class="skill-pill core">TypeScript</span>
+                <span class="skill-pill">JavaScript (ES6+)</span>
+                <span class="skill-pill">HTML5 / CSS3</span>
+                <span class="skill-pill">Three.js / WebGL</span>
+                <span class="skill-pill">Vite</span>
+                <span class="skill-pill">Responsive UI</span>
+                <span class="skill-pill">Framer Motion</span>
               </div>
-              <code class="cred-code-chip">ID: PDA0019412806212</code>
             </div>
 
-            <div class="cred-visual-card">
-              <div class="cred-title-row">Cybersecurity Fundamentals</div>
-              <div class="cred-meta-row">
-                <span>المدرسة - Almdrasa</span>
-                <span>Issued Feb 2026 · Verified</span>
+            <div class="skill-category-box">
+              <div class="skill-cat-header"><i class="fa-solid fa-brain"></i> Applied AI & Data</div>
+              <div class="skill-pills-row">
+                <span class="skill-pill core">Pandas</span>
+                <span class="skill-pill">NumPy</span>
+                <span class="skill-pill">Matplotlib</span>
+                <span class="skill-pill core">LLM API Integration</span>
+                <span class="skill-pill">RAG Architectures</span>
+                <span class="skill-pill">Prompt Engineering</span>
+                <span class="skill-pill">Data Cleaning Pipelines</span>
               </div>
-              <code class="cred-code-chip">ID: 77F16BFF2A-77EB48CD64-1451D2521</code>
             </div>
 
-            <div class="cred-visual-card">
-              <div class="cred-title-row">Associate Python Developer</div>
-              <div class="cred-meta-row">
-                <span>DataCamp Statement</span>
-                <span>Nov 2025 · 30 HR Track</span>
+            <div class="skill-category-box">
+              <div class="skill-cat-header"><i class="fa-solid fa-cubes"></i> Architecture & DevOps</div>
+              <div class="skill-pills-row">
+                <span class="skill-pill core">Clean Architecture</span>
+                <span class="skill-pill">GoF Design Patterns</span>
+                <span class="skill-pill">Git / GitHub CI/CD</span>
+                <span class="skill-pill">Docker</span>
+                <span class="skill-pill">Linux</span>
+                <span class="skill-pill">pytest</span>
+                <span class="skill-pill">PEP-8</span>
+                <span class="skill-pill">OWASP Security</span>
               </div>
-              <code class="cred-code-chip">ID: #736,739 Statement</code>
             </div>
           </div>
         </section>
 
-        <!-- Visual Education & Languages Split -->
-        <div class="bottom-visual-split">
-          <!-- Education Card -->
-          <div class="edu-visual-card">
-            <div class="section-title-visual" style="margin-top: 0; padding-bottom: 2px;">
-              <span class="title-left"><i class="fa-solid fa-graduation-cap"></i> Education & Tracks</span>
-              <span class="section-badge-code">EDU</span>
-            </div>
-            <div class="edu-row-item">
-              <div class="edu-row-title">Backend Architecture & Systems Engineering</div>
-              <div class="edu-row-inst">Specialized Track · Self-directed Engineering</div>
-              <div class="edu-row-date">Jan 2023 – Present</div>
-            </div>
-            <div class="edu-row-item">
-              <div class="edu-row-title">Career Track: Backend Developer</div>
-              <div class="edu-row-inst">DataCamp Professional Career Track</div>
-              <div class="edu-row-date">Verified Continuous Learning</div>
-            </div>
-            <div class="edu-row-item">
-              <div class="edu-row-title">Data Science & Analytics Foundations</div>
-              <div class="edu-row-inst">DataCamp Skill Track</div>
-              <div class="edu-row-date">Verified Continuous Learning</div>
-            </div>
+        <!-- Education & Specialized Tracks -->
+        <section>
+          <div class="cv-section-title">
+            <span class="title-text"><i class="fa-solid fa-graduation-cap"></i> Education & Tracks</span>
+            <span class="section-code-badge">06 // EDU</span>
           </div>
 
-          <!-- Languages Card -->
-          <div class="lang-visual-card">
-            <div class="section-title-visual" style="margin-top: 0; padding-bottom: 2px;">
-              <span class="title-left"><i class="fa-solid fa-globe"></i> Languages & Standards</span>
-              <span class="section-badge-code">STANDARDS</span>
+          <div class="edu-card">
+            <div class="edu-item">
+              <div class="edu-title">Backend Architecture & Systems Engineering</div>
+              <div class="edu-inst">Specialized Track · Self-directed Engineering</div>
+              <div class="edu-date">Jan 2023 – Present</div>
             </div>
-            <div class="skill-pills-wrap" style="margin-bottom: 6px;">
-              <span class="skill-tag core">English (Professional)</span>
-              <span class="skill-tag core">French (Professional)</span>
-              <span class="skill-tag core">Arabic (Native)</span>
+            <div class="edu-item">
+              <div class="edu-title">Career Track: Backend Developer</div>
+              <div class="edu-inst">DataCamp Professional Career Track</div>
+              <div class="edu-date">Verified Continuous Learning</div>
             </div>
-            <div style="font-size: 8.8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 3px;">
-              Standards Adhered To
-            </div>
-            <div class="skill-pills-wrap">
-              <span class="skill-tag">BIM / IFC Standards</span>
-              <span class="skill-tag">PEP-8 Python Standards</span>
-              <span class="skill-tag">RESTful API Design</span>
-              <span class="skill-tag">Clean Architecture</span>
-              <span class="skill-tag">OWASP Security</span>
+            <div class="edu-item">
+              <div class="edu-title">Data Science & Analytics Foundations</div>
+              <div class="edu-inst">DataCamp Skill Track</div>
+              <div class="edu-date">Verified Continuous Learning</div>
             </div>
           </div>
-        </div>
+        </section>
 
-      </div>
+        <!-- Languages & Standards -->
+        <section>
+          <div class="cv-section-title">
+            <span class="title-text"><i class="fa-solid fa-globe"></i> Languages & Standards</span>
+            <span class="section-code-badge">07 // GLOBAL</span>
+          </div>
 
-      <!-- Page 2 Footer -->
-      <footer class="cv-page-footer">
-        <span>Official Curriculum Vitae of Abdellah BELMAARIS • Live Verification: <a href="https://abdellah-belmaaris.github.io" target="_blank">abdellah-belmaaris.github.io</a></span>
-        <span>Page 2 of 2</span>
-      </footer>
-    </article>
+          <div class="lang-card">
+            <div class="lang-item-row">
+              <span>English</span>
+              <span>Professional Working</span>
+            </div>
+            <div class="lang-item-row">
+              <span>French</span>
+              <span>Professional Working</span>
+            </div>
+            <div class="lang-item-row">
+              <span>Arabic</span>
+              <span>Native</span>
+            </div>
+            <div style="font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-top: 6px;">
+              Industry Standards
+            </div>
+            <div class="skill-pills-row">
+              <span class="skill-pill">BIM / IFC Standards</span>
+              <span class="skill-pill">PEP-8 Python</span>
+              <span class="skill-pill">RESTful API Design</span>
+              <span class="skill-pill">Clean Architecture</span>
+              <span class="skill-pill">OWASP Security</span>
+            </div>
+          </div>
+        </section>
+
+      </aside>
+
+    </div>
 
   </main>
 
+  <!-- ─── Interactive Lightbox Modal for Certificate Inspection ────────────── -->
+  <div class="cert-lightbox-modal" id="cert-lightbox" onclick="closeCertModal(event)">
+    <div class="cert-modal-content" onclick="event.stopPropagation()">
+      <div class="cert-modal-header">
+        <div class="cert-modal-title">
+          <i class="fa-solid fa-award" style="color: var(--accent);"></i>
+          <span id="modal-cert-title">Verified Certificate Preview</span>
+        </div>
+        <button type="button" class="cert-modal-close" onclick="closeCertModal()" aria-label="Close Preview">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="cert-modal-body">
+        <img id="modal-cert-img" src="" alt="Certificate High Resolution Photo">
+      </div>
+      <div class="cert-modal-footer">
+        <span id="modal-cert-meta">Official Verified Credential</span>
+        <button type="button" class="btn-action btn-ghost" onclick="closeCertModal()">
+          <span>Close Preview</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      const current = html.getAttribute('data-cv-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-cv-theme', next);
-      const icon = document.getElementById('theme-icon');
-      if (icon) {
-        icon.className = next === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    // Theme toggle handling
+    const rootEl = document.documentElement;
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    const themeIcon = document.getElementById('theme-icon');
+
+    function applyTheme(theme) {
+      rootEl.setAttribute('data-cv-theme', theme);
+      localStorage.setItem('abdellah_cv_theme', theme);
+      if (theme === 'light') {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      } else {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
       }
-      try {
-        localStorage.setItem('cv-theme-mode', next);
-      } catch (e) {}
     }
 
-    // Init theme
-    try {
-      const saved = localStorage.getItem('cv-theme-mode');
-      if (saved === 'light' || saved === 'dark') {
-        document.documentElement.setAttribute('data-cv-theme', saved);
-        const icon = document.getElementById('theme-icon');
-        if (icon) {
-          icon.className = saved === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-        }
+    const savedTheme = localStorage.getItem('abdellah_cv_theme') || 'dark';
+    applyTheme(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const current = rootEl.getAttribute('data-cv-theme') || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Lightbox modal handling
+    const modal = document.getElementById('cert-lightbox');
+    const modalImg = document.getElementById('modal-cert-img');
+    const modalTitle = document.getElementById('modal-cert-title');
+    const modalMeta = document.getElementById('modal-cert-meta');
+
+    function openCertModal(imgSrc, title, meta) {
+      modalImg.src = imgSrc;
+      modalTitle.textContent = title;
+      modalMeta.textContent = meta;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCertModal(e) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      modalImg.src = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeCertModal();
       }
-    } catch (e) {}
+    });
   </script>
 
 </body>
 </html>
 `;
 
-// 1. Write HTML file to public/cv.html
+// 1. Write the rich HTML CV
 const publicCvHtmlPath = path.join(rootDir, 'public', 'cv.html');
 fs.writeFileSync(publicCvHtmlPath, cvHtml, 'utf-8');
 console.log('Created enhanced visual public/cv.html successfully!');
 
-// 2. Also write a clean Markdown version to CV.md
-const cvMarkdown = `# Abdellah BELMAARIS — Curriculum Vitae
-**Junior Full-Stack Developer & Backend Systems Specialist**  
-BIMPulse • Casablanca, Morocco  
-obaidbelmaaris@gmail.com · [LinkedIn](https://linkedin.com/in/abdellah-belmaaris) · [GitHub](https://github.com/Abdellah-BELMAARIS) · [Portfolio](https://abdellah-belmaaris.github.io)
+// 2. Generate markdown CV
+const cvMarkdown = `# Abdellah BELMAARIS
+**Junior Full-Stack Developer at BIMPulse** • Backend Systems & Applied AI Specialist  
+*Casablanca, Morocco* • [obaidbelmaaris@gmail.com](mailto:obaidbelmaaris@gmail.com) • +212 654 624 382  
+[LinkedIn Profile](https://linkedin.com/in/abdellah-belmaaris) • [GitHub Profile](https://github.com/Abdellah-BELMAARIS) • [Portfolio Website](https://abdellah-belmaaris.github.io)
 
 ---
 
 ## Executive Summary
-Performance-driven Full-Stack Software Developer operating at the intersection of enterprise backend architecture, AEC digital transformation, and applied artificial intelligence at BIMPulse. Specialized in engineering high-throughput Python/Django REST backends, normalized PostgreSQL schemas, and modern responsive React/TypeScript interfaces. Proven track record in eliminating severe N+1 SQL bottlenecks to constant O(1) query time and architecting granular 14-role Role-Based Access Control (RBAC) security engines. Certified by DataCamp in Applied AI Engineering (LLMs, RAG Architectures) and Python Data Analytics.
+Performance-driven **Full-Stack Software Developer** operating at the intersection of enterprise backend architecture, AEC digital engineering, and applied artificial intelligence at **BIMPulse**. Specialized in engineering high-throughput **Python/Django REST** backends, normalized **PostgreSQL** schemas, and modern responsive **React/TypeScript** interfaces. Proven track record in eliminating severe N+1 SQL bottlenecks down to **constant O(1) query time** and architecting granular **14-role Role-Based Access Control (RBAC)** security engines. Certified by DataCamp in Applied AI Engineering (LLMs, RAG Architectures) and Python Data Analytics.
 
 ---
 
-## Key Engineering Metrics
-- **14 Roles**: Role-Based Access Control (RBAC) security architecture
-- **O(1) Time**: SQL Query Optimization resolving N+1 bottlenecks
-- **4+ Certifications**: DataCamp Applied AI & Python Certified
-- **< 200ms**: High-throughput telemetry pipeline performance
-
----
-
-## Technical Core & Capabilities
-- **Backend & Core Languages**: Python 3.12, Django, Django REST Framework, PostgreSQL, Relational Database Modeling, SQL Optimization, RESTful APIs, JWT Authentication, 14 RBAC Roles, Celery, Redis.
-- **Frontend & Web Interfaces**: React 19, TypeScript, JavaScript (ES6+), HTML5 Semantic, Modern CSS3 Architecture, Three.js, WebGL, Responsive UI, Vite, Framer Motion.
-- **Data & Applied AI**: Pandas, NumPy, Matplotlib, LLM API Integration, RAG Architectures, Prompt Engineering, Data Cleaning Pipelines.
-- **Architecture & DevOps**: Clean Architecture, Gang of Four (GoF) Design Patterns, Git / GitHub CI/CD, Docker, Linux, Unit Testing (pytest), PEP-8, OWASP Security Guidelines.
+## Technical Core Capabilities
+- **Backend & Systems**: Python 3.12, Django, Django REST Framework, PostgreSQL, SQL Optimization, RESTful APIs, JWT Authentication, 14 RBAC Roles, Celery, Redis
+- **Frontend Engineering**: React 19, TypeScript, JavaScript (ES6+), HTML5, Semantic CSS3, Three.js, WebGL, Vite, Responsive UI, Framer Motion
+- **Applied AI & Data Systems**: Pandas, NumPy, Matplotlib, LLM API Integration, RAG Architectures, Prompt Engineering, Data Cleaning Pipelines
+- **Architecture & DevOps**: Clean Architecture, GoF Design Patterns, Git / GitHub CI/CD, Docker, Linux, pytest, PEP-8 Standards, OWASP Security
 
 ---
 
 ## Professional Work Experience
 
-### Junior Full-Stack Developer — BIMPulse
-*Casablanca, Morocco (Apprenticeship) | Aug 2026 – Present*  
-*AEC & Digital Engineering Software Solutions*
-- Engineered and deployed core application modules for **BIMPulse Academy**, an enterprise digital learning platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.
-- Developed backend services and relational data models strictly adhering to international **BIM / IFC digital engineering standards**.
-- Engineered scalable REST APIs in Python & Django coupled with modular, mobile-responsive user interfaces.
+### Junior Full-Stack Developer — BIMPulse (Casablanca, Morocco)
+*AUG 2026 — PRESENT (Apprenticeship)*  
+- Engineered and deployed core application modules for **BIMPulse Academy**, an enterprise digital training platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.
+- Developed backend services and normalized PostgreSQL relational data models strictly adhering to international **BIM / IFC digital engineering standards**.
+- Engineered scalable REST APIs in Python & Django paired with modular, mobile-responsive user interfaces.
 - Modeled normalized PostgreSQL schemas and optimized database transactions for high-traffic student enrollment flows.
 - Formally commended by senior engineering leadership on LinkedIn for architectural milestones and technical contributions to platform delivery.
+- *Technologies*: Python 3.12, Django REST, PostgreSQL, BIM/IFC Standards, React, BIMPulse Academy
 
-### Django & Backend Systems Developer — Self-Directed & Production Systems
-*Casablanca, Morocco | May 2026 – Aug 2026*
-*Enterprise Web Platforms & API Architecture*
+### Django & Backend Systems Developer — Production Systems (Casablanca, Morocco)
+*MAY 2026 — AUG 2026*  
 - Architected enterprise-grade **Role-Based Access Control (RBAC)** supporting **14 discrete user roles** with granular permission matrices and security auditing.
 - Eliminated severe **N+1 query bottlenecks** using eager loading (\`select_related\` and \`prefetch_related\`), reducing database roundtrips to constant O(1) query time.
-- Integrated automated transactional emails, custom full-text search indexing, and resilient logging mechanisms.
+- Integrated automated transactional emails, custom full-text search indexing, and resilient structured application logging.
+- *Technologies*: Django, 14 RBAC Roles, O(1) Eager Loading, SQL Optimization, PostgreSQL
 
-### Python Developer & Data Systems — Systems Engineering & Automation
-*Casablanca, Morocco | Jan 2020 – Present*
-*Software Architecture, Automation & Data Engineering*
+### Python Developer & Data Systems — Systems Engineering & Open Source
+*JAN 2020 — PRESENT*  
 - Constructed automated high-throughput data processing pipelines, unstructured server log tokenizers, and computational algorithms in Python 3.12.
-- Authored a production-grade software library implementing classical **Gang of Four (GoF) software design patterns** with full unit test coverage and clean dependency injection.
+- Authored a production-grade software library implementing classical **Gang of Four (GoF) design patterns** with 100% pytest test suite coverage and clean dependency injection.
+- *Technologies*: Python 3.12, Design Patterns, Pandas, pytest, Data Pipelines
 
-### Full-Stack Web Developer — Full-Stack Application Development
-*Casablanca, Morocco | Feb 2023 – Jun 2026*
-*Full-Stack Web Development & CMS Solutions*
+### Web Developer — Full-Stack Applications (Casablanca, Morocco)
+*FEB 2023 — JUN 2026*  
 - Engineered full-stack web applications translating functional requirements into modular backends and responsive user interfaces.
 - Developed **The Modern Journal CMS**, a scalable publishing platform featuring multi-user roles, live readership analytics telemetry, and responsive typography.
+- *Technologies*: Web Development, Django, Bootstrap 5, HTML5/CSS3, REST APIs
 
 ---
 
 ## Standout Production Projects
-- **The Modern Journal — Django CMS**: Multi-user publishing platform with 14 RBAC user roles, live telemetry analytics, O(1) query-optimized data retrieval, and full-text search.
-- **PyGame 3D Web Arcade & WASM Console**: 16 native Python Pygame arcade games compiled to WebAssembly via Pygbag, executing at locked 60 FPS in-browser with Three.js 3D cabinet selector.
-- **Dev-Pulse — Developer Activity Telemetry**: Local data telemetry engine parsing high-dimensional system logs with Pandas and generating automated statistical Matplotlib performance visuals in <200ms.
-- **OOP Patterns & Software Architecture Library**: Production Gang of Four design patterns in Python 3.12 with clean architecture, dependency inversion, and comprehensive test suites.
+- **The Modern Journal — CMS**: Production multi-user publishing engine featuring granular 14-role matrices, live analytics telemetry (views, users, posts), constant O(1) query resolution, and transactional email triggers.
+- **PyGame 3D Web Arcade (WASM)**: Compiled 16 native Python Pygame arcade games to WebAssembly via Pygbag. Features interactive 3D cabinet selector with dynamic Three.js lighting and locked 60 FPS WebGL rendering.
+- **Dev-Pulse — Developer Telemetry Engine**: Local data telemetry engine parsing high-dimensional unstructured system logs; performs cleaning with Pandas and automatically generates statistical Matplotlib performance reports in under 200ms.
+- **OOP Software Design Patterns & Architecture Library**: Reference implementation of Gang of Four software design patterns in Python demonstrating modular separation of concerns, dependency inversion, clean architecture, and complete unit test suites.
 
 ---
 
-## Verified Industry Credentials
-- **AI Engineer for Developers Associate** — DataCamp (ID: \`AIEDA0011678564836\` · Valid through Apr 2028)
-- **Python Data Associate** — DataCamp (ID: \`PDA0019412806212\` · Valid through Feb 2028)
-- **Cybersecurity Fundamentals** — المدرسة / Almdrasa (ID: \`77F16BFF2A-77EB48CD64-1451D2521\` · Feb 2026)
-- **Associate Python Developer (30 HR Track)** — DataCamp (#736,739 Statement of Accomplishment · Nov 2025)
+## Verified Industry Credentials (With Official Certificates)
+1. **AI Engineer for Developers Associate** — DataCamp Certified (Apr 2026 – Apr 2028) • *ID: AIEDA0011678564836*
+2. **Python Data Associate** — DataCamp Certified (Feb 2026 – Feb 2028) • *ID: PDA0019412806212*
+3. **Cybersecurity Fundamentals** — المدرسة - Almdrasa (Issued Feb 2026 · Verified) • *ID: 77F16BFF2A-77EB48CD64-1451D2521*
+4. **Associate Python Developer (30 HR)** — DataCamp Statement of Accomplishment (Nov 2025) • *ID: Statement #736,739*
 
 ---
 
-## Education & Specializations
-- **Backend Architecture & Systems Engineering**: Specialized Track · Self-directed Engineering (Jan 2023 – Present)
-- **Career Track: Backend Developer**: DataCamp Professional Career Track
-- **Data Science & Analytics Foundations**: DataCamp Skill Track
+## Education & Specialized Tracks
+- **Backend Architecture & Systems Engineering**: Specialized Track • Self-directed Engineering (Jan 2023 – Present)
+- **Career Track: Backend Developer**: DataCamp Professional Career Track • Verified Continuous Learning
+- **Data Science & Analytics Foundations**: DataCamp Skill Track • Verified Continuous Learning
 
 ---
 
