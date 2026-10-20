@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { t as translateText } from '../i18n';
 
@@ -9,31 +9,7 @@ interface FooterGrandEndingProps {
 export default function FooterGrandEnding({
   onScrollToTop
 }: FooterGrandEndingProps) {
-  const [localTime, setLocalTime] = useState<string>('');
   const [emailCopied, setEmailCopied] = useState<boolean>(false);
-
-  // Live real-time Casablanca (Morocco - GMT+1) clock
-  useEffect(() => {
-    const updateTime = () => {
-      try {
-        const now = new Date();
-        const formatted = new Intl.DateTimeFormat('en-US', {
-          timeZone: 'Africa/Casablanca',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: true
-        }).format(now);
-        setLocalTime(formatted);
-      } catch {
-        setLocalTime(new Date().toLocaleTimeString());
-      }
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleCopyEmail = async () => {
     try {
@@ -138,7 +114,7 @@ export default function FooterGrandEnding({
       {/* ─── 4-Column Architectural Footer ───────────────────────────── */}
       <footer className="footer-grand-main" role="contentinfo">
         <div className="footer-columns-grid">
-          {/* Column 1: Identity & Casablanca Live Time */}
+          {/* Column 1: Identity */}
           <div className="footer-col col-identity">
             <div className="footer-brand-lockup">
               <span className="footer-brand-logo">{translateText("AB.")}</span>
@@ -151,19 +127,6 @@ export default function FooterGrandEnding({
             <p className="footer-col-desc">
               {translateText("Building robust full-stack web platforms, Django REST systems, and applied AI applications with clean software architecture.")}
             </p>
-
-            {/* Casablanca Local Clock Widget */}
-            <div className="footer-telemetry-widget" title={translateText("Casablanca Local Time")}>
-              <div className="footer-widget-header">
-                <span className="footer-widget-ping" />
-                <span className="footer-widget-label">{translateText("Casablanca Local Time")}</span>
-              </div>
-              <div className="footer-clock-display">
-                <i className="fa-regular fa-clock" style={{ marginRight: '8px', color: 'var(--emerald-bright)' }} />
-                <span className="footer-clock-time">{localTime || 'Loading…'}</span>
-                <span className="footer-clock-zone">(GMT+1)</span>
-              </div>
-            </div>
           </div>
 
           {/* Column 2: Quick Directory */}
