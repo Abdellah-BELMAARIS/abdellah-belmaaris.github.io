@@ -313,6 +313,7 @@ export default function SynapticSkillsMesh() {
 
                 {/* Node Target Ring */}
                 <circle
+                  className="synaptic-node-ring"
                   r="17"
                   fill="#060D17"
                   stroke={nodeColor}
@@ -328,6 +329,7 @@ export default function SynapticSkillsMesh() {
 
                 {/* Node Label */}
                 <text
+                  className="synaptic-node-label"
                   x="0"
                   y="34"
                   textAnchor="middle"

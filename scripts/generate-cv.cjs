@@ -70,6 +70,44 @@ const cvHtml = `<!DOCTYPE html>
       --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 0 0 1px #e2e8f0;
     }
 
+    [data-cv-theme="light"] .screen-action-bar {
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid #cbd5e1;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    [data-cv-theme="light"] .action-bar-brand {
+      color: #0f172a;
+    }
+    [data-cv-theme="light"] .btn-action.btn-ghost {
+      background: rgba(15, 23, 42, 0.05);
+      border-color: rgba(15, 23, 42, 0.15);
+      color: #0f172a;
+    }
+    [data-cv-theme="light"] .btn-action.btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.1);
+      color: #0f172a;
+    }
+    [data-cv-theme="light"] .doc-spec-pill {
+      background: rgba(2, 132, 199, 0.1);
+      color: #0284c7;
+      border-color: rgba(2, 132, 199, 0.25);
+    }
+    [data-cv-theme="light"] .theme-toggle-btn {
+      background: rgba(15, 23, 42, 0.05);
+      border-color: rgba(15, 23, 42, 0.15);
+      color: #0f172a;
+    }
+    [data-cv-theme="light"] .cv-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+    [data-cv-theme="light"] .metric-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;

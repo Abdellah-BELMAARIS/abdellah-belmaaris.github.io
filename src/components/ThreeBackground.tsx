@@ -421,6 +421,9 @@ function VolumetricAtmosphere() {
 // ─── 5. Main Component with Live Telemetry Tag ───────────────────────────────
 export default function ThreeBackground() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isLight, setIsLight] = useState(() =>
+    typeof document !== 'undefined' ? document.documentElement.getAttribute('data-theme') === 'light' : false
+  );
   const [reduceMotion, setReduceMotion] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false
   );
@@ -434,9 +437,15 @@ export default function ThreeBackground() {
     const listener = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
     media.addEventListener('change', listener);
 
+    const observer = new MutationObserver(() => {
+      setIsLight(document.documentElement.getAttribute('data-theme') === 'light');
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
     return () => {
       window.removeEventListener('resize', checkMobile);
       media.removeEventListener('change', listener);
+      observer.disconnect();
     };
   }, []);
 
@@ -465,8 +474,8 @@ export default function ThreeBackground() {
         dpr={[1, 1.5]}
       >
         <ambientLight intensity={0.4} />
-        {!reduceMotion && <VolumetricAtmosphere />}
-        {!reduceMotion && <HolographicPanels isMobile={isMobile} />}
+        {!reduceMotion && !isLight && <VolumetricAtmosphere />}
+        {!reduceMotion && !isLight && <HolographicPanels isMobile={isMobile} />}
         {!reduceMotion && <AiGeometricCore isMobile={isMobile} />}
         {!reduceMotion && <AiNeuralMesh count={particleCount} />}
       </Canvas>

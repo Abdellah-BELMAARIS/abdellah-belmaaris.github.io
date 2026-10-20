@@ -115,9 +115,9 @@ export default function HolographicIdBadge({
               aria-selected={isActive}
               className={`holo-role-pill ${isActive ? 'active' : ''}`}
               style={{
-                borderColor: isActive ? role.accentColor : 'rgba(255, 255, 255, 0.1)',
-                boxShadow: isActive ? `0 0 16px -2px ${role.glowColor}` : 'none',
-                color: isActive ? role.accentColor : '#94A3B8'
+                borderColor: isActive ? role.accentColor : undefined,
+                boxShadow: isActive ? `0 0 16px -2px ${role.glowColor}` : undefined,
+                color: isActive ? role.accentColor : undefined
               }}
               onClick={() => handleRoleClick(role)}
             >

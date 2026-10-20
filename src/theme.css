@@ -43,44 +43,47 @@ html[dir='rtl'] .terminal-msg.user { align-self: flex-end; }
 
 :root[data-theme='light'] {
     color-scheme: light;
-    --bg: #f5f9fa;
-    --bg-secondary: #edf4f5;
+    --bg: #f4f8fa;
+    --bg-secondary: #e9f2f5;
     --surface: #ffffff;
-    --surface-hover: #e7f1f3;
-    --surface-glass: rgba(255, 255, 255, 0.92);
+    --surface-hover: #f3f8f9;
+    --surface-glass: rgba(255, 255, 255, 0.96);
     --bg-base: var(--bg);
     --bg-surface: var(--surface);
     --bg-surface-hover: var(--surface-hover);
-    --white: #152c35;
-    --text-white: var(--white);
-    --text-primary: var(--white);
-    --text-secondary: #435d67;
-    --text-muted: #536c76;
-    --accent: #006e80;
-    --cyan: #006e80;
-    --cyan-bright: #006e80;
-    --emerald-bright: #006e80;
-    --emerald: #00798b;
+    --white: #0b1e28;
+    --text-white: #0b1e28;
+    --text-primary: #0b1e28;
+    --text-secondary: #27404d;
+    --text-muted: #567280;
+    --accent: #00768a;
+    --accent-glow: rgba(0, 118, 138, 0.18);
+    --cyan: #00768a;
+    --cyan-bright: #008fa8;
+    --cyan-glow: rgba(0, 118, 138, 0.18);
+    --emerald-bright: #058567;
+    --emerald: #058567;
     --teal: #087a5b;
-    --gold: #936008;
-    --border: rgba(24, 77, 88, 0.18);
-    --border-light: var(--border);
-    --border-hover: rgba(0, 110, 128, 0.45);
-    --scene-background: radial-gradient(ellipse 90% 70% at 70% 25%, #d9f0f2 0%, #eef7f7 45%, #f8fafb 100%);
-    --scene-vignette: radial-gradient(ellipse 85% 75% at 50% 35%, transparent 20%, rgba(245, 249, 250, 0.75) 90%);
+    --gold: #b45309;
+    --border: rgba(0, 110, 128, 0.18);
+    --border-light: rgba(0, 110, 128, 0.14);
+    --border-hover: rgba(0, 118, 138, 0.45);
+    --border-color: rgba(0, 110, 128, 0.22);
+    --scene-background: radial-gradient(ellipse 90% 70% at 70% 25%, #d6eef2 0%, #ebf5f7 45%, #f7fafb 100%);
+    --scene-vignette: radial-gradient(ellipse 85% 75% at 50% 35%, transparent 20%, rgba(244, 248, 250, 0.78) 90%);
 }
 
-/* Keep transparent surfaces readable over the same animated scene. */
+/* ─── Light Mode Visual Cards Base ─────────────────────────────────────────── */
 :root[data-theme='light'] :is(.featured-project-card, .personal-project-card,
 .tech-category-card, .credential-row-item, .education-card, .about-fact-card,
 .contact-info-card, .contact-form-redesign, .embedded-terminal-wrapper,
 .exp-junction-container, .hero-status-floating-pill, .about-visual-card,
 .about-code-snippet, .snippet-header, .contact-quick-link, .form-input,
 .form-textarea, .tech-pill-large, .hero-tech-line .tech-item, .mini-tag,
-.hero-kicker-badge, .video-modal-content, .case-study-modal) {
+.hero-kicker-badge, .video-modal-content, .case-study-modal, .stat-card) {
     background: var(--surface-glass);
     border-color: var(--border);
-    box-shadow: 0 6px 24px rgba(24, 77, 88, 0.06);
+    box-shadow: 0 8px 26px rgba(0, 55, 75, 0.07);
 }
 
 :root[data-theme='light'] :is(.snippet-body, .hero-copy-column, .hero-name-heading,
@@ -95,25 +98,1201 @@ html[dir='rtl'] .terminal-msg.user { align-self: flex-end; }
 }
 
 :root[data-theme='light'] .hero-redesign-section::before {
-    background: linear-gradient(180deg, rgba(245, 249, 250, 0.9), rgba(245, 249, 250, 0));
+    background: linear-gradient(180deg, rgba(244, 248, 250, 0.95), rgba(244, 248, 250, 0));
 }
 
+/* ─── Buttons in Arctic Light ──────────────────────────────────────────────── */
 :root[data-theme='light'] .btn-primary {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-    text-shadow: none;
+    background: linear-gradient(135deg, #00768a 0%, #0093aa 100%) !important;
+    color: #ffffff !important;
+    border: 1px solid #008fa8 !important;
+    box-shadow: 0 4px 18px rgba(0, 118, 138, 0.3) !important;
+    text-shadow: none !important;
 }
 
-:root[data-theme='light'] .btn-primary:hover { background: #005563; }
-:root[data-theme='light'] .hero-portrait-frame { box-shadow: 0 16px 40px rgba(24, 77, 88, 0.16); }
-:root[data-theme='light'] .footer-redesign { background: var(--surface-glass); }
-:root[data-theme='light'] .section-arch-line { background: var(--border); }
-:root[data-theme='light'] .code-box { color: #edf7fa; }
-:root[data-theme='light'] :is(.tech-chip, .exp-skill-tag, .project-detail-breakdown,
-.modern-journal-feature-list, .bimpulse-academy-callout) {
-    background: var(--bg-secondary);
-    border-color: var(--border);
+:root[data-theme='light'] .btn-primary:hover {
+    background: linear-gradient(135deg, #005f70 0%, #00768a 100%) !important;
+    box-shadow: 0 6px 24px rgba(0, 118, 138, 0.45) !important;
+    transform: translateY(-2px);
+}
+
+:root[data-theme='light'] .btn-secondary {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.26) !important;
+    color: #0b1e28 !important;
+    font-weight: 650 !important;
+    box-shadow: 0 3px 10px rgba(0, 50, 70, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+:root[data-theme='light'] .btn-secondary:hover {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+    color: #00768a !important;
+    box-shadow: 0 6px 20px rgba(0, 118, 138, 0.16) !important;
+    transform: translateY(-2px);
+}
+
+:root[data-theme='light'] .btn-secondary i {
+    color: #00768a !important;
+}
+
+/* ─── Floating Project CTA in Arctic Light ─────────────────────────────────── */
+:root[data-theme='light'] :is(.floating-project-cta, .floating-project-btn) {
+    background: rgba(255, 255, 255, 0.96) !important;
+    border: 1.5px solid rgba(0, 118, 138, 0.45) !important;
+    color: #0b1e28 !important;
+    box-shadow: 0 10px 30px rgba(0, 70, 90, 0.16), 0 0 16px rgba(0, 118, 138, 0.18) !important;
+}
+
+:root[data-theme='light'] :is(.floating-project-cta, .floating-project-btn):hover {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+    color: #00768a !important;
+    box-shadow: 0 14px 36px rgba(0, 70, 90, 0.24) !important;
+    transform: translateY(-3px);
+}
+
+:root[data-theme='light'] .floating-cta-pulse {
+    background: #008fa8 !important;
+    box-shadow: 0 0 10px #008fa8 !important;
+}
+
+:root[data-theme='light'] .floating-cta-arrow {
+    color: #00768a !important;
+}
+
+/* ─── Holographic ID Badge in Arctic Light ─────────────────────────────────── */
+:root[data-theme='light'] .holo-role-pill {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.22) !important;
+    color: #27404d !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(0, 50, 70, 0.05) !important;
+}
+
+:root[data-theme='light'] .holo-role-pill:hover {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .holo-role-pill.active {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+    color: #00768a !important;
+    font-weight: 800 !important;
+    box-shadow: 0 0 14px rgba(0, 118, 138, 0.25) !important;
+}
+
+:root[data-theme='light'] .holo-card-inner {
+    box-shadow: 0 20px 50px -10px rgba(10, 40, 60, 0.16), 0 0 35px -5px rgba(0, 118, 138, 0.15) !important;
+}
+
+:root[data-theme='light'] .holo-card-content {
+    background: rgba(255, 255, 255, 0.96) !important;
+    border: 1.5px solid rgba(0, 118, 138, 0.28) !important;
+}
+
+:root[data-theme='light'] .holo-full-name {
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .holo-status-text {
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .holo-hud-id-tag {
+    background: rgba(240, 247, 249, 0.95) !important;
+    border: 1px solid rgba(0, 118, 138, 0.3) !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .holo-tech-spec-bar {
+    background: rgba(240, 247, 249, 0.95) !important;
+    border: 1px solid rgba(0, 118, 138, 0.25) !important;
+    color: #0b1e28 !important;
+    box-shadow: none !important;
+}
+
+:root[data-theme='light'] .holo-status-indicator {
+    background: rgba(240, 247, 249, 0.95) !important;
+    border: 1px solid rgba(0, 118, 138, 0.25) !important;
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .holo-portrait-wrapper {
+    background: linear-gradient(180deg, #e4eff2 0%, #d8e8ed 100%) !important;
+    border: 1px solid rgba(0, 118, 138, 0.2) !important;
+}
+
+:root[data-theme='light'] .holo-portrait-vignette {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.25) 30%, transparent 60%) !important;
+}
+
+/* ─── Services Section in Arctic Light ─────────────────────────────────────── */
+:root[data-theme='light'] .service-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.18) !important;
+    box-shadow: 0 10px 30px -10px rgba(10, 45, 60, 0.08), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .service-card:hover {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+    box-shadow: 0 18px 45px -10px rgba(0, 80, 100, 0.16) !important;
+}
+
+:root[data-theme='light'] .service-card.service-card-selected {
+    background: linear-gradient(145deg, #ffffff 0%, #f0f8fa 100%) !important;
+    border-color: #00768a !important;
+    box-shadow: 0 14px 40px -5px rgba(0, 118, 138, 0.22) !important;
+}
+
+:root[data-theme='light'] .service-icon-box {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.28) !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .service-card-index {
+    color: #567280 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .service-card-title {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .service-card-desc {
+    color: #27404d !important;
+    font-size: 0.91rem !important;
+    line-height: 1.6 !important;
+}
+
+:root[data-theme='light'] .service-tech-pill {
+    background: #eef5f7 !important;
+    border: 1px solid rgba(0, 110, 128, 0.2) !important;
+    color: #163644 !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .service-card-footer {
+    border-top: 1px solid rgba(0, 110, 128, 0.14) !important;
+}
+
+:root[data-theme='light'] .service-request-btn {
+    background: rgba(0, 118, 138, 0.05) !important;
+    border: 1px solid rgba(0, 118, 138, 0.35) !important;
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .service-request-btn:hover {
+    background: #00768a !important;
+    color: #ffffff !important;
+    border-color: #00768a !important;
+}
+
+:root[data-theme='light'] .services-selected-bar {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 118, 138, 0.25) !important;
+    box-shadow: 0 8px 30px rgba(0, 50, 70, 0.08) !important;
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .selected-bar-chip {
+    background: #e6f3f5 !important;
+    border: 1px solid rgba(0, 118, 138, 0.3) !important;
+    color: #00768a !important;
+    font-weight: 600 !important;
+}
+
+/* ─── Synaptic Skills Mesh in Arctic Light ─────────────────────────────────── */
+:root[data-theme='light'] .synaptic-mesh-container {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.22) !important;
+    box-shadow: 0 15px 45px -10px rgba(0, 50, 70, 0.08) !important;
+}
+
+:root[data-theme='light'] .synaptic-mesh-header {
+    border-bottom: 1px solid rgba(0, 110, 128, 0.14) !important;
+}
+
+:root[data-theme='light'] .synaptic-heading {
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .synaptic-subtext {
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .synaptic-status-chip {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.3) !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .synaptic-filter-btn {
+    background: #f0f6f8 !important;
+    border: 1px solid rgba(0, 110, 128, 0.2) !important;
+    color: #27404d !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .synaptic-filter-btn:hover {
+    background: #e4f0f3 !important;
+    border-color: #00768a !important;
+}
+
+:root[data-theme='light'] .synaptic-filter-btn.active {
+    background: #00768a !important;
+    border-color: #00768a !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+:root[data-theme='light'] .synaptic-node-label {
+    fill: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .synaptic-node-ring {
+    fill: #ffffff !important;
+}
+
+:root[data-theme='light'] .synaptic-tooltip-hud {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border: 1.5px solid #00768a !important;
+    box-shadow: 0 16px 40px rgba(0, 50, 70, 0.15) !important;
+}
+
+:root[data-theme='light'] .tooltip-node-name {
+    color: #0b1e28 !important;
+    font-weight: 800 !important;
+}
+
+:root[data-theme='light'] .tooltip-node-spec {
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .synaptic-gauges-section {
+    border-top: 1px solid rgba(0, 110, 128, 0.14) !important;
+}
+
+:root[data-theme='light'] .gauges-code-badge {
+    color: #00768a !important;
+    font-weight: 800 !important;
+}
+
+:root[data-theme='light'] .gauges-substatus {
+    color: #567280 !important;
+}
+
+:root[data-theme='light'] .gauges-legend {
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .synaptic-metric-card {
+    background: #f7fafb !important;
+    border: 1px solid rgba(0, 110, 128, 0.2) !important;
+    box-shadow: 0 2px 8px rgba(0, 50, 70, 0.04) !important;
+}
+
+:root[data-theme='light'] .metric-header {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .metric-icon-wrap {
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .metric-track {
+    background: #e2ecf0 !important;
+}
+
+/* ─── Project Request Section in Arctic Light ──────────────────────────────── */
+:root[data-theme='light'] :is(.request-guarantee-card, .request-form-card, .request-availability-card) {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    box-shadow: 0 15px 45px -10px rgba(0, 50, 70, 0.08) !important;
+}
+
+:root[data-theme='light'] .guarantee-title {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] :is(.guarantee-desc, .guarantee-list li) {
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .availability-status {
+    color: #058567 !important;
+}
+
+:root[data-theme='light'] .client-type-card {
+    background: #f7fafb !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.18) !important;
+}
+
+:root[data-theme='light'] .client-type-card:hover {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+    box-shadow: 0 6px 20px rgba(0, 80, 100, 0.1) !important;
+}
+
+:root[data-theme='light'] .client-type-card.active {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border-color: #00768a !important;
+    box-shadow: 0 0 16px rgba(0, 118, 138, 0.18) !important;
+}
+
+:root[data-theme='light'] .client-type-name {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .client-type-desc {
+    color: #3b5766 !important;
+    font-size: 0.78rem !important;
+}
+
+:root[data-theme='light'] .client-type-badge {
+    background: rgba(0, 118, 138, 0.1) !important;
+    color: #00768a !important;
+    border: 1px solid rgba(0, 118, 138, 0.25) !important;
+}
+
+:root[data-theme='light'] .client-type-icon {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.25) !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .client-type-card.active .client-type-icon {
+    background: #00768a !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme='light'] .service-checkbox-pill {
+    background: #f7fafb !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+}
+
+:root[data-theme='light'] .service-checkbox-pill:hover {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+}
+
+:root[data-theme='light'] .service-checkbox-pill.active {
+    background: rgba(0, 118, 138, 0.1) !important;
+    border-color: #00768a !important;
+    box-shadow: 0 0 12px rgba(0, 118, 138, 0.15) !important;
+}
+
+:root[data-theme='light'] .pill-title {
+    color: #0b1e28 !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .service-checkbox-pill.active .pill-title {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .custom-checkbox {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 110, 128, 0.35) !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme='light'] .custom-checkbox.checked {
+    background: #00768a !important;
+    border-color: #00768a !important;
+}
+
+:root[data-theme='light'] .option-pill {
+    background: #f7fafb !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    color: #27404d !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .option-pill:hover {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .option-pill.active {
+    background: #00768a !important;
+    border-color: #00768a !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .pill-radio-dot {
+    border-color: rgba(0, 110, 128, 0.4) !important;
+}
+
+:root[data-theme='light'] .option-pill.active .pill-radio-dot {
+    background: #ffffff !important;
+    border-color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+:root[data-theme='light'] :is(.form-input, .form-textarea) {
+    background: #f9fbfb !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.22) !important;
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] :is(.form-input, .form-textarea):focus {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+    box-shadow: 0 0 0 3px rgba(0, 118, 138, 0.15) !important;
+}
+
+:root[data-theme='light'] .form-label {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .project-submit-btn {
+    background: #00768a !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* ─── Projects Detail Boxes & Telemetry in Arctic Light ────────────────────── */
+:root[data-theme='light'] :is(.featured-project-card, .personal-project-card) {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.18) !important;
+    box-shadow: 0 10px 35px -10px rgba(0, 40, 55, 0.08) !important;
+}
+
+:root[data-theme='light'] :is(.breakdown-box, .project-telemetry-hud) {
+    background: #f4f8fa !important;
+    border: 1px solid rgba(0, 110, 128, 0.18) !important;
+}
+
+:root[data-theme='light'] .telemetry-stat-chip {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 110, 128, 0.18) !important;
+}
+
+:root[data-theme='light'] .telemetry-stat-label {
+    color: #567280 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .telemetry-stat-val {
+    color: #00768a !important;
+    font-weight: 800 !important;
+}
+
+:root[data-theme='light'] .telemetry-interactive-btn {
+    background: linear-gradient(90deg, #00768a 0%, #058567 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(0, 118, 138, 0.25) !important;
+}
+
+:root[data-theme='light'] .private-repo-badge {
+    color: #065f46 !important;
+    background: rgba(5, 150, 105, 0.1) !important;
+    border: 1px solid rgba(5, 150, 105, 0.35) !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .private-repo-badge i {
+    color: #058567 !important;
+}
+
+:root[data-theme='light'] .project-detail-breakdown {
+    background: #f4f8fa !important;
+    border: 1px solid rgba(0, 110, 128, 0.16) !important;
+    border-radius: 8px !important;
+    padding: 12px 18px !important;
+}
+
+:root[data-theme='light'] .detail-label {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .detail-item {
+    color: #27404d !important;
+}
+
+/* ─── Experience & BIMPulse Academy in Arctic Light ────────────────────────── */
+:root[data-theme='light'] :is(.exp-card, .exp-card.exp-flagship) {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    border-left: 4px solid #00768a !important;
+    box-shadow: 0 12px 35px -10px rgba(0, 45, 60, 0.08) !important;
+}
+
+:root[data-theme='light'] .exp-flagship-badge {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.3) !important;
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] :is(.exp-skill-tag, .tech-chip) {
+    background: #eef5f7 !important;
+    border: 1px solid rgba(0, 110, 128, 0.2) !important;
+    color: #163644 !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .bimpulse-academy-callout {
+    background: #f5f9fa !important;
+    border: 1px solid rgba(0, 110, 128, 0.22) !important;
+    border-radius: 8px !important;
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .callout-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+:root[data-theme='light'] .mini-tag {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.25) !important;
+    color: #00768a !important;
+    font-weight: 600 !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.75rem !important;
+}
+
+:root[data-theme='light'] .bimpulse-indicator-dot {
+    background: #008fa8 !important;
+    box-shadow: 0 0 10px #008fa8 !important;
+}
+
+/* ─── Footer Grand Ending in Arctic Light ─────────────────────────────────── */
+:root[data-theme='light'] .footer-grand-cta-card {
+    background: linear-gradient(135deg, #ffffff 0%, #eef6f8 100%) !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.25) !important;
+    box-shadow: 0 20px 50px -10px rgba(0, 50, 70, 0.12) !important;
+}
+
+:root[data-theme='light'] .footer-grand-title {
+    color: #0b1e28 !important;
+    font-weight: 800 !important;
+}
+
+:root[data-theme='light'] .footer-grand-subtitle {
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .footer-status-pill {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.28) !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .footer-action-btn.arcade {
+    background: rgba(217, 119, 6, 0.08) !important;
+    border: 1.5px solid rgba(217, 119, 6, 0.4) !important;
+    color: #92400e !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .footer-action-btn.arcade:hover {
+    background: rgba(217, 119, 6, 0.15) !important;
+    border-color: #b45309 !important;
+    box-shadow: 0 4px 14px rgba(217, 119, 6, 0.2) !important;
+}
+
+:root[data-theme='light'] :is(#footer-download-cv-btn, #footer-view-cv-btn, #footer-copy-email-btn) {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.25) !important;
+    color: #0b1e28 !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(0, 50, 70, 0.06) !important;
+}
+
+:root[data-theme='light'] .footer-grand-main {
+    background: #ffffff !important;
+    border-top: 1px solid rgba(0, 110, 128, 0.15) !important;
+}
+
+:root[data-theme='light'] :is(.footer-brand-name, .footer-col-title, .footer-cred-name) {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] :is(.footer-brand-sub, .footer-brand-bio, .footer-col-desc, .footer-cred-detail, .footer-cred-date) {
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .footer-nav-link {
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .footer-nav-link:hover {
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] :is(.footer-telemetry-widget, .footer-credential-item, .footer-connect-link) {
+    background: #f7fafb !important;
+    border: 1px solid rgba(0, 110, 128, 0.18) !important;
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .scroll-to-top {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.3) !important;
+    color: #00768a !important;
+    box-shadow: 0 4px 16px rgba(0, 50, 70, 0.1) !important;
+}
+
+:root[data-theme='light'] .scroll-to-top:hover {
+    background: #00768a !important;
+    color: #ffffff !important;
+}
+
+/* ─── Architectural Junction Visual Diagram in Arctic Light ──────────────── */
+:root[data-theme='light'] .exp-junction-container {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.22) !important;
+    box-shadow: 0 10px 30px rgba(11, 30, 40, 0.05), 0 2px 6px rgba(0, 110, 128, 0.04) !important;
+}
+
+:root[data-theme='light'] :is(.junction-vertical-top, .junction-vertical-bottom) {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.28) !important;
+    color: #00768a !important;
+    box-shadow: 0 1px 3px rgba(0, 50, 70, 0.04) !important;
+}
+
+:root[data-theme='light'] .junction-node {
+    background: #f0f7f9 !important;
+    border: 1px solid rgba(0, 110, 128, 0.22) !important;
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] :is(.junction-stem-top, .junction-stem-bottom, .junction-line-h) {
+    background: #00768a !important;
+    opacity: 0.6 !important;
+}
+
+:root[data-theme='light'] .junction-center-hub {
+    background: #00768a !important;
+    box-shadow: 0 0 12px rgba(0, 118, 138, 0.4) !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme='light'] .junction-caption {
+    color: #27404d !important;
+    font-weight: 550 !important;
+}
+
+/* ─── LinkedIn Mentions Card in Arctic Light ──────────────────────────────── */
+:root[data-theme='light'] .professional-mention {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.22) !important;
+    border-inline-start: 4px solid #00768a !important;
+    border-radius: 12px !important;
+    padding: 24px 28px !important;
+    box-shadow: 0 10px 30px rgba(11, 30, 40, 0.05), 0 2px 6px rgba(0, 110, 128, 0.04) !important;
+}
+
+:root[data-theme='light'] .mention-network-icon {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.28) !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] #mention-title {
+    color: #0b1e28 !important;
+    font-weight: 750 !important;
+}
+
+:root[data-theme='light'] .mention-summary {
+    color: #27404d !important;
+    font-size: 0.95rem !important;
+    line-height: 1.7 !important;
+}
+
+:root[data-theme='light'] .mention-footer {
+    border-top: 1px solid rgba(0, 110, 128, 0.16) !important;
+}
+
+:root[data-theme='light'] .mention-attribution strong {
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .mention-attribution span {
+    color: #567280 !important;
+}
+
+:root[data-theme='light'] .mention-profile-link {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+/* ─── Tech Capabilities Cards in Arctic Light ─────────────────────────────── */
+:root[data-theme='light'] .tech-category-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 50, 70, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+:root[data-theme='light'] .tech-category-card:hover {
+    border-color: #00768a !important;
+    box-shadow: 0 16px 40px -10px rgba(0, 118, 138, 0.16) !important;
+    transform: translateY(-4px) !important;
+}
+
+:root[data-theme='light'] .category-kicker {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .category-title {
+    color: #0b1e28 !important;
+    font-weight: 750 !important;
+}
+
+:root[data-theme='light'] .tech-pill-large {
+    background: #f0f7f9 !important;
+    border: 1px solid rgba(0, 110, 128, 0.2) !important;
+    color: #0b1e28 !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .tech-pill-large:hover {
+    background: #e6f3f5 !important;
+    border-color: #00768a !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .category-icon-box.core-icon {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.25) !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .category-icon-box.data-icon {
+    background: rgba(217, 119, 6, 0.08) !important;
+    border: 1px solid rgba(217, 119, 6, 0.3) !important;
+    color: #b45309 !important;
+}
+
+:root[data-theme='light'] .category-icon-box.tools-icon {
+    background: rgba(0, 110, 128, 0.08) !important;
+    border: 1px solid rgba(0, 110, 128, 0.25) !important;
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .category-icon-box.explore-icon {
+    background: rgba(14, 165, 233, 0.08) !important;
+    border: 1px solid rgba(14, 165, 233, 0.3) !important;
+    color: #0284c7 !important;
+}
+
+/* ─── Interactive AI Dev Terminal in Arctic Light ─────────────────────────── */
+:root[data-theme='light'] .embedded-terminal-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+:root[data-theme='light'] .ai-terminal-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.24) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 18px 50px -10px rgba(0, 50, 70, 0.1) !important;
+}
+
+:root[data-theme='light'] .ai-terminal-header {
+    background: #f0f7f9 !important;
+    border-bottom: 1px solid rgba(0, 110, 128, 0.16) !important;
+}
+
+:root[data-theme='light'] .terminal-title {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .ai-terminal-modes {
+    background: #e2eff2 !important;
+    border: 1px solid rgba(0, 110, 128, 0.2) !important;
+}
+
+:root[data-theme='light'] .terminal-mode-btn {
+    color: #27404d !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .terminal-mode-btn.active {
+    background: #ffffff !important;
+    color: #00768a !important;
+    font-weight: 750 !important;
+    box-shadow: 0 2px 6px rgba(0, 50, 70, 0.08) !important;
+}
+
+:root[data-theme='light'] .ai-terminal-chips-wrapper {
+    background: #f8fafb !important;
+    border-bottom: 1px solid rgba(0, 110, 128, 0.14) !important;
+}
+
+:root[data-theme='light'] .chips-label {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .ai-chip-btn {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 110, 128, 0.22) !important;
+    color: #0b1e28 !important;
+    font-weight: 600 !important;
+    box-shadow: 0 1px 3px rgba(0, 50, 70, 0.03) !important;
+}
+
+:root[data-theme='light'] .ai-chip-btn:hover {
+    background: #e6f3f5 !important;
+    border-color: #00768a !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .ai-terminal-body {
+    background: #fcfdfe !important;
+}
+
+:root[data-theme='light'] .terminal-msg.assistant {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 110, 128, 0.18) !important;
+    border-left: 4px solid #00768a !important;
+    color: #0b1e28 !important;
+    box-shadow: 0 4px 15px rgba(0, 50, 70, 0.04) !important;
+}
+
+:root[data-theme='light'] .terminal-msg.user {
+    background: #e6f5f8 !important;
+    border: 1px solid rgba(0, 118, 138, 0.35) !important;
+    color: #0b1e28 !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .msg-author {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .msg-badge {
+    background: rgba(0, 118, 138, 0.1) !important;
+    border: 1px solid rgba(0, 118, 138, 0.28) !important;
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .msg-time {
+    color: #567280 !important;
+}
+
+:root[data-theme='light'] .ai-terminal-input-form {
+    background: #ffffff !important;
+    border-top: 1px solid rgba(0, 110, 128, 0.16) !important;
+}
+
+:root[data-theme='light'] .input-prompt-symbol {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .ai-terminal-input {
+    background: #f7fafb !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    color: #0b1e28 !important;
+}
+
+:root[data-theme='light'] .ai-terminal-input:focus {
+    background: #ffffff !important;
+    border-color: #00768a !important;
+    box-shadow: 0 0 0 3px rgba(0, 118, 138, 0.15) !important;
+}
+
+:root[data-theme='light'] .ai-terminal-input::placeholder {
+    color: #6d8896 !important;
+}
+
+:root[data-theme='light'] .ai-terminal-send-btn {
+    background: #00768a !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme='light'] .ai-terminal-send-btn:hover:not(:disabled) {
+    background: #005f70 !important;
+}
+
+/* ─── Education Cards in Arctic Light ─────────────────────────────────────── */
+:root[data-theme='light'] .education-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 50, 70, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+:root[data-theme='light'] .education-card:hover {
+    border-color: #00768a !important;
+    box-shadow: 0 16px 40px -10px rgba(0, 118, 138, 0.16) !important;
+    transform: translateY(-4px) !important;
+}
+
+:root[data-theme='light'] .edu-logo {
+    background: rgba(0, 118, 138, 0.08) !important;
+    border: 1px solid rgba(0, 118, 138, 0.25) !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .edu-platform {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .edu-degree {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .edu-date {
+    color: #567280 !important;
+}
+
+/* ─── Credential Showcase Cards in Arctic Light ───────────────────────────── */
+:root[data-theme='light'] .credential-showcase-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 12px 35px -10px rgba(0, 45, 60, 0.08), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+:root[data-theme='light'] .credential-showcase-card:hover {
+    border-color: #00768a !important;
+    box-shadow: 0 18px 45px -10px rgba(0, 118, 138, 0.18) !important;
+    transform: translateY(-4px) !important;
+}
+
+:root[data-theme='light'] .credential-photo-frame {
+    background: #f0f6f8 !important;
+    border-bottom: 1px solid rgba(0, 110, 128, 0.16) !important;
+}
+
+:root[data-theme='light'] .credential-card-title {
+    color: #0b1e28 !important;
+    font-weight: 750 !important;
+}
+
+:root[data-theme='light'] .credential-platform-tag {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .credential-year-tag {
+    background: rgba(217, 119, 6, 0.1) !important;
+    border-color: rgba(217, 119, 6, 0.3) !important;
+    color: #b45309 !important;
+}
+
+:root[data-theme='light'] .credential-id-code {
+    background: #eef6f8 !important;
+    border: 1px solid rgba(0, 110, 128, 0.22) !important;
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .credential-action-btn.primary {
+    background: #00768a !important;
+    color: #ffffff !important;
+    border: 1px solid #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .credential-action-btn.primary:hover {
+    background: #005f70 !important;
+}
+
+:root[data-theme='light'] .credential-action-btn.secondary {
+    background: #f0f7f9 !important;
+    color: #00768a !important;
+    border: 1px solid rgba(0, 110, 128, 0.25) !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .credential-action-btn.secondary:hover {
+    background: #e0f0f4 !important;
+    border-color: #00768a !important;
+}
+
+:root[data-theme='light'] .credential-actions-row {
+    border-top: 1px solid rgba(0, 110, 128, 0.14) !important;
+}
+
+/* ─── Live GitHub Activity Cards in Arctic Light ──────────────────────────── */
+:root[data-theme='light'] .github-subheading {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .github-repo-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 50, 70, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+:root[data-theme='light'] .github-repo-card:hover {
+    border-color: #00768a !important;
+    box-shadow: 0 16px 40px -10px rgba(0, 118, 138, 0.16) !important;
+    transform: translateY(-4px) !important;
+}
+
+:root[data-theme='light'] .github-repo-heading {
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .github-repo-card h4 {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .github-repo-card p {
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .github-repo-meta {
+    color: #00768a !important;
+    font-weight: 600 !important;
+}
+
+/* ─── About Fact Cards in Arctic Light ────────────────────────────────────── */
+:root[data-theme='light'] .about-fact-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 15px rgba(0, 50, 70, 0.04) !important;
+}
+
+:root[data-theme='light'] .about-fact-card:hover {
+    border-color: #00768a !important;
+    box-shadow: 0 8px 24px rgba(0, 118, 138, 0.12) !important;
+    transform: translateY(-3px) !important;
+}
+
+:root[data-theme='light'] .about-fact-num {
+    color: #00768a !important;
+    font-weight: 800 !important;
+}
+
+:root[data-theme='light'] .about-fact-label {
+    color: #0b1e28 !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .about-fact-desc {
+    color: #27404d !important;
+}
+
+:root[data-theme='light'] .about-visual-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.22) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 50, 70, 0.06) !important;
+    overflow: hidden !important;
+}
+
+:root[data-theme='light'] .about-code-snippet {
+    background: #f7fafb !important;
+    border: none !important;
+}
+
+:root[data-theme='light'] .snippet-header {
+    background: #edf5f7 !important;
+    border-bottom: 1px solid rgba(0, 110, 128, 0.16) !important;
+}
+
+:root[data-theme='light'] .snippet-title {
+    color: #0b1e28 !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .snippet-body {
+    color: #1a3542 !important;
+}
+
+:root[data-theme='light'] .snippet-body code {
+    color: #1a3542 !important;
+}
+
+/* ─── Contact Section Cards & Form in Arctic Light ────────────────────────── */
+:root[data-theme='light'] .contact-form-redesign {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.22) !important;
+    border-radius: 14px !important;
+    padding: 32px 36px !important;
+    box-shadow: 0 15px 45px -10px rgba(0, 50, 70, 0.08) !important;
+}
+
+:root[data-theme='light'] .contact-info-card {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 50, 70, 0.06) !important;
+}
+
+:root[data-theme='light'] .contact-card-label {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .contact-role-title {
+    color: #0b1e28 !important;
+    font-weight: 750 !important;
+}
+
+:root[data-theme='light'] .contact-quick-link {
+    background: #ffffff !important;
+    border: 1.5px solid rgba(0, 110, 128, 0.2) !important;
+    border-radius: 10px !important;
+    color: #0b1e28 !important;
+    box-shadow: 0 2px 8px rgba(0, 50, 70, 0.04) !important;
+    font-weight: 600 !important;
+}
+
+:root[data-theme='light'] .contact-quick-link:hover {
+    background: #f0f7f9 !important;
+    border-color: #00768a !important;
+    color: #00768a !important;
+}
+
+:root[data-theme='light'] .contact-kicker {
+    color: #00768a !important;
+    font-weight: 700 !important;
+}
+
+:root[data-theme='light'] .contact-big-headline {
+    color: #0b1e28 !important;
+    font-weight: 800 !important;
+}
+
+:root[data-theme='light'] .contact-lead {
+    color: #27404d !important;
 }
 
 section[id] { scroll-margin-top: 84px; }
@@ -132,7 +1311,6 @@ section[id] { scroll-margin-top: 84px; }
     padding-block: 4px;
     padding-inline: 18px 0;
 }
-.contact-form-redesign { background: transparent; box-shadow: none; border: 0; }
 .form-input, .form-textarea { font-size: 1rem; }
 .contact-big-headline { font-size: 2.75rem; line-height: 1.2; letter-spacing: 0; max-width: 24ch; }
 .section-title { font-size: 2rem; letter-spacing: 0; }

@@ -1006,21 +1006,10 @@ export default function App() {
 
               <div className="project-actions-row">
                 <span
-                  className="btn btn-secondary"
+                  className="btn btn-secondary private-repo-badge"
                   id="school-private-badge"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    cursor: 'default',
-                    opacity: 0.95,
-                    border: '1px solid rgba(16, 185, 129, 0.35)',
-                    background: 'rgba(16, 185, 129, 0.08)',
-                    color: '#e2e8f0',
-                    fontSize: '13px'
-                  }}
                 >
-                  <i className="fa-solid fa-lock" style={{ color: '#10b981' }} />
+                  <i className="fa-solid fa-lock" />
                   {translateText("Private Proprietary Repository")}
                 </span>
               </div>
@@ -1279,21 +1268,10 @@ export default function App() {
 
               <div className="project-actions-row">
                 <span
-                  className="btn btn-secondary"
+                  className="btn btn-secondary private-repo-badge"
                   id="judhoor-private-badge"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    cursor: 'default',
-                    opacity: 0.95,
-                    border: '1px solid rgba(16, 185, 129, 0.35)',
-                    background: 'rgba(16, 185, 129, 0.08)',
-                    color: '#e2e8f0',
-                    fontSize: '13px'
-                  }}
                 >
-                  <i className="fa-solid fa-lock" style={{ color: '#10b981' }} />
+                  <i className="fa-solid fa-lock" />
                   {translateText("Private Proprietary Repository")}
                 </span>
               </div>
@@ -1935,7 +1913,7 @@ export default function App() {
           <motion.div className="embedded-terminal-wrapper" style={{ marginTop: '50px' }} {...reveal(0.12, 22)}>
             <div className="terminal-section-intro">
               <span className="section-arch-code">{translateText("INTERACTIVE CLI & ARCHITECTURE SIMULATION")}</span>
-              <h3 style={{ fontSize: '1.25rem', marginTop: '6px', color: 'var(--white)' }}>{translateText("Query Abdellah's Architecture Live")}</h3>
+              <h3 style={{ fontSize: '1.25rem', marginTop: '6px', color: 'var(--text-primary)' }}>{translateText("Query Abdellah's Architecture Live")}</h3>
             </div>
             <AiDevTerminal />
           </motion.div>
@@ -2042,7 +2020,7 @@ export default function App() {
 
           {/* Education & Specialized Tracks */}
           <div className="education-tracks-wrap" style={{ marginTop: '40px' }}>
-            <motion.h3 style={{ fontSize: '1.2rem', marginBottom: '20px', color: 'var(--white)', fontFamily: 'var(--font-display)', fontWeight: 600 }} {...reveal(0.06, 16)}>{translateText("Specialized Study Tracks")}</motion.h3>
+            <motion.h3 style={{ fontSize: '1.2rem', marginBottom: '20px', color: 'var(--text-primary)', fontFamily: 'var(--font-display)', fontWeight: 600 }} {...reveal(0.06, 16)}>{translateText("Specialized Study Tracks")}</motion.h3>
             <div className="education-grid">
               {EDUCATION_DATA.map((ed, idx) => (
                 <motion.div className="education-card" key={idx} {...reveal(idx * 0.08, 20)}>
