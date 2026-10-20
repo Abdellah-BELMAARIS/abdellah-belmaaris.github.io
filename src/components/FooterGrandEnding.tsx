@@ -96,8 +96,6 @@ export default function FooterGrandEnding({
             <span className="btn-arrow" style={{ marginLeft: '4px' }}>↗</span>
           </a>
 
-
-
           <button
             type="button"
             className={`btn btn-secondary footer-action-btn email-copy ${emailCopied ? 'copied' : ''}`}
@@ -127,6 +125,13 @@ export default function FooterGrandEnding({
             <p className="footer-col-desc">
               {translateText("Building robust full-stack web platforms, Django REST systems, and applied AI applications with clean software architecture.")}
             </p>
+
+            <div className="footer-identity-status">
+              <span className="footer-status-pill-subtle">
+                <span className="footer-status-pulse-dot" />
+                <span>Casablanca, Morocco · {translateText("Open for Opportunities")}</span>
+              </span>
+            </div>
           </div>
 
           {/* Column 2: Quick Directory */}
@@ -299,29 +304,27 @@ export default function FooterGrandEnding({
           </div>
         </div>
 
-        {/* ─── Bottom HUD Telemetry Strip ───────────────────────────── */}
+        {/* ─── Bottom Professional Legal & Engineering Strip ─────────────── */}
         <div className="footer-telemetry-bottom-strip">
           <div className="footer-strip-left">
-            <span>© 2026 Abdellah BELMAARIS. All rights reserved.</span>
-          </div>
-
-          <div className="footer-strip-center">
-            <span className="footer-strip-pill">
-              <span className="footer-strip-dot" />
-              <span>{translateText("100% Client-Side Bundle · React 19 · Vite · TypeScript · Static PWA")}</span>
-            </span>
+            <span>© 2026 Abdellah BELMAARIS. {translateText("All rights reserved.")}</span>
           </div>
 
           <div className="footer-strip-right">
+            <span className="footer-craft-tag">
+              <i className="fa-solid fa-code" style={{ marginRight: '6px', color: 'var(--cyan)' }} />
+              <span>{translateText("Crafted with Clean Architecture")}</span>
+            </span>
             {onScrollToTop && (
               <button
                 type="button"
-                className="footer-scroll-top-btn"
+                className="footer-back-to-top-link"
                 onClick={onScrollToTop}
-                title={translateText("Scroll to Top ↑")}
+                title={translateText("Back to top")}
                 id="footer-scroll-to-top-btn"
               >
-                <span>{translateText("Scroll to Top ↑")}</span>
+                <span>{translateText("Back to top")}</span>
+                <i className="fa-solid fa-arrow-up" style={{ marginLeft: '4px', fontSize: '0.72rem' }} />
               </button>
             )}
           </div>

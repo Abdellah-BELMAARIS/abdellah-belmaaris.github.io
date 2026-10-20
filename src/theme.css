@@ -738,16 +738,16 @@ html[dir='rtl'] .terminal-msg.user { align-self: flex-end; }
     color: #27404d !important;
 }
 
-:root[data-theme='light'] .footer-nav-link {
-    color: #27404d !important;
+:root[data-theme='light'] :is(.footer-nav-link, .footer-nav-list a) {
+    color: #334155 !important;
 }
 
-:root[data-theme='light'] .footer-nav-link:hover {
+:root[data-theme='light'] :is(.footer-nav-link:hover, .footer-nav-list a:hover) {
     color: #00768a !important;
 }
 
-:root[data-theme='light'] :is(.footer-telemetry-widget, .footer-credential-item, .footer-connect-link) {
-    background: #f7fafb !important;
+:root[data-theme='light'] :is(.footer-credential-item, .footer-connect-link) {
+    background: #ffffff !important;
     border: 1px solid rgba(0, 110, 128, 0.18) !important;
     color: #0b1e28 !important;
 }
