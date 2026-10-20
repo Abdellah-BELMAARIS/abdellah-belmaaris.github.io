@@ -3,12 +3,10 @@ import { motion } from 'framer-motion';
 import { t as translateText } from '../i18n';
 
 interface FooterGrandEndingProps {
-  onOpenArcade?: () => void;
   onScrollToTop?: () => void;
 }
 
 export default function FooterGrandEnding({
-  onOpenArcade,
   onScrollToTop
 }: FooterGrandEndingProps) {
   const [localTime, setLocalTime] = useState<string>('');
@@ -122,18 +120,7 @@ export default function FooterGrandEnding({
             <span className="btn-arrow" style={{ marginLeft: '4px' }}>↗</span>
           </a>
 
-          {onOpenArcade && (
-            <button
-              type="button"
-              className="btn btn-secondary footer-action-btn arcade"
-              onClick={onOpenArcade}
-              id="footer-launch-arcade-btn"
-              title={translateText("Launch Arcade Console (Simulator)")}
-            >
-              <i className="fa-solid fa-gamepad" style={{ marginRight: '8px', color: '#F59E0B' }} />
-              <span>{translateText("Launch 3D Web Arcade 🕹️")}</span>
-            </button>
-          )}
+
 
           <button
             type="button"

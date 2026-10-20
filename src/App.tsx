@@ -2221,7 +2221,6 @@ export default function App() {
 
       {/* ─── 09 GRAND ENDING & COMPREHENSIVE ARCHITECTURAL FOOTER ─────────── */}
       <FooterGrandEnding
-        onOpenArcade={() => setArcadeModalOpen(true)}
         onScrollToTop={scrollToTop}
       />
 
