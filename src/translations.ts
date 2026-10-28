@@ -498,6 +498,8 @@ export const translations: Record<string, [string, string]> = {
   'View CV': ['Voir le CV', 'معاينة السيرة الذاتية'],
   'View CV (Online)': ['Voir le CV (En ligne)', 'معاينة السيرة الذاتية (أونلاين)'],
   'View Interactive CV (Online) ': ['Consulter le CV interactif ', 'معاينة السيرة الذاتية التفاعلية '],
-  'View Abdellah BELMAARIS Interactive CV': ['Consulter le CV interactif d’Abdellah BELMAARIS', 'معاينة السيرة الذاتية التفاعلية لعبد الله بالمعريس']
+  'View Abdellah BELMAARIS Interactive CV': ['Consulter le CV interactif d’Abdellah BELMAARIS', 'معاينة السيرة الذاتية التفاعلية لعبد الله بالمعريس'],
+  'Public Repository': ['Dépôt public', 'مستودع برمجي عام'],
+  'Public (Open Source)': ['Public (Open Source)', 'مفتوح المصدر (عام)']
 };
 

@@ -1250,7 +1250,7 @@ export default function App() {
                 </div>
                 <div className="telemetry-stat-chip">
                   <span className="telemetry-stat-label">STATUS</span>
-                  <span className="telemetry-stat-val"><i className="fa-solid fa-lock" /> Proprietary</span>
+                  <span className="telemetry-stat-val"><i className="fa-brands fa-github" /> {translateText("Public Repository")}</span>
                 </div>
               </div>
 
@@ -1267,13 +1267,16 @@ export default function App() {
               </div>
 
               <div className="project-actions-row">
-                <span
-                  className="btn btn-secondary private-repo-badge"
-                  id="judhoor-private-badge"
+                <a
+                  href="https://github.com/Abdellah-BELMAARIS/quran-site"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                  id="judhoor-github-btn"
                 >
-                  <i className="fa-solid fa-lock" />
-                  {translateText("Private Proprietary Repository")}
-                </span>
+                  <i className="fa-brands fa-github" style={{ marginRight: '8px' }} />
+                  {translateText("GitHub Repository")} <span className="btn-arrow">↗</span>
+                </a>
               </div>
 
             </motion.div>
