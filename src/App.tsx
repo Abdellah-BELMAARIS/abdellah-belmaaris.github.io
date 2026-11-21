@@ -251,13 +251,13 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const [percent, setPercent] = useState(0);
 
   useEffect(() => {
-    const totalMs = reduceMotion ? 220 : 1250;
+    const totalMs = reduceMotion ? 260 : 2650;
     const start = performance.now();
     let rafId = 0;
 
     const tick = (now: number) => {
       const progress = Math.min(1, (now - start) / totalMs);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased = 1 - Math.pow(1 - progress, 2.4);
       setPercent(Math.round(eased * 100));
       if (progress < 1) {
         rafId = requestAnimationFrame(tick);
@@ -265,7 +265,7 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
     };
     rafId = requestAnimationFrame(tick);
 
-    const timer = window.setTimeout(onFinish, totalMs + 140);
+    const timer = window.setTimeout(onFinish, totalMs + 280);
     return () => {
       cancelAnimationFrame(rafId);
       window.clearTimeout(timer);
@@ -273,10 +273,12 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   }, [onFinish, reduceMotion]);
 
   const statusLine =
-    percent < 38
+    percent < 32
       ? 'INITIALIZING OPENBIM 3D ENGINE...'
-      : percent < 78
-      ? 'MOUNTING IFC / THREE.JS & FULL-STACK ARCHITECTURE...'
+      : percent < 68
+      ? 'LOADING IFC4 / THREE.JS & STRUCTURAL MODELS...'
+      : percent < 96
+      ? 'MOUNTING FULL-STACK & AI WORKSPACE...'
       : 'PORTFOLIO WORKSPACE READY';
 
   return (
@@ -286,145 +288,141 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       aria-label={translateText("Opening Abdellah Belmaaris portfolio")}
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, y: reduceMotion ? 0 : -18 }}
-      transition={{ duration: reduceMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: reduceMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Subtle CAD Blueprint Grid */}
       <div className="bim-boot-grid" aria-hidden="true" />
 
-      {/* 4 Organized Architectural IFC CAD Blueprint Drawings in the Corners */}
-      {/* Top-Left: Architectural 2D Floor Plan (IfcBuildingStorey) */}
+      {/* 4 Organized 3D Isometric Architectural IFC Viewport Cards in the Corners */}
+      {/* Top-Left: 3D Isometric High-Rise Tower (IfcBuilding) */}
       <motion.div
         className="bim-boot-archi-card top-left"
         aria-hidden="true"
-        initial={{ opacity: 0, x: reduceMotion ? 0 : -14 }}
+        initial={{ opacity: 0, x: reduceMotion ? 0 : -18 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.45, delay: 0.05 }}
+        transition={{ duration: 0.6, delay: 0.08 }}
       >
         <div className="bim-archi-header">
-          <span>A-101 // FLOOR PLAN</span>
-          <span className="bim-archi-tag">IfcBuildingStorey</span>
+          <span>BIM-01 // 3D IFC TOWER</span>
+          <span className="bim-archi-tag">IfcBuilding · L01–L06</span>
         </div>
-        <svg viewBox="0 0 240 120" className="bim-archi-svg" fill="none">
-          {/* Structural Grid Lines */}
-          <line x1="20" y1="14" x2="20" y2="108" stroke="rgba(0,229,255,0.22)" strokeDasharray="3 3" />
-          <line x1="115" y1="14" x2="115" y2="108" stroke="rgba(0,229,255,0.22)" strokeDasharray="3 3" />
-          <line x1="215" y1="14" x2="215" y2="108" stroke="rgba(0,229,255,0.22)" strokeDasharray="3 3" />
-          {/* Exterior Structural Walls */}
-          <rect x="28" y="24" width="180" height="72" stroke="var(--accent, #00e5ff)" strokeWidth="1.8" />
-          {/* Interior Partition Walls */}
-          <line x1="100" y1="24" x2="100" y2="68" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
-          <line x1="100" y1="58" x2="165" y2="58" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
-          <line x1="165" y1="24" x2="165" y2="96" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
-          {/* Door Swing Arc */}
-          <path d="M100 68 A16 16 0 0 1 116 84" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.1" strokeDasharray="2 2" />
-          <line x1="100" y1="68" x2="100" y2="84" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.2" />
-          {/* Structural Columns */}
-          <rect x="25" y="21" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
-          <rect x="112" y="21" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
-          <rect x="205" y="21" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
-          <rect x="25" y="93" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
-          <rect x="112" y="93" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
-          <rect x="205" y="93" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
-          {/* Dimension Line */}
-          <line x1="28" y1="110" x2="208" y2="110" stroke="rgba(148,163,184,0.55)" strokeWidth="0.8" />
-          <text x="118" y="107" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace" textAnchor="middle">24.00 m · GRID A–C</text>
+        <svg viewBox="0 0 260 135" className="bim-archi-svg" fill="none">
+          {/* 3D Isometric Ground Blueprint Grid */}
+          <polygon points="130,124 226,92 130,60 34,92" stroke="rgba(0,229,255,0.2)" strokeWidth="0.9" fill="rgba(0,229,255,0.03)" />
+          <line x1="82" y1="76" x2="178" y2="108" stroke="rgba(0,229,255,0.16)" strokeWidth="0.7" />
+          <line x1="178" y1="76" x2="82" y2="108" stroke="rgba(0,229,255,0.16)" strokeWidth="0.7" />
+          {/* 3D Extruded Podium */}
+          <polygon points="130,114 186,95 186,83 130,102" fill="rgba(0,229,255,0.08)" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          <polygon points="130,114 74,95 74,83 130,102" fill="rgba(16,185,129,0.07)" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          <polygon points="130,102 186,83 130,64 74,83" fill="rgba(0,229,255,0.11)" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          {/* 3D Extruded Main Tower Shaft */}
+          <polygon points="130,96 170,82 170,30 130,44" fill="rgba(0,229,255,0.09)" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" />
+          <polygon points="130,96 90,82 90,30 130,44" fill="rgba(16,185,129,0.07)" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" />
+          <polygon points="130,44 170,30 130,16 90,30" fill="rgba(0,229,255,0.16)" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" />
+          {/* 3D Isometric Floor Slab Lines */}
+          <path d="M90 43 L130 57 L170 43 M90 56 L130 70 L170 56 M90 69 L130 83 L170 69" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.95" opacity="0.85" />
+          {/* Rooftop Core */}
+          <polygon points="130,30 146,24 146,14 130,20" fill="rgba(16,185,129,0.14)" stroke="var(--emerald-bright, #10b981)" strokeWidth="1" />
+          <polygon points="130,30 114,24 114,14 130,20" fill="rgba(0,229,255,0.1)" stroke="var(--emerald-bright, #10b981)" strokeWidth="1" />
+          <polygon points="130,20 146,14 130,8 114,14" fill="rgba(0,229,255,0.18)" stroke="var(--emerald-bright, #10b981)" strokeWidth="1" />
+          <text x="16" y="128" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace">ELEV +42.0m · ISO 3D</text>
         </svg>
       </motion.div>
 
-      {/* Top-Right: Architectural Tower Elevation (IfcBuilding) */}
+      {/* Top-Right: 3D Isometric Architectural Floor Cutaway (IfcBuildingStorey) */}
       <motion.div
         className="bim-boot-archi-card top-right"
         aria-hidden="true"
-        initial={{ opacity: 0, x: reduceMotion ? 0 : 14 }}
+        initial={{ opacity: 0, x: reduceMotion ? 0 : 18 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.45, delay: 0.08 }}
+        transition={{ duration: 0.6, delay: 0.14 }}
       >
         <div className="bim-archi-header">
-          <span>A-204 // ELEVATION</span>
-          <span className="bim-archi-tag">IfcBuilding · L01–L07</span>
+          <span>BIM-02 // 3D FLOOR CUT</span>
+          <span className="bim-archi-tag">IfcBuildingStorey</span>
         </div>
-        <svg viewBox="0 0 240 120" className="bim-archi-svg" fill="none">
-          {/* Ground Datum */}
-          <line x1="16" y1="104" x2="224" y2="104" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.4" />
-          {/* Tower Podium & Stepped Shaft */}
-          <rect x="44" y="84" width="152" height="20" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
-          <rect x="64" y="42" width="112" height="42" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
-          <rect x="84" y="18" width="72" height="24" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
-          {/* Floor Slab Levels */}
-          <line x1="64" y1="56" x2="176" y2="56" stroke="rgba(0,229,255,0.45)" strokeWidth="0.9" />
-          <line x1="64" y1="70" x2="176" y2="70" stroke="rgba(0,229,255,0.45)" strokeWidth="0.9" />
-          <line x1="84" y1="30" x2="156" y2="30" stroke="rgba(0,229,255,0.45)" strokeWidth="0.9" />
-          {/* Curtain Wall Mullions */}
-          <line x1="92" y1="42" x2="92" y2="104" stroke="rgba(0,229,255,0.28)" strokeWidth="0.9" />
-          <line x1="120" y1="18" x2="120" y2="104" stroke="rgba(16,185,129,0.45)" strokeDasharray="3 2" strokeWidth="1" />
-          <line x1="148" y1="42" x2="148" y2="104" stroke="rgba(0,229,255,0.28)" strokeWidth="0.9" />
-          {/* Elevation Markers */}
-          <text x="184" y="22" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace">+32.0m</text>
-          <text x="184" y="46" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace">+18.5m</text>
-          <text x="198" y="101" fill="var(--emerald-bright, #10b981)" fontSize="7" fontFamily="monospace">±0.00</text>
+        <svg viewBox="0 0 260 135" className="bim-archi-svg" fill="none">
+          {/* 3D Extruded Floor Slab Base */}
+          <polygon points="130,118 220,84 220,76 130,110" fill="rgba(0,229,255,0.1)" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          <polygon points="130,118 40,84 40,76 130,110" fill="rgba(16,185,129,0.08)" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          <polygon points="130,110 220,76 130,42 40,76" fill="rgba(0,229,255,0.07)" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" />
+          {/* 3D Extruded Back Architectural Walls */}
+          <polygon points="130,42 212,73 212,45 130,14" fill="rgba(0,229,255,0.09)" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" />
+          <polygon points="130,42 48,73 48,45 130,14" fill="rgba(16,185,129,0.08)" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" />
+          {/* 3D Interior Partition Walls */}
+          <polygon points="130,76 172,60 172,38 130,54" fill="rgba(16,185,129,0.12)" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.1" />
+          <polygon points="94,90 130,76 130,54 94,68" fill="rgba(0,229,255,0.1)" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.1" />
+          {/* 3D Structural Columns */}
+          <line x1="130" y1="14" x2="130" y2="42" stroke="var(--emerald-bright, #10b981)" strokeWidth="2.2" />
+          <line x1="130" y1="76" x2="130" y2="110" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.6" strokeDasharray="3 2" />
+          <circle cx="130" cy="42" r="2.6" fill="var(--accent, #00e5ff)" />
+          <circle cx="212" cy="73" r="2.4" fill="var(--emerald-bright, #10b981)" />
+          <circle cx="48" cy="73" r="2.4" fill="var(--emerald-bright, #10b981)" />
+          <text x="16" y="128" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace">24.0m × 16.0m · 3D SECTION</text>
         </svg>
       </motion.div>
 
-      {/* Bottom-Left: Structural Bridge Span (IfcBridge) */}
+      {/* Bottom-Left: 3D Isometric Structural Bridge Span (IfcBridge) */}
       <motion.div
         className="bim-boot-archi-card bottom-left"
         aria-hidden="true"
-        initial={{ opacity: 0, x: reduceMotion ? 0 : -14 }}
+        initial={{ opacity: 0, x: reduceMotion ? 0 : -18 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.45, delay: 0.12 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
       >
         <div className="bim-archi-header">
-          <span>S-301 // STRUCTURAL SPAN</span>
+          <span>BIM-03 // 3D BRIDGE SPAN</span>
           <span className="bim-archi-tag">IfcBridge · IFC4X3</span>
         </div>
-        <svg viewBox="0 0 240 120" className="bim-archi-svg" fill="none">
-          {/* Deck Girder */}
-          <rect x="14" y="74" width="212" height="7" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
-          {/* Twin Pylons */}
-          <rect x="64" y="18" width="7" height="84" stroke="var(--accent, #00e5ff)" strokeWidth="1.4" />
-          <rect x="169" y="18" width="7" height="84" stroke="var(--accent, #00e5ff)" strokeWidth="1.4" />
-          {/* Stay Cables */}
-          <line x1="67.5" y1="22" x2="26" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
-          <line x1="67.5" y1="30" x2="42" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
-          <line x1="67.5" y1="22" x2="112" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
-          <line x1="67.5" y1="30" x2="94" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
-          <line x1="172.5" y1="22" x2="128" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
-          <line x1="172.5" y1="30" x2="146" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
-          <line x1="172.5" y1="22" x2="214" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
-          <line x1="172.5" y1="30" x2="198" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
-          {/* Span Label */}
-          <line x1="68" y1="108" x2="172" y2="108" stroke="rgba(148,163,184,0.55)" strokeWidth="0.8" />
-          <text x="120" y="104" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace" textAnchor="middle">SPAN 180.0 m · WEBGL</text>
+        <svg viewBox="0 0 260 135" className="bim-archi-svg" fill="none">
+          {/* 3D Perspective Bridge Deck Box Girder */}
+          <polygon points="18,98 228,54 244,62 34,106" fill="rgba(0,229,255,0.12)" stroke="var(--accent, #00e5ff)" strokeWidth="1.4" />
+          <polygon points="18,98 34,106 34,113 18,105" fill="rgba(16,185,129,0.12)" stroke="var(--accent, #00e5ff)" strokeWidth="1.1" />
+          <polygon points="34,106 244,62 244,69 34,113" fill="rgba(0,229,255,0.08)" stroke="var(--accent, #00e5ff)" strokeWidth="1.1" />
+          {/* 3D Twin H-Pylons */}
+          <path d="M84 114 L84 26 L94 31 L94 118 M84 44 L94 49" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
+          <path d="M178 92 L178 14 L188 19 L188 96 M178 32 L188 37" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
+          {/* 3D Tension Stay Cables */}
+          <path d="M84 30 L34 95 M84 38 L52 91 M84 30 L128 76 M84 38 L112 80" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.95" opacity="0.88" />
+          <path d="M178 18 L134 74 M178 26 L150 71 M178 18 L224 56 M178 26 L208 60" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.95" opacity="0.88" />
+          <text x="16" y="128" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace">SPAN 180.0 m · 3D STRUCTURAL</text>
         </svg>
       </motion.div>
 
-      {/* Bottom-Right: Isometric BIM Coordination & Title Block */}
+      {/* Bottom-Right: 3D Urban GIS / Cesium Masterplan (IfcSite) */}
       <motion.div
         className="bim-boot-archi-card bottom-right"
         aria-hidden="true"
-        initial={{ opacity: 0, x: reduceMotion ? 0 : 14 }}
+        initial={{ opacity: 0, x: reduceMotion ? 0 : 18 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.45, delay: 0.15 }}
+        transition={{ duration: 0.6, delay: 0.26 }}
       >
         <div className="bim-archi-header">
-          <span>BIM-400 // 3D AXONOMETRIC</span>
-          <span className="bim-archi-tag">IFC4 · GIS · MCP</span>
+          <span>BIM-04 // 3D GIS SITE</span>
+          <span className="bim-archi-tag">IfcSite · Cesium 3D</span>
         </div>
-        <svg viewBox="0 0 240 120" className="bim-archi-svg" fill="none">
-          {/* Isometric Layered BIM Slabs */}
-          <polygon points="84,88 134,104 184,88 134,72" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" fill="rgba(0,229,255,0.06)" />
-          <polygon points="84,66 134,82 184,66 134,50" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.3" fill="rgba(16,185,129,0.06)" />
-          <polygon points="84,44 134,60 184,44 134,28" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" fill="rgba(0,229,255,0.06)" />
-          {/* Vertical Structural Ties */}
-          <line x1="84" y1="44" x2="84" y2="88" stroke="rgba(0,229,255,0.5)" strokeWidth="1" />
-          <line x1="134" y1="60" x2="134" y2="104" stroke="rgba(0,229,255,0.5)" strokeWidth="1" />
-          <line x1="184" y1="44" x2="184" y2="88" stroke="rgba(0,229,255,0.5)" strokeWidth="1" />
-          {/* North Compass Rose */}
-          <circle cx="38" cy="58" r="14" stroke="rgba(0,229,255,0.4)" strokeWidth="1" />
-          <polygon points="38,40 42,58 38,54 34,58" fill="var(--emerald-bright, #10b981)" />
-          <text x="38" y="34" fill="var(--accent, #00e5ff)" fontSize="8" fontFamily="monospace" textAnchor="middle">N</text>
-          <text x="38" y="88" fill="rgba(148,163,184,0.85)" fontSize="6.5" fontFamily="monospace" textAnchor="middle">SCALE 1:100</text>
-          <text x="134" y="116" fill="rgba(148,163,184,0.85)" fontSize="6.5" fontFamily="monospace" textAnchor="middle">CASABLANCA · 33.57°N 7.58°W</text>
+        <svg viewBox="0 0 260 135" className="bim-archi-svg" fill="none">
+          {/* 3D Geospatial Site Grid */}
+          <polygon points="136,120 238,86 136,52 34,86" stroke="rgba(0,229,255,0.25)" strokeWidth="1" fill="rgba(0,229,255,0.03)" />
+          <line x1="85" y1="69" x2="187" y2="103" stroke="rgba(0,229,255,0.16)" strokeWidth="0.7" />
+          <line x1="187" y1="69" x2="85" y2="103" stroke="rgba(0,229,255,0.16)" strokeWidth="0.7" />
+          {/* 3D Building 1 (Central Tall Tower) */}
+          <polygon points="136,88 158,80 158,24 136,32" fill="rgba(0,229,255,0.12)" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          <polygon points="136,88 114,80 114,24 136,32" fill="rgba(16,185,129,0.1)" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          <polygon points="136,32 158,24 136,16 114,24" fill="rgba(0,229,255,0.2)" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          {/* 3D Building 2 (Left Mid-Rise) */}
+          <polygon points="94,96 112,90 112,50 94,56" fill="rgba(16,185,129,0.1)" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.1" />
+          <polygon points="94,96 76,90 76,50 94,56" fill="rgba(0,229,255,0.08)" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.1" />
+          <polygon points="94,56 112,50 94,44 76,50" fill="rgba(16,185,129,0.18)" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.1" />
+          {/* 3D Building 3 (Right Block) */}
+          <polygon points="178,94 198,87 198,46 178,53" fill="rgba(0,229,255,0.1)" stroke="var(--accent, #00e5ff)" strokeWidth="1.1" />
+          <polygon points="178,94 158,87 158,46 178,53" fill="rgba(16,185,129,0.08)" stroke="var(--accent, #00e5ff)" strokeWidth="1.1" />
+          <polygon points="178,53 198,46 178,39 158,46" fill="rgba(0,229,255,0.18)" stroke="var(--accent, #00e5ff)" strokeWidth="1.1" />
+          {/* North Compass & Coordinates */}
+          <circle cx="34" cy="36" r="12" stroke="rgba(0,229,255,0.45)" strokeWidth="1" />
+          <polygon points="34,22 37,36 34,33 31,36" fill="var(--emerald-bright, #10b981)" />
+          <text x="34" y="18" fill="var(--accent, #00e5ff)" fontSize="7" fontFamily="monospace" textAnchor="middle">N</text>
+          <text x="16" y="128" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace">CASABLANCA · 33.57°N 7.58°W</text>
         </svg>
       </motion.div>
 
