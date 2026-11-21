@@ -9619,23 +9619,48 @@ main#main-content > section {
     pointer-events: none;
 }
 
-.bim-boot-corner {
+.bim-boot-archi-card {
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    color: var(--text-muted, #64748b);
-    text-transform: uppercase;
+    z-index: 1;
+    width: 268px;
+    padding: 10px 12px 8px;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 6px;
+    background: rgba(8, 16, 29, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
     pointer-events: none;
 }
 
-.bim-boot-corner.top-left { top: 28px; left: 32px; }
-.bim-boot-corner.top-right { top: 28px; right: 32px; text-align: right; }
-.bim-boot-corner.bottom-left { bottom: 28px; left: 32px; }
-.bim-boot-corner.bottom-right { bottom: 28px; right: 32px; text-align: right; }
+.bim-boot-archi-card.top-left { top: 28px; left: 32px; }
+.bim-boot-archi-card.top-right { top: 28px; right: 32px; }
+.bim-boot-archi-card.bottom-left { bottom: 28px; left: 32px; }
+.bim-boot-archi-card.bottom-right { bottom: 28px; right: 32px; }
+
+.bim-archi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted, #94a3b8);
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.14);
+}
+
+.bim-archi-tag {
+    color: var(--accent, #00e5ff);
+    font-weight: 700;
+}
+
+.bim-archi-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
 .bim-boot-center {
     position: relative;

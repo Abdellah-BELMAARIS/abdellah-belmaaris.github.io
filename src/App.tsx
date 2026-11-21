@@ -291,21 +291,142 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       {/* Subtle CAD Blueprint Grid */}
       <div className="bim-boot-grid" aria-hidden="true" />
 
-      {/* Precision CAD Corner Telemetry */}
-      <div className="bim-boot-corner top-left" aria-hidden="true">
-        <span>SYS // AB-BIM-2026</span>
-        <span>33.5731° N · 7.5898° W</span>
-      </div>
-      <div className="bim-boot-corner top-right" aria-hidden="true">
-        <span>OPENBIM · IFC4 · WEBGL</span>
-        <span>BIMPULSE DIGITAL</span>
-      </div>
-      <div className="bim-boot-corner bottom-left" aria-hidden="true">
-        <span>TYPESCRIPT · REACT · PYTHON · DJANGO</span>
-      </div>
-      <div className="bim-boot-corner bottom-right" aria-hidden="true">
-        <span>CASABLANCA, MOROCCO</span>
-      </div>
+      {/* 4 Organized Architectural IFC CAD Blueprint Drawings in the Corners */}
+      {/* Top-Left: Architectural 2D Floor Plan (IfcBuildingStorey) */}
+      <motion.div
+        className="bim-boot-archi-card top-left"
+        aria-hidden="true"
+        initial={{ opacity: 0, x: reduceMotion ? 0 : -14 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.45, delay: 0.05 }}
+      >
+        <div className="bim-archi-header">
+          <span>A-101 // FLOOR PLAN</span>
+          <span className="bim-archi-tag">IfcBuildingStorey</span>
+        </div>
+        <svg viewBox="0 0 240 120" className="bim-archi-svg" fill="none">
+          {/* Structural Grid Lines */}
+          <line x1="20" y1="14" x2="20" y2="108" stroke="rgba(0,229,255,0.22)" strokeDasharray="3 3" />
+          <line x1="115" y1="14" x2="115" y2="108" stroke="rgba(0,229,255,0.22)" strokeDasharray="3 3" />
+          <line x1="215" y1="14" x2="215" y2="108" stroke="rgba(0,229,255,0.22)" strokeDasharray="3 3" />
+          {/* Exterior Structural Walls */}
+          <rect x="28" y="24" width="180" height="72" stroke="var(--accent, #00e5ff)" strokeWidth="1.8" />
+          {/* Interior Partition Walls */}
+          <line x1="100" y1="24" x2="100" y2="68" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          <line x1="100" y1="58" x2="165" y2="58" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          <line x1="165" y1="24" x2="165" y2="96" stroke="var(--accent, #00e5ff)" strokeWidth="1.2" />
+          {/* Door Swing Arc */}
+          <path d="M100 68 A16 16 0 0 1 116 84" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.1" strokeDasharray="2 2" />
+          <line x1="100" y1="68" x2="100" y2="84" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.2" />
+          {/* Structural Columns */}
+          <rect x="25" y="21" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
+          <rect x="112" y="21" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
+          <rect x="205" y="21" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
+          <rect x="25" y="93" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
+          <rect x="112" y="93" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
+          <rect x="205" y="93" width="6" height="6" fill="var(--emerald-bright, #10b981)" />
+          {/* Dimension Line */}
+          <line x1="28" y1="110" x2="208" y2="110" stroke="rgba(148,163,184,0.55)" strokeWidth="0.8" />
+          <text x="118" y="107" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace" textAnchor="middle">24.00 m · GRID A–C</text>
+        </svg>
+      </motion.div>
+
+      {/* Top-Right: Architectural Tower Elevation (IfcBuilding) */}
+      <motion.div
+        className="bim-boot-archi-card top-right"
+        aria-hidden="true"
+        initial={{ opacity: 0, x: reduceMotion ? 0 : 14 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.45, delay: 0.08 }}
+      >
+        <div className="bim-archi-header">
+          <span>A-204 // ELEVATION</span>
+          <span className="bim-archi-tag">IfcBuilding · L01–L07</span>
+        </div>
+        <svg viewBox="0 0 240 120" className="bim-archi-svg" fill="none">
+          {/* Ground Datum */}
+          <line x1="16" y1="104" x2="224" y2="104" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.4" />
+          {/* Tower Podium & Stepped Shaft */}
+          <rect x="44" y="84" width="152" height="20" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
+          <rect x="64" y="42" width="112" height="42" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
+          <rect x="84" y="18" width="72" height="24" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
+          {/* Floor Slab Levels */}
+          <line x1="64" y1="56" x2="176" y2="56" stroke="rgba(0,229,255,0.45)" strokeWidth="0.9" />
+          <line x1="64" y1="70" x2="176" y2="70" stroke="rgba(0,229,255,0.45)" strokeWidth="0.9" />
+          <line x1="84" y1="30" x2="156" y2="30" stroke="rgba(0,229,255,0.45)" strokeWidth="0.9" />
+          {/* Curtain Wall Mullions */}
+          <line x1="92" y1="42" x2="92" y2="104" stroke="rgba(0,229,255,0.28)" strokeWidth="0.9" />
+          <line x1="120" y1="18" x2="120" y2="104" stroke="rgba(16,185,129,0.45)" strokeDasharray="3 2" strokeWidth="1" />
+          <line x1="148" y1="42" x2="148" y2="104" stroke="rgba(0,229,255,0.28)" strokeWidth="0.9" />
+          {/* Elevation Markers */}
+          <text x="184" y="22" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace">+32.0m</text>
+          <text x="184" y="46" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace">+18.5m</text>
+          <text x="198" y="101" fill="var(--emerald-bright, #10b981)" fontSize="7" fontFamily="monospace">±0.00</text>
+        </svg>
+      </motion.div>
+
+      {/* Bottom-Left: Structural Bridge Span (IfcBridge) */}
+      <motion.div
+        className="bim-boot-archi-card bottom-left"
+        aria-hidden="true"
+        initial={{ opacity: 0, x: reduceMotion ? 0 : -14 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.45, delay: 0.12 }}
+      >
+        <div className="bim-archi-header">
+          <span>S-301 // STRUCTURAL SPAN</span>
+          <span className="bim-archi-tag">IfcBridge · IFC4X3</span>
+        </div>
+        <svg viewBox="0 0 240 120" className="bim-archi-svg" fill="none">
+          {/* Deck Girder */}
+          <rect x="14" y="74" width="212" height="7" stroke="var(--accent, #00e5ff)" strokeWidth="1.5" />
+          {/* Twin Pylons */}
+          <rect x="64" y="18" width="7" height="84" stroke="var(--accent, #00e5ff)" strokeWidth="1.4" />
+          <rect x="169" y="18" width="7" height="84" stroke="var(--accent, #00e5ff)" strokeWidth="1.4" />
+          {/* Stay Cables */}
+          <line x1="67.5" y1="22" x2="26" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
+          <line x1="67.5" y1="30" x2="42" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
+          <line x1="67.5" y1="22" x2="112" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
+          <line x1="67.5" y1="30" x2="94" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
+          <line x1="172.5" y1="22" x2="128" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
+          <line x1="172.5" y1="30" x2="146" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
+          <line x1="172.5" y1="22" x2="214" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
+          <line x1="172.5" y1="30" x2="198" y2="74" stroke="var(--emerald-bright, #10b981)" strokeWidth="0.9" opacity="0.8" />
+          {/* Span Label */}
+          <line x1="68" y1="108" x2="172" y2="108" stroke="rgba(148,163,184,0.55)" strokeWidth="0.8" />
+          <text x="120" y="104" fill="rgba(148,163,184,0.85)" fontSize="7" fontFamily="monospace" textAnchor="middle">SPAN 180.0 m · WEBGL</text>
+        </svg>
+      </motion.div>
+
+      {/* Bottom-Right: Isometric BIM Coordination & Title Block */}
+      <motion.div
+        className="bim-boot-archi-card bottom-right"
+        aria-hidden="true"
+        initial={{ opacity: 0, x: reduceMotion ? 0 : 14 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.45, delay: 0.15 }}
+      >
+        <div className="bim-archi-header">
+          <span>BIM-400 // 3D AXONOMETRIC</span>
+          <span className="bim-archi-tag">IFC4 · GIS · MCP</span>
+        </div>
+        <svg viewBox="0 0 240 120" className="bim-archi-svg" fill="none">
+          {/* Isometric Layered BIM Slabs */}
+          <polygon points="84,88 134,104 184,88 134,72" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" fill="rgba(0,229,255,0.06)" />
+          <polygon points="84,66 134,82 184,66 134,50" stroke="var(--emerald-bright, #10b981)" strokeWidth="1.3" fill="rgba(16,185,129,0.06)" />
+          <polygon points="84,44 134,60 184,44 134,28" stroke="var(--accent, #00e5ff)" strokeWidth="1.3" fill="rgba(0,229,255,0.06)" />
+          {/* Vertical Structural Ties */}
+          <line x1="84" y1="44" x2="84" y2="88" stroke="rgba(0,229,255,0.5)" strokeWidth="1" />
+          <line x1="134" y1="60" x2="134" y2="104" stroke="rgba(0,229,255,0.5)" strokeWidth="1" />
+          <line x1="184" y1="44" x2="184" y2="88" stroke="rgba(0,229,255,0.5)" strokeWidth="1" />
+          {/* North Compass Rose */}
+          <circle cx="38" cy="58" r="14" stroke="rgba(0,229,255,0.4)" strokeWidth="1" />
+          <polygon points="38,40 42,58 38,54 34,58" fill="var(--emerald-bright, #10b981)" />
+          <text x="38" y="34" fill="var(--accent, #00e5ff)" fontSize="8" fontFamily="monospace" textAnchor="middle">N</text>
+          <text x="38" y="88" fill="rgba(148,163,184,0.85)" fontSize="6.5" fontFamily="monospace" textAnchor="middle">SCALE 1:100</text>
+          <text x="134" y="116" fill="rgba(148,163,184,0.85)" fontSize="6.5" fontFamily="monospace" textAnchor="middle">CASABLANCA · 33.57°N 7.58°W</text>
+        </svg>
+      </motion.div>
 
       {/* Central Architectural Wireframe Emblem & Identity */}
       <div className="bim-boot-center">
