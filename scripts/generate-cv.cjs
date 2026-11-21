@@ -31,8 +31,8 @@ const cvHtml = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Abdellah BELMAARIS — Executive Curriculum Vitae</title>
-  <meta name="description" content="Official Curriculum Vitae of Abdellah BELMAARIS — Full-Stack Developer & Backend Systems Specialist at BIMPulse. Verified Certifications & Standout Projects.">
+  <title>Abdellah BELMAARIS — BIM & Full-Stack Software Developer CV</title>
+  <meta name="description" content="Official Curriculum Vitae of Abdellah BELMAARIS — BIM & Full-Stack Software Developer at BIMPulse. OpenBIM 3D (Three.js, That Open Engine, IFC, Cesium GIS), Python/Django, Applied AI & Verified Certifications.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1143,56 +1143,103 @@ const cvHtml = `<!DOCTYPE html>
       }
     }
 
-    /* ─── Pristine Multi-Page Print Engine (A4 PDF Print) ───────────────────── */
+    /* ─── Pristine Dark Multi-Page Print Engine (A4 Dark Pro PDF) ───────────── */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 10mm 12mm 10mm 12mm;
+        margin: 0;
       }
-      body, html {
-        background: #ffffff !important;
-        color: #0f172a !important;
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      html, body {
+        background: #060a12 !important;
+        color: #f8fafc !important;
         padding: 0 !important;
         margin: 0 !important;
+        width: 210mm !important;
+        font-size: 11.5px !important;
+        line-height: 1.42 !important;
       }
       .screen-action-bar, .cert-lightbox-modal, .cert-image-overlay {
         display: none !important;
       }
       .cv-main-container {
         max-width: 100% !important;
+        width: 100% !important;
         margin: 0 !important;
-        padding: 0 !important;
+        padding: 9mm 10mm !important;
+        background: #060a12 !important;
       }
       .cv-hero-card, .cv-metric-box, .cv-summary-card, .exp-card, .project-card,
       .cert-photo-card, .skill-category-box, .edu-card, .lang-card {
-        background: #ffffff !important;
-        color: #0f172a !important;
-        border: 1px solid #cbd5e1 !important;
+        background: #0d1628 !important;
+        color: #f8fafc !important;
+        border: 1px solid rgba(0, 229, 255, 0.22) !important;
+        border-radius: 6px !important;
         box-shadow: none !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+      .cv-hero-card {
+        padding: 14px 16px !important;
+        margin-bottom: 10px !important;
+      }
+      .cv-metrics-strip {
+        gap: 8px !important;
+        margin-bottom: 12px !important;
+      }
+      .cv-metric-box {
+        padding: 9px 10px !important;
       }
       .cv-content-split {
-        grid-template-columns: 1fr 340px !important;
-        gap: 16px !important;
+        display: grid !important;
+        grid-template-columns: 1.52fr 1fr !important;
+        gap: 12px !important;
+        align-items: start !important;
+      }
+      .cv-col-main, .cv-col-side {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+      }
+      .cv-section-title {
+        margin-bottom: 7px !important;
+        padding-bottom: 4px !important;
+        break-after: avoid !important;
+        page-break-after: avoid !important;
+      }
+      .exp-cards-stack, .cert-showcase-stack, .skills-matrix-stack {
+        gap: 8px !important;
+      }
+      .exp-card, .cv-summary-card, .project-card, .skill-category-box, .edu-card, .lang-card {
+        padding: 10px 12px !important;
+      }
+      .projects-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
       }
       .cert-image-thumb-wrap {
-        height: 120px !important;
+        height: 78px !important;
       }
       .cert-image-thumb {
         object-fit: cover !important;
       }
+      .cert-card-body {
+        padding: 8px 10px !important;
+        gap: 3px !important;
+      }
       .exp-role-title, .cv-full-name, .project-title, .edu-title, .cert-title-link {
-        color: #0f172a !important;
+        color: #f8fafc !important;
       }
-      .exp-company-sub, .cv-headline-role, .edu-inst, .cert-id-chip {
-        color: #00768a !important;
+      .exp-company-sub, .cv-headline-role, .edu-inst, .cert-id-chip, .cv-metric-val {
+        color: #00e5ff !important;
       }
-      .exp-card {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-      }
-      .cert-photo-card {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+      .cv-summary-card p, .exp-bullets-list li, .project-desc {
+        color: #cbd5e1 !important;
       }
     }
   </style>
@@ -1244,8 +1291,8 @@ const cvHtml = `<!DOCTYPE html>
 
         <div class="cv-hero-body">
           <div class="cv-kicker-pill">
-            <i class="fa-solid fa-terminal"></i>
-            <span>Junior Full-Stack Developer at BIMPulse • Applied AI & Backend Systems</span>
+            <i class="fa-solid fa-cubes"></i>
+            <span>BIM & Full-Stack Software Developer at BIMPulse • OpenBIM 3D & Applied AI</span>
           </div>
 
           <h1 class="cv-full-name">
@@ -1254,7 +1301,7 @@ const cvHtml = `<!DOCTYPE html>
           </h1>
 
           <div class="cv-headline-role">
-            Full-Stack Software Developer <span class="cv-headline-company">• BIMPulse & Enterprise Systems</span>
+            BIM & Full-Stack Software Developer <span class="cv-headline-company">• BIMPulse & OpenBIM Systems</span>
           </div>
 
           <div class="cv-contacts-grid">
@@ -1284,6 +1331,11 @@ const cvHtml = `<!DOCTYPE html>
     <!-- Key Impact Metrics Strip -->
     <div class="cv-metrics-strip">
       <div class="cv-metric-box">
+        <div class="cv-metric-val">OPENBIM 3D</div>
+        <div class="cv-metric-lbl">Three.js & IFC</div>
+        <div class="cv-metric-sub">That Open Engine · Cesium GIS</div>
+      </div>
+      <div class="cv-metric-box">
         <div class="cv-metric-val">O(1) TIME</div>
         <div class="cv-metric-lbl">SQL Optimization</div>
         <div class="cv-metric-sub">Eager Loading & Eliminated N+1</div>
@@ -1295,13 +1347,8 @@ const cvHtml = `<!DOCTYPE html>
       </div>
       <div class="cv-metric-box">
         <div class="cv-metric-val">4+ CERTS</div>
-        <div class="cv-metric-lbl">Industry Certifications</div>
-        <div class="cv-metric-sub">DataCamp AI & Python Verified</div>
-      </div>
-      <div class="cv-metric-box">
-        <div class="cv-metric-val">&lt; 200ms</div>
-        <div class="cv-metric-lbl">Telemetry Engine</div>
-        <div class="cv-metric-sub">Log Analytics & Data Pipelines</div>
+        <div class="cv-metric-lbl">Industry Verified</div>
+        <div class="cv-metric-sub">DataCamp AI, Python & Master BIM</div>
       </div>
     </div>
 
@@ -1319,7 +1366,7 @@ const cvHtml = `<!DOCTYPE html>
           </div>
           <div class="cv-summary-card">
             <p>
-              Performance-driven <strong>Full-Stack Software Developer</strong> operating at the intersection of enterprise backend architecture, AEC digital engineering, and applied artificial intelligence at <strong>BIMPulse</strong>. Specialized in engineering high-throughput <strong>Python/Django REST</strong> backends, normalized <strong>PostgreSQL</strong> schemas, and modern responsive <strong>React/TypeScript</strong> interfaces. Proven track record in eliminating severe N+1 database bottlenecks down to <strong>constant O(1) query time</strong> and architecting granular <strong>14-role Role-Based Access Control (RBAC)</strong> engines. Certified by DataCamp in Applied AI Engineering (LLMs, RAG Architectures) and Python Data Analytics.
+              Performance-driven <strong>BIM & Full-Stack Software Developer</strong> operating at the intersection of <strong>3D OpenBIM web engineering</strong>, enterprise backend architecture, and applied artificial intelligence at <strong>BIMPulse</strong>. Specialized in browser-native 3D IFC/Fragments viewers (<strong>TypeScript, React, Three.js, That Open Engine, Cesium GIS</strong>), high-throughput <strong>Python/Django REST</strong> backends, and normalized <strong>PostgreSQL</strong> schemas. Proven track record in eliminating N+1 bottlenecks to <strong>constant O(1) query time</strong>, architecting <strong>14-role RBAC</strong> engines, and integrating <strong>MCP AI Agents</strong>. Certified by DataCamp in Applied AI Engineering & Python Data Analytics, and graduate of That Open University's Master BIM Software Developer track.
             </p>
           </div>
         </section>
@@ -1335,26 +1382,27 @@ const cvHtml = `<!DOCTYPE html>
             <!-- Role 1: BIMPulse -->
             <article class="exp-card highlight">
               <div class="exp-top-bar">
-                <h3 class="exp-role-title">Junior Full-Stack Developer</h3>
+                <h3 class="exp-role-title">BIM & Full-Stack Software Developer</h3>
                 <span class="exp-date-chip active-chip">AUG 2026 — PRESENT</span>
               </div>
               <div class="exp-company-sub">
-                BIMPulse • Casablanca, Morocco <span>(Apprenticeship) · AEC & Digital Engineering Solutions</span>
+                BIMPulse • Casablanca, Morocco <span>(Apprenticeship) · OpenBIM 3D & AEC Digital Solutions</span>
               </div>
               <ul class="exp-bullets-list">
-                <li>Engineered and deployed core application modules for <strong>BIMPulse Academy</strong>, an enterprise digital training platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.</li>
-                <li>Developed backend services and normalized PostgreSQL relational data models strictly adhering to international <strong>BIM / IFC digital engineering standards</strong>.</li>
-                <li>Engineered scalable REST APIs in Python & Django paired with modular, mobile-responsive user interfaces.</li>
-                <li>Modeled normalized PostgreSQL schemas and optimized database transactions for high-traffic student enrollment flows.</li>
+                <li>Engineered and deployed core application modules for <strong>BIMPulse Academy</strong>, an enterprise digital learning platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.</li>
+                <li>Built interactive <strong>3D OpenBIM web viewers</strong> and coordination tools using <strong>TypeScript, React, Three.js, That Open Engine (IFC2X3/IFC4 & Fragments)</strong>, and <strong>Cesium GIS 3D Tiles</strong>.</li>
+                <li>Developed scalable REST APIs in Python & Django, normalized PostgreSQL schemas, Firebase cloud persistence, and AI-assisted <strong>MCP agent</strong> workflows.</li>
                 <li>Formally commended by senior engineering leadership on LinkedIn for architectural milestones and technical contributions to platform delivery.</li>
               </ul>
               <div class="exp-tags-strip">
-                <span class="exp-mini-tag">Python 3.12</span>
-                <span class="exp-mini-tag">Django REST</span>
+                <span class="exp-mini-tag">OpenBIM / IFC</span>
+                <span class="exp-mini-tag">Three.js</span>
+                <span class="exp-mini-tag">That Open Engine</span>
+                <span class="exp-mini-tag">TypeScript / React</span>
+                <span class="exp-mini-tag">Python / Django</span>
                 <span class="exp-mini-tag">PostgreSQL</span>
-                <span class="exp-mini-tag">BIM / IFC</span>
-                <span class="exp-mini-tag">BIMPulse Academy</span>
-                <span class="exp-mini-tag">React</span>
+                <span class="exp-mini-tag">Cesium GIS</span>
+                <span class="exp-mini-tag">Firebase</span>
               </div>
             </article>
 
@@ -1437,6 +1485,21 @@ const cvHtml = `<!DOCTYPE html>
           <div class="projects-grid">
             <div class="project-card">
               <div class="project-card-top">
+                <h4 class="project-title">Master BIM Viewer — OpenBIM 3D</h4>
+                <span class="project-badge">Live Web App</span>
+              </div>
+              <p class="project-desc">
+                Browser-native OpenBIM 3D viewer and AEC coordination suite built with TypeScript, React, Three.js, and That Open Engine. Supports IFC2X3/IFC4 & Fragments, spatial tree, 3D clash QA, 2D floor plans, Cesium GIS 3D Tiles, Firebase sync, and MCP AI Copilot (master-bim-software.web.app).
+              </p>
+              <div class="project-pills">
+                <span><i class="fa-solid fa-cubes"></i> IFC / Three.js</span>
+                <span><i class="fa-solid fa-earth-africa"></i> Cesium GIS</span>
+                <span><i class="fa-solid fa-robot"></i> MCP AI</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <div class="project-card-top">
                 <h4 class="project-title">The Modern Journal — CMS</h4>
                 <span class="project-badge">14 RBAC Roles</span>
               </div>
@@ -1477,21 +1540,6 @@ const cvHtml = `<!DOCTYPE html>
                 <span><i class="fa-solid fa-chart-line"></i> Pandas</span>
                 <span><i class="fa-solid fa-chart-pie"></i> Matplotlib</span>
                 <span><i class="fa-solid fa-lock"></i> 100% Local</span>
-              </div>
-            </div>
-
-            <div class="project-card">
-              <div class="project-card-top">
-                <h4 class="project-title">OOP Patterns & Architecture</h4>
-                <span class="project-badge">GoF Library</span>
-              </div>
-              <p class="project-desc">
-                Reference implementation of Gang of Four software design patterns in Python demonstrating modular separation of concerns, dependency inversion, clean architecture, and complete unit test suites.
-              </p>
-              <div class="project-pills">
-                <span><i class="fa-solid fa-check-double"></i> Pytest</span>
-                <span><i class="fa-solid fa-sitemap"></i> Clean Arch</span>
-                <span><i class="fa-solid fa-code"></i> PEP-8</span>
               </div>
             </div>
           </div>
@@ -1608,6 +1656,19 @@ const cvHtml = `<!DOCTYPE html>
 
           <div class="skills-matrix-stack">
             <div class="skill-category-box">
+              <div class="skill-cat-header"><i class="fa-solid fa-cubes"></i> OpenBIM & 3D Web</div>
+              <div class="skill-pills-row">
+                <span class="skill-pill core">Three.js / WebGL</span>
+                <span class="skill-pill core">That Open Engine</span>
+                <span class="skill-pill core">IFC2X3 / IFC4 / FRAG</span>
+                <span class="skill-pill core">Cesium GIS / 3D Tiles</span>
+                <span class="skill-pill">WebIFC</span>
+                <span class="skill-pill">Firebase / Firestore</span>
+                <span class="skill-pill">MCP AI Agents</span>
+              </div>
+            </div>
+
+            <div class="skill-category-box">
               <div class="skill-cat-header"><i class="fa-solid fa-server"></i> Backend & Systems</div>
               <div class="skill-pills-row">
                 <span class="skill-pill core">Python 3.12</span>
@@ -1673,6 +1734,11 @@ const cvHtml = `<!DOCTYPE html>
           </div>
 
           <div class="edu-card">
+            <div class="edu-item">
+              <div class="edu-title">Master BIM Software Developer Track</div>
+              <div class="edu-inst">That Open University · Modules 1–6 + Live Masterclasses</div>
+              <div class="edu-date">Completed Nov 2026</div>
+            </div>
             <div class="edu-item">
               <div class="edu-title">Backend Architecture & Systems Engineering</div>
               <div class="edu-inst">Specialized Track · Self-directed Engineering</div>
@@ -1818,20 +1884,21 @@ console.log('Created enhanced visual public/cv.html successfully!');
 
 // 2. Generate markdown CV
 const cvMarkdown = `# Abdellah BELMAARIS
-**Junior Full-Stack Developer at BIMPulse** • Backend Systems & Applied AI Specialist  
+**BIM & Full-Stack Software Developer at BIMPulse** • OpenBIM 3D, Backend Systems & Applied AI  
 *Casablanca, Morocco* • [obaidbelmaaris@gmail.com](mailto:obaidbelmaaris@gmail.com) • +212 654 624 382  
 [LinkedIn Profile](https://linkedin.com/in/abdellah-belmaaris) • [GitHub Profile](https://github.com/Abdellah-BELMAARIS) • [Portfolio Website](https://abdellah-belmaaris.github.io)
 
 ---
 
 ## Executive Summary
-Performance-driven **Full-Stack Software Developer** operating at the intersection of enterprise backend architecture, AEC digital engineering, and applied artificial intelligence at **BIMPulse**. Specialized in engineering high-throughput **Python/Django REST** backends, normalized **PostgreSQL** schemas, and modern responsive **React/TypeScript** interfaces. Proven track record in eliminating severe N+1 SQL bottlenecks down to **constant O(1) query time** and architecting granular **14-role Role-Based Access Control (RBAC)** security engines. Certified by DataCamp in Applied AI Engineering (LLMs, RAG Architectures) and Python Data Analytics.
+Performance-driven **BIM & Full-Stack Software Developer** operating at the intersection of **3D OpenBIM web engineering**, enterprise backend architecture, and applied artificial intelligence at **BIMPulse**. Specialized in browser-native 3D IFC/Fragments viewers (**TypeScript, React, Three.js, That Open Engine, Cesium GIS**), high-throughput **Python/Django REST** backends, and normalized **PostgreSQL** schemas. Proven track record in eliminating N+1 bottlenecks down to **constant O(1) query time**, architecting **14-role RBAC** engines, and building **MCP AI Agent** workflows. Certified by DataCamp in Applied AI Engineering & Python Data Analytics, and graduate of That Open University's Master BIM Software Developer track.
 
 ---
 
 ## Technical Core Capabilities
+- **OpenBIM & 3D Web**: Three.js / WebGL, That Open Engine (@thatopen/components, Fragments, web-ifc), IFC2X3 / IFC4, Cesium GIS / 3D Tiles, Firebase / Firestore, MCP AI Agents
 - **Backend & Systems**: Python 3.12, Django, Django REST Framework, PostgreSQL, SQL Optimization, RESTful APIs, JWT Authentication, 14 RBAC Roles, Celery, Redis
-- **Frontend Engineering**: React 19, TypeScript, JavaScript (ES6+), HTML5, Semantic CSS3, Three.js, WebGL, Vite, Responsive UI, Framer Motion
+- **Frontend Engineering**: React 19, TypeScript, JavaScript (ES6+), HTML5, Semantic CSS3, Vite, Responsive UI, Framer Motion
 - **Applied AI & Data Systems**: Pandas, NumPy, Matplotlib, LLM API Integration, RAG Architectures, Prompt Engineering, Data Cleaning Pipelines
 - **Architecture & DevOps**: Clean Architecture, GoF Design Patterns, Git / GitHub CI/CD, Docker, Linux, pytest, PEP-8 Standards, OWASP Security
 
@@ -1839,14 +1906,13 @@ Performance-driven **Full-Stack Software Developer** operating at the intersecti
 
 ## Professional Work Experience
 
-### Junior Full-Stack Developer — BIMPulse (Casablanca, Morocco)
+### BIM & Full-Stack Software Developer — BIMPulse (Casablanca, Morocco)
 *AUG 2026 — PRESENT (Apprenticeship)*  
-- Engineered and deployed core application modules for **BIMPulse Academy**, an enterprise digital training platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.
-- Developed backend services and normalized PostgreSQL relational data models strictly adhering to international **BIM / IFC digital engineering standards**.
-- Engineered scalable REST APIs in Python & Django paired with modular, mobile-responsive user interfaces.
-- Modeled normalized PostgreSQL schemas and optimized database transactions for high-traffic student enrollment flows.
+- Engineered and deployed core application modules for **BIMPulse Academy**, an enterprise digital learning platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.
+- Built interactive **3D OpenBIM web viewers** and coordination tools using **TypeScript, React, Three.js, That Open Engine (IFC2X3/IFC4 & Fragments)**, and **Cesium GIS 3D Tiles**.
+- Developed scalable REST APIs in Python & Django, normalized PostgreSQL schemas, Firebase cloud persistence, and AI-assisted **MCP agent** workflows.
 - Formally commended by senior engineering leadership on LinkedIn for architectural milestones and technical contributions to platform delivery.
-- *Technologies*: Python 3.12, Django REST, PostgreSQL, BIM/IFC Standards, React, BIMPulse Academy
+- *Technologies*: OpenBIM / IFC, Three.js, That Open Engine, TypeScript / React, Python / Django, PostgreSQL, Cesium GIS, Firebase
 
 ### Django & Backend Systems Developer — Production Systems (Casablanca, Morocco)
 *MAY 2026 — AUG 2026*  
@@ -1870,10 +1936,10 @@ Performance-driven **Full-Stack Software Developer** operating at the intersecti
 ---
 
 ## Standout Production Projects
+- **Master BIM Viewer — OpenBIM 3D Platform** (https://master-bim-software.web.app/): Browser-native OpenBIM 3D viewer and AEC coordination suite built with TypeScript, React, Three.js, and That Open Engine. Supports IFC2X3/IFC4 & Fragments, spatial tree, 3D clash QA, 2D floor plans, Cesium GIS 3D Tiles, Firebase sync, and MCP AI Copilot.
 - **The Modern Journal — CMS**: Production multi-user publishing engine featuring granular 14-role matrices, live analytics telemetry (views, users, posts), constant O(1) query resolution, and transactional email triggers.
 - **PyGame 3D Web Arcade (WASM)**: Compiled 16 native Python Pygame arcade games to WebAssembly via Pygbag. Features interactive 3D cabinet selector with dynamic Three.js lighting and locked 60 FPS WebGL rendering.
 - **Dev-Pulse — Developer Telemetry Engine**: Local data telemetry engine parsing high-dimensional unstructured system logs; performs cleaning with Pandas and automatically generates statistical Matplotlib performance reports in under 200ms.
-- **OOP Software Design Patterns & Architecture Library**: Reference implementation of Gang of Four software design patterns in Python demonstrating modular separation of concerns, dependency inversion, clean architecture, and complete unit test suites.
 
 ---
 
@@ -1886,6 +1952,7 @@ Performance-driven **Full-Stack Software Developer** operating at the intersecti
 ---
 
 ## Education & Specialized Tracks
+- **Master BIM Software Developer Track**: That Open University • Modules 1–6 + Live Masterclasses (Completed Nov 2026)
 - **Backend Architecture & Systems Engineering**: Specialized Track • Self-directed Engineering (Jan 2023 – Present)
 - **Career Track: Backend Developer**: DataCamp Professional Career Track • Verified Continuous Learning
 - **Data Science & Analytics Foundations**: DataCamp Skill Track • Verified Continuous Learning

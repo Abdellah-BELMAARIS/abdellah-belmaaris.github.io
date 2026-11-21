@@ -1,18 +1,19 @@
 # Abdellah BELMAARIS
-**Junior Full-Stack Developer at BIMPulse** • Backend Systems & Applied AI Specialist  
+**BIM & Full-Stack Software Developer at BIMPulse** • OpenBIM 3D, Backend Systems & Applied AI  
 *Casablanca, Morocco* • [obaidbelmaaris@gmail.com](mailto:obaidbelmaaris@gmail.com) • +212 654 624 382  
 [LinkedIn Profile](https://linkedin.com/in/abdellah-belmaaris) • [GitHub Profile](https://github.com/Abdellah-BELMAARIS) • [Portfolio Website](https://abdellah-belmaaris.github.io)
 
 ---
 
 ## Executive Summary
-Performance-driven **Full-Stack Software Developer** operating at the intersection of enterprise backend architecture, AEC digital engineering, and applied artificial intelligence at **BIMPulse**. Specialized in engineering high-throughput **Python/Django REST** backends, normalized **PostgreSQL** schemas, and modern responsive **React/TypeScript** interfaces. Proven track record in eliminating severe N+1 SQL bottlenecks down to **constant O(1) query time** and architecting granular **14-role Role-Based Access Control (RBAC)** security engines. Certified by DataCamp in Applied AI Engineering (LLMs, RAG Architectures) and Python Data Analytics.
+Performance-driven **BIM & Full-Stack Software Developer** operating at the intersection of **3D OpenBIM web engineering**, enterprise backend architecture, and applied artificial intelligence at **BIMPulse**. Specialized in browser-native 3D IFC/Fragments viewers (**TypeScript, React, Three.js, That Open Engine, Cesium GIS**), high-throughput **Python/Django REST** backends, and normalized **PostgreSQL** schemas. Proven track record in eliminating N+1 bottlenecks down to **constant O(1) query time**, architecting **14-role RBAC** engines, and building **MCP AI Agent** workflows. Certified by DataCamp in Applied AI Engineering & Python Data Analytics, and graduate of That Open University's Master BIM Software Developer track.
 
 ---
 
 ## Technical Core Capabilities
+- **OpenBIM & 3D Web**: Three.js / WebGL, That Open Engine (@thatopen/components, Fragments, web-ifc), IFC2X3 / IFC4, Cesium GIS / 3D Tiles, Firebase / Firestore, MCP AI Agents
 - **Backend & Systems**: Python 3.12, Django, Django REST Framework, PostgreSQL, SQL Optimization, RESTful APIs, JWT Authentication, 14 RBAC Roles, Celery, Redis
-- **Frontend Engineering**: React 19, TypeScript, JavaScript (ES6+), HTML5, Semantic CSS3, Three.js, WebGL, Vite, Responsive UI, Framer Motion
+- **Frontend Engineering**: React 19, TypeScript, JavaScript (ES6+), HTML5, Semantic CSS3, Vite, Responsive UI, Framer Motion
 - **Applied AI & Data Systems**: Pandas, NumPy, Matplotlib, LLM API Integration, RAG Architectures, Prompt Engineering, Data Cleaning Pipelines
 - **Architecture & DevOps**: Clean Architecture, GoF Design Patterns, Git / GitHub CI/CD, Docker, Linux, pytest, PEP-8 Standards, OWASP Security
 
@@ -20,14 +21,13 @@ Performance-driven **Full-Stack Software Developer** operating at the intersecti
 
 ## Professional Work Experience
 
-### Junior Full-Stack Developer — BIMPulse (Casablanca, Morocco)
+### BIM & Full-Stack Software Developer — BIMPulse (Casablanca, Morocco)
 *AUG 2026 — PRESENT (Apprenticeship)*  
-- Engineered and deployed core application modules for **BIMPulse Academy**, an enterprise digital training platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.
-- Developed backend services and normalized PostgreSQL relational data models strictly adhering to international **BIM / IFC digital engineering standards**.
-- Engineered scalable REST APIs in Python & Django paired with modular, mobile-responsive user interfaces.
-- Modeled normalized PostgreSQL schemas and optimized database transactions for high-traffic student enrollment flows.
+- Engineered and deployed core application modules for **BIMPulse Academy**, an enterprise digital learning platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.
+- Built interactive **3D OpenBIM web viewers** and coordination tools using **TypeScript, React, Three.js, That Open Engine (IFC2X3/IFC4 & Fragments)**, and **Cesium GIS 3D Tiles**.
+- Developed scalable REST APIs in Python & Django, normalized PostgreSQL schemas, Firebase cloud persistence, and AI-assisted **MCP agent** workflows.
 - Formally commended by senior engineering leadership on LinkedIn for architectural milestones and technical contributions to platform delivery.
-- *Technologies*: Python 3.12, Django REST, PostgreSQL, BIM/IFC Standards, React, BIMPulse Academy
+- *Technologies*: OpenBIM / IFC, Three.js, That Open Engine, TypeScript / React, Python / Django, PostgreSQL, Cesium GIS, Firebase
 
 ### Django & Backend Systems Developer — Production Systems (Casablanca, Morocco)
 *MAY 2026 — AUG 2026*  
@@ -51,10 +51,10 @@ Performance-driven **Full-Stack Software Developer** operating at the intersecti
 ---
 
 ## Standout Production Projects
+- **Master BIM Viewer — OpenBIM 3D Platform** (https://master-bim-software.web.app/): Browser-native OpenBIM 3D viewer and AEC coordination suite built with TypeScript, React, Three.js, and That Open Engine. Supports IFC2X3/IFC4 & Fragments, spatial tree, 3D clash QA, 2D floor plans, Cesium GIS 3D Tiles, Firebase sync, and MCP AI Copilot.
 - **The Modern Journal — CMS**: Production multi-user publishing engine featuring granular 14-role matrices, live analytics telemetry (views, users, posts), constant O(1) query resolution, and transactional email triggers.
 - **PyGame 3D Web Arcade (WASM)**: Compiled 16 native Python Pygame arcade games to WebAssembly via Pygbag. Features interactive 3D cabinet selector with dynamic Three.js lighting and locked 60 FPS WebGL rendering.
 - **Dev-Pulse — Developer Telemetry Engine**: Local data telemetry engine parsing high-dimensional unstructured system logs; performs cleaning with Pandas and automatically generates statistical Matplotlib performance reports in under 200ms.
-- **OOP Software Design Patterns & Architecture Library**: Reference implementation of Gang of Four software design patterns in Python demonstrating modular separation of concerns, dependency inversion, clean architecture, and complete unit test suites.
 
 ---
 
@@ -67,6 +67,7 @@ Performance-driven **Full-Stack Software Developer** operating at the intersecti
 ---
 
 ## Education & Specialized Tracks
+- **Master BIM Software Developer Track**: That Open University • Modules 1–6 + Live Masterclasses (Completed Nov 2026)
 - **Backend Architecture & Systems Engineering**: Specialized Track • Self-directed Engineering (Jan 2023 – Present)
 - **Career Track: Backend Developer**: DataCamp Professional Career Track • Verified Continuous Learning
 - **Data Science & Analytics Foundations**: DataCamp Skill Track • Verified Continuous Learning
