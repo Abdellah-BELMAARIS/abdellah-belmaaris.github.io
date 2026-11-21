@@ -9479,13 +9479,49 @@ section {
 
 .hero-clean-portrait-frame {
     width: 100%;
-    max-width: 470px;
+    max-width: 540px;
     aspect-ratio: 1 / 1;
     border-radius: 6px;
     overflow: hidden;
     border: 1px solid var(--border-accent, rgba(0, 229, 255, 0.35));
     box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
     background: var(--bg-surface);
+}
+
+/* Full-Width Desktop Canvas — eliminate wasted empty left/right margins */
+main#main-content > section,
+.hero-redesign-section,
+.hero-grid-layout,
+.services-section,
+.work-section,
+.personal-projects-section,
+.about-section,
+.experience-section,
+.skills-section,
+.certifications-section,
+.contact-section,
+.company-profile-card,
+.footer-grand-inner,
+.footer-grand-main {
+    width: 100% !important;
+    max-width: min(94vw, 1560px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+main#main-content > section {
+    padding-left: clamp(24px, 3vw, 56px) !important;
+    padding-right: clamp(56px, 5vw, 88px) !important;
+}
+
+.hero-grid-layout {
+    grid-template-columns: 1.15fr 0.85fr !important;
+    gap: clamp(36px, 4.5vw, 84px) !important;
+    max-width: 100% !important;
+}
+
+.hero-statement {
+    max-width: 660px !important;
 }
 
 .hero-clean-portrait-img {
