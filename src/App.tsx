@@ -159,6 +159,13 @@ const CERTIFICATIONS_DATA: CertCard[] = [
 
 const EDUCATION_DATA: EdCard[] = [
   {
+    platform: "That Open University",
+    degree: "Master BIM Software Developer Track",
+    date: "Completed Nov 2026 · Modules 1–6 + Live Masterclasses",
+    icon: "fa-solid fa-cubes",
+    skills: ["TypeScript", "React", "Three.js", "That Open Engine", "IFC / Fragments", "Cesium GIS", "Firebase"]
+  },
+  {
     platform: "DataCamp",
     degree: "Data Science & Analytics Foundations",
     date: "Self-Paced Learning",
@@ -857,9 +864,13 @@ export default function App() {
                 <span className="tech-sep">·</span>
                 <span className="tech-item">{translateText("Django")}</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">{translateText("SQL")}</span>
+                <span className="tech-item">{translateText("TypeScript")}</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">{translateText("Web Development")}</span>
+                <span className="tech-item">{translateText("React")}</span>
+                <span className="tech-sep">·</span>
+                <span className="tech-item">{translateText("Three.js & OpenBIM")}</span>
+                <span className="tech-sep">·</span>
+                <span className="tech-item">{translateText("SQL")}</span>
               </div>
 
               <div className="hero-cta-actions">
@@ -1208,7 +1219,7 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* Project 03: Judhoor Al-Bayan */}
+            {/* Project 03: Master BIM Viewer */}
             <motion.div
               className="featured-project-card"
               initial={{ opacity: 0, y: 25 }}
@@ -1217,62 +1228,77 @@ export default function App() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="project-header-row">
-                <span className="project-overline-code">{translateText("03 / WEB APPLICATION")}</span>
-                <span className="project-type-tag">{translateText("Selected Project")}</span>
+                <span className="project-overline-code">{translateText("03 / OPENBIM 3D PLATFORM")}</span>
+                <span className="project-type-tag">{translateText("Live Web App")}</span>
               </div>
 
-              <h3 className="project-display-title">{translateText("Judhoor Al-Bayan")}</h3>
+              <h3 className="project-display-title">{translateText("Master BIM Viewer")}</h3>
 
-              <p className="project-summary-text">{translateText("A bilingual Quran and Islamic-learning platform built with Django. Users can read Quran text and Mushaf pages, explore Quranic roots, access Hadith and Adhkar, and find prayer times and Qibla direction in one place.")}</p>
+              <p className="project-summary-text">{translateText("A browser-native OpenBIM 3D viewer and AEC project coordination platform built with TypeScript, React, Three.js, and That Open Engine. Supports live IFC2X3/IFC4 & Fragments loading, spatial tree & property inspection, 3D clash QA, floor plans, Cesium GIS 3D Tiles, Firebase sync, and an MCP AI Copilot bridge.")}</p>
 
               <div className="project-key-badges-row">
                 <span className="arch-badge">
-                  <i className="fa-solid fa-language" />{translateText(" BILINGUAL")}</span>
+                  <i className="fa-solid fa-cubes" />{translateText(" OPENBIM & IFC 3D")}</span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-book-open" />{translateText(" QURAN & ISLAMIC LEARNING")}</span>
+                  <i className="fa-solid fa-earth-africa" />{translateText(" CESIUM GIS & 3D TILES")}</span>
                 <span className="arch-badge">
-                  <i className="fa-solid fa-compass" />{translateText(" PRAYER TIMES & QIBLA")}</span>
+                  <i className="fa-solid fa-robot" />{translateText(" CLASH QA & MCP AI")}</span>
               </div>
 
               {/* High-Tech Project Telemetry HUD */}
               <div className="project-telemetry-hud">
                 <div className="telemetry-stat-chip">
-                  <span className="telemetry-stat-label">FRAMEWORK</span>
-                  <span className="telemetry-stat-val"><i className="fa-brands fa-python" /> Django Core</span>
+                  <span className="telemetry-stat-label">ENGINE</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-cube" /> Three.js + That Open</span>
                 </div>
                 <div className="telemetry-stat-chip">
-                  <span className="telemetry-stat-label">LANGUAGE</span>
-                  <span className="telemetry-stat-val"><i className="fa-solid fa-language" /> Bilingual AR/EN</span>
+                  <span className="telemetry-stat-label">STANDARDS</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-layer-group" /> IFC2X3 / IFC4 / FRAG</span>
                 </div>
                 <div className="telemetry-stat-chip">
-                  <span className="telemetry-stat-label">CONTENT</span>
-                  <span className="telemetry-stat-val"><i className="fa-solid fa-book-open" /> Mushaf & Roots</span>
+                  <span className="telemetry-stat-label">CLOUD & GIS</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-cloud" /> Firebase + Cesium 3D</span>
                 </div>
                 <div className="telemetry-stat-chip">
                   <span className="telemetry-stat-label">STATUS</span>
-                  <span className="telemetry-stat-val"><i className="fa-brands fa-github" /> {translateText("Public Repository")}</span>
+                  <span className="telemetry-stat-val"><i className="fa-solid fa-globe" /> {translateText("Live Production App")}</span>
                 </div>
               </div>
 
               <div className="project-detail-breakdown">
                 <div className="detail-item">
-                  <span className="detail-label">{translateText("READ & EXPLORE:")}</span>{translateText(" Quran text, Mushaf pages, and Quranic roots.")}</div>
+                  <span className="detail-label">{translateText("3D BIM & COORDINATION:")}</span>{translateText(" Interactive IFC/Fragments viewer, spatial tree, measurements, 2D floor plans, and 3D clash QA.")}</div>
                 <div className="detail-item">
-                  <span className="detail-label">{translateText("DAILY RESOURCES:")}</span>{translateText(" Hadith, Adhkar, prayer times, and Qibla direction.")}</div>
+                  <span className="detail-label">{translateText("CONNECTED WORKFLOWS:")}</span>{translateText(" Cesium 3D geospatial tiles, Firestore cloud sync, Google Sheets export, and MCP AI agent integration.")}</div>
               </div>
 
               <div className="project-tech-stack-row">
-                <span className="tech-chip">{translateText("Python")}</span>
-                <span className="tech-chip">{translateText("Django")}</span>
+                <span className="tech-chip">{translateText("TypeScript")}</span>
+                <span className="tech-chip">{translateText("React")}</span>
+                <span className="tech-chip">{translateText("Three.js")}</span>
+                <span className="tech-chip">{translateText("That Open Engine")}</span>
+                <span className="tech-chip">{translateText("IFC / WebIFC")}</span>
+                <span className="tech-chip">{translateText("Cesium GIS")}</span>
+                <span className="tech-chip">{translateText("Firebase")}</span>
               </div>
 
               <div className="project-actions-row">
                 <a
-                  href="https://github.com/Abdellah-BELMAARIS/quran-site"
+                  href="https://master-bim-software.web.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary"
-                  id="judhoor-github-btn"
+                  id="master-bim-live-btn"
+                >
+                  <i className="fa-solid fa-cubes" style={{ marginRight: '8px' }} />
+                  {translateText("Launch Live Viewer")} <span className="btn-arrow">↗</span>
+                </a>
+                <a
+                  href="https://github.com/Abdellah-BELMAARIS/Master_BIM_Software"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                  id="master-bim-github-btn"
                 >
                   <i className="fa-brands fa-github" style={{ marginRight: '8px' }} />
                   {translateText("GitHub Repository")} <span className="btn-arrow">↗</span>
@@ -1507,10 +1533,12 @@ export default function App() {
     ]
     core_stack = {
         "development": [
-            "Python", "Django", "HTML", "CSS", "SQL"
+            "Python", "Django", "TypeScript", "React", "SQL"
         ],
-        "data": ["Pandas", "Matplotlib", "Data Analysis"],
-        "exploring": ["AI", "Cybersecurity"]
+        "bim_3d": [
+            "Three.js", "That Open Engine", "IFC / WebIFC", "Cesium GIS"
+        ],
+        "data_ai": ["Pandas", "LLMs", "MCP Agents", "Firebase"]
     }
 
     def mission(self):

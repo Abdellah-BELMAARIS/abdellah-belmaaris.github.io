@@ -71,12 +71,12 @@ const SKILL_NODES: SkillNode[] = [
   },
   {
     id: 'web-threejs-wasm',
-    name: 'Three.js & WebAssembly (WASM)',
+    name: 'Three.js, OpenBIM & WebAssembly',
     category: 'dev',
-    level: 95,
+    level: 96,
     icon: 'fa-solid fa-cubes',
-    spec: '16 Python PyGame Classics in WebAssembly via Pygbag, Locked 60 FPS',
-    credentialBadge: 'PyGame 3D Web Arcade Console',
+    spec: 'That Open Engine, IFC2X3/IFC4 & Fragments 3D Viewer, Cesium GIS & WASM',
+    credentialBadge: 'Master BIM Viewer & 3D Web Arcade',
     x: 120,
     y: 340
   },
@@ -411,7 +411,7 @@ export default function SynapticSkillsMesh() {
             { label: 'Python & Django Development (6+ Years)', score: 98, cat: 'cyan', icon: 'fa-brands fa-python' },
             { label: '14 Granular RBAC Roles Built', score: 96, cat: 'cyan', icon: 'fa-solid fa-shield-halved' },
             { label: 'Pandas & Telemetry Pipelines (DataCamp)', score: 96, cat: 'sky', icon: 'fa-solid fa-chart-line' },
-            { label: '16 PyGame WebAssembly Games (Three.js)', score: 95, cat: 'cyan', icon: 'fa-solid fa-cubes' },
+            { label: 'OpenBIM 3D & Three.js (That Open Engine)', score: 96, cat: 'cyan', icon: 'fa-solid fa-cubes' },
             { label: 'Associate AI Engineer (DataCamp AIEDA)', score: 95, cat: 'violet', icon: 'fa-solid fa-brain' },
             { label: 'Cybersecurity Fundamentals (Almdrasa)', score: 93, cat: 'violet', icon: 'fa-solid fa-shield' }
           ].map((metric) => (
