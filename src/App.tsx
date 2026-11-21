@@ -1293,16 +1293,13 @@ export default function App() {
                   <i className="fa-solid fa-cubes" style={{ marginRight: '8px' }} />
                   {translateText("Launch Live Viewer")} <span className="btn-arrow">↗</span>
                 </a>
-                <a
-                  href="https://github.com/Abdellah-BELMAARIS/Master_BIM_Software"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-secondary"
-                  id="master-bim-github-btn"
+                <span
+                  className="btn btn-secondary private-repo-badge"
+                  id="master-bim-private-badge"
                 >
-                  <i className="fa-brands fa-github" style={{ marginRight: '8px' }} />
-                  {translateText("GitHub Repository")} <span className="btn-arrow">↗</span>
-                </a>
+                  <i className="fa-solid fa-lock" />
+                  {translateText("Private Proprietary Repository")}
+                </span>
               </div>
 
             </motion.div>
