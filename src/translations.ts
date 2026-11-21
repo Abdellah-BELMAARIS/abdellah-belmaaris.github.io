@@ -572,6 +572,12 @@ export const translations: Record<string, [string, string]> = {
   'Building 3D OpenBIM web platforms, full-stack Django & React systems, and applied AI workflows with clean software architecture.': [
     'Développement de plateformes web 3D OpenBIM, systèmes full-stack Django & React et workflows IA appliqués avec une architecture logicielle propre.',
     'بناء منصات ويب OpenBIM ثلاثية الأبعاد، وأنظمة Django وReact متكاملة، وسير عمل ذكاء اصطناعي تطبيقي بهندسة برمجية نظيفة.'
-  ]
+  ],
+  'BIM & Full-Stack Developer': ['Développeur BIM & Full-Stack', 'مطور BIM و Full-Stack'],
+  'Master BIM Viewer — OpenBIM 3D Engine': ['Master BIM Viewer — Moteur 3D OpenBIM', 'Master BIM Viewer — محرك OpenBIM ثلاثي الأبعاد'],
+  'Private Repo': ['Dépôt privé', 'مستودع خاص'],
+  'Live IFC2X3 / IFC4 & Fragments Streaming': ['Streaming IFC2X3 / IFC4 & Fragments', 'بث مباشر لملفات IFC2X3 / IFC4 وFragments'],
+  '3D Clash QA, Floor Plans & Cesium GIS': ['Clashs 3D, Plans 2D & Cesium GIS', 'كشف التعارضات 3D والمخططات وخرائط Cesium GIS'],
+  'Firebase Sync & MCP AI Copilot': ['Sync Firebase & Copilote IA MCP', 'مزامنة Firebase ووكيل الذكاء الاصطناعي MCP']
 };
 

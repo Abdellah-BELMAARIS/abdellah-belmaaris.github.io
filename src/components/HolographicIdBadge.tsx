@@ -19,7 +19,7 @@ export const ROLES: RoleConfig[] = [
   {
     id: 'fullstack',
     label: 'BIM & Full-Stack',
-    roleName: 'BIM & Full-Stack Software Developer',
+    roleName: 'BIM & Full-Stack Developer',
     company: 'BIMPulse • OpenBIM & Software',
     accentColor: '#00E5FF',
     glowColor: 'rgba(0, 229, 255, 0.45)',

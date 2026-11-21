@@ -24,16 +24,6 @@ interface Stat {
   icon: string;
 }
 
-interface GitHubRepo {
-  name: string;
-  html_url: string;
-  description: string | null;
-  language: string | null;
-  stargazers_count: number;
-  forks_count: number;
-  updated_at: string;
-}
-
 interface CertCard {
   platform: string;
   degree: string;
@@ -96,13 +86,13 @@ const PERSONAL_PROJECTS: PersonalProject[] = [
     github: 'https://github.com/Abdellah-BELMAARIS/Dev-Pulse'
   },
   {
-    id: 'oop-architecture',
-    title: 'OOP Architecture & Software Patterns Library',
-    subtitle: 'Modular design patterns and clean architecture in Python',
-    desc: 'Production-oriented implementations of classical Gang of Four software design patterns in Python, demonstrating modular separation of concerns, dependency injection, and clean architecture.',
-    metrics: ['PEP-8 Compliant Modular Codebase', 'Complete Test Suite Coverage', 'Production Design Pattern Blueprints'],
-    tech: ['Python 3.12', 'Design Patterns', 'Unit Testing', 'Clean Architecture'],
-    github: 'https://github.com/Abdellah-BELMAARIS'
+    id: 'master-bim-viewer',
+    title: 'Master BIM Viewer — OpenBIM 3D Engine',
+    subtitle: 'Browser-native 3D IFC/Fragments viewer, Clash QA, Cesium GIS & MCP AI',
+    desc: 'Browser-native OpenBIM 3D platform built with TypeScript, React, Three.js, and That Open Engine. Streams IFC2X3/IFC4 & Fragments models with spatial tree inspection, 2D floor plans, 3D clash detection, Cesium 3D Tiles, Firebase sync, and MCP AI Copilot.',
+    metrics: ['Live IFC2X3 / IFC4 & Fragments Streaming', '3D Clash QA, Floor Plans & Cesium GIS', 'Firebase Sync & MCP AI Copilot'],
+    tech: ['TypeScript', 'React', 'Three.js', 'That Open Engine', 'IFC / WebIFC', 'Cesium GIS'],
+    live: 'https://master-bim-software.web.app/'
   }
 ];
 
@@ -426,10 +416,6 @@ export default function App() {
   const [arcadeModalOpen, setArcadeModalOpen] = useState(false);
   const [videoSrc, setVideoSrc] = useState('assets/demo1.mp4');
 
-  // GitHub Repos
-  const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([]);
-  const [githubLoading, setGithubLoading] = useState(true);
-
   // Stats Intersection Observer
   const [statsVisible, setStatsVisible] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
@@ -486,31 +472,6 @@ export default function App() {
       document.body.classList.remove('menu-open');
     };
   }, [menuActive]);
-
-  // GitHub API fetch (Filter excluded repos and display top 3)
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch('https://api.github.com/users/Abdellah-BELMAARIS/repos?sort=updated&per_page=15', {
-      signal: controller.signal,
-      headers: { Accept: 'application/vnd.github+json' }
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error('GitHub request failed'))))
-      .then((repos: GitHubRepo[]) => {
-        const excludedNames = ['abdellah-belmaaris.github.io', 'associate-ai-engineer-for-developers'];
-        const filtered = repos.filter((repo) => {
-          const clean = repo.name.trim().toLowerCase();
-          return (
-            !excludedNames.includes(clean) &&
-            !clean.includes('associate-ai-engineer') &&
-            !clean.includes('associate-ai')
-          );
-        });
-        setGithubRepos(filtered.slice(0, 3));
-      })
-      .catch(() => setGithubRepos([]))
-      .finally(() => setGithubLoading(false));
-    return () => controller.abort();
-  }, []);
 
   // Scroll Spy for sections
   useEffect(() => {
@@ -1385,19 +1346,19 @@ export default function App() {
                     </div>
                   </div>
                 )}
-                {proj.id === 'oop-architecture' && (
+                {proj.id === 'master-bim-viewer' && (
                   <div className="project-telemetry-hud">
                     <div className="telemetry-stat-chip">
-                      <span className="telemetry-stat-label">TEST COVERAGE</span>
-                      <span className="telemetry-stat-val"><i className="fa-solid fa-circle-check" /> 100% Suites</span>
+                      <span className="telemetry-stat-label">ENGINE</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-cubes" /> Three.js + IFC</span>
                     </div>
                     <div className="telemetry-stat-chip">
-                      <span className="telemetry-stat-label">STANDARDS</span>
-                      <span className="telemetry-stat-val"><i className="fa-solid fa-code" /> Strict PEP-8</span>
+                      <span className="telemetry-stat-label">GIS 3D</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-earth-africa" /> Cesium 3D Tiles</span>
                     </div>
                     <div className="telemetry-stat-chip">
-                      <span className="telemetry-stat-label">PATTERNS</span>
-                      <span className="telemetry-stat-val"><i className="fa-solid fa-cubes" /> Gang of Four</span>
+                      <span className="telemetry-stat-label">WORKFLOW</span>
+                      <span className="telemetry-stat-val"><i className="fa-solid fa-robot" /> Clash QA & MCP</span>
                     </div>
                   </div>
                 )}
@@ -1421,8 +1382,16 @@ export default function App() {
                       rel="noopener noreferrer"
                       className="btn btn-primary"
                       id={`personal-live-${proj.id}`}
-                    >{translateText("Play Live ")}<span className="btn-arrow">↗</span>
+                    >
+                      {translateText(proj.id === 'master-bim-viewer' ? "Launch Live Viewer " : "Play Live ")}
+                      <span className="btn-arrow">↗</span>
                     </a>
+                  )}
+                  {proj.id === 'master-bim-viewer' && (
+                    <span className="btn btn-secondary private-repo-badge" id="personal-bim-private-badge">
+                      <i className="fa-solid fa-lock" />
+                      {translateText("Private Repo")}
+                    </span>
                   )}
                   {proj.github && (
                     <a
@@ -1437,56 +1406,6 @@ export default function App() {
                 </div>
               </motion.div>
             ))}
-          </div>
-
-          {/* Real-time GitHub Repositories */}
-          <div className="github-section-wrap" style={{ marginTop: '50px' }}>
-            <motion.h3 className="github-subheading" {...reveal(0.06, 16)}>
-              <i className="fa-brands fa-github" style={{ marginRight: '8px', color: 'var(--emerald-bright)' }} />{translateText("Live GitHub Activity")}</motion.h3>
-            {githubLoading ? (
-              <p className="github-state">{translateText('Loading latest public repositories…')}</p>
-            ) : githubRepos.length > 0 ? (
-              <div className="github-grid">
-                {githubRepos
-                  .filter((repo) => {
-                    const clean = repo.name.trim().toLowerCase();
-                    return (
-                      !clean.includes('associate-ai-engineer') &&
-                      !clean.includes('associate-ai') &&
-                      clean !== 'abdellah-belmaaris.github.io'
-                    );
-                  })
-                  .slice(0, 3)
-                  .map((repo, rIdx) => (
-                  <motion.a
-                    className="github-repo-card"
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    key={repo.name}
-                    {...reveal(rIdx * 0.08, 20)}
-                  >
-                    <div className="github-repo-heading">
-                      <i className="fa-brands fa-github" />
-                      <i className="fa-solid fa-arrow-up-right-from-square" />
-                    </div>
-                    <h4>{repo.name}</h4>
-                    <p>{repo.description || translateText('Public development repository.')}</p>
-                    <div className="github-repo-meta">
-                      <span>{repo.language || 'Code'}</span>
-                      <span><i className="fa-solid fa-star" /> {repo.stargazers_count}</span>
-                      <span><i className="fa-solid fa-code-fork" /> {repo.forks_count}</span>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-            ) : (
-              <p className="github-state">
-                <a href="https://github.com/Abdellah-BELMAARIS" target="_blank" rel="noopener noreferrer">
-                  {translateText('Visit my full GitHub profile directly ↗')}
-                </a>
-              </p>
-            )}
           </div>
         </section>
 

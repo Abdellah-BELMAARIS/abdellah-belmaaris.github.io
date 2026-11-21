@@ -14,24 +14,24 @@ interface Message {
 
 const PRESET_QUERIES = [
   {
-    label: "⚡ Full-Stack + AI Profile",
-    prompt: "Give me an executive overview of Abdellah's background in Full-Stack Dev and AI."
+    label: "🏗️ OpenBIM & Full-Stack Profile",
+    prompt: "Give me an executive overview of Abdellah's background in OpenBIM, Full-Stack Dev, and AI."
   },
   {
-    label: "🧠 Applied AI & RAG Approach",
-    prompt: "How does Abdellah build and integrate AI, LLMs, and RAG systems with web applications?"
+    label: "🧊 Master BIM Viewer (IFC 3D)",
+    prompt: "Tell me about Abdellah's Master BIM Viewer, Three.js, That Open Engine, and IFC 3D architecture."
+  },
+  {
+    label: "🧠 Applied AI, RAG & MCP Agents",
+    prompt: "How does Abdellah build and integrate AI, LLMs, RAG, and MCP Agents with BIM and web apps?"
   },
   {
     label: "🛠️ Core Technical Stack",
-    prompt: "What is Abdellah's core technology stack across backend, frontend, and data intelligence?"
+    prompt: "What is Abdellah's core technology stack across OpenBIM 3D, backend, frontend, and data?"
   },
   {
-    label: "📂 Top Projects & Case Studies",
-    prompt: "What are Abdellah's standout projects and key architectural achievements?"
-  },
-  {
-    label: "🎓 Verified AI & Data Certifications",
-    prompt: "List Abdellah's official credentials and certifications from DataCamp and Almdrasa."
+    label: "🎓 Verified Credentials & Tracks",
+    prompt: "List Abdellah's official credentials and certifications from DataCamp, Almdrasa, and That Open University."
   }
 ];
 
@@ -39,8 +39,8 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: 'intro-1',
     sender: 'assistant',
-    text: "Hello! I'm Abdellah's interactive AI & Engineering Assistant. I can walk you through his full-stack engineering architecture, applied AI & LLM implementations, production projects, and verified credentials.",
-    badge: 'AI Core v2.4 · Online',
+    text: "Hello! I'm Abdellah's interactive OpenBIM & AI Engineering Assistant. Ask me about his 3D OpenBIM web platforms (Master BIM Viewer, Three.js, That Open Engine, IFC, Cesium GIS), Python/Django backend architecture, MCP AI Agents, or verified credentials.",
+    badge: 'OpenBIM AI Core v3.0 · Online',
     timestamp: 'Just now'
   }
 ];
@@ -66,28 +66,40 @@ export default function AiDevTerminal() {
     if (/شهاد|certificat|diplôme/.test(q)) q += ' cert';
     if (/خبرة|عمل|expérience|emploi/.test(q)) q += ' experience';
     if (/تواصل|بريد|contacter|joindre|courriel/.test(q)) q += ' contact';
+    if (/معماري|ثلاثي|نموذج|maquette|visionneuse/.test(q)) q += ' bim';
 
-    if (q.includes('ai') || q.includes('rag') || q.includes('llm') || q.includes('machine learning')) {
+    if (q.includes('bim') || q.includes('ifc') || q.includes('viewer') || q.includes('cesium') || q.includes('three') || q.includes('that open')) {
       return {
         sender: 'assistant',
-        badge: 'Applied AI & LLM Engineering',
-        text: "Abdellah combines modern full-stack development with applied AI engineering. He specializes in connecting Python backend architectures to LLM APIs, vector stores, and automated data processing pipelines.",
-        code: `# High-Level RAG & AI Agent Architecture Pipeline
+        badge: 'OpenBIM & 3D Web Engineering',
+        text: "Abdellah engineered the Master BIM Viewer — a browser-native OpenBIM 3D platform built with TypeScript, React, Three.js, and That Open Engine (@thatopen/components, Fragments, web-ifc).\n\nKey capabilities:\n• Live IFC2X3/IFC4 & Fragments streaming with Spatial Tree & Properties inspection\n• 3D Clash QA detection, 2D Floor Plans, 3D Measurements & ViewCube navigation\n• Cesium GIS 3D Tiles integration, Firebase Firestore cloud sync & MCP AI Copilot bridge\n• Live production web app (private proprietary repository)",
+        links: [
+          { label: "Launch Master BIM Viewer ↗", url: "https://master-bim-software.web.app/", external: true },
+          { label: "Explore Selected Work", url: "#work" }
+        ]
+      };
+    }
+
+    if (q.includes('ai') || q.includes('rag') || q.includes('llm') || q.includes('mcp') || q.includes('machine learning')) {
+      return {
+        sender: 'assistant',
+        badge: 'Applied AI, RAG & MCP Agents',
+        text: "Abdellah combines full-stack & OpenBIM development with applied AI engineering. He builds MCP (Model Context Protocol) BIM AI bridges connecting LLMs to 3D IFC scenes, alongside Python/Django RAG pipelines and vector search.",
+        code: `# OpenBIM MCP Agent & RAG Architecture Pipeline
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.vectorstores import PGVector
-from django.db import models
 
-class RAGQueryEngine:
-    def __init__(self, embedding_model, vector_store):
+class BimRagAgent:
+    def __init__(self, vector_store, mcp_bridge):
         self.retriever = vector_store.as_retriever(search_kwargs={"k": 4})
-        
-    async def generate_grounded_response(self, user_query: str) -> dict:
+        self.mcp = mcp_bridge
+
+    async def inspect_ifc_query(self, user_query: str) -> dict:
         context_docs = await self.retriever.ainvoke(user_query)
-        # Synthesize prompt with verifiable context
         return {"response": synthesized_text, "sources": context_docs}`,
         links: [
-          { label: "View DataCamp AI Engineer Credential", url: "#certifications" },
-          { label: "Check GitHub Repos", url: "https://github.com/Abdellah-BELMAARIS", external: true }
+          { label: "Launch Master BIM Viewer ↗", url: "https://master-bim-software.web.app/", external: true },
+          { label: "View DataCamp AI Engineer Credential", url: "#certifications" }
         ]
       };
     }
@@ -96,10 +108,10 @@ class RAGQueryEngine:
       return {
         sender: 'assistant',
         badge: 'Technical Capabilities',
-        text: "Abdellah operates across four specialized disciplines:\n\n• Development: Python, Django, HTML, CSS, SQL, Django REST Framework, PostgreSQL, REST APIs.\n• Data: Pandas, Matplotlib, Data Analysis.\n• Computer Science: Algorithms, Data Structures, Software Engineering.\n• Exploring / Foundations: Artificial Intelligence, Cybersecurity Fundamentals.",
+        text: "Abdellah operates across four specialized disciplines:\n\n• OpenBIM & 3D Web: TypeScript, React, Three.js, That Open Engine, IFC2X3/IFC4 & Fragments, Cesium GIS 3D Tiles, Firebase.\n• Backend & Full-Stack: Python, Django, Django REST Framework, PostgreSQL, SQL Optimization, 14-Role RBAC.\n• Applied AI & Data: LLMs, RAG, MCP AI Agents, Pandas, NumPy, Matplotlib.\n• Architecture & Security: Clean Architecture, GoF Patterns, Cybersecurity Fundamentals.",
         links: [
           { label: "Browse Full Skills Matrix", url: "#skills" },
-          { label: "The Modern Journal Case Study", url: "#project" }
+          { label: "Launch Master BIM Viewer ↗", url: "https://master-bim-software.web.app/", external: true }
         ]
       };
     }
@@ -108,9 +120,9 @@ class RAGQueryEngine:
       return {
         sender: 'assistant',
         badge: 'Production Showcase',
-        text: "Abdellah has engineered several high-performance open-source systems:\n\n1. The Modern Journal: Full-featured Django CMS with RBAC, N+1 query optimization, custom search indexing, and automated transactional emails.\n2. PyGame 3D Web Arcade: Interactive 3D retro arcade cabinet hosting 16 WebAssembly-compiled Python games.\n3. Dev-Pulse: Automated local developer telemetry pipeline parsing log files and generating sub-200ms Matplotlib visual reports.",
+        text: "Abdellah's flagship engineering projects:\n\n1. Master BIM Viewer (Live Web App · Private Repo): Browser-native 3D IFC/Fragments viewer with Clash QA, Floor Plans, Cesium GIS 3D Tiles, Firebase sync & MCP AI Copilot.\n2. The Modern Journal: Full-featured Django CMS with 14-role RBAC, O(1) query optimization, search indexing, and analytics.\n3. PyGame 3D Web Arcade: Interactive 3D Three.js cabinet hosting 16 WebAssembly-compiled Python games.\n4. Dev-Pulse: Local Pandas/Matplotlib telemetry pipeline generating sub-200ms reports.",
         links: [
-          { label: "Explore Featured Project", url: "#project" },
+          { label: "Launch Master BIM Viewer ↗", url: "https://master-bim-software.web.app/", external: true },
           { label: "Play PyGame 3D Arcade Live", url: "https://Abdellah-BELMAARIS.github.io/PyGame_Projects/", external: true }
         ]
       };
@@ -120,7 +132,7 @@ class RAGQueryEngine:
       return {
         sender: 'assistant',
         badge: 'Verified Credentials',
-        text: "Abdellah holds certified industry credentials:\n\n• AI Engineer for Developers Associate — DataCamp (ID: AIEDA0011678564836)\n• Python Data Associate — DataCamp (ID: PDA0019412806212)\n• Cybersecurity Fundamentals — Almdrasa (ID: 77F16BFF2A-77EB48CD64-1451D2521)\n• Associate Python Developer — 30 HR Django Developer Track",
+        text: "Abdellah holds verified industry credentials & tracks:\n\n• Master BIM Software Developer Track — That Open University (Modules 1–6 + Live Masterclasses)\n• AI Engineer for Developers Associate — DataCamp (ID: AIEDA0011678564836)\n• Python Data Associate — DataCamp (ID: PDA0019412806212)\n• Cybersecurity Fundamentals — Almdrasa (ID: 77F16BFF2A-77EB48CD64-1451D2521)\n• Associate Python Developer — 30 HR Django Track",
         links: [
           { label: "View Certificates & IDs", url: "#certifications" }
         ]
