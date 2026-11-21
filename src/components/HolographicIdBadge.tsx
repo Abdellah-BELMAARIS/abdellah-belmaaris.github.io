@@ -18,15 +18,15 @@ export interface RoleConfig {
 export const ROLES: RoleConfig[] = [
   {
     id: 'fullstack',
-    label: 'Full-Stack Dev',
-    roleName: 'Junior Full-Stack Developer',
-    company: 'BIMPulse • AEC & Software',
+    label: 'BIM & Full-Stack',
+    roleName: 'BIM & Full-Stack Software Developer',
+    company: 'BIMPulse • OpenBIM & Software',
     accentColor: '#00E5FF',
     glowColor: 'rgba(0, 229, 255, 0.45)',
-    techSpec: 'Python · Django · SQL · Web Development',
+    techSpec: 'TypeScript · React · Three.js · IFC · Python · Django',
     statusBadge: 'BIMPULSE · CASABLANCA',
     location: 'Casablanca, Morocco',
-    credentials: 'BIMPulse Academy & AEC Digital Solutions'
+    credentials: 'Master BIM Software Track & BIMPulse Academy'
   },
   {
     id: 'django',
@@ -220,7 +220,7 @@ export default function HolographicIdBadge({
             <div className="holo-portrait-wrapper">
               <img
                 src="assets/avatar.jpg"
-                alt="Abdellah BELMAARIS — Junior Full-Stack Developer at BIMPulse"
+                alt="Abdellah BELMAARIS — BIM & Full-Stack Software Developer at BIMPulse"
                 className="holo-portrait-img"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = 'https://via.placeholder.com/450x520/101820/10B981?text=Abdellah+BELMAARIS';

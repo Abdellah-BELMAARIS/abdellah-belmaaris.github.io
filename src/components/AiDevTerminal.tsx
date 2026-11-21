@@ -131,7 +131,7 @@ class RAGQueryEngine:
       return {
         sender: 'assistant',
         badge: 'Work Experience',
-        text: "Abdellah currently works as a Junior Full-Stack Developer at BIMPulse in Casablanca, Morocco.\n\nHe contributes to enterprise web applications, digital engineering tools adhering to IFC standards, database modeling, and performant backend services.",
+        text: "Abdellah currently works as a BIM & Full-Stack Software Developer at BIMPulse in Casablanca, Morocco.\n\nHe builds 3D OpenBIM web platforms (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), full-stack Python/Django applications, and AI-assisted AEC engineering workflows.",
         links: [
           { label: "View Experience Timeline", url: "#experience" },
           { label: "BIMPulse Profile", url: "#bimpulse" }
@@ -155,7 +155,7 @@ class RAGQueryEngine:
     return {
       sender: 'assistant',
       badge: 'Executive Summary',
-      text: `Abdellah BELMAARIS is a Junior Full-Stack Developer & AI Systems Specialist based in Casablanca, Morocco. He bridges high-performance web backends (Python, Django REST Framework, PostgreSQL, React) with applied artificial intelligence (LLMs, RAG, DataCamp Certified AI Engineer Associate). Currently building software solutions at BIMPulse.`,
+      text: `Abdellah BELMAARIS is a BIM & Full-Stack Software Developer & AI Systems Specialist based in Casablanca, Morocco. He bridges 3D OpenBIM web engineering (TypeScript, React, Three.js, That Open Engine, IFC, Cesium GIS) and full-stack backends (Python, Django, SQL, Firebase) with applied AI (LLMs, MCP Agents, DataCamp Certified AI Engineer Associate) at BIMPulse.`,
       links: [
         { label: "Download Resume (PDF)", url: "assets/Abdellah_BELMAARIS_CV.pdf" },
         { label: "Explore Case Studies", url: "#project" },

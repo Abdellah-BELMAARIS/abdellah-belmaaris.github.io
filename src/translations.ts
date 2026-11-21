@@ -517,6 +517,61 @@ export const translations: Record<string, [string, string]> = {
   'View Interactive CV (Online) ': ['Consulter le CV interactif ', 'معاينة السيرة الذاتية التفاعلية '],
   'View Abdellah BELMAARIS Interactive CV': ['Consulter le CV interactif d’Abdellah BELMAARIS', 'معاينة السيرة الذاتية التفاعلية لعبد الله بالمعريس'],
   'Public Repository': ['Dépôt public', 'مستودع برمجي عام'],
-  'Public (Open Source)': ['Public (Open Source)', 'مفتوح المصدر (عام)']
+  'Public (Open Source)': ['Public (Open Source)', 'مفتوح المصدر (عام)'],
+  'BIM & Full-Stack Software Developer • BIMPulse': ['Développeur Logiciel BIM & Full-Stack • BIMPulse', 'مطور برمجيات BIM و Full-Stack • BIMPulse'],
+  'BIM & FULL-STACK SOFTWARE DEVELOPER': ['DÉVELOPPEUR LOGICIEL BIM & FULL-STACK', 'مطور برمجيات BIM و Full-Stack'],
+  'BIM & Full-Stack Software Developer': ['Développeur Logiciel BIM & Full-Stack', 'مطور برمجيات BIM و Full-Stack'],
+  'BIM & Full-Stack': ['BIM & Full-Stack', 'BIM و Full-Stack'],
+  'I design and engineer 3D OpenBIM web platforms, full-stack web applications, interactive dashboards, and AI-powered digital solutions for AEC and modern businesses.': [
+    'Je conçois et développe des plateformes web 3D OpenBIM, des applications full-stack, des tableaux de bord interactifs et des solutions numériques IA pour l’AEC et les entreprises modernes.',
+    'أصمم وأطوّر منصات ويب ثلاثية الأبعاد بمعايير OpenBIM، وتطبيقات ويب شاملة (Full-Stack)، ولوحات تحكم تفاعلية، وحلولاً رقمية مدعومة بالذكاء الاصطناعي لقطاع البناء والهندسة والشركات الحديثة.'
+  ],
+  "I'm Abdellah BELMAARIS, a BIM & Full-Stack Software Developer at BIMPulse Digital in Casablanca, Morocco. I build 3D OpenBIM web platforms and full-stack applications using TypeScript, React, Three.js, That Open Engine, Python, Django, and SQL.": [
+    'Je suis Abdellah BELMAARIS, Développeur Logiciel BIM & Full-Stack chez BIMPulse Digital à Casablanca, Maroc. Je développe des plateformes web 3D OpenBIM et des applications full-stack avec TypeScript, React, Three.js, That Open Engine, Python, Django et SQL.',
+    'أنا عبد الله بالمعريس، مطور برمجيات BIM و Full-Stack في شركة BIMPulse Digital بالدار البيضاء، المغرب. أبني منصات ويب ثلاثية الأبعاد لمعايير OpenBIM وتطبيقات شاملة باستخدام TypeScript وReact وThree.js وThat Open Engine وPython وDjango وSQL.'
+  ],
+  'At BIMPulse, I engineer digital solutions connecting software development with OpenBIM (IFC2X3/IFC4 & Fragments), 3D geospatial GIS, engineering workflows, and AEC digital transformation.': [
+    'Chez BIMPulse, je conçois des solutions numériques reliant le développement logiciel à l’OpenBIM (IFC2X3/IFC4 & Fragments), au SIG géospatial 3D, aux flux d’ingénierie et à la transformation numérique de l’AEC.',
+    'في BIMPulse، أطور حلولاً رقمية تربط هندسة البرمجيات بمعايير OpenBIM (ملفات IFC2X3/IFC4 وFragments) ونظم المعلومات الجغرافية ثلاثية الأبعاد (GIS) وسير العمل الهندسي والتحول الرقمي لقطاع البناء.'
+  ],
+  'Combining self-directed engineering, That Open University’s Master BIM Software track, DataCamp AI & Data certifications, and real-world shipping, I bridge backend architecture, 3D web graphics, and applied AI.': [
+    'En combinant ingénierie autodidacte, le parcours Master BIM Software de That Open University, les certifications IA & Data de DataCamp et des projets en production, je relie architecture backend, 3D web et IA appliquée.',
+    'من خلال الجمع بين التعلم الهندسي الذاتي، ومسار Master BIM Software من That Open University، وشهادات الذكاء الاصطناعي والبيانات من DataCamp، وبناء المشاريع الواقعية، أربط بين هندسة الخوادم والرسوميات ثلاثية الأبعاد والذكاء الاصطناعي التطبيقي.'
+  ],
+  'BIM & FULL-STACK': ['BIM & FULL-STACK', 'BIM و FULL-STACK'],
+  '3D OpenBIM viewers, full-stack web apps, and clean backend systems.': [
+    'Visionneuses 3D OpenBIM, applications web full-stack et architectures backend propres.',
+    'عارضات 3D لمعايير OpenBIM، تطبيقات ويب شاملة، وأنظمة خلفية منظمة وعالية الأداء.'
+  ],
+  'BIM & Full-Stack Software Developer at BIMPulse.': [
+    'Développeur Logiciel BIM & Full-Stack chez BIMPulse.',
+    'مطور برمجيات BIM و Full-Stack في شركة BIMPulse.'
+  ],
+  'BIM & Full-Stack Software Developer at BIMPulse': [
+    'Développeur Logiciel BIM & Full-Stack chez BIMPulse',
+    'مطور برمجيات BIM و Full-Stack في BIMPulse'
+  ],
+  'AI & DATA': ['IA & DONNÉES', 'الذكاء الاصطناعي والبيانات'],
+  'Applied AI, MCP agents, data pipelines, and cybersecurity.': [
+    'IA appliquée, agents MCP, pipelines de données et cybersécurité.',
+    'الذكاء الاصطناعي التطبيقي، وكلاء MCP، مسارات البيانات، وأساسيات الأمن السيبراني.'
+  ],
+  'BIM & Full-Stack Software Developer operating at the intersection of 3D OpenBIM web engineering and AEC digital transformation': [
+    'Développeur Logiciel BIM & Full-Stack opérant à l’intersection de l’ingénierie web 3D OpenBIM et de la transformation numérique AEC',
+    'مطور برمجيات BIM و Full-Stack يعمل عند تقاطع هندسة الويب ثلاثية الأبعاد لـ OpenBIM والتحول الرقمي لقطاع AEC'
+  ],
+  'BIM & Full-Stack Software Developer building 3D OpenBIM web applications (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), full-stack Python/Django platforms, and AI-assisted workflows for AEC digital transformation.': [
+    'Développeur Logiciel BIM & Full-Stack concevant des applications web 3D OpenBIM (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), des plateformes Python/Django et des workflows assistés par IA pour l’AEC.',
+    'مطور برمجيات BIM و Full-Stack لبناء تطبيقات ويب OpenBIM ثلاثية الأبعاد (Three.js وThat Open Engine وIFC/Fragments وCesium GIS) ومنصات Python/Django وسير عمل مدعوم بالذكاء الاصطناعي للتحول الرقمي في قطاع البناء.'
+  ],
+  'OpenBIM & 3D Web Applications': ['Applications Web 3D & OpenBIM', 'تطبيقات الويب ثلاثية الأبعاد و OpenBIM'],
+  'Browser-native 3D IFC/Fragments viewers, clash QA, Cesium GIS 3D Tiles, and AEC portals': [
+    'Visionneuses 3D IFC/Fragments dans le navigateur, détection de clashs, tuiles 3D Cesium GIS et portails AEC',
+    'عارضات ويب ثلاثية الأبعاد لملفات IFC وFragments، وكشف التعارضات، وخرائط Cesium GIS ثلاثية الأبعاد، وبوابات AEC'
+  ],
+  'Building 3D OpenBIM web platforms, full-stack Django & React systems, and applied AI workflows with clean software architecture.': [
+    'Développement de plateformes web 3D OpenBIM, systèmes full-stack Django & React et workflows IA appliqués avec une architecture logicielle propre.',
+    'بناء منصات ويب OpenBIM ثلاثية الأبعاد، وأنظمة Django وReact متكاملة، وسير عمل ذكاء اصطناعي تطبيقي بهندسة برمجية نظيفة.'
+  ]
 };
 

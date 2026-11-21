@@ -294,7 +294,7 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.4 }}
-        >{translateText("Junior Full-Stack Developer • BIMPulse")}</motion.span>
+        >{translateText("BIM & Full-Stack Software Developer • BIMPulse")}</motion.span>
         <div className="loading-bar-wrapper" aria-hidden="true">
           <motion.div
             className="loading-bar-fill"
@@ -849,15 +849,15 @@ export default function App() {
               transition={{ duration: 0.65 }}
             >
               <div className="hero-kicker-badge">
-                <span className="kicker-pulse-dot" />{translateText("FULL-STACK DEVELOPER & WEB SOLUTIONS")}</div>
+                <span className="kicker-pulse-dot" />{translateText("BIM & FULL-STACK SOFTWARE DEVELOPER")}</div>
 
               <h1 className="hero-name-heading">{translateText("Abdellah")}<br />
                 <span className="hero-surname">{translateText("BELMAARIS")}</span>
               </h1>
 
-              <div className="hero-job-title">{translateText("Full-Stack Developer & Web Solutions")}</div>
+              <div className="hero-job-title">{translateText("BIM & Full-Stack Software Developer")}</div>
 
-              <p className="hero-statement">{translateText("I design and develop professional websites, web applications, blogs, dashboards and custom digital solutions for individuals and businesses.")}</p>
+              <p className="hero-statement">{translateText("I design and engineer 3D OpenBIM web platforms, full-stack web applications, interactive dashboards, and AI-powered digital solutions for AEC and modern businesses.")}</p>
 
               <div className="hero-tech-line">
                 <span className="tech-item">{translateText("Python")}</span>
@@ -1521,7 +1521,7 @@ export default function App() {
                     <code>
 {`class DeveloperProfile:
     name = "Abdellah BELMAARIS"
-    role = "Junior Full-Stack Developer"
+    role = "BIM & Full-Stack Software Developer"
     company = "BIMPulse"
     environment = [
         "Software Engineering",
@@ -1559,11 +1559,11 @@ export default function App() {
             >
               <h3 className="about-headline">{translateText("A practical approach to building software.")}</h3>
 
-              <p className="about-body-p">{translateText("I'm Abdellah BELMAARIS, a Junior Full-Stack Developer at BIMPulse Digital in Casablanca, Morocco. I build web applications with Python, Django and SQL, connecting backend logic with responsive, easy-to-use interfaces.")}</p>
+              <p className="about-body-p">{translateText("I'm Abdellah BELMAARIS, a BIM & Full-Stack Software Developer at BIMPulse Digital in Casablanca, Morocco. I build 3D OpenBIM web platforms and full-stack applications using TypeScript, React, Three.js, That Open Engine, Python, Django, and SQL.")}</p>
 
-              <p className="about-body-p">{translateText("At BIMPulse, I contribute to digital projects connected to BIM, engineering and construction. This experience helps me translate practical requirements into useful features while developing my skills in a professional environment.")}</p>
+              <p className="about-body-p">{translateText("At BIMPulse, I engineer digital solutions connecting software development with OpenBIM (IFC2X3/IFC4 & Fragments), 3D geospatial GIS, engineering workflows, and AEC digital transformation.")}</p>
 
-              <p className="about-body-p">{translateText("My background combines homeschooling, self-directed learning, technical courses and hands-on projects. I'm continuing to grow in full-stack development while exploring AI, data analysis and cybersecurity fundamentals.")}</p>
+              <p className="about-body-p">{translateText("Combining self-directed engineering, That Open University’s Master BIM Software track, DataCamp AI & Data certifications, and real-world shipping, I bridge backend architecture, 3D web graphics, and applied AI.")}</p>
             </motion.div>
           </div>
 
@@ -1577,8 +1577,8 @@ export default function App() {
               transition={{ duration: 0.5, delay: 0.05 }}
             >
               <span className="fact-num">01</span>
-              <h4 className="fact-title">{translateText("FULL-STACK")}</h4>
-              <p className="fact-desc">{translateText("Web applications from backend logic to responsive interfaces.")}</p>
+              <h4 className="fact-title">{translateText("BIM & FULL-STACK")}</h4>
+              <p className="fact-desc">{translateText("3D OpenBIM viewers, full-stack web apps, and clean backend systems.")}</p>
             </motion.div>
 
             <motion.div
@@ -1590,7 +1590,7 @@ export default function App() {
             >
               <span className="fact-num">02</span>
               <h4 className="fact-title">{translateText("PROFESSIONAL")}</h4>
-              <p className="fact-desc">{translateText("Junior Full-Stack Developer at BIMPulse.")}</p>
+              <p className="fact-desc">{translateText("BIM & Full-Stack Software Developer at BIMPulse.")}</p>
             </motion.div>
 
             <motion.div
@@ -1601,8 +1601,8 @@ export default function App() {
               transition={{ duration: 0.5, delay: 0.19 }}
             >
               <span className="fact-num">03</span>
-              <h4 className="fact-title">{translateText("EXPLORING")}</h4>
-              <p className="fact-desc">{translateText("AI, data and emerging software technologies.")}</p>
+              <h4 className="fact-title">{translateText("AI & DATA")}</h4>
+              <p className="fact-desc">{translateText("Applied AI, MCP agents, data pipelines, and cybersecurity.")}</p>
             </motion.div>
           </div>
 
@@ -1639,7 +1639,7 @@ export default function App() {
               <div className="junction-stem-bottom" />
               <div className="junction-vertical-bottom">{translateText("ENGINEERING / AEC")}</div>
             </div>
-            <div className="junction-caption">{translateText("Junior Full-Stack Developer operating at the intersection of web architecture and AEC digital transformation")}</div>
+            <div className="junction-caption">{translateText("BIM & Full-Stack Software Developer operating at the intersection of 3D OpenBIM web engineering and AEC digital transformation")}</div>
           </motion.div>
 
           <motion.aside
@@ -1692,7 +1692,7 @@ export default function App() {
                 <div className="exp-company-brand">
                   <img src="assets/bimpulse-logo.png" alt={translateText("BIMPulse")} className="exp-bimpulse-logo" />
                   <div>
-                    <h3 className="exp-role">{translateText("Junior Full-Stack Developer")}</h3>
+                    <h3 className="exp-role">{translateText("BIM & Full-Stack Software Developer")}</h3>
                     <span className="exp-company">{translateText("BIMPulse")}</span>
                   </div>
                 </div>
@@ -1704,11 +1704,11 @@ export default function App() {
             </div>
 
             {/* Exact Description Copy (Rule 11) */}
-            <p className="exp-desc">{translateText("Junior Full-Stack Developer contributing within a professional environment connecting software development with BIM, engineering, construction technologies and AEC digital transformation.")}</p>
+            <p className="exp-desc">{translateText("BIM & Full-Stack Software Developer building 3D OpenBIM web applications (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), full-stack Python/Django platforms, and AI-assisted workflows for AEC digital transformation.")}</p>
 
             {/* Specific Tags (Rule 11) */}
             <div className="exp-skills">
-              {['BIMPulse', 'BIM / IFC', 'Engineering', 'AEC Digital Solutions', 'New Technologies', 'Python', 'Django', 'SQL', 'HTML & CSS'].map((s) => (
+              {['BIMPulse', 'OpenBIM / IFC', 'Three.js', 'That Open Engine', 'TypeScript', 'React', 'Cesium GIS', 'Python', 'Django', 'SQL', 'Firebase', 'MCP AI'].map((s) => (
                 <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
               ))}
             </div>

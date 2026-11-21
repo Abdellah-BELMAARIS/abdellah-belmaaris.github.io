@@ -118,12 +118,12 @@ export default function FooterGrandEnding({
               <span className="footer-brand-logo">{translateText("AB.")}</span>
               <div className="footer-brand-text">
                 <h3 className="footer-brand-name">Abdellah BELMAARIS</h3>
-                <p className="footer-brand-sub">{translateText("Junior Full-Stack Developer at BIMPulse")}</p>
+                <p className="footer-brand-sub">{translateText("BIM & Full-Stack Software Developer at BIMPulse")}</p>
               </div>
             </div>
 
             <p className="footer-col-desc">
-              {translateText("Building robust full-stack web platforms, Django REST systems, and applied AI applications with clean software architecture.")}
+              {translateText("Building 3D OpenBIM web platforms, full-stack Django & React systems, and applied AI workflows with clean software architecture.")}
             </p>
 
             <div className="footer-identity-status">
