@@ -33,7 +33,7 @@
       --emerald-glow: rgba(16, 185, 129, 0.25);
       --gold: #f59e0b;
       --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06);
-      --card-radius: 14px;
+      --card-radius: 6px;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
     }
@@ -262,26 +262,27 @@
 
     .cv-hero-grid {
       display: grid;
-      grid-template-columns: 104px 1fr;
-      gap: 26px;
+      grid-template-columns: 116px 1fr;
+      gap: 24px;
       align-items: center;
     }
 
     .cv-avatar-wrap {
       position: relative;
-      width: 104px;
-      height: 104px;
+      width: 116px;
+      height: 116px;
       flex-shrink: 0;
     }
 
     .cv-avatar {
-      width: 104px;
-      height: 104px;
-      border-radius: 50%;
+      width: 116px;
+      height: 116px;
+      border-radius: 6px;
       object-fit: cover;
+      object-position: center 15%;
       display: block;
-      border: 3px solid var(--accent);
-      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+      border: 2px solid var(--accent);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
     }
 
     [data-cv-theme="light"] .cv-avatar {

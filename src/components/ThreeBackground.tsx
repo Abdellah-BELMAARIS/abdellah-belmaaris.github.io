@@ -26,8 +26,8 @@ const THEME_PALETTES: Record<PortfolioTheme, ThemePalette> = {
     node: '#38bdf8',
     wireOpacity: 0.34,
     slabOpacity: 0.1,
-    gridOpacity: 0.16,
-    lineOpacity: 0.24,
+    gridOpacity: 0.15,
+    lineOpacity: 0.22,
     useAdditive: true,
   },
   violet: {
@@ -38,8 +38,8 @@ const THEME_PALETTES: Record<PortfolioTheme, ThemePalette> = {
     node: '#f472b6',
     wireOpacity: 0.34,
     slabOpacity: 0.11,
-    gridOpacity: 0.16,
-    lineOpacity: 0.24,
+    gridOpacity: 0.15,
+    lineOpacity: 0.22,
     useAdditive: true,
   },
   light: {
@@ -48,360 +48,320 @@ const THEME_PALETTES: Record<PortfolioTheme, ThemePalette> = {
     grid: '#0369a1',
     glass: '#bae6fd',
     node: '#0f766e',
-    wireOpacity: 0.28,
+    wireOpacity: 0.26,
     slabOpacity: 0.08,
-    gridOpacity: 0.14,
-    lineOpacity: 0.18,
+    gridOpacity: 0.13,
+    lineOpacity: 0.16,
     useAdditive: false,
   },
 };
 
-// ─── 1. 3D Architectural BIM / IFC Wireframe Tower + Structural Blueprint Grid ─
-function BimArchitecturalTwin({
-  isMobile,
-  palette,
-}: {
-  isMobile: boolean;
-  palette: ThemePalette;
-}) {
-  const groupRef = useRef<THREE.Group>(null);
-  const towerRef = useRef<THREE.Group>(null);
-  const scanRingRef = useRef<THREE.Mesh>(null);
-  const { mouse } = useThree();
+const SCENE_LABELS = [
+  { title: 'IFC High-Rise Twin', tag: 'ARCH · 3D' },
+  { title: '3D BIM Bridge Span', tag: 'STRUCT · IFC4' },
+  { title: 'Parametric Arch Dome', tag: 'BIM · PAVILION' },
+  { title: 'Urban GIS Masterplan', tag: 'CESIUM · 3D' },
+];
 
+// ─── Scene 0: Architectural IFC High-Rise Tower ──────────────────────────────
+function IfcHighRiseTower({ palette, active }: { palette: ThemePalette; active: boolean }) {
+  const ref = useRef<THREE.Group>(null);
+  const scanRef = useRef<THREE.Mesh>(null);
   const blending = palette.useAdditive ? THREE.AdditiveBlending : THREE.NormalBlending;
 
-  // Build structural IFC tower geometry: floor slabs, perimeter columns, podium & blueprint grid
-  const {
-    slabConfigs,
-    columnPositions,
-    ifcNodePositions,
-    blueprintGridPositions,
-  } = useMemo(() => {
-    const slabs = [
-      { y: -1.45, w: 2.35, d: 1.85, h: 0.08 }, // Podium / Ground Slab
-      { y: -1.0,  w: 1.9,  d: 1.5,  h: 0.06 }, // Level 01
-      { y: -0.55, w: 1.9,  d: 1.5,  h: 0.06 }, // Level 02
-      { y: -0.1,  w: 1.7,  d: 1.38, h: 0.06 }, // Level 03 (Setback)
-      { y:  0.35, w: 1.7,  d: 1.38, h: 0.06 }, // Level 04
-      { y:  0.8,  w: 1.48, d: 1.22, h: 0.06 }, // Level 05 (Cantilever Terrace)
-      { y:  1.25, w: 1.22, d: 1.05, h: 0.07 }, // Roof Deck
+  const { slabs, cols, nodes, grid } = useMemo(() => {
+    const s = [
+      { y: -1.45, w: 2.35, d: 1.85, h: 0.08 },
+      { y: -1.0,  w: 1.9,  d: 1.5,  h: 0.06 },
+      { y: -0.55, w: 1.9,  d: 1.5,  h: 0.06 },
+      { y: -0.1,  w: 1.7,  d: 1.38, h: 0.06 },
+      { y:  0.35, w: 1.7,  d: 1.38, h: 0.06 },
+      { y:  0.8,  w: 1.48, d: 1.22, h: 0.06 },
+      { y:  1.25, w: 1.22, d: 1.05, h: 0.07 },
     ];
-
-    const cols: [number, number, number, number][] = [
-      // [x, z, height, yCenter]
-      [-0.86, -0.68, 2.7, -0.1],
-      [ 0.86, -0.68, 2.7, -0.1],
-      [-0.86,  0.68, 2.7, -0.1],
-      [ 0.86,  0.68, 2.7, -0.1],
-      [ 0.0,  -0.68, 2.25, -0.32],
-      [ 0.0,   0.68, 2.25, -0.32],
-      [-0.68,  0.0,  2.7, -0.1],
-      [ 0.68,  0.0,  2.7, -0.1],
+    const c: [number, number, number, number][] = [
+      [-0.86, -0.68, 2.7, -0.1], [0.86, -0.68, 2.7, -0.1],
+      [-0.86,  0.68, 2.7, -0.1], [0.86,  0.68, 2.7, -0.1],
+      [0.0,   -0.68, 2.25, -0.32], [0.0, 0.68, 2.25, -0.32],
     ];
-
-    // IFC Structural Joint Nodes at slab corners
-    const nodes: number[] = [];
-    slabs.forEach((s) => {
-      const hw = s.w / 2;
-      const hd = s.d / 2;
-      nodes.push(
-        -hw, s.y, -hd,
-         hw, s.y, -hd,
-         hw, s.y,  hd,
-        -hw, s.y,  hd
-      );
+    const n: number[] = [];
+    s.forEach((sl) => {
+      const hw = sl.w / 2, hd = sl.d / 2;
+      n.push(-hw, sl.y, -hd, hw, sl.y, -hd, hw, sl.y, hd, -hw, sl.y, hd);
     });
-
-    // Architectural Blueprint Site Grid below podium
-    const gridLines: number[] = [];
-    const size = 3.2;
-    const step = 0.4;
-    const gridY = -1.56;
-    for (let x = -size; x <= size + 0.001; x += step) {
-      gridLines.push(x, gridY, -size, x, gridY, size);
-    }
-    for (let z = -size; z <= size + 0.001; z += step) {
-      gridLines.push(-size, gridY, z, size, gridY, z);
-    }
-
-    return {
-      slabConfigs: slabs,
-      columnPositions: cols,
-      ifcNodePositions: new Float32Array(nodes),
-      blueprintGridPositions: new Float32Array(gridLines),
-    };
+    const g: number[] = [];
+    for (let x = -3.0; x <= 3.01; x += 0.5) g.push(x, -1.56, -3.0, x, -1.56, 3.0);
+    for (let z = -3.0; z <= 3.01; z += 0.5) g.push(-3.0, -1.56, z, 3.0, -1.56, z);
+    return { slabs: s, cols: c, nodes: new Float32Array(n), grid: new Float32Array(g) };
   }, []);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-
-    if (groupRef.current) {
-      const targetX = mouse.x * 0.4;
-      const targetY = mouse.y * 0.28;
-      groupRef.current.position.x = THREE.MathUtils.lerp(
-        groupRef.current.position.x,
-        (isMobile ? 0 : 2.95) + targetX,
-        0.03
-      );
-      groupRef.current.position.y = THREE.MathUtils.lerp(
-        groupRef.current.position.y,
-        (isMobile ? 1.25 : 0.05) + targetY,
-        0.03
-      );
+    if (ref.current) {
+      const targetScale = active ? 1 : 0.001;
+      const cur = THREE.MathUtils.lerp(ref.current.scale.x, targetScale, 0.07);
+      ref.current.scale.setScalar(cur);
+      ref.current.visible = cur > 0.015;
+      ref.current.rotation.y = t * 0.14 + 0.55;
+      ref.current.rotation.x = 0.24;
     }
-
-    if (towerRef.current) {
-      towerRef.current.rotation.y = t * 0.14 + 0.55;
-      towerRef.current.rotation.x = 0.24 + Math.sin(t * 0.35) * 0.03;
-    }
-
-    // Vertical BIM Elevation Scanner Ring sweeping the IFC building
-    if (scanRingRef.current) {
-      scanRingRef.current.position.y = Math.sin(t * 0.7) * 1.35;
-      scanRingRef.current.rotation.z = t * 0.2;
+    if (scanRef.current && active) {
+      scanRef.current.position.y = Math.sin(t * 0.7) * 1.35;
     }
   });
 
   return (
-    <group
-      ref={groupRef}
-      position={[isMobile ? 0 : 2.95, isMobile ? 1.25 : 0.05, -2.1]}
-      scale={isMobile ? 0.76 : 1.0}
-    >
-      <group ref={towerRef}>
-        {/* Architectural Blueprint Coordinate Grid */}
-        <lineSegments>
-          <bufferGeometry>
-            <bufferAttribute
-              attach="attributes-position"
-              args={[blueprintGridPositions, 3]}
-            />
-          </bufferGeometry>
-          <lineBasicMaterial
-            color={palette.grid}
-            transparent
-            opacity={palette.gridOpacity}
-            blending={blending}
-            depthWrite={false}
-          />
-        </lineSegments>
-
-        {/* Multi-Storey IFC Floor Slabs (Translucent Glass + Crisp Structural Edges) */}
-        {slabConfigs.map((s, idx) => (
-          <group key={idx} position={[0, s.y, 0]}>
-            <mesh>
-              <boxGeometry args={[s.w, s.h, s.d]} />
-              <meshBasicMaterial
-                color={palette.glass}
-                transparent
-                opacity={palette.slabOpacity}
-                blending={blending}
-                depthWrite={false}
-              />
-            </mesh>
-            <lineSegments>
-              <edgesGeometry args={[new THREE.BoxGeometry(s.w, s.h, s.d)]} />
-              <lineBasicMaterial
-                color={idx % 2 === 0 ? palette.primary : palette.secondary}
-                transparent
-                opacity={palette.wireOpacity}
-                blending={blending}
-                depthWrite={false}
-              />
-            </lineSegments>
-          </group>
-        ))}
-
-        {/* Structural Perimeter Columns */}
-        {columnPositions.map(([x, z, h, yCenter], idx) => (
-          <mesh key={`col-${idx}`} position={[x, yCenter, z]}>
-            <boxGeometry args={[0.045, h, 0.045]} />
-            <meshBasicMaterial
-              color={palette.primary}
-              transparent
-              opacity={palette.wireOpacity * 0.85}
-              blending={blending}
-              depthWrite={false}
-            />
+    <group ref={ref}>
+      <lineSegments>
+        <bufferGeometry><bufferAttribute attach="attributes-position" args={[grid, 3]} /></bufferGeometry>
+        <lineBasicMaterial color={palette.grid} transparent opacity={palette.gridOpacity} blending={blending} depthWrite={false} />
+      </lineSegments>
+      {slabs.map((s, idx) => (
+        <group key={idx} position={[0, s.y, 0]}>
+          <mesh>
+            <boxGeometry args={[s.w, s.h, s.d]} />
+            <meshBasicMaterial color={palette.glass} transparent opacity={palette.slabOpacity} blending={blending} depthWrite={false} />
           </mesh>
-        ))}
-
-        {/* Central Elevator / MEP Core Shaft */}
-        <group position={[0, 0.05, 0]}>
           <lineSegments>
-            <edgesGeometry args={[new THREE.BoxGeometry(0.56, 3.0, 0.56)]} />
-            <lineBasicMaterial
-              color={palette.secondary}
-              transparent
-              opacity={palette.wireOpacity * 1.15}
-              blending={blending}
-              depthWrite={false}
-            />
+            <edgesGeometry args={[new THREE.BoxGeometry(s.w, s.h, s.d)]} />
+            <lineBasicMaterial color={idx % 2 === 0 ? palette.primary : palette.secondary} transparent opacity={palette.wireOpacity} blending={blending} depthWrite={false} />
           </lineSegments>
         </group>
-
-        {/* Rooftop Crown / Mechanical Penthouse Wireframe */}
-        <group position={[0, 1.48, 0]}>
-          <lineSegments>
-            <edgesGeometry args={[new THREE.BoxGeometry(0.74, 0.36, 0.62)]} />
-            <lineBasicMaterial
-              color={palette.primary}
-              transparent
-              opacity={palette.wireOpacity}
-              blending={blending}
-              depthWrite={false}
-            />
-          </lineSegments>
-        </group>
-
-        {/* Glowing IFC Structural Node Vertices */}
-        <points>
-          <bufferGeometry>
-            <bufferAttribute
-              attach="attributes-position"
-              args={[ifcNodePositions, 3]}
-            />
-          </bufferGeometry>
-          <pointsMaterial
-            size={0.075}
-            color={palette.node}
-            transparent
-            opacity={0.8}
-            blending={blending}
-            depthWrite={false}
-          />
-        </points>
-
-        {/* Active Elevation Section Plane / Scanner Ring */}
-        <mesh ref={scanRingRef} rotation={[Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[1.45, 1.5, 48]} />
-          <meshBasicMaterial
-            color={palette.primary}
-            side={THREE.DoubleSide}
-            transparent
-            opacity={0.28}
-            blending={blending}
-            depthWrite={false}
-          />
+      ))}
+      {cols.map(([x, z, h, yc], i) => (
+        <mesh key={i} position={[x, yc, z]}>
+          <boxGeometry args={[0.045, h, 0.045]} />
+          <meshBasicMaterial color={palette.primary} transparent opacity={palette.wireOpacity * 0.85} blending={blending} depthWrite={false} />
         </mesh>
-      </group>
+      ))}
+      <lineSegments position={[0, 0.05, 0]}>
+        <edgesGeometry args={[new THREE.BoxGeometry(0.56, 3.0, 0.56)]} />
+        <lineBasicMaterial color={palette.secondary} transparent opacity={palette.wireOpacity * 1.1} blending={blending} depthWrite={false} />
+      </lineSegments>
+      <points>
+        <bufferGeometry><bufferAttribute attach="attributes-position" args={[nodes, 3]} /></bufferGeometry>
+        <pointsMaterial size={0.075} color={palette.node} transparent opacity={0.8} blending={blending} depthWrite={false} />
+      </points>
+      <mesh ref={scanRef} rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[1.45, 1.5, 48]} />
+        <meshBasicMaterial color={palette.primary} side={THREE.DoubleSide} transparent opacity={0.26} blending={blending} depthWrite={false} />
+      </mesh>
     </group>
   );
 }
 
-// ─── 2. Subtle Architectural BIM Spatial Mesh (Connected Nodes) ──────────────
-function BimSpatialNetwork({
-  count = 42,
-  palette,
-}: {
-  count?: number;
-  palette: ThemePalette;
-}) {
-  const pointsRef = useRef<THREE.Points>(null);
-  const linesRef = useRef<THREE.LineSegments>(null);
-  const { mouse } = useThree();
+// ─── Scene 1: 3D Cable-Stayed Structural BIM Bridge Span ─────────────────────
+function BimCableStayedBridge({ palette, active }: { palette: ThemePalette; active: boolean }) {
+  const ref = useRef<THREE.Group>(null);
   const blending = palette.useAdditive ? THREE.AdditiveBlending : THREE.NormalBlending;
 
-  const [positions, velocities, linePos] = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    const vel = new Float32Array(count * 3);
-    const maxLines = 95;
-    const lPos = new Float32Array(maxLines * 2 * 3);
-
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = Math.sin(i * 91.23) * 0.5 * 20;
-      pos[i * 3 + 1] = Math.cos(i * 47.81) * 0.5 * 14;
-      pos[i * 3 + 2] = Math.sin(i * 13.57) * 0.5 * 7 - 3.5;
-
-      vel[i * 3] = (Math.sin(i * 5.31) - 0.5) * 0.0025;
-      vel[i * 3 + 1] = (Math.cos(i * 7.19) - 0.5) * 0.0025;
-      vel[i * 3 + 2] = 0;
-    }
-    return [pos, vel, lPos];
-  }, [count]);
-
-  useFrame(() => {
-    if (!pointsRef.current || !linesRef.current) return;
-
-    const posArr = pointsRef.current.geometry.attributes.position.array as Float32Array;
-    const lPosArr = linesRef.current.geometry.attributes.position.array as Float32Array;
-
-    for (let i = 0; i < count; i++) {
-      posArr[i * 3] += velocities[i * 3];
-      posArr[i * 3 + 1] += velocities[i * 3 + 1];
-
-      if (posArr[i * 3] > 11) posArr[i * 3] = -11;
-      if (posArr[i * 3] < -11) posArr[i * 3] = 11;
-      if (posArr[i * 3 + 1] > 7.5) posArr[i * 3 + 1] = -7.5;
-      if (posArr[i * 3 + 1] < -7.5) posArr[i * 3 + 1] = 7.5;
-    }
-    pointsRef.current.geometry.attributes.position.needsUpdate = true;
-
-    let lineIdx = 0;
-    const maxLines = 95;
-    const thresholdSq = 3.1 * 3.1;
-
-    for (let i = 0; i < count && lineIdx < maxLines; i++) {
-      for (let j = i + 1; j < count && lineIdx < maxLines; j++) {
-        const dx = posArr[i * 3] - posArr[j * 3];
-        const dy = posArr[i * 3 + 1] - posArr[j * 3 + 1];
-        const dz = posArr[i * 3 + 2] - posArr[j * 3 + 2];
-        if (dx * dx + dy * dy + dz * dz < thresholdSq) {
-          const offset = lineIdx * 6;
-          lPosArr[offset] = posArr[i * 3];
-          lPosArr[offset + 1] = posArr[i * 3 + 1];
-          lPosArr[offset + 2] = posArr[i * 3 + 2];
-          lPosArr[offset + 3] = posArr[j * 3];
-          lPosArr[offset + 4] = posArr[j * 3 + 1];
-          lPosArr[offset + 5] = posArr[j * 3 + 2];
-          lineIdx++;
-        }
+  const cableLines = useMemo(() => {
+    const pts: number[] = [];
+    const pylonXs = [-1.25, 1.25];
+    pylonXs.forEach((px) => {
+      for (let i = 1; i <= 6; i++) {
+        const dx = i * 0.32;
+        const topY = 1.55 - i * 0.1;
+        // Left & right stays on both bridge sides
+        [-0.36, 0.36].forEach((z) => {
+          pts.push(px, topY, z, px - dx, -0.35, z);
+          pts.push(px, topY, z, px + dx, -0.35, z);
+        });
       }
+    });
+    return new Float32Array(pts);
+  }, []);
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (ref.current) {
+      const targetScale = active ? 0.92 : 0.001;
+      const cur = THREE.MathUtils.lerp(ref.current.scale.x, targetScale, 0.07);
+      ref.current.scale.setScalar(cur);
+      ref.current.visible = cur > 0.015;
+      ref.current.rotation.y = Math.sin(t * 0.22) * 0.45 + 0.4;
+      ref.current.rotation.x = 0.28;
     }
-
-    linesRef.current.geometry.setDrawRange(0, lineIdx * 2);
-    linesRef.current.geometry.attributes.position.needsUpdate = true;
-
-    pointsRef.current.rotation.y = THREE.MathUtils.lerp(pointsRef.current.rotation.y, mouse.x * 0.04, 0.02);
-    linesRef.current.rotation.y = pointsRef.current.rotation.y;
   });
 
   return (
-    <group>
-      <points ref={pointsRef}>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        </bufferGeometry>
-        <pointsMaterial
-          size={0.055}
-          color={palette.node}
-          transparent
-          opacity={palette.useAdditive ? 0.55 : 0.4}
-          blending={blending}
-          depthWrite={false}
-        />
-      </points>
-
-      <lineSegments ref={linesRef}>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[linePos, 3]} />
-        </bufferGeometry>
-        <lineBasicMaterial
-          color={palette.primary}
-          transparent
-          opacity={palette.lineOpacity}
-          blending={blending}
-          depthWrite={false}
-        />
+    <group ref={ref}>
+      {/* Main Bridge Deck Box Girder */}
+      <group position={[0, -0.4, 0]}>
+        <mesh>
+          <boxGeometry args={[5.6, 0.14, 0.82]} />
+          <meshBasicMaterial color={palette.glass} transparent opacity={palette.slabOpacity * 1.1} blending={blending} depthWrite={false} />
+        </mesh>
+        <lineSegments>
+          <edgesGeometry args={[new THREE.BoxGeometry(5.6, 0.14, 0.82)]} />
+          <lineBasicMaterial color={palette.primary} transparent opacity={palette.wireOpacity * 1.1} blending={blending} depthWrite={false} />
+        </lineSegments>
+      </group>
+      {/* Twin H-Pylons */}
+      {[-1.25, 1.25].map((px, idx) => (
+        <group key={idx} position={[px, 0.2, 0]}>
+          {[-0.36, 0.36].map((pz, j) => (
+            <lineSegments key={j} position={[0, 0, pz]}>
+              <edgesGeometry args={[new THREE.BoxGeometry(0.14, 3.0, 0.14)]} />
+              <lineBasicMaterial color={palette.primary} transparent opacity={palette.wireOpacity * 1.15} blending={blending} depthWrite={false} />
+            </lineSegments>
+          ))}
+          <lineSegments position={[0, 0.9, 0]}>
+            <edgesGeometry args={[new THREE.BoxGeometry(0.12, 0.12, 0.84)]} />
+            <lineBasicMaterial color={palette.secondary} transparent opacity={palette.wireOpacity} blending={blending} depthWrite={false} />
+          </lineSegments>
+          <lineSegments position={[0, -0.9, 0]}>
+            <edgesGeometry args={[new THREE.BoxGeometry(0.16, 0.16, 0.88)]} />
+            <lineBasicMaterial color={palette.secondary} transparent opacity={palette.wireOpacity} blending={blending} depthWrite={false} />
+          </lineSegments>
+        </group>
+      ))}
+      {/* Stay Cables */}
+      <lineSegments>
+        <bufferGeometry><bufferAttribute attach="attributes-position" args={[cableLines, 3]} /></bufferGeometry>
+        <lineBasicMaterial color={palette.secondary} transparent opacity={palette.wireOpacity * 0.95} blending={blending} depthWrite={false} />
       </lineSegments>
     </group>
   );
 }
 
-// ─── 3. Main Component with Multi-Theme OpenBIM 3D Telemetry Tag ────────────
+// ─── Scene 2: 3D Parametric Architectural BIM Dome / Pavilion ────────────────
+function BimParametricDome({ palette, active }: { palette: ThemePalette; active: boolean }) {
+  const ref = useRef<THREE.Group>(null);
+  const blending = palette.useAdditive ? THREE.AdditiveBlending : THREE.NormalBlending;
+
+  const { domeNodes } = useMemo(() => {
+    const geo = new THREE.SphereGeometry(1.85, 18, 10, 0, Math.PI * 2, 0, Math.PI * 0.52);
+    return { domeNodes: new Float32Array(geo.attributes.position.array) };
+  }, []);
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (ref.current) {
+      const targetScale = active ? 1 : 0.001;
+      const cur = THREE.MathUtils.lerp(ref.current.scale.x, targetScale, 0.07);
+      ref.current.scale.setScalar(cur);
+      ref.current.visible = cur > 0.015;
+      ref.current.rotation.y = t * 0.12;
+      ref.current.rotation.x = 0.32;
+    }
+  });
+
+  return (
+    <group ref={ref} position={[0, -0.55, 0]}>
+      {/* Structural Geodesic Roof Shell */}
+      <mesh>
+        <sphereGeometry args={[1.85, 18, 10, 0, Math.PI * 2, 0, Math.PI * 0.52]} />
+        <meshBasicMaterial color={palette.primary} wireframe transparent opacity={palette.wireOpacity} blending={blending} depthWrite={false} />
+      </mesh>
+      {/* Inner Structural Truss Shell */}
+      <mesh>
+        <sphereGeometry args={[1.55, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.5]} />
+        <meshBasicMaterial color={palette.secondary} wireframe transparent opacity={palette.wireOpacity * 0.7} blending={blending} depthWrite={false} />
+      </mesh>
+      {/* Base Ring Beam */}
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
+        <torusGeometry args={[1.95, 0.035, 10, 48]} />
+        <meshBasicMaterial color={palette.primary} transparent opacity={palette.wireOpacity * 1.15} blending={blending} depthWrite={false} />
+      </mesh>
+      {/* Structural Joint Nodes */}
+      <points>
+        <bufferGeometry><bufferAttribute attach="attributes-position" args={[domeNodes, 3]} /></bufferGeometry>
+        <pointsMaterial size={0.065} color={palette.node} transparent opacity={0.75} blending={blending} depthWrite={false} />
+      </points>
+    </group>
+  );
+}
+
+// ─── Scene 3: 3D Urban GIS / Cesium City Masterplan ──────────────────────────
+function BimUrbanMasterplan({ palette, active }: { palette: ThemePalette; active: boolean }) {
+  const ref = useRef<THREE.Group>(null);
+  const blending = palette.useAdditive ? THREE.AdditiveBlending : THREE.NormalBlending;
+
+  const { buildings, cityGrid } = useMemo(() => {
+    const b = [
+      { x: 0.0,  z: 0.0,  w: 0.72, h: 2.35, d: 0.72 },
+      { x: -1.0, z: -0.4, w: 0.65, h: 1.65, d: 0.65 },
+      { x: 0.95, z: 0.35, w: 0.68, h: 1.85, d: 0.62 },
+      { x: -0.6, z: 0.95, w: 0.82, h: 1.15, d: 0.58 },
+      { x: 0.75, z: -0.95, w: 0.6, h: 1.35, d: 0.68 },
+      { x: -1.55, z: 0.55, w: 0.55, h: 0.95, d: 0.55 },
+      { x: 1.55, z: -0.35, w: 0.58, h: 1.1, d: 0.55 },
+      { x: -0.1, z: -1.35, w: 0.75, h: 0.9, d: 0.52 },
+      { x: 0.25, z: 1.3,  w: 0.62, h: 0.85, d: 0.55 },
+    ];
+    const g: number[] = [];
+    for (let x = -2.8; x <= 2.81; x += 0.4) g.push(x, -1.15, -2.8, x, -1.15, 2.8);
+    for (let z = -2.8; z <= 2.81; z += 0.4) g.push(-2.8, -1.15, z, 2.8, -1.15, z);
+    return { buildings: b, cityGrid: new Float32Array(g) };
+  }, []);
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (ref.current) {
+      const targetScale = active ? 0.98 : 0.001;
+      const cur = THREE.MathUtils.lerp(ref.current.scale.x, targetScale, 0.07);
+      ref.current.scale.setScalar(cur);
+      ref.current.visible = cur > 0.015;
+      ref.current.rotation.y = t * 0.11 + 0.75;
+      ref.current.rotation.x = 0.38;
+    }
+  });
+
+  return (
+    <group ref={ref}>
+      <lineSegments>
+        <bufferGeometry><bufferAttribute attach="attributes-position" args={[cityGrid, 3]} /></bufferGeometry>
+        <lineBasicMaterial color={palette.grid} transparent opacity={palette.gridOpacity} blending={blending} depthWrite={false} />
+      </lineSegments>
+      {buildings.map((b, idx) => (
+        <group key={idx} position={[b.x, -1.15 + b.h / 2, b.z]}>
+          <mesh>
+            <boxGeometry args={[b.w, b.h, b.d]} />
+            <meshBasicMaterial color={palette.glass} transparent opacity={palette.slabOpacity} blending={blending} depthWrite={false} />
+          </mesh>
+          <lineSegments>
+            <edgesGeometry args={[new THREE.BoxGeometry(b.w, b.h, b.d)]} />
+            <lineBasicMaterial color={idx % 2 === 0 ? palette.primary : palette.secondary} transparent opacity={palette.wireOpacity} blending={blending} depthWrite={false} />
+          </lineSegments>
+        </group>
+      ))}
+    </group>
+  );
+}
+
+// ─── Scroll-Reactive Stage Wrapper ───────────────────────────────────────────
+function BimStageRig({
+  sceneIndex,
+  palette,
+}: {
+  sceneIndex: number;
+  palette: ThemePalette;
+}) {
+  const rigRef = useRef<THREE.Group>(null);
+  const { mouse } = useThree();
+
+  useFrame(() => {
+    if (!rigRef.current) return;
+    // Alternate left/right balance subtly across sections so content remains super legible
+    const baseX = sceneIndex % 2 === 0 ? 2.95 : -2.65;
+    rigRef.current.position.x = THREE.MathUtils.lerp(rigRef.current.position.x, baseX + mouse.x * 0.35, 0.035);
+    rigRef.current.position.y = THREE.MathUtils.lerp(rigRef.current.position.y, mouse.y * 0.25, 0.035);
+  });
+
+  return (
+    <group ref={rigRef} position={[2.95, 0, -2.2]}>
+      <IfcHighRiseTower palette={palette} active={sceneIndex === 0} />
+      <BimCableStayedBridge palette={palette} active={sceneIndex === 1} />
+      <BimParametricDome palette={palette} active={sceneIndex === 2} />
+      <BimUrbanMasterplan palette={palette} active={sceneIndex === 3} />
+    </group>
+  );
+}
+
+// ─── Main Component ──────────────────────────────────────────────────────────
 export default function ThreeBackground() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [sceneIndex, setSceneIndex] = useState(0);
   const [theme, setTheme] = useState<PortfolioTheme>(() => {
     if (typeof document === 'undefined') return 'dark';
     const t = document.documentElement.getAttribute('data-theme');
@@ -412,9 +372,16 @@ export default function ThreeBackground() {
   );
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile, { passive: true });
+    const onScroll = () => {
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const ratio = window.scrollY / maxScroll;
+      if (ratio < 0.24) setSceneIndex(0);
+      else if (ratio < 0.5) setSceneIndex(1);
+      else if (ratio < 0.74) setSceneIndex(2);
+      else setSceneIndex(3);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
     const listener = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
@@ -427,14 +394,14 @@ export default function ThreeBackground() {
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('scroll', onScroll);
       media.removeEventListener('change', listener);
       observer.disconnect();
     };
   }, []);
 
   const palette = THEME_PALETTES[theme];
-  const particleCount = reduceMotion ? 10 : isMobile ? 18 : 42;
+  const currentScene = SCENE_LABELS[sceneIndex];
 
   return (
     <div
@@ -453,29 +420,28 @@ export default function ThreeBackground() {
       aria-hidden="true"
     >
       <Canvas
-        camera={{ position: [0, 0, 5.2], fov: 56 }}
+        camera={{ position: [0, 0, 5.4], fov: 54 }}
         gl={{ powerPreference: 'high-performance', antialias: true, alpha: true }}
         dpr={[1, 1.5]}
       >
         <ambientLight intensity={0.45} />
-        {!reduceMotion && <BimArchitecturalTwin isMobile={isMobile} palette={palette} />}
-        {!reduceMotion && <BimSpatialNetwork count={particleCount} palette={palette} />}
+        {!reduceMotion && <BimStageRig sceneIndex={sceneIndex} palette={palette} />}
       </Canvas>
 
-      {/* Subtle Architectural Blueprint Grid Overlay */}
+      {/* Architectural CAD Blueprint Grid Overlay */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           backgroundImage:
-            'linear-gradient(to right, var(--border-subtle, rgba(255,255,255,0.03)) 1px, transparent 1px), linear-gradient(to bottom, var(--border-subtle, rgba(255,255,255,0.03)) 1px, transparent 1px)',
+            'linear-gradient(to right, var(--border-subtle, rgba(255,255,255,0.035)) 1px, transparent 1px), linear-gradient(to bottom, var(--border-subtle, rgba(255,255,255,0.035)) 1px, transparent 1px)',
           backgroundSize: '64px 64px',
           opacity: theme === 'light' ? 0.35 : 0.2,
           pointerEvents: 'none',
         }}
       />
 
-      {/* Cinematic Radial Depth Vignette */}
+      {/* Cinematic Depth Vignette */}
       <div
         style={{
           position: 'absolute',
@@ -485,7 +451,7 @@ export default function ThreeBackground() {
         }}
       />
 
-      {/* OpenBIM 3D Engine Live Telemetry Pill */}
+      {/* Active Section 3D BIM Scene Telemetry Pill */}
       <div
         style={{
           position: 'fixed',
@@ -496,7 +462,7 @@ export default function ThreeBackground() {
           alignItems: 'center',
           gap: '8px',
           padding: '6px 14px',
-          borderRadius: '999px',
+          borderRadius: '4px',
           background: 'var(--surface-glass)',
           border: `1px solid ${palette.primary}45`,
           backdropFilter: 'blur(8px)',
@@ -508,21 +474,20 @@ export default function ThreeBackground() {
           pointerEvents: 'auto',
           userSelect: 'none',
         }}
-        title="Real-time WebGL 3D Architectural OpenBIM / IFC Twin"
+        title="Scroll-reactive 3D OpenBIM / IFC Architectural Background"
       >
         <span
           style={{
             width: '7px',
             height: '7px',
-            borderRadius: '50%',
+            borderRadius: '2px',
             background: palette.primary,
             boxShadow: `0 0 8px ${palette.primary}`,
             display: 'inline-block',
-            animation: 'pulse 2s infinite',
           }}
         />
-        <span>OpenBIM 3D Twin</span>
-        <span style={{ color: palette.secondary, fontWeight: 600 }}>[IFC · WebGL]</span>
+        <span>{currentScene.title}</span>
+        <span style={{ color: palette.secondary, fontWeight: 600 }}>[{currentScene.tag}]</span>
       </div>
     </div>
   );

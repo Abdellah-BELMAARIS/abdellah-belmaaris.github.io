@@ -9469,4 +9469,80 @@ section {
     transform: translateY(-1px);
 }
 
+/* ─── Desktop-First Straight Architectural Pro Layout & Big Clean Hero Portrait ── */
+.hero-clean-portrait-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.hero-clean-portrait-frame {
+    width: 100%;
+    max-width: 470px;
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border-accent, rgba(0, 229, 255, 0.35));
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+    background: var(--bg-surface);
+}
+
+.hero-clean-portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 12%;
+    display: block;
+}
+
+/* Straight Architectural Geometry & Uniform Row Alignment across Desktop */
+.featured-project-card,
+.personal-project-card,
+.service-card,
+.about-fact-card,
+.exp-card,
+.cert-card,
+.education-card,
+.stat-card,
+.about-visual-card,
+.professional-mention,
+.bimpulse-academy-callout {
+    border-radius: 6px !important;
+}
+
+.personal-projects-grid,
+.services-grid,
+.about-facts-grid,
+.stats-row {
+    align-items: stretch !important;
+    grid-auto-rows: 1fr;
+}
+
+.personal-project-card,
+.service-card,
+.about-fact-card {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+}
+
+.personal-project-card .project-telemetry-hud {
+    margin-top: auto;
+    margin-bottom: 14px;
+}
+
+.personal-project-card .personal-actions {
+    margin-top: 0 !important;
+}
+
+.btn,
+.tech-chip,
+.arch-badge,
+.telemetry-stat-chip,
+.telemetry-interactive-btn {
+    border-radius: 4px !important;
+}
+
+
 
