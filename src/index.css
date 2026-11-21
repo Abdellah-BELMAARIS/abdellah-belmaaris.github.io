@@ -9515,13 +9515,28 @@ main#main-content > section {
 }
 
 .hero-grid-layout {
-    grid-template-columns: 1.15fr 0.85fr !important;
-    gap: clamp(36px, 4.5vw, 84px) !important;
+    grid-template-columns: 1.25fr 0.75fr !important;
+    gap: clamp(36px, 4vw, 72px) !important;
     max-width: 100% !important;
 }
 
 .hero-statement {
-    max-width: 660px !important;
+    max-width: 100% !important;
+}
+
+.hero-cta-actions {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+
+.hero-cta-actions .btn {
+    padding: 10px 15px !important;
+    font-size: 0.84rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
 }
 
 .hero-clean-portrait-img {
