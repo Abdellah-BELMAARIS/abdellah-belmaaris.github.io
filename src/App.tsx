@@ -244,54 +244,127 @@ const JOURNAL_GALLERY: JournalScreenshotItem[] = [
 
 const PROJECT_IMAGES = JOURNAL_GALLERY.map((j) => j.img);
 
-// ─── Loading Screen Component (Rule 32: Fast, intentional intro) ─────────────
+// ─── Pro Architectural OpenBIM Boot Loader ──────────────────────────────────
 
 function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const reduceMotion = useReducedMotion();
+  const [percent, setPercent] = useState(0);
 
   useEffect(() => {
-    const timer = window.setTimeout(onFinish, reduceMotion ? 200 : 1150);
-    return () => window.clearTimeout(timer);
+    const totalMs = reduceMotion ? 220 : 1250;
+    const start = performance.now();
+    let rafId = 0;
+
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - start) / totalMs);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setPercent(Math.round(eased * 100));
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
+      }
+    };
+    rafId = requestAnimationFrame(tick);
+
+    const timer = window.setTimeout(onFinish, totalMs + 140);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.clearTimeout(timer);
+    };
   }, [onFinish, reduceMotion]);
+
+  const statusLine =
+    percent < 38
+      ? 'INITIALIZING OPENBIM 3D ENGINE...'
+      : percent < 78
+      ? 'MOUNTING IFC / THREE.JS & FULL-STACK ARCHITECTURE...'
+      : 'PORTFOLIO WORKSPACE READY';
 
   return (
     <motion.div
-      className="loading-screen"
+      className="loading-screen bim-boot-loader"
       role="status"
       aria-label={translateText("Opening Abdellah Belmaaris portfolio")}
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: reduceMotion ? 0 : 0.25 }}
+      exit={{ opacity: 0, y: reduceMotion ? 0 : -18 }}
+      transition={{ duration: reduceMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="loading-content">
+      {/* Subtle CAD Blueprint Grid */}
+      <div className="bim-boot-grid" aria-hidden="true" />
+
+      {/* Precision CAD Corner Telemetry */}
+      <div className="bim-boot-corner top-left" aria-hidden="true">
+        <span>SYS // AB-BIM-2026</span>
+        <span>33.5731° N · 7.5898° W</span>
+      </div>
+      <div className="bim-boot-corner top-right" aria-hidden="true">
+        <span>OPENBIM · IFC4 · WEBGL</span>
+        <span>BIMPULSE DIGITAL</span>
+      </div>
+      <div className="bim-boot-corner bottom-left" aria-hidden="true">
+        <span>TYPESCRIPT · REACT · PYTHON · DJANGO</span>
+      </div>
+      <div className="bim-boot-corner bottom-right" aria-hidden="true">
+        <span>CASABLANCA, MOROCCO</span>
+      </div>
+
+      {/* Central Architectural Wireframe Emblem & Identity */}
+      <div className="bim-boot-center">
+        <div className="bim-boot-emblem" aria-hidden="true">
+          <svg viewBox="0 0 120 120" className="bim-boot-svg" fill="none">
+            {/* Outer Isometric Structural Cube */}
+            <motion.path
+              d="M60 12 L104 36 L104 84 L60 108 L16 84 L16 36 Z"
+              stroke="var(--accent, #00e5ff)"
+              strokeWidth="1.6"
+              initial={{ pathLength: reduceMotion ? 1 : 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            />
+            {/* Internal Isometric Axes / Floor Slabs */}
+            <motion.path
+              d="M60 12 L60 108 M16 36 L60 60 L104 36 M16 60 L60 84 L104 60"
+              stroke="var(--emerald-bright, #10b981)"
+              strokeWidth="1.2"
+              strokeDasharray="3 3"
+              initial={{ pathLength: reduceMotion ? 1 : 0, opacity: 0.4 }}
+              animate={{ pathLength: 1, opacity: 0.9 }}
+              transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            />
+            {/* Inner Architectural Core */}
+            <motion.path
+              d="M60 32 L82 44 L82 72 L60 84 L38 72 L38 44 Z"
+              stroke="var(--accent, #00e5ff)"
+              strokeWidth="1.2"
+              initial={{ pathLength: reduceMotion ? 1 : 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            />
+            <circle cx="60" cy="60" r="3" fill="var(--accent, #00e5ff)" />
+          </svg>
+        </div>
+
         <motion.div
-          className="loading-logo"
-          initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
+          className="bim-boot-identity"
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.12 }}
         >
-          <span className="loading-logo-ab">{translateText("AB")}</span>
-          <span className="loading-logo-dot" aria-hidden="true" />
+          <div className="bim-boot-name">
+            ABDELLAH <span>BELMAARIS</span>
+          </div>
+          <div className="bim-boot-role">
+            {translateText("BIM & Full-Stack Software Developer • BIMPulse")}
+          </div>
         </motion.div>
-        <motion.p
-          className="loading-name"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.4 }}
-        >{translateText("ABDELLAH BELMAARIS")}</motion.p>
-        <motion.span
-          className="loading-role"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.4 }}
-        >{translateText("BIM & Full-Stack Software Developer • BIMPulse")}</motion.span>
-        <div className="loading-bar-wrapper" aria-hidden="true">
-          <motion.div
-            className="loading-bar-fill"
-            initial={{ scaleX: reduceMotion ? 1 : 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.95, ease: [0.22, 1, 0.36, 1] }}
-          />
+
+        <div className="bim-boot-progress-block">
+          <div className="bim-boot-progress-meta">
+            <span className="bim-boot-status">{statusLine}</span>
+            <span className="bim-boot-percent">{String(percent).padStart(2, '0')}%</span>
+          </div>
+          <div className="bim-boot-track" aria-hidden="true">
+            <div className="bim-boot-fill" style={{ width: `${percent}%` }} />
+          </div>
         </div>
       </div>
     </motion.div>
