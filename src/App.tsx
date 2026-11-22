@@ -107,7 +107,7 @@ const CERTIFICATIONS_DATA: CertCard[] = [
     img: "assets/certificate_master_bim.png",
     icon: "fa-solid fa-cubes",
     skills: ["TypeScript", "React", "Three.js", "That Open Engine", "IFC / Fragments", "OpenBIM"],
-    link: "https://thatopen.com/",
+    link: "https://verified.sertifier.com/en/verify/57481141928751/",
     badge: "THAT OPEN CERTIFIED"
   },
   {

@@ -59,10 +59,11 @@ Performance-driven **BIM & Full-Stack Software Developer** operating at the inte
 ---
 
 ## Verified Industry Credentials (With Official Certificates)
-1. **AI Engineer for Developers Associate** — DataCamp Certified (Apr 2026 – Apr 2028) • *ID: AIEDA0011678564836*
-2. **Python Data Associate** — DataCamp Certified (Feb 2026 – Feb 2028) • *ID: PDA0019412806212*
-3. **Cybersecurity Fundamentals** — المدرسة - Almdrasa (Issued Feb 2026 · Verified) • *ID: 77F16BFF2A-77EB48CD64-1451D2521*
-4. **Associate Python Developer (30 HR)** — DataCamp Statement of Accomplishment (Nov 2025) • *ID: Statement #736,739*
+1. **Master BIM Software Developer** — That Open Company Certified (Issued Nov 22, 2026) • *ID: 57481141928751* • https://verified.sertifier.com/en/verify/57481141928751/
+2. **AI Engineer for Developers Associate** — DataCamp Certified (Apr 2026 – Apr 2028) • *ID: AIEDA0011678564836* • https://www.datacamp.com/certificate/AIEDA0011678564836
+3. **Python Data Associate** — DataCamp Certified (Feb 2026 – Feb 2028) • *ID: PDA0019412806212* • https://www.datacamp.com/certificate/PDA0019412806212
+4. **Cybersecurity Fundamentals** — المدرسة - Almdrasa (Issued Feb 2026 · Verified) • *ID: 77F16BFF2A-77EB48CD64-1451D2521* • https://almdrasa.com/certificate-verification/77F16BFF2A-77EB48CD64-1451D2521/
+5. **Associate Python Developer (30 HR)** — DataCamp Statement of Accomplishment (Nov 2025) • *ID: Statement #736,739*
 
 ---
 

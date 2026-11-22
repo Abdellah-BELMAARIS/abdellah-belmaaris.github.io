@@ -8,6 +8,7 @@ const avatarCvPath = path.join(publicAssetsDir, 'avatar_cv.jpg');
 const avatarOriginalPath = path.join(publicAssetsDir, 'avatar.jpg');
 
 // Certificate Images
+const certMasterBimPath = path.join(publicAssetsDir, 'certificate_master_bim.png');
 const certAiPath = path.join(publicAssetsDir, 'certificate_ai_engineer.png');
 const certPythonDataPath = path.join(publicAssetsDir, 'python_data_associate.jpg');
 const certCyberPath = path.join(publicAssetsDir, 'cybersecurity_fundamentals.jpg');
@@ -21,6 +22,7 @@ if (fs.existsSync(avatarCvPath)) {
   avatarBase64 = `data:image/jpeg;base64,${fs.readFileSync(avatarOriginalPath).toString('base64')}`;
 }
 
+const certMasterBimBase64 = fs.existsSync(certMasterBimPath) ? `data:image/png;base64,${fs.readFileSync(certMasterBimPath).toString('base64')}` : 'assets/certificate_master_bim.png';
 const certAiBase64 = fs.existsSync(certAiPath) ? `data:image/png;base64,${fs.readFileSync(certAiPath).toString('base64')}` : 'assets/certificate_ai_engineer.png';
 const certPythonDataBase64 = fs.existsSync(certPythonDataPath) ? `data:image/jpeg;base64,${fs.readFileSync(certPythonDataPath).toString('base64')}` : 'assets/python_data_associate.jpg';
 const certCyberBase64 = fs.existsSync(certCyberPath) ? `data:image/jpeg;base64,${fs.readFileSync(certCyberPath).toString('base64')}` : 'assets/cybersecurity_fundamentals.jpg';
@@ -1347,9 +1349,9 @@ const cvHtml = `<!DOCTYPE html>
         <div class="cv-metric-sub">Granular Permission Matrix</div>
       </div>
       <div class="cv-metric-box">
-        <div class="cv-metric-val">4+ CERTS</div>
+        <div class="cv-metric-val">5 CERTS</div>
         <div class="cv-metric-lbl">Industry Verified</div>
-        <div class="cv-metric-sub">DataCamp AI, Python & Master BIM</div>
+        <div class="cv-metric-sub">That Open Master BIM & DataCamp AI</div>
       </div>
     </div>
 
@@ -1561,7 +1563,28 @@ const cvHtml = `<!DOCTYPE html>
 
           <div class="cert-showcase-stack">
 
-            <!-- Certificate 1: AI Engineer -->
+            <!-- Certificate 1: Master BIM Software Developer (That Open Company) -->
+            <article class="cert-photo-card">
+              <div class="cert-image-thumb-wrap" onclick="openCertModal('${certMasterBimBase64}', 'Master BIM Software Developer', 'That Open Company • Sertifier ID: 57481141928751')">
+                <img src="${certMasterBimBase64}" alt="Master BIM Software Developer Certificate Photo" class="cert-image-thumb" loading="lazy">
+                <div class="cert-image-overlay">
+                  <span class="cert-zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> View Certificate</span>
+                </div>
+              </div>
+              <div class="cert-card-body">
+                <a href="https://verified.sertifier.com/en/verify/57481141928751/" target="_blank" rel="noopener noreferrer" class="cert-title-link">
+                  <span>Master BIM Software Developer</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; color: var(--accent);"></i>
+                </a>
+                <div class="cert-issuer-row">
+                  <span class="cert-issuer-badge"><i class="fa-solid fa-cubes"></i> That Open Company</span>
+                  <span>Issued Nov 22, 2026</span>
+                </div>
+                <code class="cert-id-chip">ID: 57481141928751</code>
+              </div>
+            </article>
+
+            <!-- Certificate 2: AI Engineer -->
             <article class="cert-photo-card">
               <div class="cert-image-thumb-wrap" onclick="openCertModal('${certAiBase64}', 'AI Engineer for Developers Associate', 'DataCamp Certified • ID: AIEDA0011678564836')">
                 <img src="${certAiBase64}" alt="AI Engineer for Developers Associate Certificate Photo" class="cert-image-thumb" loading="lazy">
@@ -1612,7 +1635,7 @@ const cvHtml = `<!DOCTYPE html>
                 </div>
               </div>
               <div class="cert-card-body">
-                <a href="https://almdrasa.com/" target="_blank" rel="noopener noreferrer" class="cert-title-link">
+                <a href="https://almdrasa.com/certificate-verification/77F16BFF2A-77EB48CD64-1451D2521/" target="_blank" rel="noopener noreferrer" class="cert-title-link">
                   <span>Cybersecurity Fundamentals</span>
                   <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; color: var(--accent);"></i>
                 </a>
@@ -1945,10 +1968,11 @@ Performance-driven **BIM & Full-Stack Software Developer** operating at the inte
 ---
 
 ## Verified Industry Credentials (With Official Certificates)
-1. **AI Engineer for Developers Associate** — DataCamp Certified (Apr 2026 – Apr 2028) • *ID: AIEDA0011678564836*
-2. **Python Data Associate** — DataCamp Certified (Feb 2026 – Feb 2028) • *ID: PDA0019412806212*
-3. **Cybersecurity Fundamentals** — المدرسة - Almdrasa (Issued Feb 2026 · Verified) • *ID: 77F16BFF2A-77EB48CD64-1451D2521*
-4. **Associate Python Developer (30 HR)** — DataCamp Statement of Accomplishment (Nov 2025) • *ID: Statement #736,739*
+1. **Master BIM Software Developer** — That Open Company Certified (Issued Nov 22, 2026) • *ID: 57481141928751* • https://verified.sertifier.com/en/verify/57481141928751/
+2. **AI Engineer for Developers Associate** — DataCamp Certified (Apr 2026 – Apr 2028) • *ID: AIEDA0011678564836* • https://www.datacamp.com/certificate/AIEDA0011678564836
+3. **Python Data Associate** — DataCamp Certified (Feb 2026 – Feb 2028) • *ID: PDA0019412806212* • https://www.datacamp.com/certificate/PDA0019412806212
+4. **Cybersecurity Fundamentals** — المدرسة - Almdrasa (Issued Feb 2026 · Verified) • *ID: 77F16BFF2A-77EB48CD64-1451D2521* • https://almdrasa.com/certificate-verification/77F16BFF2A-77EB48CD64-1451D2521/
+5. **Associate Python Developer (30 HR)** — DataCamp Statement of Accomplishment (Nov 2025) • *ID: Statement #736,739*
 
 ---
 

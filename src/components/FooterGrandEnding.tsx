@@ -187,7 +187,7 @@ export default function FooterGrandEnding({
             </h4>
             <div className="footer-credentials-stack">
               <a
-                href="assets/certificate_master_bim.png"
+                href="https://verified.sertifier.com/en/verify/57481141928751/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-credential-item"
