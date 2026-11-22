@@ -22,7 +22,7 @@ export const ROLES: RoleConfig[] = [
     techSpec: 'TypeScript · React · Three.js · IFC · Python · Django',
     statusBadge: 'BIMPULSE · CASABLANCA',
     location: 'Casablanca, Morocco',
-    credentials: 'Master BIM Software Track & BIMPulse Academy'
+    credentials: 'Master BIM Software Certified (That Open Company) & BIMPulse'
   },
   {
     id: 'django',

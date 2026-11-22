@@ -187,6 +187,19 @@ export default function FooterGrandEnding({
             </h4>
             <div className="footer-credentials-stack">
               <a
+                href="assets/certificate_master_bim.png"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-credential-item"
+              >
+                <div className="footer-cred-top">
+                  <span className="footer-cred-name">Master BIM Software Developer</span>
+                  <span className="footer-cred-arrow">↗</span>
+                </div>
+                <span className="footer-cred-meta">That Open Company · 57481141928751 · 2026</span>
+              </a>
+
+              <a
                 href="https://www.datacamp.com/certificate/AIEDA0011678564836"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -213,7 +226,7 @@ export default function FooterGrandEnding({
               </a>
 
               <a
-                href="https://almdrasa.com/"
+                href="https://almdrasa.com/certificate-verification/77F16BFF2A-77EB48CD64-1451D2521/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-credential-item"

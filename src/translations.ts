@@ -573,6 +573,14 @@ export const translations: Record<string, [string, string]> = {
     'Développement de plateformes web 3D OpenBIM, systèmes full-stack Django & React et workflows IA appliqués avec une architecture logicielle propre.',
     'بناء منصات ويب OpenBIM ثلاثية الأبعاد، وأنظمة Django وReact متكاملة، وسير عمل ذكاء اصطناعي تطبيقي بهندسة برمجية نظيفة.'
   ],
+  'Certified Master BIM Software Developer (That Open Company) and DataCamp AI & Data Associate—bridging scalable backend architecture, 3D OpenBIM web graphics, and applied AI to ship real-world engineering products.': [
+    'Développeur Logiciel Master BIM certifié (That Open Company) et certifié IA & Data par DataCamp—reliant architecture backend évolutive, graphisme web 3D OpenBIM et IA appliquée pour livrer des produits d’ingénierie concrets.',
+    'مطور برمجيات Master BIM معتمد من That Open Company ومعتمد في الذكاء الاصطناعي والبيانات من DataCamp—أربط بين هندسة الخوادم القابلة للتوسع والرسوميات ثلاثية الأبعاد OpenBIM والذكاء الاصطناعي التطبيقي لبناء منتجات هندسية واقعية.'
+  ],
+  'Verified technical credentials validating OpenBIM 3D software engineering, applied AI, Python data analysis, and cybersecurity.': [
+    'Certifications techniques vérifiées validant l’ingénierie logicielle 3D OpenBIM, l’IA appliquée, l’analyse de données Python et la cybersécurité.',
+    'شهادات تقنية موثقة تثبت الكفاءة في هندسة برمجيات OpenBIM ثلاثية الأبعاد، والذكاء الاصطناعي التطبيقي، وتحليل البيانات بـ Python، والأمن السيبراني.'
+  ],
   'BIM & Full-Stack Developer': ['Développeur BIM & Full-Stack', 'مطور BIM و Full-Stack'],
   'Master BIM Viewer — OpenBIM 3D Engine': ['Master BIM Viewer — Moteur 3D OpenBIM', 'Master BIM Viewer — محرك OpenBIM ثلاثي الأبعاد'],
   'Private Repo': ['Dépôt privé', 'مستودع خاص'],

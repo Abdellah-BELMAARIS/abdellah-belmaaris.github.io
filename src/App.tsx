@@ -62,7 +62,7 @@ const STATS_DATA: Stat[] = [
   { value: 6, suffix: '+', label: 'Years Coding', icon: 'fa-solid fa-calendar-days' },
   { value: 4, suffix: '+', label: 'Production Projects', icon: 'fa-solid fa-folder-open' },
   { value: 14, suffix: '', label: 'RBAC Roles Built', icon: 'fa-solid fa-shield-halved' },
-  { value: 4, suffix: '', label: 'Certifications', icon: 'fa-solid fa-award' },
+  { value: 5, suffix: '', label: 'Certifications', icon: 'fa-solid fa-award' },
 ];
 
 const PERSONAL_PROJECTS: PersonalProject[] = [
@@ -92,11 +92,24 @@ const PERSONAL_PROJECTS: PersonalProject[] = [
     desc: 'Browser-native OpenBIM 3D platform built with TypeScript, React, Three.js, and That Open Engine. Streams IFC2X3/IFC4 & Fragments models with spatial tree inspection, 2D floor plans, 3D clash detection, Cesium 3D Tiles, Firebase sync, and MCP AI Copilot.',
     metrics: ['Live IFC2X3 / IFC4 & Fragments Streaming', '3D Clash QA, Floor Plans & Cesium GIS', 'Firebase Sync & MCP AI Copilot'],
     tech: ['TypeScript', 'React', 'Three.js', 'That Open Engine', 'IFC / WebIFC', 'Cesium GIS'],
+    github: 'https://github.com/Abdellah-BELMAARIS/Master_BIM_Software',
     live: 'https://master-bim-software.web.app/'
   }
 ];
 
 const CERTIFICATIONS_DATA: CertCard[] = [
+  {
+    platform: "That Open Company",
+    degree: "Master BIM Software Developer",
+    date: "Issued Nov 22, 2026 · Official Certificate of Achievement",
+    year: "2026",
+    credentialId: "57481141928751",
+    img: "assets/certificate_master_bim.png",
+    icon: "fa-solid fa-cubes",
+    skills: ["TypeScript", "React", "Three.js", "That Open Engine", "IFC / Fragments", "OpenBIM"],
+    link: "https://thatopen.com/",
+    badge: "THAT OPEN CERTIFIED"
+  },
   {
     platform: "DataCamp",
     degree: "Python Data Associate",
@@ -130,7 +143,7 @@ const CERTIFICATIONS_DATA: CertCard[] = [
     img: "assets/cybersecurity_fundamentals.jpg",
     icon: "fa-solid fa-shield-halved",
     skills: ["Cybersecurity Fundamentals", "Session Security", "Access Control"],
-    link: "https://almdrasa.com/",
+    link: "https://almdrasa.com/certificate-verification/77F16BFF2A-77EB48CD64-1451D2521/",
     badge: "ALMDRASA VERIFIED"
   },
   {
@@ -1674,7 +1687,7 @@ export default function App() {
 
               <p className="about-body-p">{translateText("At BIMPulse, I engineer digital solutions connecting software development with OpenBIM (IFC2X3/IFC4 & Fragments), 3D geospatial GIS, engineering workflows, and AEC digital transformation.")}</p>
 
-              <p className="about-body-p">{translateText("Combining self-directed engineering, That Open University’s Master BIM Software track, DataCamp AI & Data certifications, and real-world shipping, I bridge backend architecture, 3D web graphics, and applied AI.")}</p>
+              <p className="about-body-p">{translateText("Certified Master BIM Software Developer (That Open Company) and DataCamp AI & Data Associate—bridging scalable backend architecture, 3D OpenBIM web graphics, and applied AI to ship real-world engineering products.")}</p>
             </motion.div>
           </div>
 
@@ -2067,7 +2080,7 @@ export default function App() {
           </motion.div>
 
           <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("CONTINUOUS LEARNING")}</motion.h2>
-          <motion.p className="section-intro" {...reveal(0.1, 18)}>{translateText("Verified technical credentials validating applied AI engineering, Python data analysis, and software development.")}</motion.p>
+          <motion.p className="section-intro" {...reveal(0.1, 18)}>{translateText("Verified technical credentials validating OpenBIM 3D software engineering, applied AI, Python data analysis, and cybersecurity.")}</motion.p>
 
           {/* Authentic Certificate Photo Showcase Grid */}
           <div className="credentials-cards-grid">
@@ -2205,7 +2218,7 @@ export default function App() {
             <div className="contact-info-column">
               <motion.div className="contact-info-card" {...reveal(0.1, 20)}>
                 <span className="info-card-label">{translateText("CURRENT ROLE & LOCATION")}</span>
-                <p className="info-card-val">{translateText("Junior Full-Stack Developer at BIMPulse")}</p>
+                <p className="info-card-val">{translateText("BIM & Full-Stack Software Developer at BIMPulse")}</p>
                 <p className="info-card-sub"><i className="fa-solid fa-location-dot" style={{ color: 'var(--emerald-bright)' }} />{translateText(" Casablanca, Morocco")}</p>
               </motion.div>
 

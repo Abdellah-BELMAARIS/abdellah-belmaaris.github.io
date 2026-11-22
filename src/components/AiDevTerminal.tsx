@@ -132,7 +132,7 @@ class BimRagAgent:
       return {
         sender: 'assistant',
         badge: 'Verified Credentials',
-        text: "Abdellah holds verified industry credentials & tracks:\n\n• Master BIM Software Developer Track — That Open University (Modules 1–6 + Live Masterclasses)\n• AI Engineer for Developers Associate — DataCamp (ID: AIEDA0011678564836)\n• Python Data Associate — DataCamp (ID: PDA0019412806212)\n• Cybersecurity Fundamentals — Almdrasa (ID: 77F16BFF2A-77EB48CD64-1451D2521)\n• Associate Python Developer — 30 HR Django Track",
+        text: "Abdellah holds verified industry credentials:\n\n• Master BIM Software Developer — That Open Company (ID: 57481141928751)\n• AI Engineer for Developers Associate — DataCamp (ID: AIEDA0011678564836)\n• Python Data Associate — DataCamp (ID: PDA0019412806212)\n• Cybersecurity Fundamentals — Almdrasa (ID: 77F16BFF2A-77EB48CD64-1451D2521)\n• Associate Python Developer — 30 HR Django Track",
         links: [
           { label: "View Certificates & IDs", url: "#certifications" }
         ]
