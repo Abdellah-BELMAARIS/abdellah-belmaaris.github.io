@@ -581,6 +581,37 @@ export const translations: Record<string, [string, string]> = {
     'Certifications techniques vérifiées validant l’ingénierie logicielle 3D OpenBIM, l’IA appliquée, l’analyse de données Python et la cybersécurité.',
     'شهادات تقنية موثقة تثبت الكفاءة في هندسة برمجيات OpenBIM ثلاثية الأبعاد، والذكاء الاصطناعي التطبيقي، وتحليل البيانات بـ Python، والأمن السيبراني.'
   ],
+  'BIM & Full-Stack Software Developer at BIMPulse | OpenBIM & 3D Web (TypeScript, React, Three.js, IFC) | Python & Django | Applied AI & Data | Master BIM Software Certified': [
+    'Développeur Logiciel BIM & Full-Stack chez BIMPulse | OpenBIM & Web 3D (TypeScript, React, Three.js, IFC) | Python & Django | IA Appliquée & Data | Certifié Master BIM Software',
+    'مطور برمجيات BIM و Full-Stack في BIMPulse | OpenBIM والويب ثلاثي الأبعاد (TypeScript, React, Three.js, IFC) | Python و Django | الذكاء الاصطناعي والبيانات | معتمد Master BIM Software'
+  ],
+  'I’m a BIM & Full-Stack Software Developer at BIMPulse, focused on building practical digital platforms and 3D OpenBIM web applications for the AEC industry.': [
+    'Je suis Développeur Logiciel BIM & Full-Stack chez BIMPulse, spécialisé dans la création de plateformes numériques concrètes et d’applications web 3D OpenBIM pour l’industrie AEC.',
+    'أنا مطور برمجيات BIM و Full-Stack في شركة BIMPulse، أركز على بناء منصات رقمية عملية وتطبيقات ويب OpenBIM ثلاثية الأبعاد لقطاع الهندسة والبناء (AEC).'
+  ],
+  'At BIMPulse, I work on real-world projects that connect software engineering with BIM, construction technologies, and digital transformation. It’s an environment where I get to solve real engineering problems, collaborate on meaningful products, and keep growing every day.': [
+    'Chez BIMPulse, je travaille sur des projets concrets reliant le génie logiciel au BIM, aux technologies de construction et à la transformation numérique. C’est un environnement où je résous de vrais défis d’ingénierie, collabore sur des produits utiles et progresse chaque jour.',
+    'في BIMPulse، أعمل على مشاريع حقيقية تربط هندسة البرمجيات بـ BIM وتقنيات البناء والتحول الرقمي. إنها بيئة تتيح لي حل مشكلات هندسية واقعية والتعاون على منتجات ذات قيمة والتطور يومياً.'
+  ],
+  'My technical stack spans both 3D OpenBIM web development and full-stack engineering:': [
+    'Ma stack technique couvre à la fois le développement web 3D OpenBIM et l’ingénierie full-stack :',
+    'تجمع خبرتي التقنية بين تطوير تطبيقات الويب ثلاثية الأبعاد OpenBIM والهندسة البرمجية المتكاملة (Full-Stack):'
+  ],
+  'BIM & 3D Web:': ['BIM & Web 3D :', 'BIM والويب ثلاثي الأبعاد:'],
+  'Full-Stack & Backend:': ['Full-Stack & Backend :', 'Full-Stack والخوادم الخلفية:'],
+  'AI, Data & Security:': ['IA, Data & Sécurité :', 'الذكاء الاصطناعي والبيانات والأمن السيبراني:'],
+  'I enjoy taking an idea or business requirement and turning it into reliable, easy-to-use software. Whether I’m building backend logic, structuring data, or rendering 3D IFC models directly in the browser, I care about writing clean code that actually helps people get work done.': [
+    'J’aime transformer une idée ou un besoin métier en un logiciel fiable et simple d’utilisation. Qu’il s’agisse de logique backend, de structuration de données ou de rendu de modèles IFC 3D dans le navigateur, je m’attache à écrire un code propre et réellement utile.',
+    'أستمتع بتحويل الأفكار ومتطلبات العمل إلى برمجيات موثوقة وسهلة الاستخدام. سواء كنت أبني المنطق البرمجي الخلفي أو أنظم البيانات أو أعرض نماذج IFC ثلاثية الأبعاد في المتصفح، أهتم بكتابة شيفرة نظيفة تساعد الناس فعلياً على إنجاز عملهم.'
+  ],
+  'My path into tech has been shaped by self-directed learning, hands-on projects, and certifications, including the Master BIM Software Developer certificate from That Open Company, DataCamp’s AI Engineer and Python Data Associate certifications, and Cybersecurity Fundamentals from Almdrasa. As a homeschooled learner from Morocco, I’ve built my skills through consistency, curiosity, and shipping real projects.': [
+    'Mon parcours dans la tech s’est construit par l’apprentissage autodidacte, des projets concrets et des certifications, dont Master BIM Software Developer de That Open Company, AI Engineer et Python Data Associate de DataCamp, et Cybersecurity Fundamentals d’Almdrasa. En tant qu’apprenant instruit à domicile au Maroc, j’ai bâti mes compétences avec régularité, curiosité et réalisations concrètes.',
+    'تشكّل مساري في التقنية عبر التعلم الذاتي والمشاريع العملية والشهادات، بما في ذلك شهادة Master BIM Software Developer من That Open Company، وشهادتي AI Engineer وPython Data Associate من DataCamp، وأساسيات الأمن السيبراني من المدرسة. كمتعلم بالتعليم المنزلي من المغرب، بنيت مهاراتي بالاستمرارية والفضول وبناء مشاريع حقيقية.'
+  ],
+  'Going forward, my focus is to keep growing across OpenBIM software development, full-stack engineering, and applied AI to build tools that bring real value to the AEC industry.': [
+    'Pour la suite, mon objectif est de continuer à progresser dans le développement logiciel OpenBIM, le full-stack et l’IA appliquée afin de créer des outils à forte valeur pour le secteur AEC.',
+    'في المرحلة القادمة، ينصبّ تركيزي على مواصلة التطور في تطوير برمجيات OpenBIM وهندسة الويب المتكاملة والذكاء الاصطناعي التطبيقي لبناء أدوات تقدم قيمة حقيقية لقطاع AEC.'
+  ],
   'BIM & Full-Stack Developer': ['Développeur BIM & Full-Stack', 'مطور BIM و Full-Stack'],
   'Master BIM Viewer — OpenBIM 3D Engine': ['Master BIM Viewer — Moteur 3D OpenBIM', 'Master BIM Viewer — محرك OpenBIM ثلاثي الأبعاد'],
   'Private Repo': ['Dépôt privé', 'مستودع خاص'],

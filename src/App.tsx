@@ -1007,39 +1007,129 @@ export default function App() {
         {/* ─── 01 HERO SECTION (Rule 2 & 3: Desktop Composition & Exact Content) ─── */}
         <section id="hero" className="hero-redesign-section">
           <div className="hero-grid-layout">
-            {/* Left Column: Hero Content */}
+            {/* Left Column: Hero Content with Staggered Opening Transition */}
             <motion.div
               className="hero-copy-column"
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65 }}
+              initial={reduceMotion ? false : 'hidden'}
+              animate={reduceMotion || !isLoading ? 'visible' : 'hidden'}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.09, delayChildren: 0.08 }
+                }
+              }}
             >
-              <div className="hero-kicker-badge">
-                <span className="kicker-pulse-dot" />{translateText("BIM & FULL-STACK SOFTWARE DEVELOPER")}</div>
+              <motion.div
+                className="hero-kicker-badge"
+                variants={{
+                  hidden: { opacity: 0, y: 16, filter: 'blur(6px)' },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] }
+                  }
+                }}
+              >
+                <span className="kicker-pulse-dot" />{translateText("BIM & FULL-STACK SOFTWARE DEVELOPER")}
+              </motion.div>
 
-              <h1 className="hero-name-heading">{translateText("Abdellah")}<br />
-                <span className="hero-surname">{translateText("BELMAARIS")}</span>
-              </h1>
+              <motion.h1
+                className="hero-name-heading"
+                variants={{
+                  hidden: { opacity: 0, y: 28, filter: 'blur(10px)' },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] }
+                  }
+                }}
+              >
+                <motion.span
+                  className="hero-firstname-line"
+                  variants={{
+                    hidden: { opacity: 0, y: 22 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+                  }}
+                >
+                  {translateText("Abdellah")}
+                </motion.span>
+                <br />
+                <motion.span
+                  className="hero-surname hero-surname-animated"
+                  variants={{
+                    hidden: { opacity: 0, y: 26, letterSpacing: '0.12em' },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      letterSpacing: '-0.02em',
+                      transition: { duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }
+                    }
+                  }}
+                >
+                  {translateText("BELMAARIS")}
+                </motion.span>
+              </motion.h1>
 
-              <div className="hero-job-title">{translateText("BIM & Full-Stack Software Developer")}</div>
+              <motion.div
+                className="hero-job-title hero-headline-full"
+                variants={{
+                  hidden: { opacity: 0, y: 20, filter: 'blur(6px)' },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] }
+                  }
+                }}
+              >
+                {translateText("BIM & Full-Stack Software Developer at BIMPulse | OpenBIM & 3D Web (TypeScript, React, Three.js, IFC) | Python & Django | Applied AI & Data | Master BIM Software Certified")}
+              </motion.div>
 
-              <p className="hero-statement">{translateText("I design and engineer 3D OpenBIM web platforms, full-stack web applications, interactive dashboards, and AI-powered digital solutions for AEC and modern businesses.")}</p>
+              <motion.p
+                className="hero-statement"
+                variants={{
+                  hidden: { opacity: 0, y: 18, filter: 'blur(4px)' },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+                  }
+                }}
+              >
+                {translateText("I’m a BIM & Full-Stack Software Developer at BIMPulse, focused on building practical digital platforms and 3D OpenBIM web applications for the AEC industry.")}
+              </motion.p>
 
-              <div className="hero-tech-line">
-                <span className="tech-item">{translateText("Python")}</span>
-                <span className="tech-sep">·</span>
-                <span className="tech-item">{translateText("Django")}</span>
-                <span className="tech-sep">·</span>
+              <motion.div
+                className="hero-tech-line"
+                variants={{
+                  hidden: { opacity: 0, y: 14 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+                }}
+              >
                 <span className="tech-item">{translateText("TypeScript")}</span>
                 <span className="tech-sep">·</span>
                 <span className="tech-item">{translateText("React")}</span>
                 <span className="tech-sep">·</span>
                 <span className="tech-item">{translateText("Three.js & OpenBIM")}</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">{translateText("SQL")}</span>
-              </div>
+                <span className="tech-item">{translateText("Python")}</span>
+                <span className="tech-sep">·</span>
+                <span className="tech-item">{translateText("Django")}</span>
+                <span className="tech-sep">·</span>
+                <span className="tech-item">{translateText("Applied AI")}</span>
+              </motion.div>
 
-              <div className="hero-cta-actions">
+              <motion.div
+                className="hero-cta-actions"
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] } }
+                }}
+              >
                 <a href="#request-project" className="btn btn-primary" id="hero-start-project-btn">{translateText("Start a Project ")}<span className="btn-arrow">→</span>
                 </a>
                 <a
@@ -1065,9 +1155,15 @@ export default function App() {
                 </a>
                 <a href="#services" className="btn btn-secondary" id="hero-explore-services-btn">{translateText("Explore Services")}</a>
                 <a href="#work" className="btn btn-secondary" id="hero-view-work-btn">{translateText("View My Work")}</a>
-              </div>
+              </motion.div>
 
-              <div className="hero-socials-row">
+              <motion.div
+                className="hero-socials-row"
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.48, ease: [0.22, 1, 0.36, 1] } }
+                }}
+              >
                 <a
                   href="https://github.com/Abdellah-BELMAARIS"
                   target="_blank"
@@ -1088,15 +1184,15 @@ export default function App() {
                 <span className="social-sep">·</span>
                 <span className="hero-location-text">
                   <i className="fa-solid fa-location-dot" style={{ marginRight: '6px', color: 'var(--emerald-bright)' }} />{translateText(" Casablanca, Morocco")}</span>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Right Column: Futuristic Holographic 3D ID Badge with Parallax Tilt & Conic Laser Beam */}
             <motion.div
               className="hero-portrait-column"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
+              initial={reduceMotion ? false : { opacity: 0, scale: 0.94, y: 18 }}
+              animate={reduceMotion || !isLoading ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.94, y: 18 }}
+              transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
             >
               <HolographicIdBadge />
             </motion.div>
@@ -1676,18 +1772,29 @@ export default function App() {
             {/* Right Column: Exact About Copy (Rule 8) */}
             <motion.div
               className="about-copy-column"
-              initial={{ opacity: 0, y: 20 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             >
               <h3 className="about-headline">{translateText("A practical approach to building software.")}</h3>
 
-              <p className="about-body-p">{translateText("I'm Abdellah BELMAARIS, a BIM & Full-Stack Software Developer at BIMPulse Digital in Casablanca, Morocco. I build 3D OpenBIM web platforms and full-stack applications using TypeScript, React, Three.js, That Open Engine, Python, Django, and SQL.")}</p>
+              <p className="about-body-p">{translateText("I’m a BIM & Full-Stack Software Developer at BIMPulse, focused on building practical digital platforms and 3D OpenBIM web applications for the AEC industry.")}</p>
 
-              <p className="about-body-p">{translateText("At BIMPulse, I engineer digital solutions connecting software development with OpenBIM (IFC2X3/IFC4 & Fragments), 3D geospatial GIS, engineering workflows, and AEC digital transformation.")}</p>
+              <p className="about-body-p">{translateText("At BIMPulse, I work on real-world projects that connect software engineering with BIM, construction technologies, and digital transformation. It’s an environment where I get to solve real engineering problems, collaborate on meaningful products, and keep growing every day.")}</p>
 
-              <p className="about-body-p">{translateText("Certified Master BIM Software Developer (That Open Company) and DataCamp AI & Data Associate—bridging scalable backend architecture, 3D OpenBIM web graphics, and applied AI to ship real-world engineering products.")}</p>
+              <p className="about-body-p">{translateText("My technical stack spans both 3D OpenBIM web development and full-stack engineering:")}</p>
+              <ul className="about-stack-list">
+                <li><strong>{translateText("BIM & 3D Web:")}</strong> {translateText("TypeScript, React, Three.js, That Open Engine, IFC / Fragments, Cesium GIS, and Firebase")}</li>
+                <li><strong>{translateText("Full-Stack & Backend:")}</strong> {translateText("Python, Django, SQL, HTML, CSS, REST APIs, and Google Workspace integrations")}</li>
+                <li><strong>{translateText("AI, Data & Security:")}</strong> {translateText("Applied AI & MCP agent workflows, Pandas, Matplotlib, and cybersecurity fundamentals")}</li>
+              </ul>
+
+              <p className="about-body-p">{translateText("I enjoy taking an idea or business requirement and turning it into reliable, easy-to-use software. Whether I’m building backend logic, structuring data, or rendering 3D IFC models directly in the browser, I care about writing clean code that actually helps people get work done.")}</p>
+
+              <p className="about-body-p">{translateText("My path into tech has been shaped by self-directed learning, hands-on projects, and certifications, including the Master BIM Software Developer certificate from That Open Company, DataCamp’s AI Engineer and Python Data Associate certifications, and Cybersecurity Fundamentals from Almdrasa. As a homeschooled learner from Morocco, I’ve built my skills through consistency, curiosity, and shipping real projects.")}</p>
+
+              <p className="about-body-p">{translateText("Going forward, my focus is to keep growing across OpenBIM software development, full-stack engineering, and applied AI to build tools that bring real value to the AEC industry.")}</p>
             </motion.div>
           </div>
 
