@@ -34,7 +34,7 @@ const cvHtml = `<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Abdellah BELMAARIS — BIM & Full-Stack Software Developer CV</title>
-  <meta name="description" content="Official Curriculum Vitae of Abdellah BELMAARIS — BIM & Full-Stack Software Developer at BIMPulse. OpenBIM 3D (Three.js, That Open Engine, IFC, Cesium GIS), Python/Django, Applied AI & Verified Certifications.">
+  <meta name="description" content="Curriculum Vitae of Abdellah BELMAARIS — BIM & Full-Stack Software Developer at BIMPulse, working on 3D OpenBIM web applications (TypeScript, React, Three.js, That Open Engine, IFC/Fragments, Cesium GIS), Python/Django, and applied AI for the AECO industry.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -534,6 +534,10 @@ const cvHtml = `<!DOCTYPE html>
     .cv-summary-card strong {
       color: var(--text);
       font-weight: 700;
+    }
+
+    .cv-summary-card p + p {
+      margin-top: 10px;
     }
 
     /* ─── Experience Timeline Cards ────────────────────────────────────────── */
@@ -1256,7 +1260,7 @@ const cvHtml = `<!DOCTYPE html>
         <span class="action-bar-logo">AB.</span>
         <span class="action-bar-title">Abdellah BELMAARIS</span>
       </a>
-      <span class="doc-spec-badge">Authenticated Executive CV</span>
+      <span class="doc-spec-badge">Curriculum Vitae · 2026</span>
     </div>
 
     <div class="action-bar-buttons">
@@ -1289,13 +1293,13 @@ const cvHtml = `<!DOCTYPE html>
       <div class="cv-hero-grid">
         <div class="cv-avatar-wrap">
           <img src="${avatarBase64}" alt="Abdellah BELMAARIS Avatar" class="cv-avatar">
-          <span class="cv-avatar-status" title="Status: Active & Available for Roles"></span>
+          <span class="cv-avatar-status" title="Status: Active & Open to Collaboration"></span>
         </div>
 
         <div class="cv-hero-body">
           <div class="cv-kicker-pill">
             <i class="fa-solid fa-cubes"></i>
-            <span>BIM & Full-Stack Software Developer at BIMPulse • OpenBIM 3D & Applied AI</span>
+            <span>BIM & Full-Stack Software Developer • BIMPulse • OpenBIM & AECO</span>
           </div>
 
           <h1 class="cv-full-name">
@@ -1304,7 +1308,7 @@ const cvHtml = `<!DOCTYPE html>
           </h1>
 
           <div class="cv-headline-role">
-            BIM & Full-Stack Software Developer <span class="cv-headline-company">• BIMPulse & OpenBIM Systems</span>
+            BIM & Full-Stack Software Developer <span class="cv-headline-company">• BIMPulse · OpenBIM 3D, Full-Stack & Applied AI</span>
           </div>
 
           <div class="cv-contacts-grid">
@@ -1335,23 +1339,23 @@ const cvHtml = `<!DOCTYPE html>
     <div class="cv-metrics-strip">
       <div class="cv-metric-box">
         <div class="cv-metric-val">OPENBIM 3D</div>
-        <div class="cv-metric-lbl">Three.js & IFC</div>
+        <div class="cv-metric-lbl">IFC & Three.js</div>
         <div class="cv-metric-sub">That Open Engine · Cesium GIS</div>
       </div>
       <div class="cv-metric-box">
-        <div class="cv-metric-val">O(1) TIME</div>
+        <div class="cv-metric-val">O(1) QUERIES</div>
         <div class="cv-metric-lbl">SQL Optimization</div>
-        <div class="cv-metric-sub">Eager Loading & Eliminated N+1</div>
+        <div class="cv-metric-sub">Django Eager Loading (No N+1)</div>
       </div>
       <div class="cv-metric-box">
         <div class="cv-metric-val">14 ROLES</div>
         <div class="cv-metric-lbl">RBAC Architecture</div>
-        <div class="cv-metric-sub">Granular Permission Matrix</div>
+        <div class="cv-metric-sub">Granular Access Control</div>
       </div>
       <div class="cv-metric-box">
         <div class="cv-metric-val">5 CERTS</div>
-        <div class="cv-metric-lbl">Industry Verified</div>
-        <div class="cv-metric-sub">That Open Master BIM & DataCamp AI</div>
+        <div class="cv-metric-lbl">Verified Credentials</div>
+        <div class="cv-metric-sub">That Open, DataCamp & Almdrasa</div>
       </div>
     </div>
 
@@ -1361,15 +1365,18 @@ const cvHtml = `<!DOCTYPE html>
       <!-- ─── PRIMARY LEFT COLUMN (Career & Projects) ─────────────────────── -->
       <div class="cv-col-main">
 
-        <!-- Executive Profile -->
+        <!-- Professional Profile -->
         <section>
           <div class="cv-section-title">
-            <span class="title-text"><i class="fa-solid fa-user-astronaut"></i> Executive Summary</span>
+            <span class="title-text"><i class="fa-solid fa-user-astronaut"></i> Professional Profile</span>
             <span class="section-code-badge">01 // PROFILE</span>
           </div>
           <div class="cv-summary-card">
             <p>
-              Performance-driven <strong>BIM & Full-Stack Software Developer</strong> operating at the intersection of <strong>3D OpenBIM web engineering</strong>, enterprise backend architecture, and applied artificial intelligence at <strong>BIMPulse</strong>. Specialized in browser-native 3D IFC/Fragments viewers (<strong>TypeScript, React, Three.js, That Open Engine, Cesium GIS</strong>), high-throughput <strong>Python/Django REST</strong> backends, and normalized <strong>PostgreSQL</strong> schemas. Proven track record in eliminating N+1 bottlenecks to <strong>constant O(1) query time</strong>, architecting <strong>14-role RBAC</strong> engines, and integrating <strong>MCP AI Agents</strong>. Certified by DataCamp in Applied AI Engineering & Python Data Analytics, and graduate of That Open University's Master BIM Software Developer track.
+              <strong>BIM & Full-Stack Software Developer</strong> at <strong>BIMPulse</strong>, working on <strong>3D OpenBIM web applications</strong> while continuously learning and growing in BIM and the <strong>AECO</strong> industry. Contributing to projects that connect software development with BIM, construction technology, and digital transformation.
+            </p>
+            <p>
+              Hands-on experience across browser-native 3D IFC/Fragments viewers (<strong>TypeScript, React, Three.js, That Open Engine, Cesium GIS</strong>), <strong>Python/Django</strong> &amp; <strong>SQL</strong> backends (including O(1) eager-loaded queries and 14-role RBAC), <strong>Firebase</strong>, <strong>Google Workspace</strong> integrations, and <strong>applied AI / MCP agent workflows</strong>. Self-directed homeschooled learner from Morocco holding the Master BIM Software Developer certificate (That Open Company), DataCamp’s AI Engineer &amp; Python Data Associate certifications, and Cybersecurity Fundamentals (Almdrasa).
             </p>
           </div>
         </section>
@@ -1389,13 +1396,13 @@ const cvHtml = `<!DOCTYPE html>
                 <span class="exp-date-chip active-chip">AUG 2026 — PRESENT</span>
               </div>
               <div class="exp-company-sub">
-                BIMPulse • Casablanca, Morocco <span>(Apprenticeship) · OpenBIM 3D & AEC Digital Solutions</span>
+                BIMPulse • Casablanca, Morocco <span>(Apprenticeship) · OpenBIM 3D & AECO Software</span>
               </div>
               <ul class="exp-bullets-list">
-                <li>Engineered and deployed core application modules for <strong>BIMPulse Academy</strong>, an enterprise digital learning platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.</li>
-                <li>Built interactive <strong>3D OpenBIM web viewers</strong> and coordination tools using <strong>TypeScript, React, Three.js, That Open Engine (IFC2X3/IFC4 & Fragments)</strong>, and <strong>Cesium GIS 3D Tiles</strong>.</li>
-                <li>Developed scalable REST APIs in Python & Django, normalized PostgreSQL schemas, Firebase cloud persistence, and AI-assisted <strong>MCP agent</strong> workflows.</li>
-                <li>Formally commended by senior engineering leadership on LinkedIn for architectural milestones and technical contributions to platform delivery.</li>
+                <li>Contributed to core application modules for <strong>BIMPulse Academy</strong>, a digital learning platform dedicated to Architecture, Engineering, Construction &amp; Operations (AECO) professionals.</li>
+                <li>Built interactive <strong>3D OpenBIM web applications</strong> and coordination tools using <strong>TypeScript, React, Three.js, That Open Engine (IFC2X3/IFC4 &amp; Fragments)</strong>, and <strong>Cesium GIS 3D Tiles</strong>.</li>
+                <li>Developed <strong>Python &amp; Django</strong> REST APIs, structured SQL/PostgreSQL schemas, <strong>Firebase</strong> cloud sync, <strong>Google Workspace</strong> integrations, and applied AI / <strong>MCP agent</strong> workflows.</li>
+                <li>Acknowledged by engineering leadership on LinkedIn for technical contributions to <strong>BIMPulse Academy</strong>.</li>
               </ul>
               <div class="exp-tags-strip">
                 <span class="exp-mini-tag">OpenBIM / IFC</span>
@@ -1403,9 +1410,10 @@ const cvHtml = `<!DOCTYPE html>
                 <span class="exp-mini-tag">That Open Engine</span>
                 <span class="exp-mini-tag">TypeScript / React</span>
                 <span class="exp-mini-tag">Python / Django</span>
-                <span class="exp-mini-tag">PostgreSQL</span>
+                <span class="exp-mini-tag">SQL / PostgreSQL</span>
                 <span class="exp-mini-tag">Cesium GIS</span>
                 <span class="exp-mini-tag">Firebase</span>
+                <span class="exp-mini-tag">MCP AI</span>
               </div>
             </article>
 
@@ -1416,12 +1424,12 @@ const cvHtml = `<!DOCTYPE html>
                 <span class="exp-date-chip">MAY 2026 — AUG 2026</span>
               </div>
               <div class="exp-company-sub">
-                Self-Directed & Production Systems <span>· Casablanca, Morocco · Enterprise Web Platforms</span>
+                Self-Directed &amp; Production Projects <span>· Casablanca, Morocco · Backend Architecture</span>
               </div>
               <ul class="exp-bullets-list">
-                <li>Architected enterprise-grade <strong>Role-Based Access Control (RBAC)</strong> supporting <strong>14 discrete user roles</strong> with granular permission matrices and security auditing.</li>
-                <li>Eliminated severe <strong>N+1 query bottlenecks</strong> using eager loading (<code>select_related</code> and <code>prefetch_related</code>), reducing database roundtrips to constant O(1) query time.</li>
-                <li>Integrated automated transactional emails, custom full-text search indexing, and resilient structured application logging.</li>
+                <li>Designed and implemented <strong>Role-Based Access Control (RBAC)</strong> supporting <strong>14 distinct user roles</strong> with granular permission boundaries and access auditing.</li>
+                <li>Resolved <strong>N+1 query bottlenecks</strong> with Django eager loading (<code>select_related</code> and <code>prefetch_related</code>), reducing database roundtrips to constant O(1) query time.</li>
+                <li>Integrated automated transactional emails, full-text search indexing, and structured application logging.</li>
               </ul>
               <div class="exp-tags-strip">
                 <span class="exp-mini-tag">Django</span>
@@ -1435,22 +1443,22 @@ const cvHtml = `<!DOCTYPE html>
             <!-- Role 3: Python Systems -->
             <article class="exp-card">
               <div class="exp-top-bar">
-                <h3 class="exp-role-title">Python Developer & Data Systems</h3>
+                <h3 class="exp-role-title">Python Developer &amp; Data Systems</h3>
                 <span class="exp-date-chip">JAN 2020 — PRESENT</span>
               </div>
               <div class="exp-company-sub">
-                Systems Engineering & Automation <span>· Core Codebases & Open Source</span>
+                Systems Engineering &amp; Automation <span>· Self-Directed Projects &amp; Open Source</span>
               </div>
               <ul class="exp-bullets-list">
-                <li>Constructed automated high-throughput data processing pipelines, unstructured server log tokenizers, and computational algorithms in Python 3.12.</li>
-                <li>Authored a production-grade software library implementing classical <strong>Gang of Four (GoF) design patterns</strong> with 100% pytest test suite coverage and clean dependency injection.</li>
+                <li>Built automated data processing pipelines, log tokenizers, and analytical scripts in Python 3.12 with <strong>Pandas</strong> and <strong>Matplotlib</strong>.</li>
+                <li>Implemented classical <strong>Gang of Four (GoF) design patterns</strong> in Python with clean dependency injection and comprehensive <code>pytest</code> test coverage.</li>
               </ul>
               <div class="exp-tags-strip">
                 <span class="exp-mini-tag">Python 3.12</span>
                 <span class="exp-mini-tag">Design Patterns</span>
                 <span class="exp-mini-tag">Pandas</span>
+                <span class="exp-mini-tag">Matplotlib</span>
                 <span class="exp-mini-tag">pytest</span>
-                <span class="exp-mini-tag">Data Pipelines</span>
               </div>
             </article>
 
@@ -1464,8 +1472,8 @@ const cvHtml = `<!DOCTYPE html>
                 Full-Stack Application Development <span>· Casablanca, Morocco</span>
               </div>
               <ul class="exp-bullets-list">
-                <li>Engineered full-stack web applications translating functional requirements into modular backends and responsive user interfaces.</li>
-                <li>Developed <strong>The Modern Journal CMS</strong>, a scalable publishing platform featuring multi-user roles, live readership analytics telemetry, and responsive typography.</li>
+                <li>Translated functional requirements into clean, modular backend logic and responsive user interfaces.</li>
+                <li>Built <strong>The Modern Journal CMS</strong>, a multi-user publishing application featuring role-based permissions, readership analytics, and responsive typography.</li>
               </ul>
               <div class="exp-tags-strip">
                 <span class="exp-mini-tag">Web Development</span>
@@ -1478,11 +1486,11 @@ const cvHtml = `<!DOCTYPE html>
           </div>
         </section>
 
-        <!-- Standout Production Projects -->
+        <!-- Selected Projects -->
         <section>
           <div class="cv-section-title">
-            <span class="title-text"><i class="fa-solid fa-code-branch"></i> Standout Production Projects</span>
-            <span class="section-code-badge">03 // SYSTEMS</span>
+            <span class="title-text"><i class="fa-solid fa-code-branch"></i> Selected Projects</span>
+            <span class="section-code-badge">03 // PROJECTS</span>
           </div>
 
           <div class="projects-grid">
@@ -1492,7 +1500,7 @@ const cvHtml = `<!DOCTYPE html>
                 <span class="project-badge">Live Web App</span>
               </div>
               <p class="project-desc">
-                Browser-native OpenBIM 3D viewer and AEC coordination suite built with TypeScript, React, Three.js, and That Open Engine. Supports IFC2X3/IFC4 & Fragments, spatial tree, 3D clash QA, 2D floor plans, Cesium GIS 3D Tiles, Firebase sync, and MCP AI Copilot (master-bim-software.web.app).
+                Browser-native 3D OpenBIM viewer and AECO coordination application built with TypeScript, React, Three.js, and That Open Engine. Supports IFC2X3/IFC4 &amp; Fragments, spatial tree inspection, 3D clash QA, 2D floor plans, Cesium GIS 3D Tiles, Firebase sync, and an MCP AI Copilot (master-bim-software.web.app).
               </p>
               <div class="project-pills">
                 <span><i class="fa-solid fa-cubes"></i> IFC / Three.js</span>
@@ -1507,7 +1515,7 @@ const cvHtml = `<!DOCTYPE html>
                 <span class="project-badge">14 RBAC Roles</span>
               </div>
               <p class="project-desc">
-                Production multi-user publishing engine featuring granular role matrices, live analytics telemetry (views, users, posts), constant O(1) database query resolution, and transactional email triggers.
+                Multi-user publishing web application featuring 14-role access control, readership analytics (views, users, posts), constant O(1) eager-loaded database queries, and automated transactional emails.
               </p>
               <div class="project-pills">
                 <span><i class="fa-solid fa-bolt"></i> O(1) Queries</span>
@@ -1522,7 +1530,7 @@ const cvHtml = `<!DOCTYPE html>
                 <span class="project-badge">16 Games WASM</span>
               </div>
               <p class="project-desc">
-                Compiled 16 native Python Pygame arcade games to WebAssembly via Pygbag. Features interactive 3D cabinet selector with dynamic Three.js lighting and locked 60 FPS WebGL rendering.
+                Compiled 16 native Python PyGame arcade games to WebAssembly via Pygbag. Features an interactive 3D cabinet selector with dynamic Three.js lighting and 60 FPS WebGL rendering.
               </p>
               <div class="project-pills">
                 <span><i class="fa-solid fa-gamepad"></i> 16 Python Games</span>
@@ -1537,7 +1545,7 @@ const cvHtml = `<!DOCTYPE html>
                 <span class="project-badge">&lt; 200ms Reports</span>
               </div>
               <p class="project-desc">
-                Local data telemetry engine parsing high-dimensional unstructured system logs; performs cleaning with Pandas and automatically generates statistical Matplotlib visual performance reports in under 200ms.
+                Local developer telemetry tool that parses unstructured system logs, cleans activity streams with Pandas, and generates statistical Matplotlib performance reports in under 200ms.
               </p>
               <div class="project-pills">
                 <span><i class="fa-solid fa-chart-line"></i> Pandas</span>
@@ -1671,89 +1679,76 @@ const cvHtml = `<!DOCTYPE html>
           </div>
         </section>
 
-        <!-- Technical Core Capabilities Matrix -->
+        <!-- Technical Stack Matrix -->
         <section>
           <div class="cv-section-title">
-            <span class="title-text"><i class="fa-solid fa-layer-group"></i> Technical Core</span>
+            <span class="title-text"><i class="fa-solid fa-layer-group"></i> Technical Stack</span>
             <span class="section-code-badge">05 // STACK</span>
           </div>
 
           <div class="skills-matrix-stack">
             <div class="skill-category-box">
-              <div class="skill-cat-header"><i class="fa-solid fa-cubes"></i> OpenBIM & 3D Web</div>
+              <div class="skill-cat-header"><i class="fa-solid fa-cubes"></i> BIM &amp; 3D Web</div>
               <div class="skill-pills-row">
+                <span class="skill-pill core">TypeScript</span>
+                <span class="skill-pill core">React</span>
                 <span class="skill-pill core">Three.js / WebGL</span>
                 <span class="skill-pill core">That Open Engine</span>
-                <span class="skill-pill core">IFC2X3 / IFC4 / FRAG</span>
-                <span class="skill-pill core">Cesium GIS / 3D Tiles</span>
+                <span class="skill-pill core">IFC / Fragments</span>
                 <span class="skill-pill">WebIFC</span>
-                <span class="skill-pill">Firebase / Firestore</span>
-                <span class="skill-pill">MCP AI Agents</span>
+                <span class="skill-pill core">Cesium GIS / 3D Tiles</span>
               </div>
             </div>
 
             <div class="skill-category-box">
-              <div class="skill-cat-header"><i class="fa-solid fa-server"></i> Backend & Systems</div>
+              <div class="skill-cat-header"><i class="fa-solid fa-server"></i> Full-Stack &amp; Backend</div>
               <div class="skill-pills-row">
                 <span class="skill-pill core">Python 3.12</span>
                 <span class="skill-pill core">Django</span>
                 <span class="skill-pill core">Django REST Framework</span>
-                <span class="skill-pill core">PostgreSQL</span>
-                <span class="skill-pill">SQL Optimization</span>
-                <span class="skill-pill">RESTful APIs</span>
-                <span class="skill-pill">JWT</span>
-                <span class="skill-pill">14 RBAC Roles</span>
-                <span class="skill-pill">Celery / Redis</span>
-              </div>
-            </div>
-
-            <div class="skill-category-box">
-              <div class="skill-cat-header"><i class="fa-solid fa-code"></i> Frontend Engineering</div>
-              <div class="skill-pills-row">
-                <span class="skill-pill core">React 19</span>
-                <span class="skill-pill core">TypeScript</span>
-                <span class="skill-pill">JavaScript (ES6+)</span>
+                <span class="skill-pill core">SQL / PostgreSQL</span>
+                <span class="skill-pill core">Firebase / Firestore</span>
+                <span class="skill-pill">REST APIs</span>
                 <span class="skill-pill">HTML5 / CSS3</span>
-                <span class="skill-pill">Three.js / WebGL</span>
-                <span class="skill-pill">Vite</span>
-                <span class="skill-pill">Responsive UI</span>
-                <span class="skill-pill">Framer Motion</span>
+                <span class="skill-pill">Google Workspace APIs</span>
+                <span class="skill-pill">14-Role RBAC &amp; JWT</span>
               </div>
             </div>
 
             <div class="skill-category-box">
-              <div class="skill-cat-header"><i class="fa-solid fa-brain"></i> Applied AI & Data</div>
+              <div class="skill-cat-header"><i class="fa-solid fa-brain"></i> AI, Data &amp; Security</div>
               <div class="skill-pills-row">
+                <span class="skill-pill core">Applied AI &amp; LLMs</span>
+                <span class="skill-pill core">MCP Agent Workflows</span>
+                <span class="skill-pill">RAG Concepts</span>
                 <span class="skill-pill core">Pandas</span>
                 <span class="skill-pill">NumPy</span>
                 <span class="skill-pill">Matplotlib</span>
-                <span class="skill-pill core">LLM API Integration</span>
-                <span class="skill-pill">RAG Architectures</span>
-                <span class="skill-pill">Prompt Engineering</span>
-                <span class="skill-pill">Data Cleaning Pipelines</span>
+                <span class="skill-pill">Cybersecurity Fundamentals</span>
+                <span class="skill-pill">OWASP Security</span>
               </div>
             </div>
 
             <div class="skill-category-box">
-              <div class="skill-cat-header"><i class="fa-solid fa-cubes"></i> Architecture & DevOps</div>
+              <div class="skill-cat-header"><i class="fa-solid fa-screwdriver-wrench"></i> Engineering &amp; Workflow</div>
               <div class="skill-pills-row">
                 <span class="skill-pill core">Clean Architecture</span>
+                <span class="skill-pill">SQL Optimization</span>
                 <span class="skill-pill">GoF Design Patterns</span>
-                <span class="skill-pill">Git / GitHub CI/CD</span>
+                <span class="skill-pill">Git &amp; GitHub CI/CD</span>
                 <span class="skill-pill">Docker</span>
-                <span class="skill-pill">Linux</span>
+                <span class="skill-pill">Vite</span>
                 <span class="skill-pill">pytest</span>
                 <span class="skill-pill">PEP-8</span>
-                <span class="skill-pill">OWASP Security</span>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Education & Specialized Tracks -->
+        <!-- Education & Self-Directed Learning -->
         <section>
           <div class="cv-section-title">
-            <span class="title-text"><i class="fa-solid fa-graduation-cap"></i> Education & Tracks</span>
+            <span class="title-text"><i class="fa-solid fa-graduation-cap"></i> Education &amp; Learning</span>
             <span class="section-code-badge">06 // EDU</span>
           </div>
 
@@ -1764,19 +1759,19 @@ const cvHtml = `<!DOCTYPE html>
               <div class="edu-date">Completed Nov 2026</div>
             </div>
             <div class="edu-item">
-              <div class="edu-title">Backend Architecture & Systems Engineering</div>
-              <div class="edu-inst">Specialized Track · Self-directed Engineering</div>
-              <div class="edu-date">Jan 2023 – Present</div>
+              <div class="edu-title">Self-Directed Engineering &amp; Homeschooling</div>
+              <div class="edu-inst">Morocco · Full-Stack, Backend &amp; OpenBIM Hands-On Track</div>
+              <div class="edu-date">Jan 2020 – Present</div>
             </div>
             <div class="edu-item">
               <div class="edu-title">Career Track: Backend Developer</div>
               <div class="edu-inst">DataCamp Professional Career Track</div>
-              <div class="edu-date">Verified Continuous Learning</div>
+              <div class="edu-date">Continuous Learning</div>
             </div>
             <div class="edu-item">
-              <div class="edu-title">Data Science & Analytics Foundations</div>
+              <div class="edu-title">Data Science &amp; Analytics Foundations</div>
               <div class="edu-inst">DataCamp Skill Track</div>
-              <div class="edu-date">Verified Continuous Learning</div>
+              <div class="edu-date">Continuous Learning</div>
             </div>
           </div>
         </section>
@@ -1784,7 +1779,7 @@ const cvHtml = `<!DOCTYPE html>
         <!-- Languages & Standards -->
         <section>
           <div class="cv-section-title">
-            <span class="title-text"><i class="fa-solid fa-globe"></i> Languages & Standards</span>
+            <span class="title-text"><i class="fa-solid fa-globe"></i> Languages &amp; Standards</span>
             <span class="section-code-badge">07 // GLOBAL</span>
           </div>
 
@@ -1805,7 +1800,8 @@ const cvHtml = `<!DOCTYPE html>
               Industry Standards
             </div>
             <div class="skill-pills-row">
-              <span class="skill-pill">BIM / IFC Standards</span>
+              <span class="skill-pill">OpenBIM / IFC</span>
+              <span class="skill-pill">AECO Workflows</span>
               <span class="skill-pill">PEP-8 Python</span>
               <span class="skill-pill">RESTful API Design</span>
               <span class="skill-pill">Clean Architecture</span>
@@ -1908,23 +1904,24 @@ console.log('Created enhanced visual public/cv.html successfully!');
 
 // 2. Generate markdown CV
 const cvMarkdown = `# Abdellah BELMAARIS
-**BIM & Full-Stack Software Developer at BIMPulse** • OpenBIM 3D, Backend Systems & Applied AI  
+**BIM & Full-Stack Software Developer at BIMPulse** • OpenBIM 3D, Full-Stack & Applied AI (AECO)  
 *Casablanca, Morocco* • [obaidbelmaaris@gmail.com](mailto:obaidbelmaaris@gmail.com) • +212 654 624 382  
 [LinkedIn Profile](https://linkedin.com/in/abdellah-belmaaris) • [GitHub Profile](https://github.com/Abdellah-BELMAARIS) • [Portfolio Website](https://abdellah-belmaaris.github.io)
 
 ---
 
-## Executive Summary
-Performance-driven **BIM & Full-Stack Software Developer** operating at the intersection of **3D OpenBIM web engineering**, enterprise backend architecture, and applied artificial intelligence at **BIMPulse**. Specialized in browser-native 3D IFC/Fragments viewers (**TypeScript, React, Three.js, That Open Engine, Cesium GIS**), high-throughput **Python/Django REST** backends, and normalized **PostgreSQL** schemas. Proven track record in eliminating N+1 bottlenecks down to **constant O(1) query time**, architecting **14-role RBAC** engines, and building **MCP AI Agent** workflows. Certified by DataCamp in Applied AI Engineering & Python Data Analytics, and graduate of That Open University's Master BIM Software Developer track.
+## Professional Profile
+**BIM & Full-Stack Software Developer** at **BIMPulse**, working on **3D OpenBIM web applications** while continuously learning and growing in BIM and the **AECO** industry. Contributing to projects that connect software development with BIM, construction technology, and digital transformation.
+
+Hands-on experience across browser-native 3D IFC/Fragments viewers (**TypeScript, React, Three.js, That Open Engine, Cesium GIS**), **Python/Django** & **SQL** backends (including O(1) eager-loaded queries and 14-role RBAC), **Firebase**, **Google Workspace** integrations, and **applied AI / MCP agent workflows**. Self-directed homeschooled learner from Morocco holding the Master BIM Software Developer certificate (That Open Company), DataCamp’s AI Engineer & Python Data Associate certifications, and Cybersecurity Fundamentals (Almdrasa).
 
 ---
 
-## Technical Core Capabilities
-- **OpenBIM & 3D Web**: Three.js / WebGL, That Open Engine (@thatopen/components, Fragments, web-ifc), IFC2X3 / IFC4, Cesium GIS / 3D Tiles, Firebase / Firestore, MCP AI Agents
-- **Backend & Systems**: Python 3.12, Django, Django REST Framework, PostgreSQL, SQL Optimization, RESTful APIs, JWT Authentication, 14 RBAC Roles, Celery, Redis
-- **Frontend Engineering**: React 19, TypeScript, JavaScript (ES6+), HTML5, Semantic CSS3, Vite, Responsive UI, Framer Motion
-- **Applied AI & Data Systems**: Pandas, NumPy, Matplotlib, LLM API Integration, RAG Architectures, Prompt Engineering, Data Cleaning Pipelines
-- **Architecture & DevOps**: Clean Architecture, GoF Design Patterns, Git / GitHub CI/CD, Docker, Linux, pytest, PEP-8 Standards, OWASP Security
+## Technical Stack
+- **BIM & 3D Web**: TypeScript, React, Three.js / WebGL, That Open Engine (@thatopen/components, Fragments, web-ifc), IFC2X3 / IFC4, Cesium GIS / 3D Tiles
+- **Full-Stack & Backend**: Python 3.12, Django, Django REST Framework, SQL / PostgreSQL, Firebase / Firestore, REST APIs, HTML5 / CSS3, Google Workspace APIs, 14-Role RBAC & JWT
+- **AI, Data & Security**: Applied AI & LLMs, MCP Agent Workflows, RAG Concepts, Pandas, NumPy, Matplotlib, Cybersecurity Fundamentals, OWASP Security
+- **Engineering & Workflow**: Clean Architecture, SQL Optimization, GoF Design Patterns, Git & GitHub CI/CD, Docker, Vite, pytest, PEP-8 Standards
 
 ---
 
@@ -1932,61 +1929,61 @@ Performance-driven **BIM & Full-Stack Software Developer** operating at the inte
 
 ### BIM & Full-Stack Software Developer — BIMPulse (Casablanca, Morocco)
 *AUG 2026 — PRESENT (Apprenticeship)*  
-- Engineered and deployed core application modules for **BIMPulse Academy**, an enterprise digital learning platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.
-- Built interactive **3D OpenBIM web viewers** and coordination tools using **TypeScript, React, Three.js, That Open Engine (IFC2X3/IFC4 & Fragments)**, and **Cesium GIS 3D Tiles**.
-- Developed scalable REST APIs in Python & Django, normalized PostgreSQL schemas, Firebase cloud persistence, and AI-assisted **MCP agent** workflows.
-- Formally commended by senior engineering leadership on LinkedIn for architectural milestones and technical contributions to platform delivery.
-- *Technologies*: OpenBIM / IFC, Three.js, That Open Engine, TypeScript / React, Python / Django, PostgreSQL, Cesium GIS, Firebase
+- Contributed to core application modules for **BIMPulse Academy**, a digital learning platform dedicated to Architecture, Engineering, Construction & Operations (AECO) professionals.
+- Built interactive **3D OpenBIM web applications** and coordination tools using **TypeScript, React, Three.js, That Open Engine (IFC2X3/IFC4 & Fragments)**, and **Cesium GIS 3D Tiles**.
+- Developed **Python & Django** REST APIs, structured SQL/PostgreSQL schemas, **Firebase** cloud sync, **Google Workspace** integrations, and applied AI / **MCP agent** workflows.
+- Acknowledged by engineering leadership on LinkedIn for technical contributions to **BIMPulse Academy**.
+- *Technologies*: OpenBIM / IFC, Three.js, That Open Engine, TypeScript / React, Python / Django, SQL / PostgreSQL, Cesium GIS, Firebase, MCP AI
 
-### Django & Backend Systems Developer — Production Systems (Casablanca, Morocco)
+### Django & Backend Systems Developer — Self-Directed & Production Projects (Casablanca, Morocco)
 *MAY 2026 — AUG 2026*  
-- Architected enterprise-grade **Role-Based Access Control (RBAC)** supporting **14 discrete user roles** with granular permission matrices and security auditing.
-- Eliminated severe **N+1 query bottlenecks** using eager loading (\`select_related\` and \`prefetch_related\`), reducing database roundtrips to constant O(1) query time.
-- Integrated automated transactional emails, custom full-text search indexing, and resilient structured application logging.
+- Designed and implemented **Role-Based Access Control (RBAC)** supporting **14 distinct user roles** with granular permission boundaries and access auditing.
+- Resolved **N+1 query bottlenecks** with Django eager loading (\`select_related\` and \`prefetch_related\`), reducing database roundtrips to constant O(1) query time.
+- Integrated automated transactional emails, full-text search indexing, and structured application logging.
 - *Technologies*: Django, 14 RBAC Roles, O(1) Eager Loading, SQL Optimization, PostgreSQL
 
 ### Python Developer & Data Systems — Systems Engineering & Open Source
 *JAN 2020 — PRESENT*  
-- Constructed automated high-throughput data processing pipelines, unstructured server log tokenizers, and computational algorithms in Python 3.12.
-- Authored a production-grade software library implementing classical **Gang of Four (GoF) design patterns** with 100% pytest test suite coverage and clean dependency injection.
-- *Technologies*: Python 3.12, Design Patterns, Pandas, pytest, Data Pipelines
+- Built automated data processing pipelines, log tokenizers, and analytical scripts in Python 3.12 with **Pandas** and **Matplotlib**.
+- Implemented classical **Gang of Four (GoF) design patterns** in Python with clean dependency injection and comprehensive \`pytest\` test coverage.
+- *Technologies*: Python 3.12, Design Patterns, Pandas, Matplotlib, pytest
 
 ### Web Developer — Full-Stack Applications (Casablanca, Morocco)
 *FEB 2023 — JUN 2026*  
-- Engineered full-stack web applications translating functional requirements into modular backends and responsive user interfaces.
-- Developed **The Modern Journal CMS**, a scalable publishing platform featuring multi-user roles, live readership analytics telemetry, and responsive typography.
-- *Technologies*: Web Development, Django, Bootstrap 5, HTML5/CSS3, REST APIs
+- Translated functional requirements into clean, modular backend logic and responsive user interfaces.
+- Built **The Modern Journal CMS**, a multi-user publishing application featuring role-based permissions, readership analytics, and responsive typography.
+- *Technologies*: Web Development, Django, Bootstrap 5, HTML5 / CSS3, REST APIs
 
 ---
 
-## Standout Production Projects
-- **Master BIM Viewer — OpenBIM 3D Platform** (https://master-bim-software.web.app/): Browser-native OpenBIM 3D viewer and AEC coordination suite built with TypeScript, React, Three.js, and That Open Engine. Supports IFC2X3/IFC4 & Fragments, spatial tree, 3D clash QA, 2D floor plans, Cesium GIS 3D Tiles, Firebase sync, and MCP AI Copilot.
-- **The Modern Journal — CMS**: Production multi-user publishing engine featuring granular 14-role matrices, live analytics telemetry (views, users, posts), constant O(1) query resolution, and transactional email triggers.
-- **PyGame 3D Web Arcade (WASM)**: Compiled 16 native Python Pygame arcade games to WebAssembly via Pygbag. Features interactive 3D cabinet selector with dynamic Three.js lighting and locked 60 FPS WebGL rendering.
-- **Dev-Pulse — Developer Telemetry Engine**: Local data telemetry engine parsing high-dimensional unstructured system logs; performs cleaning with Pandas and automatically generates statistical Matplotlib performance reports in under 200ms.
+## Selected Projects
+- **Master BIM Viewer — OpenBIM 3D Web App** (https://master-bim-software.web.app/): Browser-native 3D OpenBIM viewer and AECO coordination application built with TypeScript, React, Three.js, and That Open Engine. Supports IFC2X3/IFC4 & Fragments, spatial tree inspection, 3D clash QA, 2D floor plans, Cesium GIS 3D Tiles, Firebase sync, and an MCP AI Copilot.
+- **The Modern Journal — CMS**: Multi-user publishing web application featuring 14-role access control, readership analytics (views, users, posts), constant O(1) eager-loaded database queries, and automated transactional emails.
+- **PyGame 3D Web Arcade (WASM)**: Compiled 16 native Python PyGame arcade games to WebAssembly via Pygbag. Features an interactive 3D cabinet selector with dynamic Three.js lighting and 60 FPS WebGL rendering.
+- **Dev-Pulse — Developer Telemetry**: Local developer telemetry tool that parses unstructured system logs, cleans activity streams with Pandas, and generates statistical Matplotlib performance reports in under 200ms.
 
 ---
 
-## Verified Industry Credentials (With Official Certificates)
-1. **Master BIM Software Developer** — That Open Company Certified (Issued Nov 22, 2026) • *ID: 57481141928751* • https://verified.sertifier.com/en/verify/57481141928751/
-2. **AI Engineer for Developers Associate** — DataCamp Certified (Apr 2026 – Apr 2028) • *ID: AIEDA0011678564836* • https://www.datacamp.com/certificate/AIEDA0011678564836
-3. **Python Data Associate** — DataCamp Certified (Feb 2026 – Feb 2028) • *ID: PDA0019412806212* • https://www.datacamp.com/certificate/PDA0019412806212
+## Verified Industry Credentials
+1. **Master BIM Software Developer** — That Open Company (Issued Nov 22, 2026) • *ID: 57481141928751* • https://verified.sertifier.com/en/verify/57481141928751/
+2. **AI Engineer for Developers Associate** — DataCamp (Apr 2026 – Apr 2028) • *ID: AIEDA0011678564836* • https://www.datacamp.com/certificate/AIEDA0011678564836
+3. **Python Data Associate** — DataCamp (Feb 2026 – Feb 2028) • *ID: PDA0019412806212* • https://www.datacamp.com/certificate/PDA0019412806212
 4. **Cybersecurity Fundamentals** — المدرسة - Almdrasa (Issued Feb 2026 · Verified) • *ID: 77F16BFF2A-77EB48CD64-1451D2521* • https://almdrasa.com/certificate-verification/77F16BFF2A-77EB48CD64-1451D2521/
 5. **Associate Python Developer (30 HR)** — DataCamp Statement of Accomplishment (Nov 2025) • *ID: Statement #736,739*
 
 ---
 
-## Education & Specialized Tracks
+## Education & Self-Directed Learning
 - **Master BIM Software Developer Track**: That Open University • Modules 1–6 + Live Masterclasses (Completed Nov 2026)
-- **Backend Architecture & Systems Engineering**: Specialized Track • Self-directed Engineering (Jan 2023 – Present)
-- **Career Track: Backend Developer**: DataCamp Professional Career Track • Verified Continuous Learning
-- **Data Science & Analytics Foundations**: DataCamp Skill Track • Verified Continuous Learning
+- **Self-Directed Engineering & Homeschooling**: Morocco • Full-Stack, Backend & OpenBIM Hands-On Track (Jan 2020 – Present)
+- **Career Track: Backend Developer**: DataCamp Professional Career Track • Continuous Learning
+- **Data Science & Analytics Foundations**: DataCamp Skill Track • Continuous Learning
 
 ---
 
 ## Languages & Standards
 - **Languages**: English (Professional Working), French (Professional Working), Arabic (Native)
-- **Engineering Standards**: BIM / IFC Industry Standards, PEP-8 Python Standards, RESTful API Design, Clean Architecture, OWASP Security Guidelines
+- **Industry Standards**: OpenBIM / IFC, AECO Workflows, PEP-8 Python, RESTful API Design, Clean Architecture, OWASP Security
 `;
 
 fs.writeFileSync(path.join(rootDir, 'CV.md'), cvMarkdown, 'utf-8');

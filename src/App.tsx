@@ -1100,7 +1100,7 @@ export default function App() {
                   }
                 }}
               >
-                {translateText("I’m a BIM & Full-Stack Software Developer at BIMPulse, focused on building practical digital platforms and 3D OpenBIM web applications for the AEC industry.")}
+                {translateText("I’m a BIM & Full-Stack Software Developer at BIMPulse, working on 3D OpenBIM web applications while continuously learning and growing in BIM and the AECO industry.")}
               </motion.p>
 
               <motion.div
@@ -1779,22 +1779,22 @@ export default function App() {
             >
               <h3 className="about-headline">{translateText("A practical approach to building software.")}</h3>
 
-              <p className="about-body-p">{translateText("I’m a BIM & Full-Stack Software Developer at BIMPulse, focused on building practical digital platforms and 3D OpenBIM web applications for the AEC industry.")}</p>
+              <p className="about-body-p">{translateText("I’m a BIM & Full-Stack Software Developer at BIMPulse, working on 3D OpenBIM web applications while continuously learning and growing in BIM and the AECO industry.")}</p>
 
-              <p className="about-body-p">{translateText("At BIMPulse, I work on real-world projects that connect software engineering with BIM, construction technologies, and digital transformation. It’s an environment where I get to solve real engineering problems, collaborate on meaningful products, and keep growing every day.")}</p>
+              <p className="about-body-p">{translateText("In my current role, I contribute to projects that connect software development with BIM, construction technology, and digital transformation. It’s an environment where I get to tackle real engineering challenges, collaborate with others, and keep learning every day.")}</p>
 
-              <p className="about-body-p">{translateText("My technical stack spans both 3D OpenBIM web development and full-stack engineering:")}</p>
+              <p className="about-body-p">{translateText("The tools and technologies I work with include:")}</p>
               <ul className="about-stack-list">
-                <li><strong>{translateText("BIM & 3D Web:")}</strong> {translateText("TypeScript, React, Three.js, That Open Engine, IFC / Fragments, Cesium GIS, and Firebase")}</li>
-                <li><strong>{translateText("Full-Stack & Backend:")}</strong> {translateText("Python, Django, SQL, HTML, CSS, REST APIs, and Google Workspace integrations")}</li>
+                <li><strong>{translateText("BIM & 3D Web:")}</strong> {translateText("TypeScript, React, Three.js, That Open Engine, IFC/Fragments, and Cesium GIS")}</li>
+                <li><strong>{translateText("Full-Stack & Backend:")}</strong> {translateText("Python, Django, SQL, Firebase, REST APIs, HTML, CSS, and Google Workspace integrations")}</li>
                 <li><strong>{translateText("AI, Data & Security:")}</strong> {translateText("Applied AI & MCP agent workflows, Pandas, Matplotlib, and cybersecurity fundamentals")}</li>
               </ul>
 
-              <p className="about-body-p">{translateText("I enjoy taking an idea or business requirement and turning it into reliable, easy-to-use software. Whether I’m building backend logic, structuring data, or rendering 3D IFC models directly in the browser, I care about writing clean code that actually helps people get work done.")}</p>
+              <p className="about-body-p">{translateText("I enjoy taking an idea or business requirement and turning it into reliable, easy-to-use software. Whether I’m building backend logic, structuring BIM data, or rendering 3D IFC models in the browser, I care about writing clean code that helps AECO teams get their work done.")}</p>
 
-              <p className="about-body-p">{translateText("My path into tech has been shaped by self-directed learning, hands-on projects, and certifications, including the Master BIM Software Developer certificate from That Open Company, DataCamp’s AI Engineer and Python Data Associate certifications, and Cybersecurity Fundamentals from Almdrasa. As a homeschooled learner from Morocco, I’ve built my skills through consistency, curiosity, and shipping real projects.")}</p>
+              <p className="about-body-p">{translateText("My path into tech has been shaped by self-directed learning, hands-on projects, and certifications, including Master BIM Software Developer (That Open Company), AI Engineer & Python Data Associate (DataCamp), and Cybersecurity Fundamentals (Almdrasa). As a homeschooled learner from Morocco, I’ve built my foundation through curiosity, consistency, and learning by building.")}</p>
 
-              <p className="about-body-p">{translateText("Going forward, my focus is to keep growing across OpenBIM software development, full-stack engineering, and applied AI to build tools that bring real value to the AEC industry.")}</p>
+              <p className="about-body-p">{translateText("Going forward, my goal is to keep improving in BIM, OpenBIM development, full-stack engineering, and applied AI, and to build useful tools for the AECO industry.")}</p>
             </motion.div>
           </div>
 
