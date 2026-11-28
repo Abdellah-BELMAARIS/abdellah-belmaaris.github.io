@@ -71,7 +71,7 @@ const SKILL_NODES: SkillNode[] = [
   },
   {
     id: 'web-threejs-wasm',
-    name: 'Three.js, OpenBIM & WebAssembly',
+    name: 'Three.js, BIM 3D & WebAssembly',
     category: 'dev',
     level: 96,
     icon: 'fa-solid fa-cubes',
@@ -411,7 +411,7 @@ export default function SynapticSkillsMesh() {
             { label: 'Python & Django Development (6+ Years)', score: 98, cat: 'cyan', icon: 'fa-brands fa-python' },
             { label: '14 Granular RBAC Roles Built', score: 96, cat: 'cyan', icon: 'fa-solid fa-shield-halved' },
             { label: 'Pandas & Telemetry Pipelines (DataCamp)', score: 96, cat: 'sky', icon: 'fa-solid fa-chart-line' },
-            { label: 'OpenBIM 3D & Three.js (That Open Engine)', score: 96, cat: 'cyan', icon: 'fa-solid fa-cubes' },
+            { label: 'BIM 3D & Three.js (That Open Engine)', score: 96, cat: 'cyan', icon: 'fa-solid fa-cubes' },
             { label: 'Associate AI Engineer (DataCamp AIEDA)', score: 95, cat: 'violet', icon: 'fa-solid fa-brain' },
             { label: 'Cybersecurity Fundamentals (Almdrasa)', score: 93, cat: 'violet', icon: 'fa-solid fa-shield' }
           ].map((metric) => (

@@ -556,42 +556,46 @@ export const translations: Record<string, [string, string]> = {
     'IA appliquée, agents MCP, pipelines de données et cybersécurité.',
     'الذكاء الاصطناعي التطبيقي، وكلاء MCP، مسارات البيانات، وأساسيات الأمن السيبراني.'
   ],
-  'BIM & Full-Stack Software Developer operating at the intersection of 3D OpenBIM web engineering and AEC digital transformation': [
-    'Développeur Logiciel BIM & Full-Stack opérant à l’intersection de l’ingénierie web 3D OpenBIM et de la transformation numérique AEC',
-    'مطور برمجيات BIM و Full-Stack يعمل عند تقاطع هندسة الويب ثلاثية الأبعاد لـ OpenBIM والتحول الرقمي لقطاع AEC'
+  'BIM & Full-Stack Software Developer operating at the intersection of 3D BIM web engineering and AEC digital transformation': [
+    'Développeur Logiciel BIM & Full-Stack opérant à l’intersection de l’ingénierie web BIM 3D et de la transformation numérique AEC',
+    'مطور برمجيات BIM و Full-Stack يعمل عند تقاطع هندسة الويب ثلاثية الأبعاد لـ BIM والتحول الرقمي لقطاع AEC'
   ],
-  'BIM & Full-Stack Software Developer building 3D OpenBIM web applications (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), full-stack Python/Django platforms, and AI-assisted workflows for AEC digital transformation.': [
-    'Développeur Logiciel BIM & Full-Stack concevant des applications web 3D OpenBIM (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), des plateformes Python/Django et des workflows assistés par IA pour l’AEC.',
-    'مطور برمجيات BIM و Full-Stack لبناء تطبيقات ويب OpenBIM ثلاثية الأبعاد (Three.js وThat Open Engine وIFC/Fragments وCesium GIS) ومنصات Python/Django وسير عمل مدعوم بالذكاء الاصطناعي للتحول الرقمي في قطاع البناء.'
+  'BIM & Full-Stack Software Developer building 3D BIM web applications (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), full-stack Python/Django platforms, and AI-assisted workflows for AEC digital transformation.': [
+    'Développeur Logiciel BIM & Full-Stack concevant des applications web BIM 3D (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), des plateformes Python/Django et des workflows assistés par IA pour l’AEC.',
+    'مطور برمجيات BIM و Full-Stack لبناء تطبيقات ويب BIM ثلاثية الأبعاد (Three.js وThat Open Engine وIFC/Fragments وCesium GIS) ومنصات Python/Django وسير عمل مدعوم بالذكاء الاصطناعي للتحول الرقمي في قطاع البناء.'
   ],
-  'OpenBIM & 3D Web Applications': ['Applications Web 3D & OpenBIM', 'تطبيقات الويب ثلاثية الأبعاد و OpenBIM'],
+  'BIM & 3D Web Applications': ['Applications Web BIM & 3D', 'تطبيقات الويب BIM وثلاثية الأبعاد'],
   'Browser-native 3D IFC/Fragments viewers, clash QA, Cesium GIS 3D Tiles, and AEC portals': [
     'Visionneuses 3D IFC/Fragments dans le navigateur, détection de clashs, tuiles 3D Cesium GIS et portails AEC',
     'عارضات ويب ثلاثية الأبعاد لملفات IFC وFragments، وكشف التعارضات، وخرائط Cesium GIS ثلاثية الأبعاد، وبوابات AEC'
   ],
-  'Building 3D OpenBIM web platforms, full-stack Django & React systems, and applied AI workflows with clean software architecture.': [
-    'Développement de plateformes web 3D OpenBIM, systèmes full-stack Django & React et workflows IA appliqués avec une architecture logicielle propre.',
-    'بناء منصات ويب OpenBIM ثلاثية الأبعاد، وأنظمة Django وReact متكاملة، وسير عمل ذكاء اصطناعي تطبيقي بهندسة برمجية نظيفة.'
+  'Building 3D BIM web platforms, full-stack Django & React systems, and applied AI workflows with clean software architecture.': [
+    'Développement de plateformes web BIM 3D, systèmes full-stack Django & React et workflows IA appliqués avec une architecture logicielle propre.',
+    'بناء منصات ويب BIM ثلاثية الأبعاد، وأنظمة Django وReact متكاملة، وسير عمل ذكاء اصطناعي تطبيقي بهندسة برمجية نظيفة.'
   ],
   'Certified Master BIM Software Developer (That Open Company) and DataCamp AI & Data Associate—bridging scalable backend architecture, 3D OpenBIM web graphics, and applied AI to ship real-world engineering products.': [
     'Développeur Logiciel Master BIM certifié (That Open Company) et certifié IA & Data par DataCamp—reliant architecture backend évolutive, graphisme web 3D OpenBIM et IA appliquée pour livrer des produits d’ingénierie concrets.',
     'مطور برمجيات Master BIM معتمد من That Open Company ومعتمد في الذكاء الاصطناعي والبيانات من DataCamp—أربط بين هندسة الخوادم القابلة للتوسع والرسوميات ثلاثية الأبعاد OpenBIM والذكاء الاصطناعي التطبيقي لبناء منتجات هندسية واقعية.'
   ],
-  'Verified technical credentials validating OpenBIM 3D software engineering, applied AI, Python data analysis, and cybersecurity.': [
-    'Certifications techniques vérifiées validant l’ingénierie logicielle 3D OpenBIM, l’IA appliquée, l’analyse de données Python et la cybersécurité.',
-    'شهادات تقنية موثقة تثبت الكفاءة في هندسة برمجيات OpenBIM ثلاثية الأبعاد، والذكاء الاصطناعي التطبيقي، وتحليل البيانات بـ Python، والأمن السيبراني.'
+  'Verified technical credentials validating BIM 3D software engineering, applied AI, Python data analysis, and cybersecurity.': [
+    'Certifications techniques vérifiées validant l’ingénierie logicielle BIM 3D, l’IA appliquée, l’analyse de données Python et la cybersécurité.',
+    'شهادات تقنية موثقة تثبت الكفاءة في هندسة برمجيات BIM ثلاثية الأبعاد، والذكاء الاصطناعي التطبيقي، وتحليل البيانات بـ Python، والأمن السيبراني.'
   ],
-  'BIM & Full-Stack Software Developer at BIMPulse | OpenBIM & 3D Web (TypeScript, React, Three.js, IFC) | Python & Django | Applied AI & Data | Master BIM Software Certified': [
-    'Développeur Logiciel BIM & Full-Stack chez BIMPulse | OpenBIM & Web 3D (TypeScript, React, Three.js, IFC) | Python & Django | IA Appliquée & Data | Certifié Master BIM Software',
-    'مطور برمجيات BIM و Full-Stack في BIMPulse | OpenBIM والويب ثلاثي الأبعاد (TypeScript, React, Three.js, IFC) | Python و Django | الذكاء الاصطناعي والبيانات | معتمد Master BIM Software'
+  'BIM & Full-Stack Software Developer | TypeScript, React, Three.js | Python & Django Development': [
+    'Développeur Logiciel BIM & Full-Stack | TypeScript, React, Three.js | Développement Python & Django',
+    'مطور برمجيات BIM و Full-Stack | TypeScript, React, Three.js | تطوير Python و Django'
   ],
-  'I’m a BIM & Full-Stack Software Developer at BIMPulse, working on 3D OpenBIM web applications while continuously learning and growing in BIM and the AECO industry.': [
-    'Je suis Développeur Logiciel BIM & Full-Stack chez BIMPulse, où je travaille sur des applications web 3D OpenBIM tout en continuant d’apprendre et de progresser dans le BIM et le secteur AECO.',
-    'أنا مطور برمجيات BIM و Full-Stack في BIMPulse، أعمل على تطبيقات ويب OpenBIM ثلاثية الأبعاد مع مواصلة التعلم والتطور في مجال BIM وقطاع AECO.'
+  'I’m a BIM & Full-Stack Software Developer at BIMPulse, working on 3D BIM web applications while continuously learning and growing in BIM and the AECO industry.': [
+    'Je suis Développeur Logiciel BIM & Full-Stack chez BIMPulse, où je travaille sur des applications web BIM 3D tout en continuant d’apprendre et de progresser dans le BIM et le secteur AECO.',
+    'أنا مطور برمجيات BIM و Full-Stack في BIMPulse، أعمل على تطبيقات ويب BIM ثلاثية الأبعاد مع مواصلة التعلم والتطور في مجال BIM وقطاع AECO.'
   ],
-  'In my current role, I contribute to projects that connect software development with BIM, construction technology, and digital transformation. It’s an environment where I get to tackle real engineering challenges, collaborate with others, and keep learning every day.': [
-    'Dans mon poste actuel, je contribue à des projets qui relient le développement logiciel au BIM, aux technologies de la construction et à la transformation numérique. C’est un environnement où je relève de vrais défis d’ingénierie, collabore avec d’autres et continue d’apprendre chaque jour.',
-    'في دوري الحالي، أساهم في مشاريع تربط تطوير البرمجيات بـ BIM وتقنيات البناء والتحول الرقمي. إنها بيئة أواجه فيها تحديات هندسية حقيقية، وأتعاون مع الآخرين، وأواصل التعلم كل يوم.'
+  'I am a BIM and Full-Stack Software Developer at BIMPulse. I work on 3D BIM web applications and am continuously learning and growing in the fields of BIM and the AECO industry.': [
+    'Je suis Développeur Logiciel BIM et Full-Stack chez BIMPulse. Je travaille sur des applications web BIM 3D et je continue d’apprendre et de progresser dans les domaines du BIM et de l’industrie AECO.',
+    'أنا مطور برمجيات BIM و Full-Stack في BIMPulse. أعمل على تطبيقات ويب BIM ثلاثية الأبعاد وأواصل التعلم والتطور في مجالات BIM وقطاع AECO.'
+  ],
+  'My current role involves contributing to projects that connect software development with BIM, construction technology, and digital transformation. It’s a stimulating environment where I get to solve real engineering problems, collaborate with others, and learn something new every day.': [
+    'Mon rôle actuel consiste à contribuer à des projets reliant le développement logiciel au BIM, aux technologies de la construction et à la transformation numérique. C’est un environnement stimulant où je résous de vrais problèmes d’ingénierie, collabore avec d’autres et apprends chaque jour.',
+    'يشمل دوري الحالي المساهمة في مشاريع تربط تطوير البرمجيات بـ BIM وتقنيات البناء والتحول الرقمي. إنها بيئة محفزة أواجه فيها تحديات هندسية حقيقية، وأتعاون مع الآخرين، وأتعلم شيئاً جديداً كل يوم.'
   ],
   'The tools and technologies I work with include:': [
     'Les outils et technologies avec lesquels je travaille incluent :',
@@ -600,32 +604,39 @@ export const translations: Record<string, [string, string]> = {
   'BIM & 3D Web:': ['BIM & Web 3D :', 'BIM والويب ثلاثي الأبعاد:'],
   'Full-Stack & Backend:': ['Full-Stack & Backend :', 'Full-Stack والخوادم الخلفية:'],
   'AI, Data & Security:': ['IA, Data & Sécurité :', 'الذكاء الاصطناعي والبيانات والأمن السيبراني:'],
-  'TypeScript, React, Three.js, That Open Engine, IFC/Fragments, and Cesium GIS': [
-    'TypeScript, React, Three.js, That Open Engine, IFC/Fragments et Cesium GIS',
-    'TypeScript وReact وThree.js وThat Open Engine وIFC/Fragments وCesium GIS'
+  'TypeScript, React, Three.js, That Open Engine, IFC/Fragments, and Cesium GIS.': [
+    'TypeScript, React, Three.js, That Open Engine, IFC/Fragments et Cesium GIS.',
+    'TypeScript وReact وThree.js وThat Open Engine وIFC/Fragments وCesium GIS.'
   ],
-  'Python, Django, SQL, Firebase, REST APIs, HTML, CSS, and Google Workspace integrations': [
-    'Python, Django, SQL, Firebase, API REST, HTML, CSS et intégrations Google Workspace',
-    'Python وDjango وSQL وFirebase وواجهات REST APIs وHTML وCSS وتكاملات Google Workspace'
+  'Python, Django, SQL, Firebase, REST APIs, HTML, CSS, and Google Workspace integrations.': [
+    'Python, Django, SQL, Firebase, API REST, HTML, CSS et intégrations Google Workspace.',
+    'Python وDjango وSQL وFirebase وواجهات REST APIs وHTML وCSS وتكاملات Google Workspace.'
   ],
-  'Applied AI & MCP agent workflows, Pandas, Matplotlib, and cybersecurity fundamentals': [
-    'IA appliquée et workflows d’agents MCP, Pandas, Matplotlib et bases de la cybersécurité',
-    'الذكاء الاصطناعي التطبيقي وسير عمل وكلاء MCP وPandas وMatplotlib وأساسيات الأمن السيبراني'
+  'Applied AI and MCP agent workflows, Pandas, Matplotlib, and cybersecurity fundamentals.': [
+    'IA appliquée et workflows d’agents MCP, Pandas, Matplotlib et bases de la cybersécurité.',
+    'الذكاء الاصطناعي التطبيقي وسير عمل وكلاء MCP وPandas وMatplotlib وأساسيات الأمن السيبراني.'
   ],
-  'I enjoy taking an idea or business requirement and turning it into reliable, easy-to-use software. Whether I’m building backend logic, structuring BIM data, or rendering 3D IFC models in the browser, I care about writing clean code that helps AECO teams get their work done.': [
-    'J’aime transformer une idée ou un besoin métier en un logiciel fiable et simple d’utilisation. Qu’il s’agisse de logique backend, de structuration de données BIM ou de rendu de modèles IFC 3D dans le navigateur, je m’attache à écrire un code propre qui aide les équipes AECO à accomplir leur travail.',
-    'أستمتع بتحويل الأفكار ومتطلبات العمل إلى برمجيات موثوقة وسهلة الاستخدام. سواء كنت أبني المنطق البرمجي الخلفي أو أنظم بيانات BIM أو أعرض نماذج IFC ثلاثية الأبعاد في المتصفح، أهتم بكتابة شيفرة نظيفة تساعد فرق AECO على إنجاز عملها.'
+  'I enjoy taking an idea or business requirement and turning it into reliable, user-friendly software. Whether I’m building backend logic, structuring BIM data, or rendering 3D IFC models in the browser, I am committed to writing clean code that helps AECO teams work more productively.': [
+    'J’aime transformer une idée ou un besoin métier en un logiciel fiable et convivial. Qu’il s’agisse de logique backend, de structuration de données BIM ou de rendu de modèles IFC 3D dans le navigateur, je m’engage à écrire un code propre qui aide les équipes AECO à travailler plus efficacement.',
+    'أستمتع بتحويل الأفكار ومتطلبات العمل إلى برمجيات موثوقة وسهلة الاستخدام. سواء كنت أبني المنطق البرمجي الخلفي أو أنظم بيانات BIM أو أعرض نماذج IFC ثلاثية الأبعاد في المتصفح، ألتزم بكتابة شيفرة نظيفة تساعد فرق AECO على العمل بإنتاجية أكبر.'
   ],
-  'My path into tech has been shaped by self-directed learning, hands-on projects, and certifications, including Master BIM Software Developer (That Open Company), AI Engineer & Python Data Associate (DataCamp), and Cybersecurity Fundamentals (Almdrasa). As a homeschooled learner from Morocco, I’ve built my foundation through curiosity, consistency, and learning by building.': [
-    'Mon parcours dans la tech s’est construit par l’apprentissage autodidacte, des projets pratiques et des certifications, dont Master BIM Software Developer (That Open Company), AI Engineer & Python Data Associate (DataCamp) et Cybersecurity Fundamentals (Almdrasa). En tant qu’apprenant instruit à domicile au Maroc, j’ai bâti mes bases grâce à la curiosité, à la régularité et à l’apprentissage par la pratique.',
-    'تشكّل مساري في التقنية عبر التعلم الذاتي والمشاريع العملية والشهادات، بما في ذلك Master BIM Software Developer (That Open Company)، وAI Engineer & Python Data Associate (DataCamp)، وCybersecurity Fundamentals (Almdrasa). كمتعلم بالتعليم المنزلي من المغرب، بنيت أساسي بالفضول والاستمرارية والتعلم عبر البناء العملي.'
+  'I have shaped my path into tech through self-directed learning, hands-on projects, and certifications—including Master BIM Software Developer (That Open Company), AI Engineer & Python Data Associate (DataCamp), and Cybersecurity Fundamentals (Almdrasa). As a self-taught learner from Morocco, I have built my foundation through curiosity, consistency, and hands-on experience.': [
+    'J’ai façonné mon parcours dans la tech grâce à l’apprentissage autodidacte, des projets concrets et des certifications—dont Master BIM Software Developer (That Open Company), AI Engineer & Python Data Associate (DataCamp) et Cybersecurity Fundamentals (Almdrasa). En tant qu’apprenant autodidacte du Maroc, j’ai bâti mes bases par la curiosité, la régularité et l’expérience pratique.',
+    'شكّلت مساري في التقنية عبر التعلم الذاتي والمشاريع العملية والشهادات—بما في ذلك Master BIM Software Developer (That Open Company)، وAI Engineer & Python Data Associate (DataCamp)، وCybersecurity Fundamentals (Almdrasa). كمتعلم ذاتي من المغرب، بنيت أساسي بالفضول والاستمرارية والتجربة العملية.'
   ],
-  'Going forward, my goal is to keep improving in BIM, OpenBIM development, full-stack engineering, and applied AI, and to build useful tools for the AECO industry.': [
-    'Pour la suite, mon objectif est de continuer à progresser dans le BIM, le développement OpenBIM, l’ingénierie full-stack et l’IA appliquée, afin de concevoir des outils utiles pour le secteur AECO.',
-    'في المرحلة القادمة، هدفي هو مواصلة التطور في BIM وتطوير OpenBIM وهندسة الويب المتكاملة والذكاء الاصطناعي التطبيقي، وبناء أدوات مفيدة لقطاع AECO.'
+  'Going forward, I aim to continue improving in BIM software development, full-stack engineering, and applied AI to build useful tools for the AECO industry.': [
+    'Pour la suite, je vise à continuer de progresser en développement logiciel BIM, en ingénierie full-stack et en IA appliquée afin de concevoir des outils utiles pour le secteur AECO.',
+    'في المرحلة القادمة، أسعى لمواصلة التطور في تطوير برمجيات BIM وهندسة الويب المتكاملة والذكاء الاصطناعي التطبيقي لبناء أدوات مفيدة لقطاع AECO.'
   ],
+  '3D BIM viewers, full-stack web apps, and clean backend systems.': [
+    'Visionneuses BIM 3D, applications web full-stack et architectures backend propres.',
+    'عارضات BIM ثلاثية الأبعاد، وتطبيقات ويب شاملة، وأنظمة خلفية نظيفة وعالية الأداء.'
+  ],
+  'Three.js & BIM 3D': ['Three.js & BIM 3D', 'Three.js و BIM 3D'],
+  '03 / BIM 3D PLATFORM': ['03 / PLATEFORME BIM 3D', '03 / منصة BIM ثلاثية الأبعاد'],
+  ' BIM & IFC 3D': [' BIM & IFC 3D', ' BIM و IFC ثلاثي الأبعاد'],
   'BIM & Full-Stack Developer': ['Développeur BIM & Full-Stack', 'مطور BIM و Full-Stack'],
-  'Master BIM Viewer — OpenBIM 3D Engine': ['Master BIM Viewer — Moteur 3D OpenBIM', 'Master BIM Viewer — محرك OpenBIM ثلاثي الأبعاد'],
+  'Master BIM Viewer — BIM 3D Engine': ['Master BIM Viewer — Moteur BIM 3D', 'Master BIM Viewer — محرك BIM ثلاثي الأبعاد'],
   'Private Repo': ['Dépôt privé', 'مستودع خاص'],
   'Live IFC2X3 / IFC4 & Fragments Streaming': ['Streaming IFC2X3 / IFC4 & Fragments', 'بث مباشر لملفات IFC2X3 / IFC4 وFragments'],
   '3D Clash QA, Floor Plans & Cesium GIS': ['Clashs 3D, Plans 2D & Cesium GIS', 'كشف التعارضات 3D والمخططات وخرائط Cesium GIS'],

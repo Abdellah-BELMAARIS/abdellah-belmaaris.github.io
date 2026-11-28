@@ -474,7 +474,7 @@ export default function ThreeBackground() {
           pointerEvents: 'auto',
           userSelect: 'none',
         }}
-        title="Scroll-reactive 3D OpenBIM / IFC Architectural Background"
+        title="Scroll-reactive 3D BIM / IFC Architectural Background"
       >
         <span
           style={{

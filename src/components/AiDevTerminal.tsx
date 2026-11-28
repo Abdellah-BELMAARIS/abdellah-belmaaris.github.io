@@ -14,8 +14,8 @@ interface Message {
 
 const PRESET_QUERIES = [
   {
-    label: "🏗️ OpenBIM & Full-Stack Profile",
-    prompt: "Give me an executive overview of Abdellah's background in OpenBIM, Full-Stack Dev, and AI."
+    label: "🏗️ BIM & Full-Stack Profile",
+    prompt: "Give me an executive overview of Abdellah's background in BIM, Full-Stack Dev, and AI."
   },
   {
     label: "🧊 Master BIM Viewer (IFC 3D)",
@@ -27,7 +27,7 @@ const PRESET_QUERIES = [
   },
   {
     label: "🛠️ Core Technical Stack",
-    prompt: "What is Abdellah's core technology stack across OpenBIM 3D, backend, frontend, and data?"
+    prompt: "What is Abdellah's core technology stack across BIM 3D, backend, frontend, and data?"
   },
   {
     label: "🎓 Verified Credentials & Tracks",
@@ -39,8 +39,8 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: 'intro-1',
     sender: 'assistant',
-    text: "Hello! I'm Abdellah's interactive OpenBIM & AI Engineering Assistant. Ask me about his 3D OpenBIM web platforms (Master BIM Viewer, Three.js, That Open Engine, IFC, Cesium GIS), Python/Django backend architecture, MCP AI Agents, or verified credentials.",
-    badge: 'OpenBIM AI Core v3.0 · Online',
+    text: "Hello! I'm Abdellah's interactive BIM & AI Engineering Assistant. Ask me about his 3D BIM web platforms (Master BIM Viewer, Three.js, That Open Engine, IFC, Cesium GIS), Python/Django backend architecture, MCP AI Agents, or verified credentials.",
+    badge: 'BIM AI Core v3.0 · Online',
     timestamp: 'Just now'
   }
 ];
@@ -71,8 +71,8 @@ export default function AiDevTerminal() {
     if (q.includes('bim') || q.includes('ifc') || q.includes('viewer') || q.includes('cesium') || q.includes('three') || q.includes('that open')) {
       return {
         sender: 'assistant',
-        badge: 'OpenBIM & 3D Web Engineering',
-        text: "Abdellah engineered the Master BIM Viewer — a browser-native OpenBIM 3D platform built with TypeScript, React, Three.js, and That Open Engine (@thatopen/components, Fragments, web-ifc).\n\nKey capabilities:\n• Live IFC2X3/IFC4 & Fragments streaming with Spatial Tree & Properties inspection\n• 3D Clash QA detection, 2D Floor Plans, 3D Measurements & ViewCube navigation\n• Cesium GIS 3D Tiles integration, Firebase Firestore cloud sync & MCP AI Copilot bridge\n• Live production web app (private proprietary repository)",
+        badge: 'BIM & 3D Web Engineering',
+        text: "Abdellah engineered the Master BIM Viewer — a browser-native BIM 3D platform built with TypeScript, React, Three.js, and That Open Engine (@thatopen/components, Fragments, web-ifc).\n\nKey capabilities:\n• Live IFC2X3/IFC4 & Fragments streaming with Spatial Tree & Properties inspection\n• 3D Clash QA detection, 2D Floor Plans, 3D Measurements & ViewCube navigation\n• Cesium GIS 3D Tiles integration, Firebase Firestore cloud sync & MCP AI Copilot bridge\n• Live production web app (private proprietary repository)",
         links: [
           { label: "Launch Master BIM Viewer ↗", url: "https://master-bim-software.web.app/", external: true },
           { label: "Explore Selected Work", url: "#work" }
@@ -84,8 +84,8 @@ export default function AiDevTerminal() {
       return {
         sender: 'assistant',
         badge: 'Applied AI, RAG & MCP Agents',
-        text: "Abdellah combines full-stack & OpenBIM development with applied AI engineering. He builds MCP (Model Context Protocol) BIM AI bridges connecting LLMs to 3D IFC scenes, alongside Python/Django RAG pipelines and vector search.",
-        code: `# OpenBIM MCP Agent & RAG Architecture Pipeline
+        text: "Abdellah combines full-stack & BIM development with applied AI engineering. He builds MCP (Model Context Protocol) BIM AI bridges connecting LLMs to 3D IFC scenes, alongside Python/Django RAG pipelines and vector search.",
+        code: `# BIM MCP Agent & RAG Architecture Pipeline
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.vectorstores import PGVector
 
@@ -108,7 +108,7 @@ class BimRagAgent:
       return {
         sender: 'assistant',
         badge: 'Technical Capabilities',
-        text: "Abdellah operates across four specialized disciplines:\n\n• OpenBIM & 3D Web: TypeScript, React, Three.js, That Open Engine, IFC2X3/IFC4 & Fragments, Cesium GIS 3D Tiles, Firebase.\n• Backend & Full-Stack: Python, Django, Django REST Framework, PostgreSQL, SQL Optimization, 14-Role RBAC.\n• Applied AI & Data: LLMs, RAG, MCP AI Agents, Pandas, NumPy, Matplotlib.\n• Architecture & Security: Clean Architecture, GoF Patterns, Cybersecurity Fundamentals.",
+        text: "Abdellah operates across four specialized disciplines:\n\n• BIM & 3D Web: TypeScript, React, Three.js, That Open Engine, IFC2X3/IFC4 & Fragments, Cesium GIS 3D Tiles, Firebase.\n• Backend & Full-Stack: Python, Django, Django REST Framework, PostgreSQL, SQL Optimization, 14-Role RBAC.\n• Applied AI & Data: LLMs, RAG, MCP AI Agents, Pandas, NumPy, Matplotlib.\n• Architecture & Security: Clean Architecture, GoF Patterns, Cybersecurity Fundamentals.",
         links: [
           { label: "Browse Full Skills Matrix", url: "#skills" },
           { label: "Launch Master BIM Viewer ↗", url: "https://master-bim-software.web.app/", external: true }
@@ -143,7 +143,7 @@ class BimRagAgent:
       return {
         sender: 'assistant',
         badge: 'Work Experience',
-        text: "Abdellah currently works as a BIM & Full-Stack Software Developer at BIMPulse in Casablanca, Morocco.\n\nHe builds 3D OpenBIM web platforms (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), full-stack Python/Django applications, and AI-assisted AEC engineering workflows.",
+        text: "Abdellah currently works as a BIM & Full-Stack Software Developer at BIMPulse in Casablanca, Morocco.\n\nHe builds 3D BIM web platforms (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), full-stack Python/Django applications, and AI-assisted AEC engineering workflows.",
         links: [
           { label: "View Experience Timeline", url: "#experience" },
           { label: "BIMPulse Profile", url: "#bimpulse" }
@@ -167,7 +167,7 @@ class BimRagAgent:
     return {
       sender: 'assistant',
       badge: 'Executive Summary',
-      text: `Abdellah BELMAARIS is a BIM & Full-Stack Software Developer & AI Systems Specialist based in Casablanca, Morocco. He bridges 3D OpenBIM web engineering (TypeScript, React, Three.js, That Open Engine, IFC, Cesium GIS) and full-stack backends (Python, Django, SQL, Firebase) with applied AI (LLMs, MCP Agents, DataCamp Certified AI Engineer Associate) at BIMPulse.`,
+      text: `Abdellah BELMAARIS is a BIM & Full-Stack Software Developer & AI Systems Specialist based in Casablanca, Morocco. He bridges 3D BIM web engineering (TypeScript, React, Three.js, That Open Engine, IFC, Cesium GIS) and full-stack backends (Python, Django, SQL, Firebase) with applied AI (LLMs, MCP Agents, DataCamp Certified AI Engineer Associate) at BIMPulse.`,
       links: [
         { label: "Download Resume (PDF)", url: "assets/Abdellah_BELMAARIS_CV.pdf" },
         { label: "Explore Case Studies", url: "#project" },

@@ -87,9 +87,9 @@ const PERSONAL_PROJECTS: PersonalProject[] = [
   },
   {
     id: 'master-bim-viewer',
-    title: 'Master BIM Viewer — OpenBIM 3D Engine',
+    title: 'Master BIM Viewer — BIM 3D Engine',
     subtitle: 'Browser-native 3D IFC/Fragments viewer, Clash QA, Cesium GIS & MCP AI',
-    desc: 'Browser-native OpenBIM 3D platform built with TypeScript, React, Three.js, and That Open Engine. Streams IFC2X3/IFC4 & Fragments models with spatial tree inspection, 2D floor plans, 3D clash detection, Cesium 3D Tiles, Firebase sync, and MCP AI Copilot.',
+    desc: 'Browser-native 3D BIM web platform built with TypeScript, React, Three.js, and That Open Engine. Streams IFC2X3/IFC4 & Fragments models with spatial tree inspection, 2D floor plans, 3D clash detection, Cesium 3D Tiles, Firebase sync, and MCP AI Copilot.',
     metrics: ['Live IFC2X3 / IFC4 & Fragments Streaming', '3D Clash QA, Floor Plans & Cesium GIS', 'Firebase Sync & MCP AI Copilot'],
     tech: ['TypeScript', 'React', 'Three.js', 'That Open Engine', 'IFC / WebIFC', 'Cesium GIS'],
     github: 'https://github.com/Abdellah-BELMAARIS/Master_BIM_Software',
@@ -106,7 +106,7 @@ const CERTIFICATIONS_DATA: CertCard[] = [
     credentialId: "57481141928751",
     img: "assets/certificate_master_bim.png",
     icon: "fa-solid fa-cubes",
-    skills: ["TypeScript", "React", "Three.js", "That Open Engine", "IFC / Fragments", "OpenBIM"],
+    skills: ["TypeScript", "React", "Three.js", "That Open Engine", "IFC / Fragments", "BIM 3D"],
     link: "https://verified.sertifier.com/en/verify/57481141928751/",
     badge: "THAT OPEN CERTIFIED"
   },
@@ -257,7 +257,7 @@ const JOURNAL_GALLERY: JournalScreenshotItem[] = [
 
 const PROJECT_IMAGES = JOURNAL_GALLERY.map((j) => j.img);
 
-// ─── Pro Architectural OpenBIM Boot Loader ──────────────────────────────────
+// ─── Pro Architectural BIM Boot Loader ──────────────────────────────────
 
 function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const reduceMotion = useReducedMotion();
@@ -287,7 +287,7 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
 
   const statusLine =
     percent < 32
-      ? 'INITIALIZING OPENBIM 3D ENGINE...'
+      ? 'INITIALIZING BIM 3D ENGINE...'
       : percent < 68
       ? 'LOADING IFC4 / THREE.JS & STRUCTURAL MODELS...'
       : percent < 96
@@ -1085,7 +1085,7 @@ export default function App() {
                   }
                 }}
               >
-                {translateText("BIM & Full-Stack Software Developer at BIMPulse | OpenBIM & 3D Web (TypeScript, React, Three.js, IFC) | Python & Django | Applied AI & Data | Master BIM Software Certified")}
+                {translateText("BIM & Full-Stack Software Developer | TypeScript, React, Three.js | Python & Django Development")}
               </motion.div>
 
               <motion.p
@@ -1100,7 +1100,7 @@ export default function App() {
                   }
                 }}
               >
-                {translateText("I’m a BIM & Full-Stack Software Developer at BIMPulse, working on 3D OpenBIM web applications while continuously learning and growing in BIM and the AECO industry.")}
+                {translateText("I’m a BIM & Full-Stack Software Developer at BIMPulse, working on 3D BIM web applications while continuously learning and growing in BIM and the AECO industry.")}
               </motion.p>
 
               <motion.div
@@ -1114,7 +1114,7 @@ export default function App() {
                 <span className="tech-sep">·</span>
                 <span className="tech-item">{translateText("React")}</span>
                 <span className="tech-sep">·</span>
-                <span className="tech-item">{translateText("Three.js & OpenBIM")}</span>
+                <span className="tech-item">{translateText("Three.js & BIM 3D")}</span>
                 <span className="tech-sep">·</span>
                 <span className="tech-item">{translateText("Python")}</span>
                 <span className="tech-sep">·</span>
@@ -1490,17 +1490,17 @@ export default function App() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="project-header-row">
-                <span className="project-overline-code">{translateText("03 / OPENBIM 3D PLATFORM")}</span>
+                <span className="project-overline-code">{translateText("03 / BIM 3D PLATFORM")}</span>
                 <span className="project-type-tag">{translateText("Live Web App")}</span>
               </div>
 
               <h3 className="project-display-title">{translateText("Master BIM Viewer")}</h3>
 
-              <p className="project-summary-text">{translateText("A browser-native OpenBIM 3D viewer and AEC project coordination platform built with TypeScript, React, Three.js, and That Open Engine. Supports live IFC2X3/IFC4 & Fragments loading, spatial tree & property inspection, 3D clash QA, floor plans, Cesium GIS 3D Tiles, Firebase sync, and an MCP AI Copilot bridge.")}</p>
+              <p className="project-summary-text">{translateText("A browser-native 3D BIM viewer and AEC project coordination platform built with TypeScript, React, Three.js, and That Open Engine. Supports live IFC2X3/IFC4 & Fragments loading, spatial tree & property inspection, 3D clash QA, floor plans, Cesium GIS 3D Tiles, Firebase sync, and an MCP AI Copilot bridge.")}</p>
 
               <div className="project-key-badges-row">
                 <span className="arch-badge">
-                  <i className="fa-solid fa-cubes" />{translateText(" OPENBIM & IFC 3D")}</span>
+                  <i className="fa-solid fa-cubes" />{translateText(" BIM & IFC 3D")}</span>
                 <span className="arch-badge">
                   <i className="fa-solid fa-earth-africa" />{translateText(" CESIUM GIS & 3D TILES")}</span>
                 <span className="arch-badge">
@@ -1779,22 +1779,22 @@ export default function App() {
             >
               <h3 className="about-headline">{translateText("A practical approach to building software.")}</h3>
 
-              <p className="about-body-p">{translateText("I’m a BIM & Full-Stack Software Developer at BIMPulse, working on 3D OpenBIM web applications while continuously learning and growing in BIM and the AECO industry.")}</p>
+              <p className="about-body-p">{translateText("I am a BIM and Full-Stack Software Developer at BIMPulse. I work on 3D BIM web applications and am continuously learning and growing in the fields of BIM and the AECO industry.")}</p>
 
-              <p className="about-body-p">{translateText("In my current role, I contribute to projects that connect software development with BIM, construction technology, and digital transformation. It’s an environment where I get to tackle real engineering challenges, collaborate with others, and keep learning every day.")}</p>
+              <p className="about-body-p">{translateText("My current role involves contributing to projects that connect software development with BIM, construction technology, and digital transformation. It’s a stimulating environment where I get to solve real engineering problems, collaborate with others, and learn something new every day.")}</p>
 
               <p className="about-body-p">{translateText("The tools and technologies I work with include:")}</p>
               <ul className="about-stack-list">
-                <li><strong>{translateText("BIM & 3D Web:")}</strong> {translateText("TypeScript, React, Three.js, That Open Engine, IFC/Fragments, and Cesium GIS")}</li>
-                <li><strong>{translateText("Full-Stack & Backend:")}</strong> {translateText("Python, Django, SQL, Firebase, REST APIs, HTML, CSS, and Google Workspace integrations")}</li>
-                <li><strong>{translateText("AI, Data & Security:")}</strong> {translateText("Applied AI & MCP agent workflows, Pandas, Matplotlib, and cybersecurity fundamentals")}</li>
+                <li><strong>{translateText("BIM & 3D Web:")}</strong> {translateText("TypeScript, React, Three.js, That Open Engine, IFC/Fragments, and Cesium GIS.")}</li>
+                <li><strong>{translateText("Full-Stack & Backend:")}</strong> {translateText("Python, Django, SQL, Firebase, REST APIs, HTML, CSS, and Google Workspace integrations.")}</li>
+                <li><strong>{translateText("AI, Data & Security:")}</strong> {translateText("Applied AI and MCP agent workflows, Pandas, Matplotlib, and cybersecurity fundamentals.")}</li>
               </ul>
 
-              <p className="about-body-p">{translateText("I enjoy taking an idea or business requirement and turning it into reliable, easy-to-use software. Whether I’m building backend logic, structuring BIM data, or rendering 3D IFC models in the browser, I care about writing clean code that helps AECO teams get their work done.")}</p>
+              <p className="about-body-p">{translateText("I enjoy taking an idea or business requirement and turning it into reliable, user-friendly software. Whether I’m building backend logic, structuring BIM data, or rendering 3D IFC models in the browser, I am committed to writing clean code that helps AECO teams work more productively.")}</p>
 
-              <p className="about-body-p">{translateText("My path into tech has been shaped by self-directed learning, hands-on projects, and certifications, including Master BIM Software Developer (That Open Company), AI Engineer & Python Data Associate (DataCamp), and Cybersecurity Fundamentals (Almdrasa). As a homeschooled learner from Morocco, I’ve built my foundation through curiosity, consistency, and learning by building.")}</p>
+              <p className="about-body-p">{translateText("I have shaped my path into tech through self-directed learning, hands-on projects, and certifications—including Master BIM Software Developer (That Open Company), AI Engineer & Python Data Associate (DataCamp), and Cybersecurity Fundamentals (Almdrasa). As a self-taught learner from Morocco, I have built my foundation through curiosity, consistency, and hands-on experience.")}</p>
 
-              <p className="about-body-p">{translateText("Going forward, my goal is to keep improving in BIM, OpenBIM development, full-stack engineering, and applied AI, and to build useful tools for the AECO industry.")}</p>
+              <p className="about-body-p">{translateText("Going forward, I aim to continue improving in BIM software development, full-stack engineering, and applied AI to build useful tools for the AECO industry.")}</p>
             </motion.div>
           </div>
 
@@ -1809,7 +1809,7 @@ export default function App() {
             >
               <span className="fact-num">01</span>
               <h4 className="fact-title">{translateText("BIM & FULL-STACK")}</h4>
-              <p className="fact-desc">{translateText("3D OpenBIM viewers, full-stack web apps, and clean backend systems.")}</p>
+              <p className="fact-desc">{translateText("3D BIM viewers, full-stack web apps, and clean backend systems.")}</p>
             </motion.div>
 
             <motion.div
@@ -1870,7 +1870,7 @@ export default function App() {
               <div className="junction-stem-bottom" />
               <div className="junction-vertical-bottom">{translateText("ENGINEERING / AEC")}</div>
             </div>
-            <div className="junction-caption">{translateText("BIM & Full-Stack Software Developer operating at the intersection of 3D OpenBIM web engineering and AEC digital transformation")}</div>
+            <div className="junction-caption">{translateText("BIM & Full-Stack Software Developer operating at the intersection of 3D BIM web engineering and AEC digital transformation")}</div>
           </motion.div>
 
           <motion.aside
@@ -1935,11 +1935,11 @@ export default function App() {
             </div>
 
             {/* Exact Description Copy (Rule 11) */}
-            <p className="exp-desc">{translateText("BIM & Full-Stack Software Developer building 3D OpenBIM web applications (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), full-stack Python/Django platforms, and AI-assisted workflows for AEC digital transformation.")}</p>
+            <p className="exp-desc">{translateText("BIM & Full-Stack Software Developer building 3D BIM web applications (Three.js, That Open Engine, IFC/Fragments, Cesium GIS), full-stack Python/Django platforms, and AI-assisted workflows for AEC digital transformation.")}</p>
 
             {/* Specific Tags (Rule 11) */}
             <div className="exp-skills">
-              {['BIMPulse', 'OpenBIM / IFC', 'Three.js', 'That Open Engine', 'TypeScript', 'React', 'Cesium GIS', 'Python', 'Django', 'SQL', 'Firebase', 'MCP AI'].map((s) => (
+              {['BIMPulse', 'BIM / IFC', 'Three.js', 'That Open Engine', 'TypeScript', 'React', 'Cesium GIS', 'Python', 'Django', 'SQL', 'Firebase', 'MCP AI'].map((s) => (
                 <span className="exp-skill-tag" key={s}>{translateText(s)}</span>
               ))}
             </div>
@@ -2187,7 +2187,7 @@ export default function App() {
           </motion.div>
 
           <motion.h2 className="section-title" {...reveal(0.06, 18)}>{translateText("CONTINUOUS LEARNING")}</motion.h2>
-          <motion.p className="section-intro" {...reveal(0.1, 18)}>{translateText("Verified technical credentials validating OpenBIM 3D software engineering, applied AI, Python data analysis, and cybersecurity.")}</motion.p>
+          <motion.p className="section-intro" {...reveal(0.1, 18)}>{translateText("Verified technical credentials validating BIM 3D software engineering, applied AI, Python data analysis, and cybersecurity.")}</motion.p>
 
           {/* Authentic Certificate Photo Showcase Grid */}
           <div className="credentials-cards-grid">

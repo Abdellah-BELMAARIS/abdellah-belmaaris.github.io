@@ -123,7 +123,7 @@ export default function FooterGrandEnding({
             </div>
 
             <p className="footer-col-desc">
-              {translateText("Building 3D OpenBIM web platforms, full-stack Django & React systems, and applied AI workflows with clean software architecture.")}
+              {translateText("Building 3D BIM web platforms, full-stack Django & React systems, and applied AI workflows with clean software architecture.")}
             </p>
 
             <div className="footer-identity-status">

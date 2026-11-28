@@ -11,11 +11,11 @@ export interface ServiceItem {
 
 export const SERVICES_DATA: ServiceItem[] = [
   {
-    id: 'openbim-3d-web',
-    title: 'OpenBIM & 3D Web Applications',
+    id: 'bim-3d-web',
+    title: 'BIM & 3D Web Applications',
     description: 'Browser-native 3D IFC/Fragments viewers, clash QA, Cesium GIS 3D Tiles, and AEC portals',
     icon: 'fa-solid fa-cubes',
-    tags: ['OpenBIM / IFC', 'Three.js', 'That Open Engine', 'TypeScript & React', 'Cesium GIS']
+    tags: ['BIM / IFC', 'Three.js', 'That Open Engine', 'TypeScript & React', 'Cesium GIS']
   },
   {
     id: 'web-development',
